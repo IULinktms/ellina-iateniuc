@@ -142,6 +142,7 @@ document.addEventListener('astro:page-load', () => {
   player();
   filters();
   contactForm();
+  mobileBooking();
   heroClock();
   deliveryCalc();
   runOfShow();
@@ -211,7 +212,7 @@ function parallax() {
 function headings() {
   document.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
     if (reduced) return;
-    const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
+    const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line', aria: /^H[1-6]$/.test(el.tagName) ? 'auto' : 'none' });
     gsap.from(split.lines, {
       yPercent: el.dataset.split === 'now' ? 8 : 110, duration: el.dataset.split === 'now' ? 0.3 : 1.1, ease: 'expo.out', stagger: 0.06,
       delay: 0,
@@ -408,56 +409,104 @@ function contactForm() {
   const status = form.querySelector<HTMLElement>('[data-status]')!;
   const started = form.querySelector<HTMLInputElement>('[name="_t"]')!;
   started.value = String(Date.now());
-
-  const validate = () => {
+  const steps = Array.from(form.querySelectorAll<HTMLElement>('[data-booking-step]'));
+  const nav = form.querySelector<HTMLElement>('[data-step-nav]');
+  const controls = form.querySelector<HTMLElement>('[data-step-controls]');
+  const back = form.querySelector<HTMLButtonElement>('[data-step-back]');
+  const next = form.querySelector<HTMLButtonElement>('[data-step-next]');
+  const foot = form.querySelector<HTMLElement>('[data-form-foot]');
+  const stepStatus = form.querySelector<HTMLElement>('[data-step-status]');
+  const stepButtons = Array.from(form.querySelectorAll<HTMLButtonElement>('[data-step-go]'));
+  const date = form.querySelector<HTMLInputElement>('[data-date-input]');
+  if (date) date.min = iso(new Date());
+  let step = 0;
+  let pending = false;
+  const listeners: Array<() => void> = [];
+  const listen = (el: EventTarget, type: string, handler: EventListener) => { el.addEventListener(type, handler); listeners.push(() => el.removeEventListener(type, handler)); };
+  const show = (index: number, focus = true) => {
+    step = Math.max(0, Math.min(steps.length - 1, index));
+    steps.forEach((el, i) => { el.hidden = i !== step; });
+    stepButtons.forEach((el, i) => { if (i === step) el.setAttribute('aria-current', 'step'); else el.removeAttribute('aria-current'); });
+    if (back) back.hidden = step === 0;
+    if (next) next.hidden = step === steps.length - 1;
+    if (foot) foot.hidden = step !== steps.length - 1;
+    if (stepStatus) stepStatus.textContent = fill(tx().stepOf, { x: String(step + 1) });
+    if (focus) steps[step]?.focus({ preventScroll: true });
+  };
+  const validate = (root: HTMLElement) => {
     let ok = true;
-    form.querySelectorAll<HTMLElement>('.field').forEach((f) => {
-      const input = f.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea, select');
-      const err = f.querySelector<HTMLElement>('.err');
-      if (!input || !err) return;
-      let msg = '';
-      if (input.required && !input.value.trim()) msg = tx().required;
-      else if (input.type === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) msg = tx().emailBad;
-      err.textContent = msg;
-      if (msg) { f.setAttribute('data-invalid', ''); ok = false; } else f.removeAttribute('data-invalid');
+    root.querySelectorAll<HTMLElement>('.field').forEach((field) => {
+      const input = field.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select');
+      const error = field.querySelector<HTMLElement>('.err');
+      if (!input || !error) return;
+      let message = '';
+      if (input.required && !input.value.trim()) message = tx().required;
+      else if (input.type === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) message = tx().emailBad;
+      else if (input.type === 'date' && (!input.validity.valid || (input.value && input.value < (input as HTMLInputElement).min))) message = tx().dateBad;
+      error.textContent = message;
+      input.setAttribute('aria-invalid', String(!!message));
+      field.toggleAttribute('data-invalid', !!message);
+      if (message) ok = false;
     });
+    if (!ok) root.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
     return ok;
   };
-
-  const showDone = () => {
-    const done = document.querySelector<HTMLElement>('[data-form-done]');
-    if (!done) return;
-    gsap.to(form, {
-      clipPath: 'inset(50% 0 50% 0)', duration: reduced ? 0 : 0.4, ease: SHUTTER,
-      onComplete: () => { form.hidden = true; done.hidden = false; gsap.from(done, { opacity: 0, y: 20, duration: 1, ease: EASE }); done.focus(); },
-    });
-  };
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validate()) { form.querySelector<HTMLElement>('[data-invalid] input, [data-invalid] textarea')?.focus(); return; }
-    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
-    btn.disabled = true;
-    status.dataset.state = '';
-    status.textContent = tx().sending;
-    try {
-      if (form.dataset.preview !== undefined) {
-        // Static preview: there is no server, so show the confirmation without sending
-        await new Promise((r) => setTimeout(r, 900));
-        form.dispatchEvent(new CustomEvent('ei:sent'));
-        showDone();
-        return;
-      }
-      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) throw new Error(data.error || 'The message could not be sent.');
-      showDone();
-    } catch (err) {
-      status.dataset.state = 'error';
-      status.textContent = `${(err as Error).message} ${tx().errorTail}`;
-      btn.disabled = false;
+  const go = (index: number) => {
+    if (pending) return;
+    if (index > step) for (let i = step; i < index; i++) {
+      show(i, false);
+      if (!validate(steps[i])) return;
     }
-  });
+    show(index);
+  };
+  if (steps.length) {
+    if (nav) nav.hidden = false;
+    if (controls) controls.hidden = false;
+    if (back) listen(back, 'click', () => go(step - 1));
+    if (next) listen(next, 'click', () => go(step + 1));
+    stepButtons.forEach((button, i) => listen(button, 'click', () => go(i)));
+    show(0, false);
+  }
+  let request: AbortController | null = null;
+  let timeout = 0;
+  let successAnimation: gsap.core.Tween | undefined;
+  const submit = async (event: Event) => {
+    event.preventDefault();
+    if (pending) return;
+    if (steps.length && step < steps.length - 1) { go(step + 1); return; }
+    for (let i = 0; i < steps.length; i++) {
+      // Only change the visible step if it has invalid fields.
+      const required = Array.from(steps[i].querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input[required],textarea[required]'));
+      if (required.some((el) => !el.value.trim()) || (i === 1 && date?.value && !date.validity.valid)) { show(i, false); validate(steps[i]); return; }
+    }
+    if (!validate(steps[step] || form)) return;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    pending = true; button.disabled = true;
+    status.dataset.state = ''; status.textContent = tx().sending;
+    request = new AbortController();
+    timeout = window.setTimeout(() => request?.abort(), 15000);
+    try {
+      if (form.dataset.preview === undefined) {
+        const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: request.signal });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.ok) throw new Error(data.error || tx().formError);
+      }
+      if (!form.isConnected) return;
+      const done = document.querySelector<HTMLElement>('[data-form-done]');
+      if (done) {
+        form.hidden = true; done.hidden = false; done.focus();
+        if (!reduced) successAnimation = gsap.from(done, { opacity: 0, y: 12, duration: 0.3, ease: EASE });
+      }
+    } catch (error) {
+      if (form.isConnected) {
+        status.dataset.state = 'error';
+        const message = error instanceof Error && error.name !== 'TypeError' && error.name !== 'AbortError' ? error.message : tx().formError;
+        status.textContent = `${message} ${tx().errorTail}`;
+      }
+    } finally { window.clearTimeout(timeout); pending = false; button.disabled = false; }
+  };
+  listen(form, 'submit', submit);
+  cleanups.push(() => { listeners.forEach((off) => off()); window.clearTimeout(timeout); request?.abort(); successAnimation?.kill(); });
 }
 
 /* ───────────── Hero timecode follows the video ───────────── */
@@ -657,7 +706,7 @@ function contactSheet() {
     const oy = () => grid.offsetHeight / 2 - (cell.offsetTop + hero.offsetHeight / 2);
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: '+=220%', scrub: 0.8, pin: true, anticipatePin: 1, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: root, start: 'top top', end: '+=220%', scrub: 0.8, pin: true, refreshPriority: 1, anticipatePin: 1, invalidateOnRefresh: true },
     });
     tl.fromTo(grid, { scale: () => cover(), x: () => ox() * cover(), y: () => oy() * cover() }, { scale: 1, x: 0, y: 0, duration: 1, ease: 'power2.inOut' })
       .fromTo(others, { opacity: 0.35 }, { opacity: 1, duration: 0.6 }, 0.25)
@@ -828,6 +877,9 @@ function homeShutter() {
   const shutter = hero?.querySelector<HTMLElement>('[data-home-shutter]');
   const video = hero?.querySelector<HTMLVideoElement>('[data-hero-video]');
   if (!hero || !shutter || !video || reduced) return;
+  let alive = true;
+  document.fonts.ready.then(() => { if (alive) { ScrollTrigger.sort(); ScrollTrigger.refresh(); } });
+  cleanups.push(() => { alive = false; });
   let fired = false;
   let animation: gsap.core.Timeline | undefined;
   const freeze = () => {
@@ -871,4 +923,22 @@ function proofNumbers() {
   }, { threshold: 0.5 });
   root.querySelectorAll('[data-proof-count]').forEach((el) => io.observe(el));
   cleanups.push(() => { io.disconnect(); animations.forEach((a) => a.kill()); });
+}
+
+
+/* ═══════════════════ Workstream 4: mobile booking availability ═══════════════════ */
+function mobileBooking() {
+  const bar = document.querySelector<HTMLElement>('[data-mobile-booking]');
+  if (!bar) return;
+  const opening = document.querySelector<HTMLElement>('main [data-hero], main .page-head, main .about-hero');
+  const footer = document.querySelector('footer');
+  let pastOpening = false, nearFooter = false;
+  const update = () => { bar.hidden = !pastOpening || nearFooter || menuOpen || !!document.querySelector('dialog[open]'); };
+  const heroObserver = new IntersectionObserver(([entry]) => { pastOpening = !entry.isIntersecting && entry.boundingClientRect.top < 0; update(); });
+  if (opening) heroObserver.observe(opening);
+  const footerObserver = new IntersectionObserver(([entry]) => { nearFooter = entry.isIntersecting; update(); }, { rootMargin: '150px' });
+  if (footer) footerObserver.observe(footer);
+  const modalObserver = new MutationObserver(update);
+  [menu, lb, pl].forEach((el) => modalObserver.observe(el, { attributes: true, attributeFilter: ['aria-hidden', 'open'] }));
+  cleanups.push(() => { heroObserver.disconnect(); footerObserver.disconnect(); modalObserver.disconnect(); });
 }

@@ -281,6 +281,14 @@ collections:
               - { name: duration, label: Duration, widget: string, i18n: true }
               - { name: includes, label: What's included, widget: text, i18n: true }
               - { name: price, label: Price (optional), widget: string, required: false, i18n: true }
+          - name: successSteps
+            label: What happens after sending
+            widget: list
+            required: false
+            i18n: true
+            fields:
+              - { name: title, label: Step, widget: string, i18n: true }
+              - { name: text, label: Explanation, widget: text, i18n: true }
           - { name: successMessage, label: Message after sending, widget: text, i18n: true }
 
       - name: site
@@ -297,6 +305,10 @@ collections:
           - { name: location, label: Based in, widget: string, i18n: true }
           - { name: email, label: Email, widget: string, i18n: duplicate }
           - { name: phone, label: Phone, widget: string, required: false, i18n: duplicate }
+          # Workstream 4: verified direct links, shared across languages.
+          - { name: telegram, label: Telegram URL, widget: string, required: false, default: '', hint: 'https://t.me/your_username', i18n: duplicate }
+          - { name: whatsapp, label: WhatsApp URL, widget: string, required: false, default: '', hint: 'https://wa.me/373XXXXXXXX', i18n: duplicate }
+          - { name: viber, label: Viber URL, widget: string, required: false, default: '', hint: 'viber://chat?number=%2B373XXXXXXXX', i18n: duplicate }
           - { name: responseTime, label: Reply-time note, widget: string, required: false, i18n: true }
           - { name: seoTitle, label: Search title, widget: string, i18n: true }
           - { name: seoDescription, label: Search description, widget: text, i18n: true }

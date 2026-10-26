@@ -17,3 +17,11 @@ The caption line contains real frame number, project year and content caption/al
 Unverified totals show a dash, not invented numbers. The existing five-working-day gallery promise is retained. Testimonials and client wordmarks are visibly TODO and editable in all languages; `proofPlaceholder` stays on until the owner approves replacements. New optional arrays default empty so older CMS entries remain valid.
 
 The hero proposition is immediately readable. Its theatrical shutter happens on the first scroll and freezes onto the same source image used by the contact sheet's opening exposure. This preserves the visual story without hiding first-screen text behind an intro. Coordinated with Claude Code's deferred media delivery.
+
+## Booking and direct contact
+
+The form enhances four semantic fieldsets into steps; without JavaScript all fields remain visible. Date is optional, past dates are rejected, and the delivery calculator query parameter is retained. Errors focus the relevant field, request failures preserve input for retry, and successful requests show an editable three-step timeline. The endpoint, honeypot, timestamp and Turnstile contract are unchanged. Verification intercepts requests locally and sends no real email.
+
+Messenger fields are editable and shared through CMS. Empty or invalid destinations and the existing zero-filled phone placeholder do not render as contact actions. Owner-supplied numbers/accounts are required before these buttons can go live; a generic messenger homepage is not a usable contact destination.
+
+A final font-settled review corrected the upstream contact-sheet pin refresh order so the downstream film strip cannot cover the new proof section. Claude requested a small home film accessible-name adjustment and conditional SplitText heading labels; these integration changes are included without taking over workstreams 5–8.

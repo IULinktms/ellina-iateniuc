@@ -79,3 +79,30 @@ A second baseline used the same static build with gzip for text and immutable as
 Targeted built-HTML grep found no “Book your”, “Check availability”, “See the work”, “Selected work” or “Next event” on Romanian/Russian home/contact pages. Existing content intentionally includes borrowed film vocabulary and brand names; the confirmed English error leak is in client JS, not initial HTML. Output contains 38 HTML files including `/admin/index.html` (37 portfolio/404 pages).
 
 Ian supplied the verified Instagram URL during this audit: https://www.instagram.com/ellinayatsenyuk/. Apply to all three site settings with workstream 2; preserve label `Instagram`.
+
+## After workstreams 2–4 — 2026-10-26
+
+Ian subsequently split the scope: Codex completes 2–4 and the named fixes; Claude Code owns 5–8. This branch intentionally does not claim the performance or full accessibility/polish targets are complete.
+
+Delivered: cinematic project motion, frame navigation and zoomable viewer; opt-in next-story scroll advance; connected hero/contact-sheet exposure; editable proof, testimonials and counters; mobile booking CTA; localized progressive booking with retry and next-steps state; CMS messenger settings. Instagram is the verified account in all locales. Russian surname, persisted language paths and long heading fit are corrected.
+
+### Lighthouse after (same compressed static server, mobile incognito)
+
+| Page | Before P / LCP | After P | After LCP | After CLS | After A / BP / SEO |
+|---|---|---:|---|---|---|
+| `/` | 81 / 4.0s | 79 | 4.4 s | 0.002 | 100 / 100 / 100 |
+| `/ru/` | 98 / 2.0s | 84 | 3.7 s | 0.002 | 100 / 100 / 100 |
+| `/portfolio/` | 89 / 3.4s | 98 | 2.3 s | 0 | 100 / 100 / 100 |
+| `/work/leadership-seminar/` | 84 / 3.8s | 83 | 4.0 s | 0.01 | 100 / 100 / 100 |
+
+Raw reports: `screenshots/lighthouse-after-ws4/`. These are local lab measurements, not production field data. Home/project LCP still needs Claude's workstream 5. The separate branch has not been merged into this preview.
+
+### Verification and visual review
+
+- Astro check: 0 errors, 0 warnings, 2 pre-existing hints. Production build succeeds; CMS YAML parses.
+- All 36 localized public pages plus three missing paths captured at 375 and 1440: 78 combinations, no page errors, broken images or document overflow. Reviewed top/full screenshot boards in `screenshots/after/boards/`. Root-language 404 remains Claude's workstream 7.
+- All 36 pages checked at 320, 375, 768, 1024, 1440 and 1920 after fonts settle. A 9px Russian about-process overflow at 768 was corrected with scoped intrinsic-width/wrapping rules. Existing full-page capture artifacts from fixed/pinned layers were checked separately in viewport interaction tests.
+- Project checks: frame navigation, active state, viewer keyboard/zoom/reset, Escape, next-story opt-in/cancel and locale links after client navigation pass. Home freeze/proof pause tests pass in all locales at 375/1440; pin ordering checked in a normal-motion viewport.
+- Booking checks in RO/RU/EN at 375/1440 pass: calculator date prefill, past-date rejection, required-field focus, invalid email, mocked failure/retry/success, three next steps, unchanged anti-spam payload, reduced-motion success, and mobile CTA visibility around hero/menu/footer. No real contact messages were sent.
+- Targeted built-visible-text check excludes metadata/client dictionaries and checks for English CTA/error phrases on Romanian/Russian routes. Instagram destinations verified on all three localized contact surfaces. No old Russian surname remains in repository source; historical screenshots/report artifacts are excluded from the source check.
+- Remaining launch inputs: approved photographs, clients/testimonials/counts, real messenger/phone details, verified email delivery and domains. See LAUNCH-CHECKLIST.md. Global keyboard/menu/no-JS and motion/contrast findings remain assigned to Claude 5–8.

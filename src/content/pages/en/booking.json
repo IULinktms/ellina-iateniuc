@@ -33,5 +33,19 @@
       "price": "Quoted per event"
     }
   ],
-  "successMessage": "Thank you. I've received your request and will confirm availability within one working day."
+  "successMessage": "Thank you. I've received your request and will confirm availability within one working day.",
+  "successSteps": [
+    {
+      "title": "Within one working day",
+      "text": "I confirm availability and ask about your event programme."
+    },
+    {
+      "title": "A clear proposal",
+      "text": "We agree coverage, deliverables and terms before booking."
+    },
+    {
+      "title": "Your date is reserved",
+      "text": "After confirmation, we prepare a shot list together."
+    }
+  ]
 }

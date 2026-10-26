@@ -790,6 +790,9 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
   .lightbox__nav a { margin-right: auto; }
 }
 
+.process li { min-width: 0; }
+.process li > * { min-width: 0; overflow-wrap: anywhere; }
+
 /* ═══════════════════ Workstream 3: one exposure, from hero to contact sheet ═══════════════════ */
 .hero__still { position: absolute; inset: 0; opacity: 0; z-index: 1; pointer-events: none; }
 .hero.is-frozen .hero__still { opacity: 1; }
@@ -799,3 +802,12 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
 .spread.is-previewing .spread__frame video { opacity: 1; }
 .p-hero__text h1 { max-width: 17ch; text-wrap: balance; }
 @media (prefers-reduced-motion: reduce) { .hero__shutter { display: none; } }
+
+/* ═══════════════════ Workstream 4: mobile booking, never covering dialogs ═══════════════════ */
+.mobile-booking { display: none; }
+[data-form-foot][hidden], [data-contact][hidden], [data-step-next][hidden], [data-step-back][hidden] { display: none; }
+@media (max-width: 760px) {
+  .mobile-booking:not([hidden]) { position: fixed; z-index: 50; left: .75rem; right: .75rem; bottom: calc(.75rem + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; justify-content: space-between; gap: .75rem; background: rgb(16 15 14 / .96); border: 1px solid var(--line-strong); padding: .5rem .5rem .5rem 1rem; border-radius: 999px; box-shadow: 0 .5rem 2rem #0005; }
+  .mobile-booking > span { font-size: .75rem; }
+  .mobile-booking .btn { --h: 2.75rem; font-size: .8rem; padding-inline: 1rem; flex-shrink: 0; }
+}

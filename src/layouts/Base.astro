@@ -5,6 +5,7 @@ import type { ImageMetadata } from 'astro';
 import { getSite, shareImage } from '../lib/content';
 import { LOCALES, LANG_NAMES, LANG_SHORT, HTML_LANG, OG_LOCALE, DEFAULT_LANG, localePath, splitPath, t, clientStrings, type Lang } from '../lib/i18n';
 import Icon from '../components/Icon.astro';
+import DirectContact from '../components/DirectContact.astro';
 
 interface Props {
   lang: Lang;
@@ -120,7 +121,8 @@ const year = new Date().getFullYear();
           ))}
         </ul>
         <a href={`mailto:${site.email}`}>{site.email}</a>
-        <span>{site.socials.map((x, i) => <>{i > 0 && ', '}<a href={x.url} rel="me noopener" target="_blank">{x.label}</a></>)}</span>
+        <DirectContact lang={lang} site={site} />
+        <span>{site.socials.filter((x) => x.label !== 'Telegram').map((x, i) => <>{i > 0 && ', '}<a href={x.url} rel="me noopener" target="_blank">{x.label}</a></>)}</span>
       </div>
     </div>
 
@@ -134,6 +136,7 @@ const year = new Date().getFullYear();
           <div>
             <p class="muted">{site.role}, {site.location}.</p>
             <p style="margin-top:.4rem"><a class="line-link" href={`mailto:${site.email}`}>{site.email}</a></p>
+            <DirectContact lang={lang} site={site} />
           </div>
           <div>
             <h2>{s.footer.pages}</h2>
@@ -144,7 +147,7 @@ const year = new Date().getFullYear();
           <div>
             <h2>{s.footer.elsewhere}</h2>
             <ul role="list">
-              {site.socials.map((x) => <li><a class="line-link" href={x.url} rel="me noopener" target="_blank">{x.label}</a></li>)}
+              {site.socials.filter((x) => x.label !== 'Telegram').map((x) => <li><a class="line-link" href={x.url} rel="me noopener" target="_blank">{x.label}</a></li>)}
             </ul>
           </div>
         </div>
@@ -155,6 +158,11 @@ const year = new Date().getFullYear();
         </div>
       </footer>
     )}
+
+    <!-- Workstream 4: booking remains one tap away after the opening frame. -->
+    {page !== 'contact' && page !== '404' && <aside class="mobile-booking" data-mobile-booking hidden>
+      <span class="small">{site.name}</span><a href={L('/contact/')} class="btn btn--solid">{s.studio.book}<span aria-hidden="true">↗</span></a>
+    </aside>}
 
     <!-- Film grain over everything (decorative) -->
     <div class="grain" aria-hidden="true" transition:persist="grain"></div>

@@ -182,11 +182,77 @@ const studio = {
   ru: { trust: 'Хорошая работа. Хорошая компания.', numbers: 'Студия в цифрах', placeholder: 'TODO — демонстрационные материалы, ждут подтверждения', pauseLogos: 'Остановить логотипы', playLogos: 'Продолжить логотипы', frames: 'Посмотреть кадры', frame: 'Кадр', zoom: 'Увеличить фото', resetZoom: 'Сбросить масштаб', loading: 'Загружаю фотографию…', imageError: 'Не удалось загрузить фотографию. Попробуйте другой кадр.', advance: 'Прокрутить к следующему событию', advanceHint: 'Включите, затем прокрутите изображение, чтобы продолжить. Escape отменяет переход.', cancel: 'Отмена', bookStory: 'Такая история для вашего мероприятия?', book: 'Проверить дату' },
 };
 
-export type Dict = (typeof dict)['en'] & { studio: (typeof studio)['en'] };
-export const t = (lang: Lang): Dict => ({ ...dict[lang], studio: studio[lang] }) as Dict;
+const bookingUi = {
+  "en": {
+    "steps": [
+      "Event",
+      "Date",
+      "Details",
+      "Contact"
+    ],
+    "back": "Back",
+    "continue": "Continue",
+    "dateOptional": "Date not confirmed yet? You can continue without it.",
+    "nextSteps": "What happens next",
+    "call": "Call me",
+    "directChannels": "Write directly",
+    "formError": "The message could not be sent. Please try again.",
+    "dateBad": "Choose today or a future date.",
+    "stepOf": "Step {x} of 4",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "email": "Email"
+  },
+  "ro": {
+    "steps": [
+      "Eveniment",
+      "Dată",
+      "Detalii",
+      "Contact"
+    ],
+    "back": "Înapoi",
+    "continue": "Continuați",
+    "dateOptional": "Data nu este stabilită? Puteți continua fără ea.",
+    "nextSteps": "Ce urmează",
+    "call": "Sunați-mă",
+    "directChannels": "Scrieți-mi direct",
+    "formError": "Mesajul nu a putut fi trimis. Vă rog să încercați din nou.",
+    "dateBad": "Alegeți data de astăzi sau o dată viitoare.",
+    "stepOf": "Pasul {x} din 4",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "email": "Email"
+  },
+  "ru": {
+    "steps": [
+      "Событие",
+      "Дата",
+      "Детали",
+      "Контакт"
+    ],
+    "back": "Назад",
+    "continue": "Продолжить",
+    "dateOptional": "Дата ещё не определена? Можно продолжить без неё.",
+    "nextSteps": "Что дальше",
+    "call": "Позвонить мне",
+    "directChannels": "Напишите мне напрямую",
+    "formError": "Не удалось отправить сообщение. Пожалуйста, попробуйте ещё раз.",
+    "dateBad": "Выберите сегодняшнюю или будущую дату.",
+    "stepOf": "Шаг {x} из 4",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "email": "Email"
+  }
+};
+
+export type Dict = (typeof dict)['en'] & { studio: (typeof studio)['en']; bookingUi: (typeof bookingUi)['en'] };
+export const t = (lang: Lang): Dict => ({ ...dict[lang], studio: studio[lang], bookingUi: bookingUi[lang] }) as Dict;
 
 /** Strings the browser script needs, embedded as JSON on each page */
-export const clientStrings = (lang: Lang) => ({ ...dict[lang].client, ...studio[lang], dateLocale: DATE_LOCALE[lang] });
+export const clientStrings = (lang: Lang) => ({ ...dict[lang].client, ...studio[lang], ...bookingUi[lang], dateLocale: DATE_LOCALE[lang] });
 
 /** Error messages returned by the contact API */
 export const apiErrors: Record<Lang, Record<string, string>> = {

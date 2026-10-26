@@ -33,5 +33,19 @@
       "price": "Ofertă pentru fiecare eveniment"
     }
   ],
-  "successMessage": "Vă mulțumesc. Am primit solicitarea dumneavoastră și vă voi confirma disponibilitatea în cel mult o zi lucrătoare."
+  "successMessage": "Vă mulțumesc. Am primit solicitarea dumneavoastră și vă voi confirma disponibilitatea în cel mult o zi lucrătoare.",
+  "successSteps": [
+    {
+      "title": "În cel mult o zi lucrătoare",
+      "text": "Vă confirm disponibilitatea și discutăm programul evenimentului."
+    },
+    {
+      "title": "O ofertă clară",
+      "text": "Stabilim acoperirea, livrabilele și condițiile, înainte de rezervare."
+    },
+    {
+      "title": "Data este rezervată",
+      "text": "După confirmare, pregătesc lista de cadre împreună cu dumneavoastră."
+    }
+  ]
 }

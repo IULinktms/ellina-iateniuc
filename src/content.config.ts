@@ -78,6 +78,10 @@ const site = defineCollection({
       location: z.string(),
       email: z.string(),
       phone: z.string().optional(),
+      // Workstream 4: optional real destinations; empty values never become broken links.
+      telegram: z.string().default(''),
+      whatsapp: z.string().default(''),
+      viber: z.string().default(''),
       responseTime: z.string().optional(),
       seoTitle: z.string(),
       seoDescription: z.string(),
@@ -146,6 +150,7 @@ const booking = defineCollection({
       .array(z.object({ name: z.string(), duration: z.string(), includes: z.string(), price: z.string().optional() }))
       .default([]),
     successMessage: z.string(),
+    successSteps: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
   }),
 });
 

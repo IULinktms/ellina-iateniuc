@@ -166,7 +166,8 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
         <div class="strip__track">
           {films.map((f, i) => (
             <article class="strip__item" data-preview>
-              <button class="frame-btn" data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
+              <button class="frame-btn" data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play">
+                <span class="sr-only">{s.a11y.play(f.data.title)}</span>
                 <div class="frame">
                   <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} sizes="(max-width: 900px) 82vw, 46vw" format="webp" quality={78} loading="lazy" />
                   {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
