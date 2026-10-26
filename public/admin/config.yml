@@ -5,7 +5,7 @@
 
 backend:
   name: github
-  repo: OWNER/ellina-iateniuc   # ← replace OWNER with the GitHub account that holds the site
+  repo: IULinktms/ellina-iateniuc
   branch: main
   # base_url: https://<your-auth-worker>.workers.dev   # optional: one-click GitHub sign-in (see README)
 
