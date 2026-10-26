@@ -6,6 +6,7 @@ import Frame from '../../../components/Frame.astro';
 import { getProjects, getFilms, fullSize, slugOf, type Project } from '../../../lib/content';
 import { LOCALES, DEFAULT_LANG, HTML_LANG, localePath, t, type Lang } from '../../../lib/i18n';
 import { projectLd, videoLd } from '../../../lib/seo';
+import { lqip } from '../../../lib/lqip';
 
 export async function getStaticPaths() {
   const out = [];
@@ -29,6 +30,8 @@ const nextSlug = slugOf(next);
 const { Content } = await render(project);
 const films = (await getFilms(lang)).filter((f) => f.data.project === slug);
 const gallery = await Promise.all(d.gallery.map(async (g) => ({ ...g, full: await fullSize(g.image) })));
+// Frame-strip thumbnails are tiny: the dominant colour is placeholder enough
+const thumbColors = await Promise.all(gallery.map(async (g) => (await lqip(g.image))?.color));
 const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp' })));
 
 const sizesFor: Record<string, string> = {
@@ -76,7 +79,7 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
   <div class="story-gallery" data-story-gallery>
     <nav class="story-frames" aria-label={s.studio.frames}>
       {gallery.map((g, i) => <a href={`#frame-${i + 1}`} data-frame-link aria-label={`${s.studio.frame} ${i + 1}: ${g.caption || g.alt}`}>
-        <Image src={g.image} alt="" width={140} format="webp" quality={60} loading="lazy" />
+        <Image src={g.image} alt="" width={140} format="webp" quality={60} loading="lazy" style={thumbColors[i] && `background:${thumbColors[i]}`} />
         <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
       </a>)}
     </nav>

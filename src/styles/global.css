@@ -220,7 +220,9 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   position: absolute; left: var(--gutter); bottom: 1.5rem; font-size: var(--t-xs); color: var(--ash);
   font-variant-numeric: tabular-nums;
 }
-html:not(.js) .intro, .intro.is-done { display: none; }
+/* Retired (WS3: the aperture happens on first scroll). It must never render: the first astro:page-load
+   waits for window load, so on a slow line it would black out the hero until every eager asset arrived. */
+.intro { display: none; }
 
 /* ───────────────────────── Hero ───────────────────────── */
 .hero { position: relative; height: 100svh; min-height: 34rem; overflow: hidden; background: var(--black); }
@@ -900,3 +902,16 @@ body[data-page="home"] .disciplines a .display { font-size: clamp(2.25rem, 5vw, 
   body[data-page="home"] .footer { padding-top: 3rem; }
   body[data-page="home"] .footer__big { font-size: clamp(3rem, 13vw, 14rem); margin-top: 2rem; }
 }
+/* ───── Loading placeholders: blurred preview + dominant colour behind every photo (lib/lqip.ts) ───── */
+[data-lqip] {
+  background-color: var(--lqip-color, var(--graphite));
+  background-image: var(--lqip);
+  background-size: cover;
+  background-position: center;
+}
+.js .ros__pictures[data-lqip] { background-color: var(--lqip-color); background-image: var(--lqip); background-size: cover; background-position: center; }
+[data-lqip].is-pending img { opacity: 0; transition: opacity 700ms var(--ease-out); }
+[data-lqip].is-pending.is-loaded img { opacity: 1; }
+/* If the image never reports in, show it anyway */
+@keyframes lqip-failsafe { to { opacity: 1; } }
+[data-lqip].is-pending:not(.is-loaded) img { animation: lqip-failsafe 0.6s ease 8s forwards; }
