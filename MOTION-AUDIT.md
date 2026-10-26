@@ -1,6 +1,6 @@
 # Round 4 motion audit
 
-Baseline: `site-v3` at `8be0e18`; merged wording update `5a78601` during the audit. No design/layout changes or production deployment.
+Baseline: `site-v3` at `8be0e18`; merged wording update `5a78601` and final socials update `d304bfb` during the audit. No design/layout changes or production deployment.
 
 ## Inventory and root causes
 
@@ -65,3 +65,5 @@ The skip link deliberately uses `opacity:0` rather than `visibility:hidden`: the
 - Diff results: `dom-diff.json`, `pixel-diff.json`, `candidates/`. Reproduction scripts archived in `screenshots/motion/tools/` (local paths/ports may need updating).
 
 Artifacts are local and gitignored. Source commits contain the fixes and this audit. `site-v3` wording commit `5a78601` is included; no production deployment or main push.
+
+Preview (Vercel status Ready, target preview): https://ellina-iateniuc-7az35k9z9-iul-ink.vercel.app — source `9cc59ec`.
