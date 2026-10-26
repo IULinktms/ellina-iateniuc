@@ -302,8 +302,10 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
 .spread:nth-child(even) .spread__text { grid-column: 1 / span 6; grid-row: 1; text-align: left; }
 /* Landscape covers overlap their text by one column, like the portrait ones: only the display title
    touches the photo, never the meta line or the excerpt */
-.spread:nth-child(odd):has(.spread__frame--land) .spread__text { grid-column: 8 / span 5; }
-.spread:nth-child(even):has(.spread__frame--land) .spread__text { grid-column: 1 / span 5; }
+@media (min-width: 761px) {
+  .spread:nth-child(odd):has(.spread__frame--land) .spread__text { grid-column: 8 / span 5; }
+  .spread:nth-child(even):has(.spread__frame--land) .spread__text { grid-column: 1 / span 5; }
+}
 .spread__title { font-size: var(--t-2xl); margin-left: -0.5em; }
 .spread:nth-child(even) .spread__title { margin-left: 0; margin-right: -0.5em; }
 .spread__title--long { font-size: var(--t-xl); line-height: 0.95; }
