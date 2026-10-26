@@ -24,7 +24,29 @@ interface Props {
 const { lang, title, description, image, imageAlt, type = 'website', jsonLd, page, noindex = false } = Astro.props;
 const s = t(lang);
 const site = await getSite(lang);
-const fullTitle = title ? `${title} — ${site.name}` : site.seoTitle;
+// Search titles for the main pages: service + city + name, ≤ ~60 characters; RU uses the Cyrillic name
+const brand = lang === 'ru' ? 'Эллина Яценюк' : site.name;
+const seoTitles: Record<string, Record<string, string>> = {
+  ro: {
+    portfolio: `Portofoliu foto evenimente Chișinău — ${brand}`,
+    about: `${brand} — fotograf și videograf în Chișinău`,
+    films: `Filme de eveniment și Reels, Chișinău — ${brand}`,
+    contact: `Rezervați fotograf în Chișinău — ${brand}`,
+  },
+  ru: {
+    portfolio: `Портфолио: фотосъёмка мероприятий в Кишинёве — ${brand}`,
+    about: `${brand} — фотограф и видеограф в Кишинёве`,
+    films: `Видео с мероприятий и Reels в Кишинёве — ${brand}`,
+    contact: `Заказать фотографа в Кишинёве — ${brand}`,
+  },
+  en: {
+    portfolio: `Event photography portfolio, Chișinău — ${brand}`,
+    about: `${brand} — event photographer & videographer, Chișinău`,
+    films: `Event films & Reels in Chișinău — ${brand}`,
+    contact: `Book an event photographer in Chișinău — ${brand}`,
+  },
+};
+const fullTitle = (page && seoTitles[lang]?.[page]) || (title ? `${title} — ${brand}` : site.seoTitle);
 const desc = description ?? site.seoDescription;
 const { rest } = splitPath(Astro.url.pathname);
 const canonical = new URL(localePath(lang, rest), Astro.site);

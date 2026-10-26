@@ -1198,6 +1198,8 @@ function deferHeroVideo() {
   const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
   // 3G and slower keep the still: the reel is ~4 MB
   if (reduced || conn?.saveData || /^(slow-2g|2g|3g)$/.test(conn?.effectiveType ?? '')) return;
+  // Phones keep the still: the reel is a multi-MB file that competes with the first render on mobile data
+  if (window.matchMedia('(max-width: 760px), (pointer: coarse)').matches) return;
   let cancelled = false;
   const start = () => {
     // The first-scroll shutter (WS3) may have frozen the hero on its still frame
