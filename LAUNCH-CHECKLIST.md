@@ -22,3 +22,12 @@
 - [ ] Confirm the new Instagram/Reels, brand/business photo shoot and monthly SMM package scope. All service prices currently use the localized on-request fallback; enter real prices only when agreed.
 - [ ] Approve rewritten RO/RU/EN positioning and about copy. Events remain first; brand and social media content is a second core offer.
 - [ ] Fill approved client names/logos, testimonials and verified positive numbers. Each appears automatically; unfinished entries stay hidden. The existing five-working-day gallery promise remains visible.
+
+## Round 3 — live-site corrections (supersede older setup notes above)
+
+- [x] Site is live at https://ellinayatsenyuk.com; this branch deploys previews only.
+- [x] Current public inbox is `ellinayatsenyuk@gmail.com`, and phone/messenger destinations are configured in all locale files. The old placeholder-email and web-form setup items above describe an earlier version; the public web form has been removed.
+- [x] Pinterest supplied by Ian: https://www.pinterest.com/ellinayatsenyuk/ — after Instagram in RO/RU/EN, footer, menu, contact panel and JSON-LD sameAs.
+- [ ] Verify WhatsApp, Telegram phone-number lookup, Viber and call actions on physical devices with the apps installed. Browser checks validate destinations without sending a message.
+- [ ] Replace the generic Vimeo homepage with Ellina's real profile (or remove it in CMS).
+- [ ] Confirm stock/demo imagery, portrait identity, fictional project/client details and visible delivery promises. No textual TODO/placeholder labels are exposed; this does not certify the underlying demonstration content as real client work.

@@ -185,6 +185,8 @@ const studio = {
 const bookingUi = {
   "en": {
     "onRequest": "On request",
+    "reachTitle": "Write to me",
+    "reachText": "Send the date, place and type of event or project. I reply within one working day.",
     "steps": [
       "Service",
       "Date",
@@ -207,6 +209,8 @@ const bookingUi = {
   },
   "ro": {
     "onRequest": "La cerere",
+    "reachTitle": "Scrieți-mi",
+    "reachText": "Trimiteți data, locul și tipul evenimentului sau al proiectului. Vă răspund în cel mult o zi lucrătoare.",
     "steps": [
       "Serviciu",
       "Dată",
@@ -229,6 +233,8 @@ const bookingUi = {
   },
   "ru": {
     "onRequest": "По запросу",
+    "reachTitle": "Напишите мне",
+    "reachText": "Пришлите дату, место и тип мероприятия или проекта. Отвечу в течение рабочего дня.",
     "steps": [
       "Услуга",
       "Дата",
