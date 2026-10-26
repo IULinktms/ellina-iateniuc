@@ -1231,24 +1231,22 @@ body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal;
 /* Safari's touch focus must never expose the keyboard-only skip action. */
 .skip-link { opacity: 0; pointer-events: none; transition: none; }
 .skip-link:focus-visible { opacity: 1; pointer-events: auto; transform: none; }
-/* GSAP owns photo transforms during aperture/parallax/pin; hover uses the independent scale property. */
-.frame[data-aperture] img, .frame[data-parallax] img { transition-property: scale; }
-@media (hover: hover) and (pointer: fine) {
-  .masonry__item button:hover .frame img, .film-card button:hover .frame img, .strip__item button:hover .frame img { transform: none; scale: 1.035; }
-}
+/* GSAP owns transforms until aperture completion; clearProps then returns them to CSS hover.
+   Keep transform transitions for open cards: the CSS compiler lowers independent scale to transform. */
+.frame[data-parallax] img { transition: none; }
 .frame[data-aperture].is-opening img { transition: none; }
 /* The aperture reveals the decoded image, without a second opacity fade inside it. */
 [data-aperture][data-lqip] img { animation: none; }
 /* Same black dimming result, composited without repainting a full-size filter layer. */
-.next .frame img { filter: none; transition: scale 1200ms var(--ease-out); }
+.next .frame img { filter: none; transition: transform 1200ms var(--ease-out); }
 .next .frame::after { content: ''; position: absolute; inset: 0; background: #000; opacity: .45; pointer-events: none; transition: opacity 600ms ease; }
 .p-hero__dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
 @media (hover: hover) {
-  .next:hover .frame img { filter: none; transform: none; scale: 1.03; }
+  .next:hover .frame img { filter: none; transform: scale(1.03); }
   .next:hover .frame::after { opacity: .25; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .frame img { scale: 1 !important; }
+  .frame img { transform: none !important; }
 }
 
 /* A freeze holds the last decoded video frame; replacing it with a different poster caused a jump. */
@@ -1264,3 +1262,5 @@ body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal;
 .frame[data-aperture]:not(.is-open) img { transition: none; }
 /* Keep the grain texture on phones without a four-viewport moving compositor layer. */
 @media (hover: none), (max-width: 760px) { .grain { inset: 0; animation: none; transform: none; } }
+/* Even a static filter creates expensive intermediate surfaces while its ancestor scales. */
+.sheet__img img { filter: none; }
