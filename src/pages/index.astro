@@ -3,6 +3,7 @@ import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Frame from '../components/Frame.astro';
 import DeliveryCalc from '../components/DeliveryCalc.astro';
+import ContactSheet from '../components/ContactSheet.astro';
 import { getSite, getHome, getProjects, getFilms, orientation, slugify } from '../lib/content';
 
 const site = await getSite();
@@ -43,6 +44,17 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
         <source src={home.heroVideo} type="video/mp4" />
       </video>
     </div>
+    <!-- Viewfinder HUD (decorative): frame brackets, a focus point that follows the pointer, live exposure -->
+    <div class="vf" aria-hidden="true" data-vf>
+      <i class="vf__c vf__c--tl"></i><i class="vf__c vf__c--tr"></i><i class="vf__c vf__c--bl"></i><i class="vf__c vf__c--br"></i>
+      <div class="vf__focus" data-vf-focus><i></i><i></i><i></i><i></i></div>
+      <div class="vf__readout tnum">
+        <span data-vf-iso>ISO 3200</span>
+        <span data-vf-ap>ƒ/2.8</span>
+        <span data-vf-sh>1/250</span>
+        <span class="vf__ev" data-vf-ev><b></b><b></b><b></b><b></b><b class="is-on"></b><b></b><b></b><b></b><b></b></span>
+      </div>
+    </div>
     <div class="hero__text" data-hero-text>
       <h1 class="hero__name display" id="hero-title">
         <span class="line"><span class="w">{site.firstName}</span></span>
@@ -64,6 +76,8 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
       </div>
     </div>
   </section>
+
+  <ContactSheet />
 
   <section class="howi wrap" id="delivery" aria-labelledby="howi-h">
     <div class="howi__text" data-reveal>
@@ -103,6 +117,18 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
       </div>
     </section>
   )}
+
+  <div class="marquee" data-marquee aria-hidden="true">
+    <div class="marquee__track" data-marquee-track>
+      {[0, 1].map(() => (
+        <div class="marquee__set">
+          {home.disciplines.map((d, i) => (
+            <span class:list={['marquee__word display', i % 2 === 1 && 'is-outline']}>{d.label}<i>✦</i></span>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
 
   <section class="spreads wrap" aria-labelledby="sel-h">
     <div class="section-head">

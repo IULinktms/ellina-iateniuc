@@ -1,0 +1,61 @@
+---
+/**
+ * Contact sheet: one frame fills the screen, then scroll pulls back to reveal it is
+ * a single exposure on a full sheet. A grease-pencil circle marks the select.
+ * Frames come from project galleries automatically, so it stays current from /admin.
+ */
+import { Image } from 'astro:assets';
+import { getProjects } from '../lib/content';
+
+const projects = await getProjects();
+const pool = projects.flatMap((p) => [
+  { src: p.data.cover, alt: p.data.coverAlt, project: p.data.title },
+  ...p.data.gallery.filter((g) => g.inPortfolio).map((g) => ({ src: g.image, alt: g.alt, project: p.data.title })),
+]);
+// Interleave projects so neighbouring frames differ
+const groups = new Map<string, typeof pool>();
+for (const f of pool) groups.set(f.project, [...(groups.get(f.project) ?? []), f]);
+const byProject = [...groups.values()];
+const frames: typeof pool = [];
+for (let i = 0; frames.length < 15 && byProject.some((g) => g[i]); i++) {
+  for (const g of byProject) if (g[i] && frames.length < 15) frames.push(g[i]);
+}
+const HERO = 7; // centre of a 5 x 3 sheet
+const SELECT = 3;
+const roll = 14;
+---
+
+{frames.length >= 15 && (
+  <section class="sheet" data-sheet aria-labelledby="sheet-h">
+    <div class="sheet__stage">
+      <div class="sheet__grid" data-sheet-grid>
+        {frames.map((f, i) => (
+          <figure class:list={['sheet__cell', i === HERO && 'is-hero', i === SELECT && 'is-select']} data-sheet-cell={i}>
+            <div class="sheet__img">
+              <Image
+                src={f.src}
+                alt={i === HERO ? f.alt : ''}
+                widths={i === HERO ? [640, 1200, 1800, 2400] : [360, 640]}
+                sizes={i === HERO ? '100vw' : '(max-width: 760px) 33vw, 20vw'}
+                format="webp"
+                quality={i === HERO ? 80 : 70}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption class="sheet__num tnum" aria-hidden="true">{roll}{String.fromCharCode(65 + (i % 3))} · {String(i + 1).padStart(2, '0')}</figcaption>
+            {i === SELECT && (
+              <svg class="sheet__mark" viewBox="0 0 120 90" preserveAspectRatio="none" aria-hidden="true">
+                <path pathLength="1" d="M60 6 C 98 4, 116 22, 114 46 C 112 72, 86 86, 56 84 C 24 82, 5 66, 7 42 C 9 18, 34 6, 66 9" />
+              </svg>
+            )}
+          </figure>
+        ))}
+      </div>
+      <div class="sheet__copy" data-sheet-copy>
+        <p class="sheet__kicker tnum">Roll {roll}. Frame {String(SELECT + 1).padStart(2, '0')}.</p>
+        <h2 id="sheet-h" class="display sheet__title">Hundreds of frames. <em>Only the ones worth sending.</em></h2>
+      </div>
+    </div>
+  </section>
+)}

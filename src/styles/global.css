@@ -633,3 +633,100 @@ html:not(.js) .intro, .intro.is-done { display: none; }
   .section-head { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
   .howi__title, .ros__title { font-size: clamp(2.6rem, 12vw, 3.6rem); max-width: none; }
 }
+
+/* ═════════════════════════ Wow pass ═════════════════════════ */
+
+/* ───────── Film grain ───────── */
+.grain {
+  position: fixed; inset: -50%; z-index: 80; pointer-events: none; opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.9s steps(6) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); } 17% { transform: translate(-6%, 4%); } 33% { transform: translate(5%, -7%); }
+  50% { transform: translate(-3%, 8%); } 67% { transform: translate(8%, 2%); } 83% { transform: translate(-7%, -4%); }
+}
+@media (prefers-reduced-motion: reduce) { .grain { animation: none; } }
+
+/* ───────── Hero viewfinder HUD ───────── */
+.vf { position: absolute; inset: calc(var(--nav-h) + 0.5rem) var(--gutter) 1rem; z-index: 1; pointer-events: none; color: var(--bone); }
+.vf__c { position: absolute; width: clamp(1.25rem, 2.4vw, 2.25rem); height: clamp(1.25rem, 2.4vw, 2.25rem); border: 0 solid rgb(236 231 223 / 0.6); }
+.vf__c--tl { left: 0; top: 0; border-left-width: 1px; border-top-width: 1px; }
+.vf__c--tr { right: 0; top: 0; border-right-width: 1px; border-top-width: 1px; }
+.vf__c--bl { left: 0; bottom: 0; border-left-width: 1px; border-bottom-width: 1px; }
+.vf__c--br { right: 0; bottom: 0; border-right-width: 1px; border-bottom-width: 1px; }
+.vf__focus {
+  position: fixed; left: 0; top: 0; width: 4.5rem; height: 3.25rem; translate: -50% -50%;
+  transition: scale 260ms var(--ease-out), opacity 300ms ease; opacity: 0;
+}
+.vf.is-live .vf__focus { opacity: 1; }
+.vf__focus i { position: absolute; width: 10px; height: 10px; border: 0 solid var(--bone); transition: border-color 200ms ease; }
+.vf__focus i:nth-child(1) { left: 0; top: 0; border-left-width: 1.5px; border-top-width: 1.5px; }
+.vf__focus i:nth-child(2) { right: 0; top: 0; border-right-width: 1.5px; border-top-width: 1.5px; }
+.vf__focus i:nth-child(3) { left: 0; bottom: 0; border-left-width: 1.5px; border-bottom-width: 1.5px; }
+.vf__focus i:nth-child(4) { right: 0; bottom: 0; border-right-width: 1.5px; border-bottom-width: 1.5px; }
+.vf__focus.is-locked { scale: 0.8; }
+.vf__focus.is-locked i { border-color: #7ee08a; }
+.vf__readout {
+  position: absolute; right: clamp(2rem, 3.5vw, 3.5rem); top: 0.35rem;
+  display: flex; align-items: center; gap: clamp(0.9rem, 1.6vw, 1.6rem);
+  font-size: var(--t-xs); letter-spacing: 0.04em; color: var(--bone-dim);
+}
+.vf__ev { display: inline-flex; align-items: end; gap: 3px; height: 9px; }
+.vf__ev b { width: 1px; height: 5px; background: rgb(236 231 223 / 0.45); }
+.vf__ev b:nth-child(5) { height: 9px; }
+.vf__ev b.is-on { background: var(--bone); width: 2px; height: 9px; }
+@media (max-width: 760px) {
+  .vf__readout { left: 2rem; right: auto; gap: 0.8rem; }
+  .vf__ev { display: none; }
+}
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .vf__focus { position: absolute; left: 50%; top: 42%; }
+  .vf.is-live .vf__focus { opacity: 0.85; }
+}
+
+/* ───────── Contact sheet ───────── */
+.sheet { position: relative; background: #0b0a09; }
+.sheet__stage { position: relative; height: 100svh; overflow: hidden; display: grid; place-items: center; }
+.sheet__grid {
+  --cols: 5;
+  display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: clamp(0.6rem, 1.4vw, 1.4rem) clamp(0.5rem, 1vw, 1rem);
+  width: min(88vw, 112svh); padding: clamp(1rem, 2vw, 1.75rem);
+  background: #14120f; transform-origin: 50% 50%; will-change: transform;
+}
+.sheet__grid { position: relative; }
+.sheet__cell { position: relative; margin: 0; }
+.sheet__img { aspect-ratio: 3 / 2; overflow: hidden; background: var(--graphite); }
+.sheet__img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.92); }
+.sheet__num { margin-top: 0.35rem; font-size: clamp(0.5rem, 0.7vw, 0.7rem); letter-spacing: 0.08em; color: #d38b3c; opacity: 0.85; }
+.sheet__mark { position: absolute; inset: -18% -14% -10% -14%; width: 128%; height: 136%; overflow: visible; pointer-events: none; }
+.sheet__mark path { fill: none; stroke: var(--rec); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.sheet__copy {
+  position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(1.25rem, 4svh, 3rem);
+  display: grid; gap: 0.6rem; pointer-events: none;
+}
+.sheet__kicker { font-size: var(--t-xs); letter-spacing: 0.08em; color: #d38b3c; }
+.sheet__title { font-size: clamp(2rem, 1rem + 2.8vw, 4rem); max-width: 22ch; text-wrap: balance; line-height: 0.95; }
+.sheet__title em { font-style: italic; color: var(--bone-dim); }
+/* Without JS (or reduced motion) the sheet is simply shown, circle drawn */
+html:not(.js) .sheet__mark path { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .sheet__mark path { stroke-dashoffset: 0; } }
+@media (max-width: 760px) {
+  .sheet__stage { height: auto; padding-block: var(--section) 0; display: block; }
+  .sheet__grid { --cols: 3; width: 100%; padding: 0.75rem; }
+  .sheet__copy { position: static; padding: 2rem var(--gutter) var(--section); }
+}
+
+/* ───────── Velocity marquee ───────── */
+.marquee { overflow: hidden; padding-block: clamp(3rem, 7vw, 7rem); border-block: 1px solid var(--line); margin-bottom: var(--section); }
+.marquee__track { display: flex; width: max-content; will-change: transform; }
+.marquee__set { display: flex; flex: none; }
+.marquee__word {
+  display: inline-flex; align-items: center; gap: clamp(1.5rem, 3vw, 3rem); padding-right: clamp(1.5rem, 3vw, 3rem);
+  font-size: clamp(3.5rem, 1.5rem + 8vw, 10rem); white-space: nowrap; line-height: 1;
+}
+.marquee__word.is-outline { font-style: italic; color: transparent; -webkit-text-stroke: 1px var(--bone); }
+.marquee__word i { font-style: normal; font-size: 0.3em; color: var(--rec); -webkit-text-stroke: 0; }
+
+/* ───────── Magnetic buttons: transform comes from JS ───────── */
+.btn.is-magnetic, .nav__cta.is-magnetic { transition: color var(--t-ui) ease, border-color var(--t-ui) ease; }

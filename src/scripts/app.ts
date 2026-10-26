@@ -117,7 +117,11 @@ document.addEventListener('astro:page-load', () => {
     reveals();
     filmStrip();
     floatPreview();
+    contactSheet();
+    marquee();
   });
+  viewfinder();
+  magnetic();
   hoverPreviews();
   lightbox();
   player();
@@ -585,4 +589,158 @@ function runOfShow() {
   items.forEach((el) => io.observe(el));
   show(0);
   cleanups.push(() => io.disconnect());
+}
+
+/* ═════════════════════════ Wow pass ═════════════════════════ */
+
+/* ───────────── Hero viewfinder: focus point follows the pointer and locks when it settles;
+   exposure readout reacts to where you point (brighter top-left, darker bottom-right). ───────────── */
+function viewfinder() {
+  const vf = document.querySelector<HTMLElement>('[data-vf]');
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (!vf || !hero) return;
+  const focus = vf.querySelector<HTMLElement>('[data-vf-focus]')!;
+  const iso = vf.querySelector<HTMLElement>('[data-vf-iso]')!;
+  const ap = vf.querySelector<HTMLElement>('[data-vf-ap]')!;
+  const sh = vf.querySelector<HTMLElement>('[data-vf-sh]')!;
+  const ev = Array.from(vf.querySelectorAll<HTMLElement>('[data-vf-ev] b'));
+  const ISO = ['800', '1600', '3200', '6400'];
+  const AP = ['1.8', '2', '2.8', '4'];
+  const SH = ['1/500', '1/250', '1/160', '1/125', '1/80'];
+  const pick = <T,>(arr: T[], t: number) => arr[Math.min(arr.length - 1, Math.max(0, Math.floor(t * arr.length)))];
+
+  vf.classList.add('is-live');
+  if (!finePointer || reduced) {
+    // Touch / reduced motion: a still focus point that locks once, like half-pressing the shutter
+    const t = window.setTimeout(() => focus.classList.add('is-locked'), 1800);
+    cleanups.push(() => clearTimeout(t));
+    return;
+  }
+  const fx = gsap.quickTo(focus, 'x', { duration: 0.45, ease: 'power3' });
+  const fy = gsap.quickTo(focus, 'y', { duration: 0.45, ease: 'power3' });
+  const r = hero.getBoundingClientRect();
+  gsap.set(focus, { x: r.width / 2, y: r.height * 0.42 });
+  let settle = 0;
+  const move = (e: PointerEvent) => {
+    fx(e.clientX); fy(e.clientY);
+    focus.classList.remove('is-locked');
+    clearTimeout(settle);
+    settle = window.setTimeout(() => focus.classList.add('is-locked'), 320);
+    const tx = e.clientX / window.innerWidth;
+    const ty = e.clientY / window.innerHeight;
+    iso.textContent = `ISO ${pick(ISO, ty)}`;
+    ap.textContent = `ƒ/${pick(AP, tx)}`;
+    sh.textContent = pick(SH, (tx + ty) / 2);
+    const on = Math.round((1 - (tx + ty) / 2) * (ev.length - 1));
+    ev.forEach((b, i) => b.classList.toggle('is-on', i === on));
+  };
+  const enter = () => vf.classList.add('is-live');
+  const leave = () => { vf.classList.remove('is-live'); focus.classList.remove('is-locked'); };
+  hero.addEventListener('pointermove', move);
+  hero.addEventListener('pointerenter', enter);
+  hero.addEventListener('pointerleave', leave);
+  // Hide the focus point once the hero scrolls away
+  const st = ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom top', onLeave: leave, onEnterBack: enter });
+  cleanups.push(() => {
+    clearTimeout(settle); st.kill();
+    hero.removeEventListener('pointermove', move);
+    hero.removeEventListener('pointerenter', enter);
+    hero.removeEventListener('pointerleave', leave);
+  });
+}
+
+/* ───────────── Contact sheet: one frame fills the screen, scroll pulls back to the full sheet,
+   then the grease pencil circles the select. Desktop pins; phones just reveal. ───────────── */
+function contactSheet() {
+  const root = document.querySelector<HTMLElement>('[data-sheet]');
+  if (!root) return;
+  const grid = root.querySelector<HTMLElement>('[data-sheet-grid]')!;
+  const hero = root.querySelector<HTMLElement>('.sheet__cell.is-hero .sheet__img')!;
+  const others = root.querySelectorAll<HTMLElement>('.sheet__cell:not(.is-hero)');
+  const nums = root.querySelectorAll<HTMLElement>('.sheet__num');
+  const mark = root.querySelector<SVGPathElement>('.sheet__mark path');
+  const copy = root.querySelectorAll<HTMLElement>('[data-sheet-copy] > *');
+  const select = root.querySelector<HTMLElement>('.sheet__cell.is-select .sheet__img');
+  if (reduced) return;
+
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 761px)', () => {
+    // Scale the sheet so the centre frame covers the viewport
+    const cover = () => {
+      const w = hero.offsetWidth, h = hero.offsetHeight;
+      return Math.max(window.innerWidth / w, window.innerHeight / h) * 1.02;
+    };
+    // Grid centre minus hero frame centre, from layout (unaffected by transforms)
+    const cell = hero.parentElement as HTMLElement;
+    const ox = () => grid.offsetWidth / 2 - (cell.offsetLeft + hero.offsetWidth / 2);
+    const oy = () => grid.offsetHeight / 2 - (cell.offsetTop + hero.offsetHeight / 2);
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: { trigger: root, start: 'top top', end: '+=220%', scrub: 0.8, pin: true, anticipatePin: 1, invalidateOnRefresh: true },
+    });
+    tl.fromTo(grid, { scale: () => cover(), x: () => ox() * cover(), y: () => oy() * cover() }, { scale: 1, x: 0, y: 0, duration: 1, ease: 'power2.inOut' })
+      .fromTo(others, { opacity: 0.35 }, { opacity: 1, duration: 0.6 }, 0.25)
+      .fromTo(nums, { opacity: 0 }, { opacity: 0.85, duration: 0.3 }, 0.7)
+      .fromTo(others, { filter: 'brightness(1)' }, { filter: 'brightness(0.55)', duration: 0.3 }, 1.05)
+      .fromTo(select, { filter: 'brightness(0.55)' }, { filter: 'brightness(1.05)', duration: 0.3 }, 1.05)
+      .to(mark, { strokeDashoffset: 0, duration: 0.45, ease: 'power1.inOut' }, 1.0)
+      .from(copy, { y: 30, opacity: 0, duration: 0.35, stagger: 0.08, ease: 'power2.out' }, 1.1)
+      .to({}, { duration: 0.25 }); // hold before release
+  });
+  mm.add('(max-width: 760px)', () => {
+    gsap.from(root.querySelectorAll('.sheet__cell'), {
+      opacity: 0, y: 14, duration: 0.6, ease: 'power2.out', stagger: { each: 0.03, from: 'center' },
+      scrollTrigger: { trigger: grid, start: 'top 80%', once: true },
+    });
+    if (mark) gsap.to(mark, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut', scrollTrigger: { trigger: grid, start: 'center 60%', once: true } });
+  });
+}
+
+/* ───────────── Marquee: drifts on its own, speeds up and leans with scroll velocity,
+   and reverses when you scroll back up. ───────────── */
+function marquee() {
+  const root = document.querySelector<HTMLElement>('[data-marquee]');
+  if (!root || reduced) return;
+  const track = root.querySelector<HTMLElement>('[data-marquee-track]')!;
+  const setW = () => (track.firstElementChild as HTMLElement).offsetWidth;
+  let x = 0, dir = -1, boost = 0;
+  const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: 'power3' });
+  ScrollTrigger.create({
+    trigger: root, start: 'top bottom', end: 'bottom top',
+    onUpdate: (self) => {
+      const v = self.getVelocity();
+      dir = self.direction === 1 ? -1 : 1;
+      boost = Math.min(Math.abs(v) / 120, 14);
+      skew(gsap.utils.clamp(-8, 8, -v / 400));
+    },
+  });
+  const tick = () => {
+    const w = setW();
+    x += dir * (0.6 + boost);
+    boost *= 0.92;
+    if (Math.abs(boost) < 0.05) skew(0);
+    if (x <= -w) x += w;
+    if (x > 0) x -= w;
+    gsap.set(track, { x });
+  };
+  gsap.ticker.add(tick);
+  cleanups.push(() => gsap.ticker.remove(tick));
+}
+
+/* ───────────── Magnetic buttons (precise pointers only) ───────────── */
+function magnetic() {
+  if (!finePointer || reduced) return;
+  document.querySelectorAll<HTMLElement>('.btn, .nav__cta').forEach((el) => {
+    if (el.dataset.magnetic) return;
+    el.dataset.magnetic = '1';
+    el.classList.add('is-magnetic');
+    const xTo = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3' });
+    const yTo = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3' });
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      xTo((e.clientX - (r.left + r.width / 2)) * 0.3);
+      yTo((e.clientY - (r.top + r.height / 2)) * 0.4);
+    });
+    el.addEventListener('pointerleave', () => { xTo(0); yTo(0); gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' }); });
+  });
 }
