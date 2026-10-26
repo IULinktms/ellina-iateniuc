@@ -9,7 +9,7 @@ excerpt: "A product reveal on stage, followed by music and confetti. Fast, low-l
 cover: ../../../assets/uploads/launch-stage-light.jpg
 coverAlt: "Silhouetted crowd facing a stage lit by bright beams"
 order: 6
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/launch-confetti.jpg
     alt: "Confetti falling over a crowd under coloured lights"

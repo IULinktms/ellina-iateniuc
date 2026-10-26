@@ -9,7 +9,7 @@ excerpt: "Зал до открытия дверей, речи, ужин и та�
 cover: ../../../assets/uploads/gala-ballroom.jpg
 coverAlt: "Бальный зал с круглыми столами и люстрами перед гала-ужином"
 order: 4
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/gala-florals.jpg
     alt: "Стол, украшенный цветами, свечами и бокалами"

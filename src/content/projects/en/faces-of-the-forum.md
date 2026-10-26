@@ -9,7 +9,7 @@ excerpt: "A portable studio set up backstage: every speaker photographed in five
 cover: ../../../assets/uploads/portrait-elena.jpg
 coverAlt: "Businesswoman in a grey blazer smiling by a window"
 order: 5
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/portrait-andrei.jpg
     alt: "Man in glasses and a dark blazer against a light background"

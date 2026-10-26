@@ -12,7 +12,7 @@ previewFile: /media/films/future-of-work-aftermovie.mp4
 project: future-of-work-summit
 order: 2
 featured: true
-draft: false
+draft: true
 credits:
   - role: Camera & edit
     name: Ellina Yatsenyuk

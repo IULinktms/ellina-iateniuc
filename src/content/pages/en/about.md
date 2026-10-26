@@ -3,8 +3,8 @@ title: "About"
 intro: "I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies, and shoot photos, Instagram Reels and social media content for brands and small businesses."
 portrait: ../../../assets/uploads/portrait-ellina.jpg
 portraitAlt: "Ellina Yatsenyuk, photographer and videographer in Chișinău"
-secondImage: ../../../assets/uploads/summit-microphone.jpg
-secondImageAlt: "Microphone on stage in front of an audience"
+secondImage: ../../../assets/uploads/casmara-certificate-stage.jpg
+secondImageAlt: "A Casmara seminar participant with her certificate beside a brand representative holding a microphone, Chișinău, 2026"
 principles:
   - title: "Invisible on the day"
     text: "Silent shutter, no flash during talks, and dressed to blend in. Speakers and guests forget I'm there."

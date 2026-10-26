@@ -9,7 +9,7 @@ excerpt: "Discursuri principale, paneluri și conversațiile de pe holuri dintre
 cover: ../../../assets/uploads/summit-arena-keynote.jpg
 coverAlt: "Speaker principal pe o scenă luminată, în fața unei săli pline"
 order: 1
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/summit-microphone.jpg
     alt: "Microfon pe stativ, în fața unui public estompat"

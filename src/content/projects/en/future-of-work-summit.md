@@ -9,7 +9,7 @@ excerpt: "Keynotes, panels and the conversations in the corridors between them. 
 cover: ../../../assets/uploads/summit-arena-keynote.jpg
 coverAlt: "Keynote speaker on a lit stage in front of a full auditorium"
 order: 1
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/summit-microphone.jpg
     alt: "Microphone on a stand in front of a blurred audience"

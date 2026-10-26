@@ -1,13 +1,10 @@
 {
-  "heroVideo": "/media/films/showreel-2026.mp4",
-  "heroPoster": "../../../assets/uploads/film-showreel-2026-poster.jpg",
-  "heroPosterAlt": "Speaker principal pe o scenă luminată, în fața unei săli pline",
+  "heroVideo": "",
+  "heroPoster": "../../../assets/uploads/casmara-stage-team.jpg",
+  "heroPosterAlt": "Echipa Casmara aplaudă pe scena Seminarului Internațional Casmara de la Chișinău, iar prezentatoarea vorbește la microfon; pe ecran, sigla brandului",
   "statement": "La evenimente lucrez discret și livrez previzualizări editate în aceeași seară. Pentru branduri și afaceri mici, planific ședințe foto, filmez Reels pentru Instagram și creez conținut regulat pentru social media, pornind de la obiectivele dumneavoastră.",
   "featuredProjects": [
-    "future-of-work-summit",
-    "leadership-seminar",
-    "annual-partners-gala",
-    "faces-of-the-forum"
+    "casmara-international-seminar-2026"
   ],
   "disciplines": [
     {

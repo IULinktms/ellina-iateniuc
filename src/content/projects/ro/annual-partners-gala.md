@@ -9,7 +9,7 @@ excerpt: "Sala de bal înainte de deschiderea ușilor, discursurile, cina și ri
 cover: ../../../assets/uploads/gala-ballroom.jpg
 coverAlt: "Sală de bal cu mese rotunde și candelabre, pregătită pentru cina de gală"
 order: 4
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/gala-florals.jpg
     alt: "Masă decorată cu flori, lumânări și pahare"

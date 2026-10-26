@@ -9,7 +9,7 @@ excerpt: "Обычный рабочий день, снятый честно, —
 cover: ../../../assets/uploads/office-open-plan.jpg
 coverAlt: "Офис открытой планировки, люди работают за длинными столами"
 order: 7
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/office-standup.jpg
     alt: "Сотрудник выступает перед коллегами, сидящими на диванах"

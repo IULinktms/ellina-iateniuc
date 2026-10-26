@@ -12,7 +12,7 @@ previewFile: /media/films/partners-gala-recap.mp4
 project: annual-partners-gala
 order: 4
 featured: true
-draft: false
+draft: true
 credits:
   - role: Съёмка и монтаж
     name: Ellina Yatsenyuk

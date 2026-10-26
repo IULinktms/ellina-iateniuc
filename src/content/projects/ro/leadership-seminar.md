@@ -9,7 +9,7 @@ excerpt: "Un seminar de o zi întreagă, fotografiat fără a-l întrerupe: gest
 cover: ../../../assets/uploads/seminar-brick-hall.jpg
 coverAlt: "Speaker care prezintă în fața publicului așezat, într-o sală cu pereți de cărămidă"
 order: 2
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/seminar-room.jpg
     alt: "Participanți la seminar așezați pe rânduri, cu fața spre ecran"

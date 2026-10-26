@@ -9,7 +9,7 @@ excerpt: "Стикеры, маркерные доски и люди, котор�
 cover: ../../../assets/uploads/workshop-sticky-wall.jpg
 coverAlt: "Команда обсуждает идеи у стены, покрытой стикерами"
 order: 3
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/workshop-team.jpg
     alt: "Участница воркшопа указывает на заметки на стене, коллеги наблюдают"

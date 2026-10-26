@@ -1,13 +1,10 @@
 {
-  "heroVideo": "/media/films/showreel-2026.mp4",
-  "heroPoster": "../../../assets/uploads/film-showreel-2026-poster.jpg",
-  "heroPosterAlt": "Keynote speaker on a lit stage in front of a full auditorium",
+  "heroVideo": "",
+  "heroPoster": "../../../assets/uploads/casmara-stage-team.jpg",
+  "heroPosterAlt": "The Casmara team applauding on stage at the Casmara International Seminar in Chișinău as the host speaks into a microphone, the brand logo on screen",
   "statement": "At events, I work quietly and deliver edited previews the same evening. For brands and small businesses, I plan photo shoots, film Instagram Reels and create regular social media content around your goals.",
   "featuredProjects": [
-    "future-of-work-summit",
-    "leadership-seminar",
-    "annual-partners-gala",
-    "faces-of-the-forum"
+    "casmara-international-seminar-2026"
   ],
   "disciplines": [
     {

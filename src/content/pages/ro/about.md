@@ -3,8 +3,8 @@ title: "Despre mine"
 intro: "Sunt Ellina, fotograf și videograf din Chișinău. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac ședințe foto, Reels pentru Instagram și conținut pentru social media."
 portrait: ../../../assets/uploads/portrait-ellina.jpg
 portraitAlt: "Ellina Yatsenyuk, fotograf și videograf din Chișinău"
-secondImage: ../../../assets/uploads/summit-microphone.jpg
-secondImageAlt: "Microfon pe scenă, în fața publicului"
+secondImage: ../../../assets/uploads/casmara-certificate-stage.jpg
+secondImageAlt: "Participantă la seminarul Casmara cu certificatul, alături de o reprezentantă a brandului cu microfon, Chișinău, 2026"
 principles:
   - title: "Invizibilă în ziua evenimentului"
     text: "Declanșator silențios, fără bliț în timpul prezentărilor și o ținută discretă. Speakerii și invitații uită că sunt acolo."

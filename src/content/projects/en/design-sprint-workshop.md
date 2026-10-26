@@ -9,7 +9,7 @@ excerpt: "Sticky notes, whiteboards and people thinking out loud. Documentation 
 cover: ../../../assets/uploads/workshop-sticky-wall.jpg
 coverAlt: "Team discussing ideas around a wall covered in sticky notes"
 order: 3
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/workshop-team.jpg
     alt: "Workshop participant pointing at notes on the wall while colleagues watch"

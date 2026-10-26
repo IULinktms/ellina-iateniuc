@@ -9,7 +9,7 @@ excerpt: "Мобильная студия за кулисами: каждый с
 cover: ../../../assets/uploads/portrait-elena.jpg
 coverAlt: "Улыбающаяся деловая женщина в сером пиджаке у окна"
 order: 5
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/portrait-andrei.jpg
     alt: "Мужчина в очках и тёмном пиджаке на светлом фоне"

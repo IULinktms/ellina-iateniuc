@@ -9,7 +9,7 @@ excerpt: "Целый день семинара — без единого вме�
 cover: ../../../assets/uploads/seminar-brick-hall.jpg
 coverAlt: "Спикер выступает перед сидящими слушателями в зале с кирпичными стенами"
 order: 2
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/seminar-room.jpg
     alt: "Участники семинара сидят рядами лицом к экрану"

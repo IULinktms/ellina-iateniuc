@@ -9,7 +9,7 @@ excerpt: "A full-day seminar photographed without interrupting it: the speaker's
 cover: ../../../assets/uploads/seminar-brick-hall.jpg
 coverAlt: "Speaker presenting to a seated audience in a brick-walled hall"
 order: 2
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/seminar-room.jpg
     alt: "Seminar participants seated in rows facing a screen"

@@ -9,7 +9,7 @@ excerpt: "Notițe adezive, table albe și oameni care gândesc cu voce tare. Doc
 cover: ../../../assets/uploads/workshop-sticky-wall.jpg
 coverAlt: "Echipă care discută idei în fața unui perete acoperit cu notițe adezive"
 order: 3
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/workshop-team.jpg
     alt: "Participant la atelier arată spre notițele de pe perete, iar colegii urmăresc"

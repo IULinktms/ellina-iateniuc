@@ -9,7 +9,7 @@ excerpt: "O zi obișnuită de lucru, fotografiată sincer, pentru o pagină de c
 cover: ../../../assets/uploads/office-open-plan.jpg
 coverAlt: "Birou open space cu oameni care lucrează la mese lungi"
 order: 7
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/office-standup.jpg
     alt: "Membru al echipei care prezintă în fața colegilor așezați pe canapele"

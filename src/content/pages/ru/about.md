@@ -3,8 +3,8 @@ title: "Обо мне"
 intro: "Я Эллина, фотограф и видеограф из Кишинёва. Снимаю мероприятия для организаторов и компаний, а для брендов и малого бизнеса делаю фотосессии, Reels для Instagram и контент для соцсетей."
 portrait: ../../../assets/uploads/portrait-ellina.jpg
 portraitAlt: "Эллина Яценюк, фотограф и видеограф из Кишинёва"
-secondImage: ../../../assets/uploads/summit-microphone.jpg
-secondImageAlt: "Микрофон на сцене перед зрителями"
+secondImage: ../../../assets/uploads/casmara-certificate-stage.jpg
+secondImageAlt: "Участница семинара Casmara с сертификатом и сотрудница бренда с микрофоном у сцены, Кишинёв, 2026"
 principles:
   - title: "Незаметна в день съёмки"
     text: "Бесшумный затвор, никакой вспышки во время выступлений и неброская одежда. Спикеры и гости быстро забывают, что я рядом."

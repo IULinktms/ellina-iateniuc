@@ -11,7 +11,7 @@ videoFile: /media/films/showreel-2026.mp4
 previewFile: /media/films/showreel-2026.mp4
 order: 1
 featured: true
-draft: false
+draft: true
 credits:
   - role: Filmare și montaj
     name: Ellina Yatsenyuk

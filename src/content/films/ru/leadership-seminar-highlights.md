@@ -12,7 +12,7 @@ previewFile: /media/films/leadership-seminar-highlights.mp4
 project: leadership-seminar
 order: 3
 featured: true
-draft: false
+draft: true
 credits:
   - role: Съёмка и монтаж
     name: Ellina Yatsenyuk

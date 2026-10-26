@@ -9,7 +9,7 @@ excerpt: "Prezentarea unui produs pe scenă, urmată de muzică și confetti. Fo
 cover: ../../../assets/uploads/launch-stage-light.jpg
 coverAlt: "Siluetele publicului în fața unei scene luminate de fascicule puternice"
 order: 6
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/launch-confetti.jpg
     alt: "Confetti care cad peste mulțime, sub lumini colorate"

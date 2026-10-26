@@ -9,7 +9,7 @@ excerpt: "Un studio portabil montat în culise: fiecare speaker fotografiat în 
 cover: ../../../assets/uploads/portrait-elena.jpg
 coverAlt: "Femeie de afaceri în sacou gri, zâmbind lângă o fereastră"
 order: 5
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/portrait-andrei.jpg
     alt: "Bărbat cu ochelari și sacou închis la culoare, pe fundal deschis"

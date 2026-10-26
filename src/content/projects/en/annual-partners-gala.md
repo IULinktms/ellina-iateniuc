@@ -9,7 +9,7 @@ excerpt: "The ballroom before the doors opened, the speeches, the dinner and the
 cover: ../../../assets/uploads/gala-ballroom.jpg
 coverAlt: "Ballroom set with round tables and chandeliers before a gala dinner"
 order: 4
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/gala-florals.jpg
     alt: "Table decorated with flowers, candles and glassware"

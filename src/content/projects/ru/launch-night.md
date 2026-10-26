@@ -9,7 +9,7 @@ excerpt: "Презентация продукта на сцене, а затем
 cover: ../../../assets/uploads/launch-stage-light.jpg
 coverAlt: "Силуэты зрителей перед сценой в ярких лучах света"
 order: 6
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/launch-confetti.jpg
     alt: "Конфетти падает на толпу в цветном свете"

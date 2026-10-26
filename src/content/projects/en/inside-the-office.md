@@ -9,7 +9,7 @@ excerpt: "A normal working day, photographed honestly, for a careers page and an
 cover: ../../../assets/uploads/office-open-plan.jpg
 coverAlt: "Open-plan office with people working at long desks"
 order: 7
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/office-standup.jpg
     alt: "Team member presenting to colleagues seated on sofas"

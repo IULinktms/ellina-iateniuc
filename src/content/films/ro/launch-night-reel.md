@@ -12,7 +12,7 @@ previewFile: /media/films/launch-night-reel.mp4
 project: launch-night
 order: 5
 featured: false
-draft: false
+draft: true
 credits:
   - role: Filmare și montaj
     name: Ellina Yatsenyuk

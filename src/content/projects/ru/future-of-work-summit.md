@@ -9,7 +9,7 @@ excerpt: "Ключевые доклады, панельные дискуссии
 cover: ../../../assets/uploads/summit-arena-keynote.jpg
 coverAlt: "Спикер на освещённой сцене перед полным залом"
 order: 1
-draft: false
+draft: true
 gallery:
   - image: ../../../assets/uploads/summit-microphone.jpg
     alt: "Микрофон на стойке на фоне размытой аудитории"
