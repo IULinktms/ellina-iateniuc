@@ -229,9 +229,10 @@ function filmStrip() {
   mm.add('(min-width: 901px)', () => {
     const track = strip.querySelector<HTMLElement>('.strip__track')!;
     const distance = () => track.scrollWidth - window.innerWidth;
+    // The track travels its full width over half that much scroll: a short pin, still easy to follow
     gsap.to(track, {
       x: () => -distance(), ease: 'none',
-      scrollTrigger: { trigger: strip, start: 'top top', end: () => `+=${distance()}`, scrub: 0.6, pin: true, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: strip, start: 'top top', end: () => `+=${Math.round(distance() * 0.5)}`, scrub: 0.6, pin: true, invalidateOnRefresh: true },
     });
   });
 }
@@ -706,7 +707,7 @@ function contactSheet() {
     const oy = () => grid.offsetHeight / 2 - (cell.offsetTop + hero.offsetHeight / 2);
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: '+=220%', scrub: 0.8, pin: true, refreshPriority: 1, anticipatePin: 1, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: root, start: 'top top', end: '+=100%', scrub: 0.6, pin: true, refreshPriority: 1, anticipatePin: 1, invalidateOnRefresh: true },
     });
     tl.fromTo(grid, { scale: () => cover(), x: () => ox() * cover(), y: () => oy() * cover() }, { scale: 1, x: 0, y: 0, duration: 1, ease: 'power2.inOut' })
       .fromTo(others, { opacity: 0.35 }, { opacity: 1, duration: 0.6 }, 0.25)
