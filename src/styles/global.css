@@ -307,14 +307,21 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .strip__item .frame { aspect-ratio: 16 / 9; }
 .strip__item video { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s; }
 .strip__item.is-previewing video { opacity: 1; }
-.strip__caption { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
+.strip__caption { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; text-align: left; }
 .strip__caption h3 { font-family: var(--serif); font-weight: 400; font-size: var(--t-md); }
 .strip__caption span { color: var(--ash); font-size: var(--t-sm); font-variant-numeric: tabular-nums; }
 .strip__end { display: grid; place-items: center; width: clamp(14rem, 26vw, 24rem); flex: none; }
+/* Vertical Reels: a 9:16 frame a little taller than its 16:9 neighbours, so they read as phones */
+.strip__item--vertical { width: clamp(10rem, 18vw, 18rem); }
+.strip__item--vertical .frame { aspect-ratio: 9 / 16; }
+.strip__item--vertical .strip__caption { flex-direction: column; gap: 0.25rem; }
 @media (max-width: 900px), (prefers-reduced-motion: reduce) {
   .strip__viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .strip__viewport::-webkit-scrollbar { display: none; }
   .strip__item { scroll-snap-align: start; width: 82vw; }
+  .strip__item--vertical { width: 46vw; }
+  .strip__caption { flex-direction: column; gap: 0.3rem; }
+  .strip__viewport { scroll-padding-inline: var(--gutter); }
 }
 
 /* ───────────────────────── Disciplines (light section) ───────────────────────── */
@@ -418,7 +425,14 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .feature-film__cap { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end; margin-top: 1.25rem; }
 .feature-film__cap h2 { font-size: var(--t-xl); }
 .film-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(3rem, 6vw, 6rem) var(--gutter); padding: var(--section) var(--gutter); }
-.film-grid > :nth-child(3n + 1) { grid-column: 1 / -1; width: 72%; justify-self: end; }
+.film-grid > article:nth-of-type(3n + 1) { grid-column: 1 / -1; width: 72%; justify-self: end; }
+/* Reels shelf: vertical films side by side, the way they are watched */
+.reel-shelf { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); }
+.reel-shelf:not(:has(> :not([hidden]))) { display: none; }
+.film-card.film-card--vertical .frame { aspect-ratio: 9 / 16; }
+.film-card.film-card--vertical h3 { font-size: var(--t-md); line-height: 1.2; }
+.film-card.film-card--vertical .meta { flex-wrap: wrap; gap: 0.4rem 1rem; }
+.wrap > .film-card--vertical { max-width: 24rem; }
 .film-card button { display: block; width: 100%; text-align: left; }
 .film-card .frame { aspect-ratio: 16 / 9; }
 .film-card video { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s; }
@@ -428,7 +442,10 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .film-card .meta { display: flex; gap: 1.25rem; margin-top: 0.6rem; font-size: var(--t-xs); color: var(--ash); font-variant-numeric: tabular-nums; }
 @media (max-width: 760px) {
   .film-grid { grid-template-columns: 1fr; }
-  .film-grid > :nth-child(3n + 1) { width: 100%; }
+  .film-grid > article:nth-of-type(3n + 1) { width: 100%; }
+  .reel-shelf { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+  .reel-shelf::-webkit-scrollbar { display: none; }
+  .reel-shelf > .film-card { flex: none; width: 62vw; scroll-snap-align: start; }
   .feature-film .frame { aspect-ratio: 16 / 10; }
 }
 
@@ -437,6 +454,8 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .player[open] { display: grid; grid-template-rows: auto 1fr; }
 .player__stage { display: grid; place-items: center; padding: 0 var(--gutter) var(--gutter); min-height: 0; }
 .player__stage video, .player__stage iframe { width: 100%; max-height: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
+/* Width from the height left under the title bar (percent heights don't resolve in the stage) */
+.player[data-aspect='portrait'] .player__stage video, .player[data-aspect='portrait'] .player__stage iframe { width: min(100%, calc((100dvh - 6.5rem) * 9 / 16)); max-height: none; aspect-ratio: 9 / 16; }
 
 /* ───────────────────────── Project page ───────────────────────── */
 .p-hero { position: relative; height: 100svh; min-height: 36rem; overflow: hidden; }

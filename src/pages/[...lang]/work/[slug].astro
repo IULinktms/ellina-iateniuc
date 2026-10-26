@@ -101,9 +101,9 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
     <section class="wrap" style="padding-bottom: var(--section)" aria-label={s.work.filmAria}>
       <div class="section-head"><h2>{s.work.film}</h2></div>
       {films.map((f, i) => (
-        <div class="film-card" data-preview>
-          <button data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
-            <Frame src={f.data.poster} alt={f.data.posterAlt} sizes="100vw" style="aspect-ratio:21/9">
+        <div class:list={['film-card', f.data.aspectRatio === 'portrait' && 'film-card--vertical']} data-preview>
+          <button data-film data-aspect={f.data.aspectRatio} data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
+            <Frame src={f.data.poster} alt={f.data.posterAlt} sizes={f.data.aspectRatio === 'portrait' ? '(max-width: 760px) 80vw, 24rem' : '100vw'} style={f.data.aspectRatio === 'portrait' ? 'aspect-ratio:9/16' : 'aspect-ratio:21/9'}>
               {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
             </Frame>
           </button>

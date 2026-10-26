@@ -163,11 +163,11 @@ const bg = (p?: { image: string; color: string }) => p && `background:${p.color}
       <div class="strip__viewport">
         <div class="strip__track">
           {films.map((f, i) => (
-            <article class="strip__item" data-preview>
-              <button class="frame-btn" data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play">
+            <article class:list={['strip__item', f.data.aspectRatio === 'portrait' && 'strip__item--vertical']} data-preview>
+              <button class="frame-btn" data-film data-aspect={f.data.aspectRatio} data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play">
                 <span class="sr-only">{s.a11y.play(f.data.title)}</span>
                 <div class="frame" data-lqip={filmPlaceholders[i] ? '' : undefined} style={filmPlaceholders[i]?.style}>
-                  <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 900px) 82vw, 46vw" format="webp" quality={78} loading="lazy" />
+                  <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} width={1400} sizes={f.data.aspectRatio === 'portrait' ? '(max-width: 900px) 46vw, 17vw' : '(max-width: 900px) 82vw, 46vw'} format="webp" quality={78} loading="lazy" />
                   {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
                 </div>
                 <div class="strip__caption">

@@ -355,6 +355,8 @@ function player() {
       const file = btn.dataset.src || '';
       plTitle.textContent = btn.dataset.title ?? '';
       plStage.innerHTML = '';
+      // 9:16 Reels get a 9:16 stage (no letterboxing in a 16:9 box)
+      pl.dataset.aspect = btn.dataset.aspect === 'portrait' ? 'portrait' : 'landscape';
       const embed = url ? embedUrl(url) : null;
       if (embed) {
         const f = document.createElement('iframe');
@@ -364,6 +366,10 @@ function player() {
         const v = document.createElement('video');
         v.src = url || file; v.controls = true; v.autoplay = true; v.playsInline = true;
         if (btn.dataset.poster) v.poster = btn.dataset.poster;
+        // The file knows its own shape: trust it over the CMS setting
+        v.addEventListener('loadedmetadata', () => {
+          if (v.videoWidth && v.videoHeight) pl.dataset.aspect = v.videoHeight > v.videoWidth ? 'portrait' : 'landscape';
+        }, { once: true });
         plStage.append(v);
       }
       pl.showModal();
