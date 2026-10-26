@@ -1,17 +1,7 @@
 ---
-import Base from '../layouts/Base.astro';
-import { DEFAULT_LANG, t } from '../lib/i18n';
-const lang = DEFAULT_LANG;
-const s = t(lang).notFound;
+import NotFound from '../components/NotFound.astro';
+import { DEFAULT_LANG } from '../lib/i18n';
+// Romanian, served for unknown paths at the root. /ru/… and /en/… get their own (see [...lang]/404.astro).
 ---
 
-<Base page="404" lang={lang} title={s.title} noindex>
-  <section class="notfound">
-    <h1 class="display" data-split="now">{s.h}</h1>
-    <p class="muted">{s.text}</p>
-    <div class="cta__actions" style="justify-content:center;margin:0">
-      <a class="btn btn--solid" href="/portfolio/">{s.portfolio}</a>
-      <a class="btn" href="/">{s.home}</a>
-    </div>
-  </section>
-</Base>
+<NotFound lang={DEFAULT_LANG} />

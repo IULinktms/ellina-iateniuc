@@ -6,6 +6,7 @@ import { getSite, shareImage } from '../lib/content';
 import { LOCALES, LANG_NAMES, LANG_SHORT, HTML_LANG, OG_LOCALE, DEFAULT_LANG, localePath, splitPath, t, clientStrings, type Lang } from '../lib/i18n';
 import Icon from '../components/Icon.astro';
 import DirectContact from '../components/DirectContact.astro';
+import { serviceLd, breadcrumbLd } from '../lib/seo';
 
 interface Props {
   lang: Lang;
@@ -14,7 +15,7 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   type?: 'website' | 'article';
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
   page: string;
   noindex?: boolean;
 }
@@ -26,7 +27,10 @@ const desc = description ?? site.seoDescription;
 const { rest } = splitPath(Astro.url.pathname);
 const canonical = new URL(localePath(lang, rest), Astro.site);
 const alternates = LOCALES.map((l) => ({ lang: l, href: new URL(localePath(l, rest), Astro.site).toString() }));
-const og = new URL(await shareImage(image ?? site.shareImage), Astro.site);
+// Share image: branded card for projects and for pages without a photo of their own (src/pages/og/)
+const workSlug = page === 'work' ? rest.match(/^\/work\/([^/]+)/)?.[1] : undefined;
+const ogCard = workSlug ? `/og/${lang}/${workSlug}.jpg` : !image ? `/og/${lang}/site.jpg` : undefined;
+const og = new URL(ogCard ?? (await shareImage(image!)), Astro.site);
 const L = (p: string) => localePath(lang, p);
 
 const nav = [
@@ -35,20 +39,26 @@ const nav = [
   { href: L('/about/'), label: s.nav.about, key: 'about' },
   { href: L('/contact/'), label: s.nav.book, key: 'contact' },
 ];
-const personLd = {
+const crumbs = page === 'home' || page === '404' ? [] : [
+  { name: s.nav.home, url: new URL(L('/'), Astro.site).toString() },
+  ...(page === 'work' ? [{ name: s.nav.portfolio, url: new URL(L('/portfolio/'), Astro.site).toString() }] : []),
+  { name: title ?? site.name, url: canonical.toString() },
+];
+const ld = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: site.name,
-  description: site.seoDescription,
-  url: canonical.toString(),
-  inLanguage: HTML_LANG[lang],
-  image: og.toString(),
-  email: site.email,
-  address: { '@type': 'PostalAddress', addressLocality: site.location },
-  founder: { '@type': 'Person', name: site.name, jobTitle: site.role },
-  sameAs: site.socials.map((x) => x.url),
+  '@graph': [
+    serviceLd(site, lang, Astro.site!, new URL(L('/'), Astro.site).toString(), new URL(`/og/${lang}/site.jpg`, Astro.site).toString()),
+    ...(crumbs.length ? [breadcrumbLd(crumbs)] : []),
+    ...(jsonLd ? [jsonLd].flat() : []),
+  ],
 };
 const year = new Date().getFullYear();
+// Page change: the frame closes to a slit of light, then opens on the next page (≈0.58 s; off for reduced motion)
+const apertureSwap = {
+  old: { name: 'aperture-close', duration: '0.22s', easing: 'cubic-bezier(0.77, 0, 0.175, 1)', fillMode: 'both' },
+  new: { name: 'aperture-open', duration: '0.36s', delay: '0.2s', easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fillMode: 'both' },
+};
+const aperture = { forwards: apertureSwap, backwards: apertureSwap };
 ---
 
 <!doctype html>
@@ -65,6 +75,7 @@ const year = new Date().getFullYear();
     <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <slot name="head" />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={site.name} />
@@ -74,13 +85,15 @@ const year = new Date().getFullYear();
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={og} />
+    {ogCard && <meta property="og:image:width" content="1200" />}
+    {ogCard && <meta property="og:image:height" content="630" />}
     {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={desc} />
     <meta name="twitter:image" content={og} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? personLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
     <script is:inline>document.documentElement.classList.add('js');</script>
     <ClientRouter fallback="swap" />
   </head>
@@ -107,9 +120,10 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
       <button class="nav__toggle" aria-expanded="false" aria-controls="menu" data-menu-toggle>{s.nav.menu}</button>
+      <a class="nav__nojs" href="#menu">{s.nav.menu}</a>
     </header>
 
-    <div class="menu" id="menu" aria-hidden="true" transition:persist={`menu-${lang}`}>
+    <div class="menu" id="menu" transition:persist={`menu-${lang}`}>
       <ul class="menu__list" role="list">
         <li><a href={L('/')} data-nav="home">{s.nav.home}</a></li>
         {nav.map((n) => <li><a href={n.href} data-nav={n.key}>{n.label}</a></li>)}
@@ -126,7 +140,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <main id="main" transition:animate="fade">
+    <main id="main" transition:animate={aperture}>
       <slot />
     </main>
 

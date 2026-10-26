@@ -607,7 +607,7 @@ function runOfShow() {
   const items = Array.from(root.querySelectorAll<HTMLElement>('[data-ros-item]'));
   const pics = Array.from(root.querySelectorAll<HTMLImageElement>('.ros__pictures img'));
   const clock = root.querySelector<HTMLElement>('[data-ros-clock]');
-  pics.forEach((img) => { img.loading = 'eager'; });
+  primeRosPictures(root, pics);
   const show = (i: number) => {
     items.forEach((el, k) => el.classList.toggle('is-active', k === i));
     pics.forEach((el, k) => el.classList.toggle('is-on', k === i));
@@ -941,4 +941,82 @@ function mobileBooking() {
   const modalObserver = new MutationObserver(update);
   [menu, lb, pl].forEach((el) => modalObserver.observe(el, { attributes: true, attributeFilter: ['aria-hidden', 'open'] }));
   cleanups.push(() => { heroObserver.disconnect(); footerObserver.disconnect(); modalObserver.disconnect(); });
+}
+
+/* ═════════════════════════ Perf/A11y/SEO pass ═════════════════════════ */
+document.addEventListener('astro:page-load', () => {
+  deferHeroVideo();
+  splitLabels();
+  // Motion engine is running: CSS failsafes for JS-hidden content can stand down
+  document.documentElement.classList.add('motion-ready');
+});
+menuA11y();
+
+/* ───────────── Hero reel loads after the poster has painted (LCP), and not at all
+   on Save-Data, 2G or reduced motion: the still frame stays instead. ───────────── */
+function deferHeroVideo() {
+  const v = document.querySelector<HTMLVideoElement>('[data-hero-video][data-src]');
+  if (!v) return;
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  if (reduced || conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType ?? '')) return;
+  let cancelled = false;
+  const start = () => {
+    // The first-scroll shutter (WS3) may have frozen the hero on its still frame
+    if (cancelled || !v.isConnected || v.closest('.is-frozen')) return;
+    v.src = v.dataset.src!;
+    v.removeAttribute('data-src');
+    v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
+    v.play().catch(() => {});
+  };
+  const later = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 200));
+  if (document.readyState === 'complete') later();
+  else window.addEventListener('load', later, { once: true });
+  cleanups.push(() => { cancelled = true; window.removeEventListener('load', later); });
+}
+
+/* Run-of-show stills: only the desktop stack shows them, so load them as the section nears */
+function primeRosPictures(root: HTMLElement, pics: HTMLImageElement[]) {
+  const stack = root.querySelector<HTMLElement>('.ros__pictures');
+  if (!stack || !pics.length) return;
+  const io = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting) || !stack.offsetParent) return;
+    pics.forEach((img) => { img.loading = 'eager'; });
+    io.disconnect();
+  }, { rootMargin: '100% 0px' });
+  io.observe(root);
+  cleanups.push(() => io.disconnect());
+}
+
+/* ───────────── Mobile menu as a modal: focus stays inside (menu + its toggle), the page behind
+   is inert, and closing returns focus to the toggle. Watches the toggle so setMenu stays as is. ───────────── */
+function menuA11y() {
+  const behind = () => document.querySelectorAll<HTMLElement>('main, footer, .nav__mark, .nav__right, .skip-link');
+  const focusables = () => [toggle, ...menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
+  const sync = () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    menu.setAttribute('aria-hidden', String(!open));
+    behind().forEach((el) => { el.inert = open; });
+  };
+  new MutationObserver(sync).observe(toggle, { attributes: true, attributeFilter: ['aria-expanded'] });
+  // The page behind is swapped on navigation; re-apply to the new <main>/<footer>
+  document.addEventListener('astro:page-load', sync);
+  sync();
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || toggle.getAttribute('aria-expanded') !== 'true') return;
+    const list = focusables();
+    const i = list.indexOf(document.activeElement as HTMLElement);
+    const next = e.shiftKey ? (i <= 0 ? list.length - 1 : i - 1) : (i === -1 || i === list.length - 1 ? 0 : i + 1);
+    e.preventDefault();
+    list[next].focus();
+  });
+}
+
+/* SplitText (aria: auto) names the split element and hides its lines. That's right for headings,
+   but aria-label is not allowed on a plain span/p: keep the real text readable there instead. */
+function splitLabels() {
+  document.querySelectorAll<HTMLElement>('[data-split][aria-label]').forEach((el) => {
+    if (/^H[1-6]$/.test(el.tagName)) return;
+    el.removeAttribute('aria-label');
+    el.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.removeAttribute('aria-hidden'));
+  });
 }

@@ -34,7 +34,8 @@ const {
 
 // Lightweight variant set for the hosted static preview only
 const lite = import.meta.env.PUBLIC_PREVIEW_LITE === '1';
-const ws = (lite ? [1400] : widths ?? [480, 800, 1200, 1700, 2400]).filter((w) => w <= src.width);
+// Capped at 1600px: wider WebPs of busy event photos run 0.5–1 MB for little visible gain
+const ws = (lite ? [1400] : widths ?? [480, 800, 1200, 1600]).filter((w) => w <= src.width);
 if (!ws.length) ws.push(src.width);
 ---
 
@@ -49,9 +50,10 @@ if (!ws.length) ws.push(src.width);
     src={src}
     alt={alt}
     widths={ws}
+    width={Math.max(...ws)}
     sizes={sizes}
     format="webp"
-    quality={80}
+    quality={75}
     loading={eager ? 'eager' : 'lazy'}
     fetchpriority={eager ? 'high' : 'auto'}
     decoding="async"

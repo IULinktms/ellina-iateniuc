@@ -2,6 +2,7 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { DEFAULT_LANG, type Lang } from './i18n';
+import { typesetData, typesetHtml } from './typography.mjs';
 
 export type Project = CollectionEntry<'projects'>;
 export type Film = CollectionEntry<'films'>;
@@ -13,26 +14,33 @@ const visible = (e: { data: { draft: boolean } }) => !isProd || !e.data.draft;
 /** Entry ids look like "ro/annual-partners-gala"; the URL slug is the part after the language. */
 export const slugOf = (e: { id: string }) => e.id.split('/').slice(1).join('/') || e.id;
 const inLang = (lang: Lang) => (e: { id: string }) => e.id.startsWith(`${lang}/`);
+/** Non-breaking spaces and local quotes in prose fields, by the entry's own language (lib/typography.mjs) */
+const typeset = <T extends { id: string; data: unknown; rendered?: { html: string } }>(e: T) => {
+  const lang = e.id.split('/')[0];
+  typesetData(lang, e.data);
+  if (e.rendered) e.rendered.html = typesetHtml(lang, e.rendered.html);
+  return e;
+};
 
 export async function getSite(lang: Lang) {
   const e = (await getEntry('site', `${lang}/site`)) ?? (await getEntry('site', `${DEFAULT_LANG}/site`));
   if (!e) throw new Error('Missing src/content/pages/<lang>/site.json');
-  return e.data;
+  return typeset(e).data;
 }
 export async function getHome(lang: Lang) {
   const e = (await getEntry('home', `${lang}/home`)) ?? (await getEntry('home', `${DEFAULT_LANG}/home`));
   if (!e) throw new Error('Missing src/content/pages/<lang>/home.json');
-  return e.data;
+  return typeset(e).data;
 }
 export async function getBooking(lang: Lang) {
   const e = (await getEntry('booking', `${lang}/booking`)) ?? (await getEntry('booking', `${DEFAULT_LANG}/booking`));
   if (!e) throw new Error('Missing src/content/pages/<lang>/booking.json');
-  return e.data;
+  return typeset(e).data;
 }
 export async function getAbout(lang: Lang) {
   const e = (await getEntry('about', `${lang}/about`)) ?? (await getEntry('about', `${DEFAULT_LANG}/about`));
   if (!e) throw new Error('Missing src/content/pages/<lang>/about.md');
-  return e;
+  return typeset(e);
 }
 
 type Sortable = { id: string; data: { order: number; year: number; draft: boolean } };
@@ -42,14 +50,14 @@ function pick<T extends Sortable>(all: T[], lang: Lang) {
   const mine = all.filter(inLang(lang));
   const have = new Set(mine.map(slugOf));
   const fallback = lang === DEFAULT_LANG ? [] : all.filter(inLang(DEFAULT_LANG)).filter((e) => !have.has(slugOf(e)));
-  return [...mine, ...fallback].sort(order);
+  return [...mine, ...fallback].map(typeset).sort(order);
 }
 export const getProjects = async (lang: Lang) => pick(await getCollection('projects', visible), lang);
 export const getFilms = async (lang: Lang) => pick(await getCollection('films', visible), lang);
 
-/** Large WebP used by the full-screen viewer. */
+/** Large WebP used by the full-screen viewer (kept under ~350 KB). */
 export async function fullSize(src: ImageMetadata) {
-  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1400 : 2400, src.width), format: 'webp', quality: 82 });
+  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1400 : 1800, src.width), format: 'webp', quality: 70 });
   return img.src;
 }
 

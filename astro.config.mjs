@@ -13,7 +13,7 @@ export default defineConfig({
   adapter: isStaticPreview ? undefined : vercel({ imageService: false }),
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/admin'),
+      filter: (page) => !page.includes('/admin') && !/\/404\/?$/.test(page),
       // hreflang alternates: Romanian at /, Russian at /ru/, English at /en/
       i18n: { defaultLocale: 'ro', locales: { ro: 'ro', ru: 'ru', en: 'en' } },
     }),

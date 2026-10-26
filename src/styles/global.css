@@ -811,3 +811,74 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
   .mobile-booking > span { font-size: .75rem; }
   .mobile-booking .btn { --h: 2.75rem; font-size: .8rem; padding-inline: 1rem; flex-shrink: 0; }
 }
+/* ───── Perf/A11y/SEO pass ───── */
+
+/* Fallback faces sized to the webfonts (measured: Bodoni ≈ 103% of Georgia, Hanken ≈ 100% of Arial), so the swap barely shifts layout.
+   Fonts are not preloaded: on mobile they compete with the hero still and the script, and these fallbacks hold CLS down. */
+@font-face { font-family: 'Bodoni Fallback'; src: local('Georgia'), local('Times New Roman'); size-adjust: 103%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%; }
+@font-face { font-family: 'Hanken Fallback'; src: local('Arial'), local('Helvetica Neue'), local('Helvetica'); size-adjust: 100%; ascent-override: 98%; descent-override: 26%; line-gap-override: 0%; }
+:root {
+  --serif: 'Bodoni Moda Variable', 'Playfair Display Variable', 'Bodoni Fallback', 'Bodoni 72', 'Didot', Georgia, serif;
+  --sans: 'Hanken Grotesk Variable', 'Manrope Variable', 'Hanken Fallback', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Hero: the poster still is the LCP; the reel fades in over it once it actually plays */
+.hero__media .hero__poster, .hero__media video { position: absolute; inset: 0; }
+.hero__media video { opacity: 0; transition: opacity 600ms ease; }
+.hero__media video.is-playing { opacity: 1; }
+
+/* Closed menu leaves layout entirely, so its "Русский" label doesn't pull the Cyrillic font onto RO/EN pages */
+.js .menu:not(.is-open) { display: none; }
+
+/* ── Accessibility ── */
+:focus-visible { outline-width: 2px; }
+/* Placeholders were ~3:1 on black; ash is ~5.6:1 */
+.field input::placeholder, .field textarea::placeholder { color: var(--ash); }
+/* Decorative layers never take pointer or screen-reader focus */
+.grain, .vf, .marquee, .intro, .cursor, .float-preview { pointer-events: none; }
+
+/* No JS: the menu button can't work, so a plain link opens the menu as an in-page block (:target) */
+.nav__nojs { display: none; }
+@media (max-width: 760px) {
+  html:not(.js) .nav__toggle { display: none; }
+  html:not(.js) .nav__nojs { display: inline-flex; align-items: center; height: 2.75rem; font-size: var(--t-sm); }
+  html:not(.js) .menu:target { position: relative; visibility: visible; clip-path: none; min-height: 100svh; }
+}
+
+/* Reduced motion: a complete, still fallback even for effects without their own guard */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .float-preview { display: none; }
+}
+
+/* ── Polish ── */
+/* Typographic detail: balanced headings, no orphans in running text, hanging quotes where supported */
+html { hanging-punctuation: first allow-end last; }
+body { font-optical-sizing: auto; font-kerning: normal; }
+h1, h2, h3, .display, .lede, blockquote { text-wrap: balance; }
+p, li, dd, figcaption, .prose { text-wrap: pretty; }
+
+/* Links: the underline draws in on hover, and leaves faster than it came */
+.line-link::after { transition-duration: 240ms; }
+@media (hover: hover) and (pointer: fine) {
+  .line-link:hover::after { transition-duration: 400ms; }
+  .film-card .frame img, .strip__item .frame img { transition: transform 900ms var(--ease-out); }
+  .film-card button:hover .frame img, .strip__item button:hover .frame img { transform: scale(1.035); }
+}
+.icon-btn:active, .filter:active, .nav__toggle:active { transform: scale(0.96); }
+.icon-btn, .nav__toggle { transition: border-color 0.3s, background 0.3s, transform var(--t-press) var(--ease-out); }
+
+/* Page change: aperture closes to a slit, then opens (keyframes for Base.astro's transition:animate) */
+@keyframes aperture-close { to { clip-path: inset(49.6% 0 49.6% 0); opacity: 0.6; } }
+@keyframes aperture-open { from { clip-path: inset(49.6% 0 49.6% 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* No FOUC: frames hidden for the aperture reveal open anyway if the motion engine never starts */
+@keyframes aperture-failsafe { to { clip-path: inset(0 0 0 0); } }
+html.js:not(.motion-ready) .frame[data-aperture]:not(.is-open) { animation: aperture-failsafe 0.6s ease 3s forwards; }
+
+/* ───── Merge: Codex's first-scroll shutter freezes the hero on the poster still (Claude's LCP image) ───── */
+.hero.is-frozen .hero__media video { opacity: 0; transition: opacity 120ms linear; }
