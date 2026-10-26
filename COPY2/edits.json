@@ -1,0 +1,1292 @@
+[
+ {
+  "file": "src/content/pages/ru/site.json",
+  "old": "\"role\": \"Фотограф мероприятий и создатель контента для брендов\"",
+  "new": "\"role\": \"Фотограф и видеограф мероприятий и брендов\""
+ },
+ {
+  "file": "src/content/pages/ru/site.json",
+  "old": "\"responseTime\": \"Я отвечаю в течение одного рабочего дня и подтверждаю, свободна ли я на вашу дату.\"",
+  "new": "\"responseTime\": \"Отвечаю в течение рабочего дня и сразу говорю, свободна ли ваша дата.\""
+ },
+ {
+  "file": "src/content/pages/ru/site.json",
+  "old": "\"seoTitle\": \"Эллина Яценюк — Мероприятия и контент для брендов в Кишинёве\"",
+  "new": "\"seoTitle\": \"Эллина Яценюк — фотограф и видеограф мероприятий, Кишинёв\""
+ },
+ {
+  "file": "src/content/pages/ru/site.json",
+  "old": "\"seoDescription\": \"Фотосъёмка мероприятий, афтемуви, съёмки для брендов, Reels для Instagram и ежемесячный контент для компаний и малого бизнеса в Кишинёве, Молдова.\"",
+  "new": "\"seoDescription\": \"Фотограф и видеограф в Кишинёве. Конференции, семинары, корпоративные мероприятия; съёмки, Reels и контент для брендов. Первые кадры — в тот же вечер.\""
+ },
+ {
+  "file": "src/content/pages/ro/site.json",
+  "old": "\"role\": \"Fotograf de evenimente și creator de conținut pentru branduri\"",
+  "new": "\"role\": \"Fotograf și videograf de evenimente și branduri\""
+ },
+ {
+  "file": "src/content/pages/ro/site.json",
+  "old": "\"responseTime\": \"Răspund în cel mult o zi lucrătoare și vă confirm disponibilitatea pentru data dorită.\"",
+  "new": "\"responseTime\": \"Răspund în cel mult o zi lucrătoare și vă spun direct dacă data dorită e liberă.\""
+ },
+ {
+  "file": "src/content/pages/ro/site.json",
+  "old": "\"seoTitle\": \"Ellina Yatsenyuk — Evenimente și conținut de brand în Chișinău\"",
+  "new": "\"seoTitle\": \"Ellina Yatsenyuk — fotograf și videograf de evenimente, Chișinău\""
+ },
+ {
+  "file": "src/content/pages/ro/site.json",
+  "old": "\"seoDescription\": \"Fotografie de eveniment, aftermovie, ședințe foto de brand, Reels pentru Instagram și conținut lunar pentru companii și afaceri mici din Chișinău, Moldova.\"",
+  "new": "\"seoDescription\": \"Fotograf și videograf în Chișinău. Conferințe, seminare, evenimente corporative; ședințe foto, Reels și conținut lunar pentru branduri. Primele fotografii, în aceeași seară.\""
+ },
+ {
+  "file": "src/content/pages/en/site.json",
+  "old": "\"role\": \"Event photographer & brand content creator\"",
+  "new": "\"role\": \"Photographer and videographer for events and brands\""
+ },
+ {
+  "file": "src/content/pages/en/site.json",
+  "old": "\"responseTime\": \"I reply within one working day and confirm availability for your date.\"",
+  "new": "\"responseTime\": \"I reply within one working day and tell you straight away if your date is free.\""
+ },
+ {
+  "file": "src/content/pages/en/site.json",
+  "old": "\"seoTitle\": \"Ellina Yatsenyuk — Events & brand content in Chișinău\"",
+  "new": "\"seoTitle\": \"Ellina Yatsenyuk — event photographer and videographer, Chișinău\""
+ },
+ {
+  "file": "src/content/pages/en/site.json",
+  "old": "\"seoDescription\": \"Event photography and aftermovies, brand photo shoots, Instagram Reels and monthly social media content for companies and small businesses in Chișinău, Moldova.\"",
+  "new": "\"seoDescription\": \"Photographer and videographer in Chișinău. Conferences, seminars, corporate events; brand shoots, Reels and monthly content. First photos the same evening.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"statement\": \"На мероприятиях я работаю незаметно и отдаю обработанные превью в тот же вечер. Для брендов и малого бизнеса планирую фотосъёмки, снимаю Reels для Instagram и создаю регулярный контент для соцсетей с учётом ваших задач.\"",
+  "new": "\"statement\": \"На мероприятии меня не замечают. Первые обработанные кадры — у вас в тот же вечер. Для брендов и малого бизнеса снимаю фото и Reels и веду контент для соцсетей: разово или каждый месяц.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"ctaTitle\": \"Событие или история вашего бренда?\"",
+  "new": "\"ctaTitle\": \"Мероприятие или бренд? Начнём с даты.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"ctaText\": \"Расскажите о мероприятии, бизнесе или нужном контенте. В течение одного рабочего дня я подтвержу доступность и предложу подходящий формат.\"",
+  "new": "\"ctaText\": \"Напишите, что снимаем, где и когда. В течение рабочего дня отвечу, свободна ли дата, и предложу формат.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"statementTitle\": \"События и бренды. Внимание к деталям.\"",
+  "new": "\"statementTitle\": \"Мероприятия и бренды. Тихо, точно, вовремя.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"runOfShowTitle\": \"День конференции — как я его снимаю\"",
+  "new": "\"runOfShowTitle\": \"Конференция: день по часам\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"title\": \"До открытия дверей\"",
+  "new": "\"title\": \"До первого гостя\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"text\": \"Зал, сцена и каждый баннер спонсоров — пустые и при полном свете, ещё до прихода первого гостя.\"",
+  "new": "\"text\": \"Пустой зал, сцена, каждый баннер спонсора — при полном свете, пока никто не вошёл.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"text\": \"Бейджи, кофе и первые рукопожатия. Живые кадры, которыми организаторы показывают, что зал был полон.\"",
+  "new": "\"text\": \"Бейджи, кофе, первые рукопожатия. Живые кадры, которые доказывают: зал был полон.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"title\": \"Открывающий доклад\"",
+  "new": "\"title\": \"Ключевой доклад\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"text\": \"Из зоны перед сценой: лучшие жесты спикера и реакция зала — без вспышки и без отвлечения.\"",
+  "new": "\"text\": \"С точки у сцены: лучшие жесты спикера и реакция зала. Без вспышки, никого не отвлекая.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"text\": \"Каждый участник панели, каждый вопрос из зала и общие планы, передающие масштаб.\"",
+  "new": "\"text\": \"Каждый спикер панели, каждый вопрос из зала и общие планы, которые показывают масштаб.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"text\": \"Секционные залы и групповая работа: руки, маркерные доски и люди, которые думают вслух.\"",
+  "new": "\"text\": \"Секции и работа в группах: руки, флипчарты, люди, которые думают вслух.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"title\": \"Закрытие и общее фото\"",
+  "new": "\"title\": \"Финал и общее фото\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"text\": \"Финальные аплодисменты, все спикеры вместе и общее фото, спланированное заранее, — всего за две минуты.\"",
+  "new": "\"text\": \"Последние аплодисменты, все спикеры вместе. Общее фото спланировано заранее: две минуты — и готово.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"title\": \"Превью у вас в почте\"",
+  "new": "\"title\": \"Первые кадры — в вашей почте\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"text\": \"Подборка обработанных превью для прессы и соцсетей — в тот же вечер.\"",
+  "new": "\"text\": \"Отобранные и обработанные фото для прессы и соцсетей. В тот же вечер.\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"label\": \"Срок передачи галереи\"",
+  "new": "\"label\": \"Полная галерея\""
+ },
+ {
+  "file": "src/content/pages/ru/home.json",
+  "old": "\"disciplinesIntro\": \"Мероприятия и бренды — в фото и видео. Конференции и корпоративные праздники; фотосъёмки, Reels для Instagram и ежемесячный контент для кафе, магазинов, салонов, студий и локальных брендов.\"",
+  "new": "\"disciplinesIntro\": \"Фото и видео для мероприятий и брендов. Конференции, семинары, корпоративные вечера. Съёмки, Reels и контент на каждый месяц — для кафе, магазинов, салонов и студий.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"statement\": \"La evenimente lucrez discret și livrez previzualizări editate în aceeași seară. Pentru branduri și afaceri mici, planific ședințe foto, filmez Reels pentru Instagram și creez conținut regulat pentru social media, pornind de la obiectivele dumneavoastră.\"",
+  "new": "\"statement\": \"La evenimente lucrez fără să atrag atenția. Primele fotografii editate ajung la dumneavoastră în aceeași seară. Pentru branduri și afaceri mici fac fotografii, Reels și conținut pentru rețelele sociale: o singură dată sau în fiecare lună.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"ctaTitle\": \"Un eveniment sau o poveste de brand?\"",
+  "new": "\"ctaTitle\": \"Un eveniment sau un brand? Începem cu data.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"ctaText\": \"Spuneți-mi despre evenimentul, afacerea sau conținutul de care aveți nevoie. Confirm disponibilitatea și propun un format potrivit într-o zi lucrătoare.\"",
+  "new": "\"ctaText\": \"Scrieți-mi ce avem de fotografiat sau filmat, unde și când. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă propun un format.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"statementTitle\": \"Evenimente și branduri. Cu atenție la detalii.\"",
+  "new": "\"statementTitle\": \"Evenimente și branduri. Discret, precis, la timp.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"runOfShowTitle\": \"O zi de conferință, așa cum o fotografiez\"",
+  "new": "\"runOfShowTitle\": \"O zi de conferință, oră cu oră\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"title\": \"Înainte de deschiderea ușilor\"",
+  "new": "\"title\": \"Înainte de primul invitat\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"text\": \"Sala, scena și fiecare banner al sponsorilor, fotografiate goale și luminate, înainte să intre primul invitat.\"",
+  "new": "\"text\": \"Sala goală, scena și fiecare banner al sponsorilor, în lumină plină, înainte să intre cineva.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"text\": \"Ecusoane, cafea și primele strângeri de mână. Cadrele spontane cu care organizatorii arată că sala a fost plină.\"",
+  "new": "\"text\": \"Ecusoane, cafea, primele strângeri de mână. Cadre spontane care arată că sala a fost plină.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"title\": \"Discursul de deschidere\"",
+  "new": "\"title\": \"Discursul principal\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"text\": \"Din fața scenei: cele mai bune gesturi ale speakerului și reacțiile publicului, fără bliț și fără să distrag atenția.\"",
+  "new": "\"text\": \"Din fața scenei: cele mai bune gesturi ale speakerului și reacția publicului. Fără bliț, fără să deranjez.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"title\": \"Panelul de discuții\"",
+  "new": "\"title\": \"Panelul\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"text\": \"Fiecare participant la panel, fiecare întrebare din sală și cadre largi care arată amploarea sălii.\"",
+  "new": "\"text\": \"Fiecare participant la panel, fiecare întrebare din sală și cadre largi care arată amploarea evenimentului.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"title\": \"Ateliere\"",
+  "new": "\"title\": \"Atelierele\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"text\": \"Săli pentru secțiuni paralele și lucru în grup: mâini, table albe și oameni care gândesc cu voce tare.\"",
+  "new": "\"text\": \"Secțiuni paralele și lucru în grup: mâini, flipcharturi, oameni care gândesc cu voce tare.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"text\": \"Aplauzele finale, speakerii împreună și o fotografie de grup planificată din timp, ca să dureze doar două minute.\"",
+  "new": "\"text\": \"Aplauzele de final, toți speakerii împreună. Fotografia de grup e planificată din timp: două minute și gata.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"title\": \"Previzualizări în inbox\"",
+  "new": "\"title\": \"Primele fotografii, în inbox\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"text\": \"O selecție de previzualizări editate pentru presă și rețelele sociale, chiar în aceeași seară.\"",
+  "new": "\"text\": \"O selecție editată pentru presă și rețelele sociale. În aceeași seară.\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"label\": \"Livrarea galeriei\"",
+  "new": "\"label\": \"Galeria completă\""
+ },
+ {
+  "file": "src/content/pages/ro/home.json",
+  "old": "\"disciplinesIntro\": \"Evenimente și branduri, în fotografii și video. Conferințe și sărbători de companie; ședințe foto, Reels pentru Instagram și conținut lunar pentru cafenele, magazine, saloane, studiouri și branduri locale.\"",
+  "new": "\"disciplinesIntro\": \"Foto și video pentru evenimente și branduri. Conferințe, seminare, evenimente corporative. Ședințe foto, Reels și conținut lunar pentru cafenele, magazine, saloane și studiouri.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"statement\": \"At events, I work quietly and deliver edited previews the same evening. For brands and small businesses, I plan photo shoots, film Instagram Reels and create regular social media content around your goals.\"",
+  "new": "\"statement\": \"At events, nobody notices me. Your first edited photos arrive the same evening. For brands and small businesses, I shoot photos and Reels and run social media content: once, or every month.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"label\": \"Seminars & workshops\"",
+  "new": "\"label\": \"Seminars and workshops\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"label\": \"Galas & celebrations\"",
+  "new": "\"label\": \"Galas and celebrations\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"label\": \"Brands & social media\"",
+  "new": "\"label\": \"Brands and social media\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"ctaTitle\": \"An event or a brand story?\"",
+  "new": "\"ctaTitle\": \"Event or brand? Start with a date.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"ctaText\": \"Tell me about your event, your business or the content you need. I’ll confirm availability and suggest a suitable format within one working day.\"",
+  "new": "\"ctaText\": \"Tell me what, where and when. Within one working day I’ll tell you if the date is free and suggest a format.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"statementTitle\": \"Events and brands. Thoughtfully captured.\"",
+  "new": "\"statementTitle\": \"Events and brands. Quiet, precise, on time.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"runOfShowTitle\": \"A conference day, as I cover it\"",
+  "new": "\"runOfShowTitle\": \"A conference day, hour by hour\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"title\": \"Before the doors open\"",
+  "new": "\"title\": \"Before the first guest\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"text\": \"The room, the stage and every sponsor banner, photographed empty and lit, before a single guest walks in.\"",
+  "new": "\"text\": \"The empty room, the stage, every sponsor banner. In full light, before anyone walks in.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"text\": \"Badges, coffee and first handshakes. The candid frames organisers use to show the event was full.\"",
+  "new": "\"text\": \"Badges, coffee, first handshakes. Candid frames that prove the room was full.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"text\": \"From the stage pit: the speaker's best gestures and the audience reacting, with no flash and no distraction.\"",
+  "new": "\"text\": \"From the foot of the stage: the speaker’s best gestures and the room reacting. No flash, no distraction.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"text\": \"Every panellist, every question from the floor, and wide frames that show the scale of the room.\"",
+  "new": "\"text\": \"Every panellist, every question from the floor, and wide frames that show the scale.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"text\": \"Breakout rooms and group work: hands, whiteboards and people thinking out loud.\"",
+  "new": "\"text\": \"Breakout rooms and group work: hands, flip charts, people thinking out loud.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"text\": \"The final applause, the speakers together, and a group photo planned in advance so it takes two minutes.\"",
+  "new": "\"text\": \"The final applause, all the speakers together. The group photo is planned in advance: two minutes, done.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"title\": \"Previews in your inbox\"",
+  "new": "\"title\": \"First photos in your inbox\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"text\": \"A curated set of edited previews for press and social media, the same evening.\"",
+  "new": "\"text\": \"An edited selection for press and social media. The same evening.\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"label\": \"Gallery delivery\"",
+  "new": "\"label\": \"Full gallery\""
+ },
+ {
+  "file": "src/content/pages/en/home.json",
+  "old": "\"disciplinesIntro\": \"Events and brands, in stills and motion. Conferences and company celebrations; photo shoots, Instagram Reels and monthly content for cafés, shops, salons, studios and local brands.\"",
+  "new": "\"disciplinesIntro\": \"Photo and video for events and brands. Conferences, seminars, corporate evenings. Shoots, Reels and monthly content for cafés, shops, salons and studios.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "intro: \"Я Эллина, фотограф и видеограф из Кишинёва. Снимаю мероприятия для организаторов и компаний, а для брендов и малого бизнеса делаю фотосессии, Reels для Instagram и контент для соцсетей.\"",
+  "new": "intro: \"Я Эллина — фотограф и видеограф из Кишинёва. Снимаю мероприятия для организаторов и компаний. Для брендов и малого бизнеса делаю фотосъёмки, Reels и контент для соцсетей.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "  - title: \"Незаметна в день съёмки\"",
+  "new": "  - title: \"Меня не замечают\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "    text: \"Бесшумный затвор, никакой вспышки во время выступлений и неброская одежда. Спикеры и гости быстро забывают, что я рядом.\"",
+  "new": "    text: \"Бесшумный затвор. Никакой вспышки во время выступлений. Неброская одежда. Спикеры и гости быстро забывают, что я в зале.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "  - title: \"Быстрая сдача\"",
+  "new": "  - title: \"Первые кадры — тем же вечером\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "    text: \"Превью для ваших соцсетей — в тот же вечер, полная обработанная галерея — в течение пяти рабочих дней.\"",
+  "new": "    text: \"Обработанные фото для соцсетей — в тот же вечер. Полная галерея — в течение пяти рабочих дней.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "  - title: \"Фото и видео вместе\"",
+  "new": "  - title: \"Фото и видео — один человек\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "    text: \"Фотографии, афтемуви и рилсы — от одного человека, без съёмочной группы, которая мешает мероприятию.\"",
+  "new": "    text: \"Фотографии, афтемуви и Reels снимает один человек. Никакой съёмочной группы между вами и гостями.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "    text: \"Короткий созвон о программе, ключевых спикерах, спонсорах и о том, где будут использоваться фотографии.\"",
+  "new": "    text: \"Короткий созвон: программа, ключевые спикеры, спонсоры и где вы будете публиковать фотографии.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "    text: \"По вашей программе я готовлю шот-лист и тайминг, чтобы не пропустить ни одного важного момента.\"",
+  "new": "    text: \"По вашей программе составляю шот-лист и тайминг. Ни один важный момент не теряется.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "  - title: \"Мероприятие\"",
+  "new": "  - title: \"День съёмки\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "    text: \"Приезжаю заранее, чтобы снять площадку и брендинг до прихода гостей, а затем снимаю всю программу.\"",
+  "new": "    text: \"Приезжаю заранее: площадка и брендинг — до прихода гостей. Потом — вся программа.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "  - title: \"Сдача материалов\"",
+  "new": "  - title: \"Сдача\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "    text: \"Превью — в тот же вечер, полная галерея и фильмы — в течение недели, в форматах для прессы, сайта и соцсетей.\"",
+  "new": "    text: \"Первые кадры — в тот же вечер. Полная галерея — в течение пяти рабочих дней, фильмы — в течение десяти. В форматах для прессы, сайта и соцсетей.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "seoDescription: \"Фотосъёмка мероприятий, афтемуви, съёмки для брендов, Reels для Instagram и ежемесячный контент для компаний и малого бизнеса в Кишинёве, Молдова.\"",
+  "new": "seoDescription: \"Эллина Яценюк — фотограф и видеограф из Кишинёва. Мероприятия для организаторов и компаний; съёмки и Reels для брендов и малого бизнеса.\""
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "На мероприятиях я слежу за программой, людьми и атмосферой. Работаю незаметно во время выступлений и готовлю обработанные превью, пока впечатления от дня ещё свежи.",
+  "new": "На мероприятии я слежу за программой, людьми и атмосферой. Во время выступлений меня не слышно и почти не видно. Первые обработанные кадры вы получаете, пока день ещё не остыл."
+ },
+ {
+  "file": "src/content/pages/ru/about.md",
+  "old": "Для малого бизнеса и брендов я превращаю повседневную работу в кадры, которыми хочется поделиться: люди за стойкой кафе, детали магазина, работа студии или услуги салона. Вместе мы можем запланировать одну фотосъёмку, серию Reels или ежемесячный пакет контента.",
+  "new": "Для малого бизнеса и брендов снимаю обычный рабочий день так, что им хочется делиться: бариста за стойкой, детали магазина, студия в процессе, процедура в салоне. Одна съёмка, серия Reels или контент на каждый месяц — решаем вместе."
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "intro: \"Sunt Ellina, fotograf și videograf din Chișinău. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac ședințe foto, Reels pentru Instagram și conținut pentru social media.\"",
+  "new": "intro: \"Sunt Ellina, fotograf și videograf din Chișinău. Fotografiez evenimente pentru organizatori și companii. Pentru branduri și afaceri mici fac ședințe foto, Reels și conținut pentru rețelele sociale.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "  - title: \"Invizibilă în ziua evenimentului\"",
+  "new": "  - title: \"Nu mă observă nimeni\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "    text: \"Declanșator silențios, fără bliț în timpul prezentărilor și o ținută discretă. Speakerii și invitații uită că sunt acolo.\"",
+  "new": "    text: \"Declanșator silențios. Fără bliț în timpul prezentărilor. Ținută discretă. Speakerii și invitații uită repede de prezența mea.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "  - title: \"Livrare rapidă\"",
+  "new": "  - title: \"Primele fotografii, în aceeași seară\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "    text: \"Previzualizări în aceeași seară pentru rețelele dumneavoastră sociale, iar galeria completă editată în cinci zile lucrătoare.\"",
+  "new": "    text: \"Fotografii editate pentru rețelele sociale, în aceeași seară. Galeria completă, în cinci zile lucrătoare.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "  - title: \"Foto și video împreună\"",
+  "new": "  - title: \"Foto și video, o singură persoană\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "    text: \"O singură persoană pentru fotografii, aftermovie și reels, ca evenimentul să fie acoperit fără o echipă întreagă care să încurce.\"",
+  "new": "    text: \"Fotografii, aftermovie și Reels de la o singură persoană. Fără o echipă de filmare între dumneavoastră și invitați.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "    text: \"Un apel scurt despre program, speakerii principali, sponsori și scopul în care vor fi folosite fotografiile.\"",
+  "new": "    text: \"Un apel scurt: programul, speakerii principali, sponsorii și unde veți publica fotografiile.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "    text: \"Pregătesc o listă de cadre și un plan de timp pe baza agendei dumneavoastră, ca fiecare moment important să fie surprins.\"",
+  "new": "    text: \"Pe baza agendei dumneavoastră pregătesc lista de cadre și planul pe ore. Niciun moment important nu se pierde.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "  - title: \"Evenimentul\"",
+  "new": "  - title: \"Ziua evenimentului\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "    text: \"Ajung devreme ca să fotografiez locația și branding-ul înainte de sosirea invitaților, apoi acopăr întregul program.\"",
+  "new": "    text: \"Ajung devreme: locația și brandingul, înainte de sosirea invitaților. Apoi tot programul.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "    text: \"Previzualizări în aceeași seară, galeria completă și filmele în decurs de o săptămână, în formate gata pentru presă, web și rețele sociale.\"",
+  "new": "    text: \"Primele fotografii, în aceeași seară. Galeria completă în cinci zile lucrătoare, filmele în zece. În formate pentru presă, web și rețele sociale.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "seoDescription: \"Fotografie de eveniment, aftermovie, ședințe foto de brand, Reels pentru Instagram și conținut lunar pentru companii și afaceri mici din Chișinău, Moldova.\"",
+  "new": "seoDescription: \"Ellina Yatsenyuk, fotograf și videograf din Chișinău: evenimente pentru organizatori și companii, ședințe foto și Reels pentru branduri și afaceri mici.\""
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "La evenimente urmăresc programul, oamenii și atmosfera. Lucrez discret în timpul prezentărilor și pregătesc previzualizări editate cât impresiile zilei sunt încă proaspete.",
+  "new": "La evenimente urmăresc programul, oamenii și atmosfera. În timpul prezentărilor nu mă auziți și aproape nu mă vedeți. Primele fotografii editate le primiți cât ziua e încă proaspătă."
+ },
+ {
+  "file": "src/content/pages/ro/about.md",
+  "old": "Pentru afaceri mici și branduri, transform munca de zi cu zi în imagini care merită distribuite: oamenii dintr-o cafenea, detaliile unui magazin, un studio în lucru sau serviciile unui salon. Putem planifica împreună o ședință foto, o serie de Reels sau un pachet lunar de conținut.",
+  "new": "Pentru afaceri mici și branduri fotografiez munca de zi cu zi așa încât să vreți s-o arătați: baristul la tejghea, detaliile unui magazin, atmosfera unui studio, serviciile unui salon. O ședință foto, o serie de Reels sau conținut pentru fiecare lună — stabilim împreună."
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "intro: \"I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies, and shoot photos, Instagram Reels and social media content for brands and small businesses.\"",
+  "new": "intro: \"I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies. For brands and small businesses, I shoot photos, Reels and social media content.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "    text: \"Silent shutter, no flash during talks, and dressed to blend in. Speakers and guests forget I'm there.\"",
+  "new": "    text: \"Silent shutter. No flash during talks. Dressed to disappear. Speakers and guests soon forget I’m there.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "  - title: \"Fast delivery\"",
+  "new": "  - title: \"Same-evening photos\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "    text: \"Previews the same evening for your social channels, the full edited gallery within five working days.\"",
+  "new": "    text: \"Edited photos for your social channels the same evening. The full gallery within five working days.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "  - title: \"Photo and video together\"",
+  "new": "  - title: \"One person, photo and video\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "    text: \"One person for photographs, aftermovie and reels, so the event is covered without a crew getting in the way.\"",
+  "new": "    text: \"Photographs, aftermovie and Reels from one person. No crew between you and your guests.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "    text: \"A short call about the programme, the key speakers, sponsors and what the photos will be used for.\"",
+  "new": "    text: \"A short call: the programme, key speakers, sponsors and where the photos will be published.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "    text: \"I prepare a shot list and timing plan from your agenda, so every important moment is covered.\"",
+  "new": "    text: \"From your agenda, I build a shot list and timing plan. No key moment slips through.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "  - title: \"The event\"",
+  "new": "  - title: \"The day\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "    text: \"I arrive early to photograph the venue and branding before guests arrive, then cover the programme.\"",
+  "new": "    text: \"I arrive early for the venue and branding, before the guests. Then the whole programme.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "    text: \"Previews the same evening, the full gallery and films within a week, in formats ready for press, web and social media.\"",
+  "new": "    text: \"First photos the same evening. The full gallery within five working days, films within ten. Formatted for press, web and social media.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "seoDescription: \"Event photography and aftermovies, brand photo shoots, Instagram Reels and monthly social media content for companies and small businesses in Chișinău, Moldova.\"",
+  "new": "seoDescription: \"Ellina Yatsenyuk, photographer and videographer in Chișinău: events for organisers and companies, photo shoots and Reels for brands and small businesses.\""
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "For events, I follow the programme, the people and the atmosphere. I work discreetly during talks and prepare edited previews while the day is still fresh.",
+  "new": "At events, I follow the programme, the people and the atmosphere. During talks you won’t hear me, and you’ll barely see me. Your first edited photos arrive while the day is still fresh."
+ },
+ {
+  "file": "src/content/pages/en/about.md",
+  "old": "For small businesses and brands, I help turn everyday work into images worth sharing: the people behind a café, details in a shop, a studio at work or a salon’s services. We can plan one photo shoot, a series of Reels or a monthly content package together.",
+  "new": "For small businesses and brands, I photograph an ordinary working day in a way you’ll want to share: the barista behind the counter, the details of a shop, a studio mid-session, a salon at work. One shoot, a series of Reels or content every month — we decide together."
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"title\": \"Запланируем фото- или видеосъёмку?\"",
+  "new": "\"title\": \"Фото- и видеосъёмка в Кишинёве: бронирование\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"intro\": \"Расскажите о мероприятии или бизнесе, дате и нужном контенте. В течение одного рабочего дня я подтвержу доступность и пришлю индивидуальное предложение.\"",
+  "new": "\"intro\": \"Напишите о мероприятии или бизнесе, дате и нужном контенте. В течение рабочего дня отвечу, свободна ли дата, и пришлю предложение под вашу задачу.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"name\": \"Съёмка конференции\"",
+  "new": "\"name\": \"Конференция\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"duration\": \"Полдня, полный день или несколько дней\"",
+  "new": "\"duration\": \"Полдня, день или несколько дней\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Ключевые доклады, панели, зал, нетворкинг и брендинг. Превью для соцсетей — в тот же вечер.\"",
+  "new": "\"includes\": \"Ключевые доклады, панели, зал, нетворкинг, брендинг. Первые кадры для соцсетей — в тот же вечер.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Спикеры, участники и групповая работа — бесшумно и без вспышки.\"",
+  "new": "\"includes\": \"Спикеры, участники, работа в группах. Бесшумно и без вспышки.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Презентации, тимбилдинги, дни в офисе и репортаж для сайтов и годовых отчётов.\"",
+  "new": "\"includes\": \"Презентации, тимбилдинги, офисные будни. Репортаж для сайта и годового отчёта.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Выездная мобильная студия, отретушированные портреты в течение 24 часов.\"",
+  "new": "\"includes\": \"Мобильная студия на вашей площадке. Отретушированные портреты — в течение 24 часов.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"name\": \"Афтемуви и рилсы\"",
+  "new": "\"name\": \"Афтемуви и Reels\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Афтемуви на 1–3 минуты и вертикальные рилсы для соцсетей.\"",
+  "new": "\"includes\": \"Афтемуви на 1–3 минуты и вертикальные Reels для соцсетей.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"name\": \"Контент для Instagram / Reels\"",
+  "new": "\"name\": \"Reels и контент для Instagram\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Короткие вертикальные видео и фотографии для Instagram с учётом вашей аудитории и задач.\"",
+  "new": "\"includes\": \"Короткие вертикальные видео и фото для Instagram — под вашу аудиторию и задачу.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"name\": \"Фотосъёмка для бренда / бизнеса\"",
+  "new": "\"name\": \"Фотосъёмка для бренда или бизнеса\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"duration\": \"Формат согласуем вместе\"",
+  "new": "\"duration\": \"Формат обсуждаем\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Люди, товары, пространства и услуги для сайта, Instagram и других материалов.\"",
+  "new": "\"includes\": \"Люди, товары, пространство, услуги. Для сайта, Instagram и всего остального.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"name\": \"Ежемесячный пакет SMM\"",
+  "new": "\"name\": \"Ежемесячный SMM\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"duration\": \"Ежемесячное сотрудничество\"",
+  "new": "\"duration\": \"Каждый месяц\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"includes\": \"Контент-план, регулярные фото- и видеосъёмки и готовые материалы для соцсетей. Объём и каналы согласуем вместе.\"",
+  "new": "\"includes\": \"Контент-план, регулярные фото- и видеосъёмки, готовые публикации для соцсетей. Объём и каналы — по договорённости.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"successMessage\": \"Спасибо! Я получила вашу заявку и в течение одного рабочего дня подтвержу, свободна ли я на вашу дату.\"",
+  "new": "\"successMessage\": \"Спасибо! Заявка у меня. В течение рабочего дня отвечу, свободна ли ваша дата.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"text\": \"Я подтвержу доступность и уточню задачи вашего мероприятия или бизнеса.\"",
+  "new": "\"text\": \"Отвечу, свободна ли дата, и уточню задачу.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"title\": \"Понятное предложение\"",
+  "new": "\"title\": \"Чёткие условия\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"text\": \"До бронирования согласуем время съёмки, материалы и условия.\"",
+  "new": "\"text\": \"До бронирования согласуем время съёмки, что вы получаете и стоимость.\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"title\": \"Дата забронирована\"",
+  "new": "\"title\": \"Дата за вами\""
+ },
+ {
+  "file": "src/content/pages/ru/booking.json",
+  "old": "\"text\": \"После подтверждения вместе подготовим список нужных кадров.\"",
+  "new": "\"text\": \"После подтверждения вместе составим шот-лист.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"title\": \"Planificăm o ședință foto sau video?\"",
+  "new": "\"title\": \"Ședințe foto și filmări în Chișinău: rezervare\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"intro\": \"Spuneți-mi despre evenimentul sau afacerea dumneavoastră, data și conținutul de care aveți nevoie. Confirm disponibilitatea într-o zi lucrătoare și trimit o ofertă personalizată.\"",
+  "new": "\"intro\": \"Scrieți-mi despre eveniment sau afacere, dată și conținutul dorit. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă trimit o ofertă pe măsură.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"name\": \"Acoperirea unei conferințe\"",
+  "new": "\"name\": \"Conferință\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"duration\": \"Jumătate de zi, o zi întreagă sau mai multe zile\"",
+  "new": "\"duration\": \"Jumătate de zi, o zi sau mai multe zile\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Discursuri principale, paneluri, public, networking și branding. Previzualizări în aceeași seară pentru rețelele sociale.\"",
+  "new": "\"includes\": \"Discursuri principale, paneluri, public, networking, branding. Primele fotografii pentru rețelele sociale, în aceeași seară.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Speakeri, participanți și lucru în grup, fotografiați silențios și fără bliț.\"",
+  "new": "\"includes\": \"Speakeri, participanți, lucru în grup. Silențios și fără bliț.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Lansări, team building-uri, zile la birou și reportaje pentru site-uri și rapoarte anuale.\"",
+  "new": "\"includes\": \"Lansări, team building-uri, zile obișnuite la birou. Reportaj pentru site și raportul anual.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Studio mobil la locul evenimentului, portrete retușate în 24 de ore.\"",
+  "new": "\"includes\": \"Studio mobil la locul evenimentului. Portrete retușate în 24 de ore.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"name\": \"Aftermovie și reels\"",
+  "new": "\"name\": \"Aftermovie și Reels\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Un aftermovie de 1–3 minute și reels verticale pentru rețelele sociale.\"",
+  "new": "\"includes\": \"Un aftermovie de 1–3 minute și Reels pentru rețelele sociale.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"name\": \"Conținut pentru Instagram / Reels\"",
+  "new": "\"name\": \"Reels și conținut pentru Instagram\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Videoclipuri verticale scurte și fotografii pentru Instagram, planificate în funcție de publicul și mesajul dumneavoastră.\"",
+  "new": "\"includes\": \"Clipuri verticale scurte și fotografii pentru Instagram, gândite pentru publicul și mesajul dumneavoastră.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"name\": \"Ședință foto pentru brand / afacere\"",
+  "new": "\"name\": \"Ședință foto pentru brand sau afacere\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Oameni, produse, spații și servicii pentru site, Instagram și alte materiale de comunicare.\"",
+  "new": "\"includes\": \"Oameni, produse, spații, servicii. Pentru site, Instagram și restul comunicării.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"includes\": \"Plan de conținut, ședințe foto și video regulate și materiale gata de publicat pe rețelele sociale. Stabilim împreună volumul și canalele.\"",
+  "new": "\"includes\": \"Plan de conținut, ședințe foto și filmări regulate, postări gata de publicat. Volumul și canalele le stabilim împreună.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"successMessage\": \"Vă mulțumesc. Am primit solicitarea dumneavoastră și vă voi confirma disponibilitatea în cel mult o zi lucrătoare.\"",
+  "new": "\"successMessage\": \"Vă mulțumesc! Am primit solicitarea. În cel mult o zi lucrătoare vă spun dacă data e liberă.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"text\": \"Confirm disponibilitatea și discutăm despre evenimentul sau obiectivele afacerii dumneavoastră.\"",
+  "new": "\"text\": \"Vă spun dacă data e liberă și clarificăm de ce aveți nevoie.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"title\": \"O ofertă clară\"",
+  "new": "\"title\": \"Condiții clare\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"text\": \"Stabilim acoperirea, livrabilele și condițiile, înainte de rezervare.\"",
+  "new": "\"text\": \"Înainte de rezervare stabilim volumul de lucru, ce primiți și prețul.\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"title\": \"Data este rezervată\"",
+  "new": "\"title\": \"Data e a dumneavoastră\""
+ },
+ {
+  "file": "src/content/pages/ro/booking.json",
+  "old": "\"text\": \"După confirmare, pregătesc lista de cadre împreună cu dumneavoastră.\"",
+  "new": "\"text\": \"După confirmare, pregătim împreună lista de cadre.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"title\": \"Let’s plan your shoot\"",
+  "new": "\"title\": \"Book an event or brand shoot in Chișinău\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"intro\": \"Tell me about your event or business, the date and the content you need. I’ll confirm availability within one working day and send a tailored quote.\"",
+  "new": "\"intro\": \"Tell me about your event or business, the date and the content you need. Within one working day I’ll tell you if the date is free and send a tailored quote.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"name\": \"Conference coverage\"",
+  "new": "\"name\": \"Conference\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"duration\": \"Half day, full day or multi-day\"",
+  "new": "\"duration\": \"Half day, full day or several days\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"Keynotes, panels, audience, networking and branding. Same-evening previews for social media.\"",
+  "new": "\"includes\": \"Keynotes, panels, audience, networking, branding. First photos for social media the same evening.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"Speakers, participants and group work, photographed silently and without flash.\"",
+  "new": "\"includes\": \"Speakers, participants, group work. Silent, no flash.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"Launches, team events, office days and reportage for websites and annual reports.\"",
+  "new": "\"includes\": \"Launches, team days, ordinary office days. Reportage for your website and annual report.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"name\": \"Speaker & business portraits\"",
+  "new": "\"name\": \"Speaker and business portraits\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"Portable on-site studio, retouched portraits within 24 hours.\"",
+  "new": "\"includes\": \"A portable studio at your venue. Retouched portraits within 24 hours.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"name\": \"Aftermovie & reels\"",
+  "new": "\"name\": \"Aftermovie and Reels\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"A 1–3 minute aftermovie plus vertical reels for social media.\"",
+  "new": "\"includes\": \"A 1–3 minute aftermovie plus vertical Reels for social media.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"name\": \"Instagram content / Reels\"",
+  "new": "\"name\": \"Instagram Reels and content\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"Short vertical videos and photographs for Instagram, planned around your audience and message.\"",
+  "new": "\"includes\": \"Short vertical videos and photos for Instagram, built around your audience and message.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"name\": \"Brand / business photo shoot\"",
+  "new": "\"name\": \"Brand and business photo shoot\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"People, products, spaces and services for your website, Instagram and other communication.\"",
+  "new": "\"includes\": \"People, products, spaces, services. For your website, Instagram and everything else.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"name\": \"Monthly SMM package\"",
+  "new": "\"name\": \"Monthly social media package\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"duration\": \"Monthly collaboration\"",
+  "new": "\"duration\": \"Every month\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"includes\": \"A content plan, regular photo and video shoots, and ready-to-publish social media content. We agree the volume and channels together.\"",
+  "new": "\"includes\": \"A content plan, regular photo and video shoots, posts ready to publish. Volume and channels agreed together.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"successMessage\": \"Thank you. I've received your request and will confirm availability within one working day.\"",
+  "new": "\"successMessage\": \"Thank you. Your request is in. Within one working day I’ll tell you if your date is free.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"text\": \"I confirm availability and ask about your event or business goals.\"",
+  "new": "\"text\": \"I tell you if the date is free and ask about your goals.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"title\": \"A clear proposal\"",
+  "new": "\"title\": \"Clear terms\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"text\": \"We agree coverage, deliverables and terms before booking.\"",
+  "new": "\"text\": \"Before booking, we agree timing, what you receive and the price.\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"title\": \"Your date is reserved\"",
+  "new": "\"title\": \"Date reserved\""
+ },
+ {
+  "file": "src/content/pages/en/booking.json",
+  "old": "\"text\": \"After confirmation, we prepare a shot list together.\"",
+  "new": "\"text\": \"Once confirmed, we build the shot list together.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "lede: \"Event photography & aftermovies. Brand photography, Instagram Reels & social media content. Based in Chișinău, working with companies and small businesses.\"",
+  "new": "lede: \"Event photography and aftermovies. Brand shoots, Reels and social content for companies and small businesses in Chișinău.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "howBooking: 'How a booking works',\n      selected: 'Selected work'",
+  "new": "howBooking: 'How it works',\n      selected: 'Selected work'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "filmsHead: 'Aftermovies & reels'",
+  "new": "filmsHead: 'Aftermovies and Reels'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "cover: 'What I cover', choose: 'Choose one to see the work', book: 'Plan your shoot'",
+  "new": "cover: 'What I shoot', choose: 'Pick one to see the work', book: 'Book your date'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "previews: 'Edited previews'",
+  "new": "previews: 'First edited photos'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "sameEvening: (t: string) => `The same evening, ${t}`",
+  "new": "sameEvening: (t: string) => `The same evening, by ${t}`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "expect: 'What you can expect', howBooking: 'How a booking works', ctaTitle: 'An event or a brand story?',\n      ctaText: 'Send me the date and a few details. I confirm availability within one working day.', book: 'Plan your shoot' }",
+  "new": "expect: 'What you get', howBooking: 'How it works', ctaTitle: 'Event or brand? Start with a date.',\n      ctaText: 'Send the date and a few details. Within one working day I’ll tell you if it’s free.', book: 'Book your date' }"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "head: ['Plan your', 'shoot']",
+  "new": "head: ['Start with', 'the date']"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "hint: (t: string, d: number) => `Previews the same evening at ${t}. Full gallery within ${en(d, 'working day', 'working days')}.`",
+  "new": "hint: (t: string, d: number) => `First photos the same evening, by ${t}. Full gallery within ${en(d, 'working day', 'working days')}.`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "messagePh: 'Your event or business, the photos or videos you need, and where you plan to share them.'",
+  "new": "messagePh: 'Your event or business, the photos or video you need, and where they’ll be published.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "submit: 'Check availability'",
+  "new": "submit: 'Send request'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "seoTitle: 'Films & video'",
+  "new": "seoTitle: 'Films and video'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "intro: 'Aftermovies, highlight films and social reels from conferences, seminars and corporate events. Every film opens full screen.'",
+  "new": "intro: 'Aftermovies, highlights and Reels from conferences, seminars and corporate events. Every film plays full screen.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "intro: (p: number, e: number) => `${en(p, 'photograph', 'photographs')} from ${en(e, 'event', 'events')}. Choose a category, or open any frame to see it full screen.`",
+  "new": "intro: (p: number, e: number) => `Conferences, seminars, corporate events and brands. Pick a category, or open any frame full screen.`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "text: \"This page doesn't exist, or it has moved. The work is still here.\"",
+  "new": "text: \"This page doesn’t exist, or it has moved. The work is still here.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "categories: { Brands: \"Brands & social media\"",
+  "new": "categories: { Brands: \"Brands and social media\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "hint: 'Previews {d} at {t}. Full gallery by {g}.'",
+  "new": "hint: 'First photos on {d} by {t}. Full gallery by {g}.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "close: 'Închide', main: 'Principal'",
+  "new": "close: 'Închideți', main: 'Principal'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "skip: 'Salt la conținut'",
+  "new": "skip: 'Treceți la conținut'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "elsewhere: 'Pe rețele'",
+  "new": "elsewhere: 'Rețele sociale'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "cursor: { view: 'Vezi evenimentul', play: 'Redă', expand: 'Mărește', next: 'Următorul' }",
+  "new": "cursor: { view: 'Vedeți evenimentul', play: 'Redați', expand: 'Măriți', next: 'Următorul' }"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "lede: \"Fotografie de eveniment și aftermovie. Fotografii de brand, Reels pentru Instagram și conținut social media. Din Chișinău, pentru companii și afaceri mici.\"",
+  "new": "lede: \"Fotografie și aftermovie de eveniment. Ședințe foto, Reels și conținut pentru rețelele sociale, pentru companii și afaceri mici din Chișinău.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "howBooking: 'Cum decurge o rezervare',\n      selected: 'Lucrări selectate'",
+  "new": "howBooking: 'Cum lucrăm',\n      selected: 'Lucrări selectate'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "filmsHead: 'Aftermovie-uri și reel-uri'",
+  "new": "filmsHead: 'Aftermovie-uri și Reels'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "cover: 'Ce fotografiez', choose: 'Alegeți o categorie pentru a vedea lucrările', book: 'Planificați o ședință'",
+  "new": "cover: 'Ce fotografiez și filmez', choose: 'Alegeți o categorie', book: 'Rezervați data'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "calc: { date: 'Data dorită pentru ședință', previews: 'Previzualizări editate'",
+  "new": "calc: { date: 'Data dorită', previews: 'Primele fotografii editate'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "sameEvening: (t: string) => `În aceeași seară, la ${t}`",
+  "new": "sameEvening: (t: string) => `În aceeași seară, până la ${t}`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "about: { title: 'Despre', expect: 'La ce vă puteți aștepta', howBooking: 'Cum decurge o rezervare', ctaTitle: 'Un eveniment sau o poveste de brand?',\n      ctaText: 'Trimiteți-mi data și câteva detalii. Vă confirm disponibilitatea în cel mult o zi lucrătoare.', book: 'Planificați o ședință' }",
+  "new": "about: { title: 'Despre mine', expect: 'Ce primiți', howBooking: 'Cum lucrăm', ctaTitle: 'Un eveniment sau un brand? Începem cu data.',\n      ctaText: 'Trimiteți-mi data și câteva detalii. În cel mult o zi lucrătoare vă spun dacă e liberă.', book: 'Rezervați data' }"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "head: ['Planificăm', 'o ședință?']",
+  "new": "head: ['Începem', 'cu data']"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "guestsPh: 'ex. 150', date: 'Data dorită pentru ședință'",
+  "new": "guestsPh: 'de ex. 150', date: 'Data dorită'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "hint: (t: string, d: number) => `Previzualizări în aceeași seară, la ${t}. Galeria completă în ${ro(d, 'zi lucrătoare', 'zile lucrătoare')}.`",
+  "new": "hint: (t: string, d: number) => `Primele fotografii în aceeași seară, până la ${t}. Galeria completă în ${ro(d, 'zi lucrătoare', 'zile lucrătoare')}.`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "submit: 'Verificați disponibilitatea'",
+  "new": "submit: 'Trimiteți cererea'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "intro: 'Aftermovie-uri, highlights și reel-uri pentru rețele sociale, de la conferințe, seminare și evenimente corporative. Fiecare film se deschide pe tot ecranul.'",
+  "new": "intro: 'Aftermovie-uri, momente-cheie și Reels de la conferințe, seminare și evenimente corporative. Fiecare film se deschide pe tot ecranul.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "intro: (p: number, e: number) => `${ro(p, 'fotografie', 'fotografii')} de la ${ro(e, 'eveniment', 'evenimente')}. Alegeți o categorie sau deschideți orice cadru pe tot ecranul.`",
+  "new": "intro: (p: number, e: number) => `Conferințe, seminare, evenimente corporative și branduri. Alegeți o categorie sau deschideți orice cadru pe tot ecranul.`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "Corporate: 'Corporate', Portraits: 'Portrete'",
+  "new": "Corporate: 'Evenimente corporative', Portraits: 'Portrete'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "Highlights: 'Highlights', Reel: 'Reel', 'Behind the scenes': 'Din culise'",
+  "new": "Highlights: 'Momente-cheie', Reel: 'Reel', 'Behind the scenes': 'Din culise'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "from: 'Din {x}'",
+  "new": "from: 'Din proiectul „{x}”'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "hint: 'Previzualizări {d}, la {t}. Galeria completă până la {g}.', menu: 'Meniu', close: 'Închide' }",
+  "new": "hint: 'Primele fotografii: {d}, până la {t}. Galeria completă: {g}.', menu: 'Meniu', close: 'Închideți' }"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "main: 'Основное'",
+  "new": "main: 'Основная навигация'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "lede: \"Фотосъёмка мероприятий и афтемуви. Фотографии для брендов, Reels для Instagram и контент для соцсетей. В Кишинёве, для компаний и малого бизнеса.\"",
+  "new": "lede: \"Фото и видео мероприятий. Съёмки, Reels и контент для соцсетей — для компаний и малого бизнеса в Кишинёве.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "howBooking: 'Как проходит бронирование',\n      selected",
+  "new": "howBooking: 'Как мы работаем',\n      selected"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "filmsHead: 'Афтемуви и рилсы'",
+  "new": "filmsHead: 'Афтемуви и Reels'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "choose: 'Выберите категорию, чтобы посмотреть работы'",
+  "new": "choose: 'Выберите категорию'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "calc: { date: 'Желаемая дата съёмки', previews: 'Превью с обработкой'",
+  "new": "calc: { date: 'Дата съёмки', previews: 'Первые обработанные кадры'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "sameEvening: (t: string) => `В тот же вечер, ${t}`",
+  "new": "sameEvening: (t: string) => `В тот же вечер, к ${t}`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "expect: 'Чего ожидать', howBooking: 'Как проходит бронирование', ctaTitle: 'Событие или история вашего бренда?',\n      ctaText: 'Пришлите дату и пару деталей. Я подтвержу, свободна ли, в течение одного рабочего дня.'",
+  "new": "expect: 'Что вы получаете', howBooking: 'Как мы работаем', ctaTitle: 'Мероприятие или бренд? Начнём с даты.',\n      ctaText: 'Пришлите дату и пару деталей. В течение рабочего дня отвечу, свободна ли она.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "head: ['Запланируем', 'съёмку?']",
+  "new": "head: ['Начнём', 'с даты']"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "guestsPh: 'например, 150', date: 'Желаемая дата съёмки'",
+  "new": "guestsPh: 'например, 150', date: 'Дата съёмки'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "hint: (t: string, d: number) => `Превью — в тот же вечер, в ${t}.",
+  "new": "hint: (t: string, d: number) => `Первые кадры — в тот же вечер, к ${t}."
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "messagePh: 'Ваше мероприятие или бизнес, нужные фотографии и видео, а также площадки для публикации.',\n      submit: 'Проверить дату'",
+  "new": "messagePh: 'О мероприятии или бизнесе, какие нужны фото и видео и где вы будете их публиковать.',\n      submit: 'Отправить заявку'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "intro: 'Афтемуви, хайлайты и рилсы для соцсетей с конференций, семинаров и корпоративных событий. Каждый фильм открывается на весь экран.'",
+  "new": "intro: 'Афтемуви, хайлайты и Reels с конференций, семинаров и корпоративных мероприятий. Каждый фильм — на весь экран.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "intro: (p: number, e: number) => `${ru(p, 'фотография', 'фотографии', 'фотографий')} с ${ru(e, 'мероприятия', 'мероприятий', 'мероприятий')}. Выберите категорию или откройте любой кадр на весь экран.`",
+  "new": "intro: (p: number, e: number) => `Конференции, семинары, корпоративные мероприятия и бренды. Выберите категорию или откройте любой кадр на весь экран.`"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "Corporate: 'Корпоративы', Portraits: 'Портреты', Celebrations: 'Гала и праздники'",
+  "new": "Corporate: 'Корпоративные мероприятия', Portraits: 'Портреты', Celebrations: 'Гала-вечера и праздники'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "Reel: 'Рилс'",
+  "new": "Reel: 'Reels'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "errorTail: 'Пожалуйста, напишите мне на почту напрямую.', required: 'Это поле нужно, чтобы я могла ответить.'",
+  "new": "errorTail: 'Напишите мне, пожалуйста, на почту напрямую.', required: 'Заполните это поле, чтобы я могла ответить.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "emailBad: 'Проверьте email — кажется, адрес неполный.'",
+  "new": "emailBad: 'Проверьте email — адрес выглядит неполным.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "hint: 'Превью — {d} в {t}. Полная галерея — к {g}.'",
+  "new": "hint: 'Первые кадры — {d}, к {t}. Полная галерея — к {g}.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "trust: 'Good work. Good company.', numbers: 'The studio, in numbers'",
+  "new": "trust: 'Worked with', numbers: 'In numbers'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "advanceHint: 'Enable, then scroll through this image to continue. Escape cancels.'",
+  "new": "advanceHint: 'Turn on, then keep scrolling to move on. Press Escape to cancel.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "bookStory: 'A story like this for your event?'",
+  "new": "bookStory: 'Want this for your event?'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "trust: 'Lucrări bune. Oameni buni.', numbers: 'Studioul, în cifre', pauseLogos: 'Opriți siglele', playLogos: 'Reluați siglele'",
+  "new": "trust: 'Am lucrat cu', numbers: 'În cifre', pauseLogos: 'Opriți derularea siglelor', playLogos: 'Reluați derularea siglelor'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "resetZoom: 'Resetați mărirea'",
+  "new": "resetZoom: 'Anulați mărirea'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "advanceHint: 'Activați, apoi derulați prin imagine pentru a continua. Escape anulează.'",
+  "new": "advanceHint: 'Activați, apoi derulați mai departe pentru a continua. Tasta Escape anulează.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "bookStory: 'O poveste ca aceasta pentru evenimentul dumneavoastră?'",
+  "new": "bookStory: 'Fotografiem la fel evenimentul dumneavoastră?'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "trust: 'Хорошая работа. Хорошая компания.', numbers: 'Студия в цифрах', pauseLogos: 'Остановить логотипы', playLogos: 'Продолжить логотипы'",
+  "new": "trust: 'Работала с', numbers: 'В цифрах', pauseLogos: 'Остановить прокрутку логотипов', playLogos: 'Возобновить прокрутку логотипов'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "advance: 'Прокрутить к следующему событию', advanceHint: 'Включите, затем прокрутите изображение, чтобы продолжить. Escape отменяет переход.'",
+  "new": "advance: 'Перейти к следующему мероприятию', advanceHint: 'Включите и прокрутите изображение, чтобы перейти дальше. Esc — отмена.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "bookStory: 'Такая история для вашего мероприятия?'",
+  "new": "bookStory: 'Снимем так же ваше мероприятие?'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "\"reachText\": \"Send the date, place and type of event or project. I reply within one working day.\"",
+  "new": "\"reachText\": \"Send the date, the place and what kind of event or project. I reply within one working day.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "\"reachText\": \"Пришлите дату, место и тип мероприятия или проекта. Отвечу в течение рабочего дня.\"",
+  "new": "\"reachText\": \"Дата, место, тип мероприятия или проекта — этого достаточно. Отвечу в течение рабочего дня.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "\"call\": \"Позвонить мне\"",
+  "new": "\"call\": \"Позвонить\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "\"directChannels\": \"Напишите мне напрямую\"",
+  "new": "\"directChannels\": \"Написать напрямую\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "\"dateBad\": \"Выберите сегодняшнюю или будущую дату.\"",
+  "new": "\"dateBad\": \"Выберите сегодняшнюю или более позднюю дату.\""
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "ro: { read: 'Datele formularului nu au putut fi citite.', fast: 'A fost puțin prea rapid.'",
+  "new": "ro: { read: 'Datele formularului nu au putut fi citite.', fast: 'Formularul a fost trimis prea repede. Încercați din nou.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "spam: 'Verificarea anti-spam nu a trecut.'",
+  "new": "spam: 'Mesajul nu a trecut verificarea anti-spam.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "fast: 'Слишком быстро.', many: 'Слишком много сообщений за короткое время.'",
+  "new": "fast: 'Форма отправлена слишком быстро. Попробуйте ещё раз.', many: 'Слишком много сообщений за короткое время. Попробуйте позже.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "fields: 'Нужны имя, корректный email и сообщение.', links: 'Пожалуйста, добавьте меньше ссылок.'",
+  "new": "fields: 'Укажите имя, корректный email и сообщение.', links: 'Уберите часть ссылок из сообщения.'"
+ }
+]
