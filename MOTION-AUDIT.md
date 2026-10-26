@@ -9,7 +9,7 @@ Baseline: `site-v3` at `8be0e18`; merged wording update `5a78601` during the aud
 | Intro | Retired overlay stays disabled; first paint remains readable. |
 | Apertures | Incoming viewport was opened again after ClientRouter's page aperture; initialize before snapshot, skip that second reveal. Wait for image decode; cancel deferred openings on teardown. |
 | Parallax / hover | CSS transform transitions competed with GSAP's per-frame transforms. Give hover the independent `scale` property, preserving its 1.035 zoom. |
-| SplitText / group reveals | Above-fold text could paint then be hidden by late `from()` setup. Keep already-visible text visible; initialize below-fold entrances when the module runs, not after window load. |
+| SplitText / group reveals | Above-fold text could paint then be hidden by late `from()` setup. Keep already-visible text visible; initialize below-fold entrances when the module runs, not after window load. SplitText waits for loaded fonts so fallback line breaks are not retained. |
 | Film strip | Pin uses explicit spacing, anticipation and refresh invalidation. |
 | Floating preview | Preserve site-v3 pointer-position-before-open fix; dispose page listeners/tweens; disable for reduced motion. |
 | Contact sheet | Preserve opacity dimming and preload at `top bottom+=150%`. No filter reintroduced. |
@@ -23,8 +23,9 @@ Baseline: `site-v3` at `8be0e18`; merged wording update `5a78601` during the aud
 | Flip filters | Finish/cancel previous Flip before taking new geometry; reveal entering photos once; kill outstanding tweens on navigation. |
 | Lightbox | Decode next photo before fading current photo out; request token cancels stale rapid clicks; close/navigation kills timeline and pending swaps. |
 | Menu | Kill and reset list entrance tweens before rapid toggles. |
-| Back/forward | Remove unconditional scroll-to-zero. ClientRouter restores history; Lenis synchronizes to restored position. |
+| Back/forward | Remove unconditional scroll-to-zero. Reapply saved history scroll after pin spacers exist (project bottom was clamped by 207px). ClientRouter swaps HTML attributes: restore `js`, `has-cursor`, and `lenis` before measuring. Without this, the home timeline switched to no-JS layout: document height 10,482 → 12,475px on Back. Fixed: 10,482px both ways and exact scroll restoration. |
 | Skip link | Safari touch focus no longer exposes it: hidden except `:focus-visible`; incoming client navigation clears retained skip-link focus. |
+| Font swap | Bold Latin fallback uses Arial Bold with measured width adjustment; About title measure uses the equivalent em value rather than fallback-dependent ch. Partner’s measured Latin/Cyrillic preloads integrated from `8dfcb65`. |
 | CSS keyframes | `rec` and grain are intentional decorative loops, reduced-motion guarded. Calculator entrance, page aperture and fallback keyframes inventoried; no large-layer filter animation remains. |
 
 ## Verification method

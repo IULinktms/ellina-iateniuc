@@ -93,7 +93,11 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuOpen
 
 /* ───────────── Page transitions: the browser's view transitions (Astro ClientRouter).
    The clicked event photo morphs into the next page's cover via transition:name. ───────────── */
-document.addEventListener('astro:before-preparation', () => { if (menuOpen) setMenu(false); });
+let restoringHistory = false;
+document.addEventListener('astro:before-preparation', (e) => {
+  restoringHistory = (e as Event & { navigationType: string }).navigationType === 'traverse';
+  if (menuOpen) setMenu(false);
+});
 // ClientRouter owns scroll restoration, including back/forward and hash links.
 // Synchronize Lenis after restoration rather than forcing every history entry to zero.
 
@@ -116,6 +120,10 @@ function setupPage() {
   const main = document.querySelector('main');
   if (!main || initializedMain === main) return;
   initializedMain = main;
+  // ClientRouter replaces html attributes; restore enhancement flags before measuring layout.
+  document.documentElement.classList.add('js');
+  document.documentElement.classList.toggle('has-cursor', !!cursor && finePointer && !reduced);
+  if (lenis) document.documentElement.classList.add('lenis');
   const page = document.body.dataset.page ?? '';
   // Persisted language navigation must follow the current story, not the entry page.
   const rest = location.pathname.replace(/^\/(ru|en)(?=\/|$)/, '') || '/';
@@ -167,7 +175,16 @@ function setupPage() {
   cleanups.push(() => { alive = false; cancelAnimationFrame(refreshFrame); document.removeEventListener('load', imageLoaded, true); });
 }
 // Initialize the incoming DOM before the transition snapshot, never after it has opened.
-document.addEventListener('astro:after-swap', () => { clientArrival = true; setupPage(); });
+document.addEventListener('astro:after-swap', () => {
+  // The browser may clamp history scroll before our pin spacers exist. Save the target first.
+  const restoredY = restoringHistory ? (history.state?.scrollY ?? window.scrollY) : window.scrollY;
+  clientArrival = true;
+  setupPage();
+  lenis?.resize();
+  if (lenis) lenis.scrollTo(restoredY, { immediate: true, force: true });
+  else window.scrollTo({ top: restoredY, behavior: 'instant' });
+  ScrollTrigger.update();
+});
 document.addEventListener('astro:page-load', () => {
   setupPage();
   lenis?.resize();
@@ -249,6 +266,17 @@ function parallax() {
 
 /* ───────────── Headings: lines rise from behind a mask ───────────── */
 function headings() {
+  if (reduced) return;
+  let alive = true;
+  const render = () => {
+    if (!alive) return;
+    ctx?.add(() => splitHeadings());
+  };
+  if (document.fonts.status === 'loaded') splitHeadings();
+  else document.fonts.ready.then(render);
+  cleanups.push(() => { alive = false; });
+}
+function splitHeadings() {
   document.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
     if (reduced) return;
     if (el.dataset.split === 'now' || el.getBoundingClientRect().top < innerHeight) return;
