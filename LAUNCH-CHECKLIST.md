@@ -8,9 +8,11 @@
 - [ ] Supply real phone, Telegram, WhatsApp and Viber destinations; verify every contact link on a phone.
 - [ ] Confirm email inbox and verified Resend sender/domain. Configure RESEND_API_KEY, CONTACT_TO and CONTACT_FROM in Vercel through the owner.
 - [ ] Configure paired PUBLIC_TURNSTILE_SITE_KEY / TURNSTILE_SECRET_KEY if required; verify real delivery with an approved test.
-- [ ] Confirm domain/SITE_URL, astro.config.mjs site and CMS config.yml URLs; CMS authentication and editing/publishing workflow.
+- [x] Ian confirmed `https://ellinayatsenyuk.com`; Astro default, CMS URLs, generated robots/sitemap and JSON-LD use it. Domain is already attached to Vercel.
+- [ ] Finish DNS for `ellinayatsenyuk.com` and confirm any `SITE_URL` override matches `https://ellinayatsenyuk.com`. Verify CMS authentication and editing/publishing.
+- [ ] **Must fix before launch:** `hello@ellinaiateniuc.com` remains the placeholder contact email in all three languages, deliberately unchanged until Ian supplies the real inbox. Confirm the Resend sender separately.
 - [ ] Replace remaining generic Vimeo/social links.
-- [ ] Claude Code: performance, accessibility, SEO/localized 404 and final polish (workstreams 5–8), including audit findings.
+- [ ] Finish mobile performance/LCP targets on home and project pages (final local scores 80/89 for RO/RU home, 87 for the sampled project). Accessibility/best-practices/SEO lab scores are 100; retain physical-device and keyboard review before launch.
 - [ ] Owner review on physical iPhone/Android and desktop. Preview only until approval.
 
 ## Round 2 — content readiness

@@ -106,3 +106,72 @@ Raw reports: `screenshots/lighthouse-after-ws4/`. These are local lab measuremen
 - Booking checks in RO/RU/EN at 375/1440 pass: calculator date prefill, past-date rejection, required-field focus, invalid email, mocked failure/retry/success, three next steps, unchanged anti-spam payload, reduced-motion success, and mobile CTA visibility around hero/menu/footer. No real contact messages were sent.
 - Targeted built-visible-text check excludes metadata/client dictionaries and checks for English CTA/error phrases on Romanian/Russian routes. Instagram destinations verified on all three localized contact surfaces. No old Russian surname remains in repository source; historical screenshots/report artifacts are excluded from the source check.
 - Remaining launch inputs: approved photographs, clients/testimonials/counts, real messenger/phone details, verified email delivery and domains. See LAUNCH-CHECKLIST.md. Global keyboard/menu/no-JS and motion/contrast findings remain assigned to Claude 5–8.
+
+## Round 2 — content, positioning and flow (2026-10-26)
+
+Baseline is the merged `site-v3` supplied for round 2. Measured in Chromium after fonts and normal-motion pins settle, 1440×900 and 375×812. Baseline captures and section heights are in `screenshots/<lang>/<width>/before-home.png` and `screenshots/before-height.json`.
+
+Ian expanded the offer during this pass: events stay first, with brand photography, Instagram Reels and monthly social media content as a second core offer. “Salons” is one example of small-business clients, not a niche; no beauty category or fabricated brand work was added.
+
+### Page-height budget
+
+| Locale | Desktop before | Desktop after | Screens after | Phone before | Phone after | Screens after |
+|---|---:|---:|---:|---:|---:|---:|
+| RO | 20,876 | 10,700 | 11.89 | 13,113 | 11,107 | 13.68 |
+| RU | 21,167 | 10,761 | 11.96 | 13,392 | 11,270 | 13.88 |
+| EN | 20,455 | 10,601 | 11.78 | 12,894 | 10,942 | 13.48 |
+
+Final values are measured after scrolling the entire page and loading its images, including refreshed pin spacing. Desktop target ≤10,800px; phone target ≤12,992px. All four selected projects and all seven run-of-show moments remain. Work now precedes explanatory sections; the decorative intermediate marquee is removed. The run-of-show uses compact 30svh minimum steps (content can grow), and selected spreads retain their alternating composition within shorter image frames. Claude supplied both pin reductions (`8b62247`, `dd6ac86`), integrated as `dd7f236`, `7380bd8`.
+
+### Content and conversion checks
+
+- `node scripts/check-public-content.mjs`: all 39 public HTML files pass the requested placeholder-phrase and empty-heading scans. `/admin` is excluded from public copy checks.
+- Fixture builds confirmed: an entirely unfinished proof set emits no section; independently approved names, quotes and positive values appear; unfinished attribution and zero/empty values stay hidden. Fixture data was restored after testing.
+- Current content shows only the existing five-working-day delivery promise. There are no public demo logos/testimonials/zero counters. CMS hints explain automatic publication when filled.
+- All eight services use localized on-request prices. New service chips derive from CMS services, so the Instagram/Reels, brand/business shoot and monthly SMM options stay synchronized.
+- The Brands portfolio filter and home tile are absent until actual published work exists. A future tile can use the matching project cover without a fabricated stock brand image.
+- Interaction testing uncovered a pre-existing collision: the film player bound to the calculator’s `data-film` configuration attribute and opened an empty player from its CTA. Fixed in `012e9d1` by separating calculator configuration (`data-film-days`) from film triggers. Date prefill, all eight services, new service selection and booking-step progression pass in RO/RU/EN at both viewport sizes; no real message was sent.
+
+### Round 2 Lighthouse (compressed local static build)
+
+Single mobile incognito runs with the same gzip/static-server method as round 1. Historical round-1 values are comparison context, not a fresh round-2 baseline. These runs precede Claude’s round-2 image-loading/player integration.
+
+| Route | Round 1 after P / LCP | Round 2 P | LCP | A / BP / SEO |
+|---|---|---:|---|---|
+| `/` | 79 / 4.4s | 85 | 4.1s | 100 / 100 / 100 |
+| `/ru/` | 84 / 3.7s | 86 | 3.5s | 100 / 100 / 100 |
+| `/portfolio/` | 98 / 2.3s | 97 | 2.4s | 100 / 100 / 100 |
+| `/work/leadership-seminar/` | 83 / 4.0s | 84 | 3.8s | 100 / 100 / 100 |
+
+Performance/LCP targets remain unmet on home/project; these are local lab results, not field or CDN measurements. Raw reports: `screenshots/lighthouse-r2/`.
+
+### Round 2 verification and visual review
+
+- Astro check: 0 errors, 0 warnings, four existing hints. Build and CMS YAML validation pass.
+- Captured all 36 localized public pages plus three localized error routes at 375 and 1440 (78 combinations); top/full captures under `screenshots/<lang>/<width>/`. No browser exceptions, broken images or document overflow at these sizes. Reviewed screenshot boards and individual home/delivery/spread/booking views.
+- 216 reduced-motion route/width probes (320, 375, 768, 1024, 1440, 1920) found one narrow Russian portfolio index overflow. Fixed with scoped stacked rows and wrapping in `45e77bc`; targeted 320 retest is clean.
+- Six locale/size interaction paths pass: calculator date to booking, no spurious film dialog, eight service cards and nine chips including Other, new service selection, step navigation, absent Brands filter/tile, proof filtering, skip link, mobile menu focus containment/Escape.
+- No-JS home/contact pass in all three languages. Forms remain readable and editable. No live email was sent.
+- Axe across six page types × three languages × two sizes found only inactive desktop run-of-show contrast. Increased inactive opacity and removed dimming entirely for reduced motion in `1ffb788`; the final integrated 36-page/viewport Axe retest reports no violations.
+- Targeted visible-text grep found no English booking/CTA phrases on RO/RU pages. Neutral Brands naming is used throughout.
+
+### Integrated preview verification
+
+- Claude's blurred loading images (`493f2f7`) and portrait video support (`c455831`) are integrated as `5f7c068` and `dbf8b81`. Resolved the CSS-tail conflict by keeping both loading rules and home spacing.
+- Temporary local fixtures at 375 and 1440 verified 9:16 grid cards and player dimensions, the portrait shelf/filter empty state, and portrait cards in the home strip and project page. Media requests were blocked for deterministic layout checks; this is geometry/interaction validation, not a claim about real portrait footage. Fixture content was removed and the normal site rebuilt before deployment.
+- Refreshed all 78 page captures after the loading-image integration, then refreshed home/films after portrait support and home again after the final spacing adjustment. No page exceptions, broken images or overflow at 375/1440. Rechecked all six booking/keyboard paths and all three no-JS home/contact paths after integration.
+- Final Astro check: **0 errors, 0 warnings, four existing hints**. Final build, public HTML scan and CMS YAML parsing pass.
+- Separate requested domain commit `07dca7d`: `chore: real domain ellinayatsenyuk.com`. Generated canonical/alternate links, JSON-LD, robots and sitemap URLs use `https://ellinayatsenyuk.com`. Email remains `hello@ellinaiateniuc.com` as explicitly requested; it is a launch blocker in the checklist. DNS is pending; no DNS or production deployment changes were made.
+
+Final integrated local Lighthouse (same compressed static method; single runs):
+
+| Route | Performance | LCP | A / BP / SEO |
+|---|---:|---|---|
+| `/` | 80 | 4.3s | 100 / 100 / 100 |
+| `/ru/` | 89 | 3.2s | 100 / 100 / 100 |
+| `/portfolio/` | 98 | 2.0s | 100 / 100 / 100 |
+| `/work/leadership-seminar/` | 87 | 3.5s | 100 / 100 / 100 |
+
+Raw final reports: `screenshots/lighthouse-r2-final/`. Home/project performance and LCP remain below the original targets; visual/content completion does not imply those targets are met. These results preceded only the final eight-pixel desktop section-spacing trim.
+
+Preview: https://ellina-iateniuc-6s4aky8wg-iul-ink.vercel.app — Vercel deployment `dpl_7biiuEXS33SJCriyvFaHQNiVAqe9`, **Ready**, target **preview**. Live protected-preview reads of home and Russian contact confirmed real-domain metadata, no unfinished phrases, and localized on-request pricing. Source at deployment: `3ad235f` (later commits only document verification). No production deployment or main push.

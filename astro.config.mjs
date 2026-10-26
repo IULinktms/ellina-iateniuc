@@ -7,8 +7,8 @@ import sitemap from '@astrojs/sitemap';
 const isStaticPreview = process.env.STATIC_PREVIEW === '1';
 
 export default defineConfig({
-  // Change to Ellina's real domain once connected
-  site: process.env.SITE_URL || 'https://ellinaiateniuc.com',
+  // Canonical domain confirmed by Ian; SITE_URL may override it for an explicit environment
+  site: process.env.SITE_URL || 'https://ellinayatsenyuk.com',
   output: 'static',
   adapter: isStaticPreview ? undefined : vercel({ imageService: false }),
   integrations: [

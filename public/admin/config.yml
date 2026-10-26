@@ -9,8 +9,8 @@ backend:
   branch: main
   # base_url: https://<your-auth-worker>.workers.dev   # optional: one-click GitHub sign-in (see README)
 
-site_url: https://ellinaiateniuc.com
-display_url: https://ellinaiateniuc.com
+site_url: https://ellinayatsenyuk.com
+display_url: https://ellinayatsenyuk.com
 logo_url: /favicon.svg
 publish_mode: simple
 

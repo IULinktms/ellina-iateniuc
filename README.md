@@ -14,13 +14,13 @@ Every photo and video in the repository is a **placeholder**. Ellina replaces th
    git push -u origin main
    ```
 2. **Vercel** — *Add New → Project → Import* the repository. Framework is detected as Astro. Deploy.
-3. **Domain** — Vercel → Project → Settings → Domains → add `ellinaiateniuc.com` (or her real domain). Then set `site` in `astro.config.mjs` (or the `SITE_URL` env var) and `site_url` in `public/admin/config.yml`.
+3. **Domain** — `https://ellinayatsenyuk.com` is attached to the Vercel project; DNS is pending. The Astro default, CMS URLs, robots, sitemap, canonical URLs and JSON-LD use this domain. If `SITE_URL` is configured, keep it set to this same URL.
 4. **Contact form email** — create a free account at resend.com, verify the domain, then add env vars in Vercel → Settings → Environment Variables:
 
    | Variable | Example |
    |---|---|
    | `RESEND_API_KEY` | `re_…` |
-   | `CONTACT_TO` | `hello@ellinaiateniuc.com` |
+   | `CONTACT_TO` | `hello@ellinaiateniuc.com` (placeholder; await Ian’s real inbox before launch) |
    | `CONTACT_FROM` | `Website <inquiries@ellinaiateniuc.com>` |
    | `PUBLIC_TURNSTILE_SITE_KEY` | optional — Cloudflare Turnstile site key |
    | `TURNSTILE_SECRET_KEY` | optional — Turnstile secret |
