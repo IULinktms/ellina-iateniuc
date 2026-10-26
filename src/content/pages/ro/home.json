@@ -10,32 +10,27 @@
     {
       "label": "Conferințe",
       "category": "Conferences",
-      "image": "../../../assets/uploads/summit-panel.jpg",
-      "alt": "Discuție în panel pe scenă"
+      "alt": ""
     },
     {
       "label": "Seminare și ateliere",
       "category": "Seminars",
-      "image": "../../../assets/uploads/seminar-brick-hall.jpg",
-      "alt": "Speaker la un seminar"
+      "alt": ""
     },
     {
       "label": "Evenimente corporative",
       "category": "Corporate",
-      "image": "../../../assets/uploads/launch-stage-light.jpg",
-      "alt": "Scena unui eveniment de lansare"
+      "alt": ""
     },
     {
       "label": "Portrete de business",
       "category": "Portraits",
-      "image": "../../../assets/uploads/portrait-elena.jpg",
-      "alt": "Portret de business"
+      "alt": ""
     },
     {
       "label": "Gale și sărbători",
       "category": "Celebrations",
-      "image": "../../../assets/uploads/gala-ballroom.jpg",
-      "alt": "Sală de bal pentru gală"
+      "alt": ""
     },
     {
       "label": "Branduri și social media",
@@ -51,51 +46,37 @@
     {
       "time": "07:30",
       "title": "Înainte de primul invitat",
-      "text": "Sala goală, scena și fiecare banner al sponsorilor, în lumină plină, înainte să intre cineva.",
-      "image": "../../../assets/uploads/gala-hall.jpg",
-      "alt": "Sală de banchet pregătită înainte de sosirea invitaților"
+      "text": "Sala goală, scena și fiecare banner al sponsorilor, în lumină plină, înainte să intre cineva."
     },
     {
       "time": "09:00",
       "title": "Înregistrarea",
-      "text": "Ecusoane, cafea, primele strângeri de mână. Cadre spontane care arată că sala a fost plină.",
-      "image": "../../../assets/uploads/gala-networking.jpg",
-      "alt": "Invitați care discută la un pahar, la înregistrare"
+      "text": "Ecusoane, cafea, primele strângeri de mână. Cadre spontane care arată că sala a fost plină."
     },
     {
       "time": "10:00",
       "title": "Discursul principal",
-      "text": "Din fața scenei: cele mai bune gesturi ale speakerului și reacția publicului. Fără bliț, fără să deranjez.",
-      "image": "../../../assets/uploads/summit-arena-keynote.jpg",
-      "alt": "Speaker principal pe o scenă luminată, în fața unei săli pline"
+      "text": "Din fața scenei: cele mai bune gesturi ale speakerului și reacția publicului. Fără bliț, fără să deranjez."
     },
     {
       "time": "11:30",
       "title": "Panelul",
-      "text": "Fiecare participant la panel, fiecare întrebare din sală și cadre largi care arată amploarea evenimentului.",
-      "image": "../../../assets/uploads/summit-panel.jpg",
-      "alt": "Discuție în panel pe o scenă rotundă"
+      "text": "Fiecare participant la panel, fiecare întrebare din sală și cadre largi care arată amploarea evenimentului."
     },
     {
       "time": "14:00",
       "title": "Atelierele",
-      "text": "Secțiuni paralele și lucru în grup: mâini, flipcharturi, oameni care gândesc cu voce tare.",
-      "image": "../../../assets/uploads/workshop-sticky-wall.jpg",
-      "alt": "Grup la un atelier, discutând notițele de pe un perete"
+      "text": "Secțiuni paralele și lucru în grup: mâini, flipcharturi, oameni care gândesc cu voce tare."
     },
     {
       "time": "18:00",
       "title": "Închiderea și fotografia de grup",
-      "text": "Aplauzele de final, toți speakerii împreună. Fotografia de grup e planificată din timp: două minute și gata.",
-      "image": "../../../assets/uploads/summit-crowd.jpg",
-      "alt": "Sală plină la închiderea unei conferințe"
+      "text": "Aplauzele de final, toți speakerii împreună. Fotografia de grup e planificată din timp: două minute și gata."
     },
     {
       "time": "21:00",
       "title": "Primele fotografii, în inbox",
-      "text": "O selecție editată pentru presă și rețelele sociale. În aceeași seară.",
-      "image": "../../../assets/uploads/office-laptop.jpg",
-      "alt": "Mâini la un laptop, revizuind fotografii"
+      "text": "O selecție editată pentru presă și rețelele sociale. În aceeași seară."
     }
   ],
   "clients": [

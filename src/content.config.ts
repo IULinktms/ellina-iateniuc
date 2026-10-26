@@ -115,7 +115,7 @@ const home = defineCollection({
       statement: z.string(),
       runOfShowTitle: z.string().default('A conference day, as I cover it'),
       runOfShow: z
-        .array(z.object({ time: z.string(), title: z.string(), text: z.string(), image: image(), alt: z.string() }))
+        .array(z.object({ time: z.string(), title: z.string(), text: z.string(), image: image().optional(), alt: z.string().default('') }))
         .default([]),
       featuredProjects: z.array(z.string()).default([]),
       disciplinesIntro: z.string().default(''),

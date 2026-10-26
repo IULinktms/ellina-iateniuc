@@ -208,13 +208,13 @@ collections:
             label: Run of show (a typical event day)
             widget: list
             summary: '{{fields.time}} — {{fields.title}}'
-            hint: The timeline on the home page. The picture changes as visitors scroll through the times.
+            hint: The timeline on the home page. The picture changes as visitors scroll through the times. The section stays hidden until every moment has a photo from a real event.
             fields:
               - { name: time, label: Time, widget: string, hint: 'e.g. 10:00', i18n: duplicate }
               - { name: title, label: Moment, widget: string, i18n: true }
               - { name: text, label: What I photograph, widget: text, i18n: true }
-              - { name: image, label: Photo, widget: image, i18n: duplicate }
-              - { name: alt, label: Photo description, widget: string, i18n: true }
+              - { name: image, label: Photo, widget: image, required: false, i18n: duplicate }
+              - { name: alt, label: Photo description, widget: string, required: false, i18n: true }
           - name: featuredProjects
             i18n: duplicate
             label: Selected work (in order)

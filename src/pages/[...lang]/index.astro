@@ -44,7 +44,9 @@ const posterSizes = `(max-aspect-ratio: ${home.heroPoster.width}/${home.heroPost
 const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp', quality: 78 })));
 // Blurred previews behind photos that load later (lib/lqip.ts)
 const heroPlaceholder = await lqip(home.heroPoster);
-const rosPlaceholders = await Promise.all(home.runOfShow.map((r) => lqip(r.image)));
+// The day-by-the-hour timeline only shows real event photos: it stays hidden until every moment has one
+const runOfShow = home.runOfShow.every((r) => r.image) ? home.runOfShow.map((r) => ({ ...r, image: r.image! })) : [];
+const rosPlaceholders = await Promise.all(runOfShow.map((r) => lqip(r.image)));
 const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster)));
 ---
 
@@ -121,7 +123,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
     </div>
   </section>
 
-  {home.runOfShow.length > 0 && (
+  {runOfShow.length > 0 && (
     <section class="ros" aria-labelledby="ros-h" data-ros>
       <div class="wrap ros__head" data-reveal>
         <h2 id="ros-h" class="display ros__title">{home.runOfShowTitle}</h2>
@@ -129,14 +131,14 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
       <div class="ros__body wrap">
         <figure class="ros__media" aria-hidden="true">
           <div class="ros__pictures" data-lqip={rosPlaceholders[0] ? 'eager' : undefined} style={rosPlaceholders[0]?.style} {...rosPlaceholders[0]?.attrs}>
-            {home.runOfShow.map((r, i) => (
+            {runOfShow.map((r, i) => (
               <Image src={r.image} alt="" widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={78} loading="lazy" class:list={[i === 0 && 'is-on']} />
             ))}
           </div>
-          <figcaption class="ros__clock tnum" data-ros-clock>{home.runOfShow[0].time}</figcaption>
+          <figcaption class="ros__clock tnum" data-ros-clock>{runOfShow[0].time}</figcaption>
         </figure>
         <ol class="ros__list" role="list">
-          {home.runOfShow.map((r, i) => (
+          {runOfShow.map((r, i) => (
             <li class="ros__item" data-ros-item data-time={r.time}>
               <time class="ros__time tnum">{r.time}</time>
               <h3>{r.title}</h3>

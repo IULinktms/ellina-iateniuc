@@ -10,32 +10,27 @@
     {
       "label": "Conferences",
       "category": "Conferences",
-      "image": "../../../assets/uploads/summit-panel.jpg",
-      "alt": "Panel discussion on stage"
+      "alt": ""
     },
     {
       "label": "Seminars and workshops",
       "category": "Seminars",
-      "image": "../../../assets/uploads/seminar-brick-hall.jpg",
-      "alt": "Speaker at a seminar"
+      "alt": ""
     },
     {
       "label": "Corporate events",
       "category": "Corporate",
-      "image": "../../../assets/uploads/launch-stage-light.jpg",
-      "alt": "Launch event stage"
+      "alt": ""
     },
     {
       "label": "Business portraits",
       "category": "Portraits",
-      "image": "../../../assets/uploads/portrait-elena.jpg",
-      "alt": "Business portrait"
+      "alt": ""
     },
     {
       "label": "Galas and celebrations",
       "category": "Celebrations",
-      "image": "../../../assets/uploads/gala-ballroom.jpg",
-      "alt": "Gala ballroom"
+      "alt": ""
     },
     {
       "label": "Brands and social media",
@@ -51,51 +46,37 @@
     {
       "time": "07:30",
       "title": "Before the first guest",
-      "text": "The empty room, the stage, every sponsor banner. In full light, before anyone walks in.",
-      "image": "../../../assets/uploads/gala-hall.jpg",
-      "alt": "Banquet hall set up before guests arrive"
+      "text": "The empty room, the stage, every sponsor banner. In full light, before anyone walks in."
     },
     {
       "time": "09:00",
       "title": "Registration",
-      "text": "Badges, coffee, first handshakes. Candid frames that prove the room was full.",
-      "image": "../../../assets/uploads/gala-networking.jpg",
-      "alt": "Guests talking over drinks at registration"
+      "text": "Badges, coffee, first handshakes. Candid frames that prove the room was full."
     },
     {
       "time": "10:00",
       "title": "Opening keynote",
-      "text": "From the foot of the stage: the speaker’s best gestures and the room reacting. No flash, no distraction.",
-      "image": "../../../assets/uploads/summit-arena-keynote.jpg",
-      "alt": "Keynote speaker on a lit stage before a full hall"
+      "text": "From the foot of the stage: the speaker’s best gestures and the room reacting. No flash, no distraction."
     },
     {
       "time": "11:30",
       "title": "Panel discussion",
-      "text": "Every panellist, every question from the floor, and wide frames that show the scale.",
-      "image": "../../../assets/uploads/summit-panel.jpg",
-      "alt": "Panel discussion on a round stage"
+      "text": "Every panellist, every question from the floor, and wide frames that show the scale."
     },
     {
       "time": "14:00",
       "title": "Workshops",
-      "text": "Breakout rooms and group work: hands, flip charts, people thinking out loud.",
-      "image": "../../../assets/uploads/workshop-sticky-wall.jpg",
-      "alt": "Workshop group discussing notes on a wall"
+      "text": "Breakout rooms and group work: hands, flip charts, people thinking out loud."
     },
     {
       "time": "18:00",
       "title": "Closing and group photo",
-      "text": "The final applause, all the speakers together. The group photo is planned in advance: two minutes, done.",
-      "image": "../../../assets/uploads/summit-crowd.jpg",
-      "alt": "Full hall at the close of a conference"
+      "text": "The final applause, all the speakers together. The group photo is planned in advance: two minutes, done."
     },
     {
       "time": "21:00",
       "title": "First photos in your inbox",
-      "text": "An edited selection for press and social media. The same evening.",
-      "image": "../../../assets/uploads/office-laptop.jpg",
-      "alt": "Hands at a laptop reviewing photographs"
+      "text": "An edited selection for press and social media. The same evening."
     }
   ],
   "clients": [
