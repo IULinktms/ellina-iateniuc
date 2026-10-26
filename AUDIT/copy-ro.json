@@ -1,0 +1,327 @@
+[
+  {
+    "file": "src/content/pages/ro/site.json",
+    "old": "\"seoTitle\": \"Ellina Yatsenyuk — Evenimente și conținut de brand în Chișinău\"",
+    "new": "\"seoTitle\": \"Ellina Yatsenyuk — fotograf de evenimente și branduri, Chișinău\""
+  },
+  {
+    "file": "src/content/pages/ro/site.json",
+    "old": "\"seoDescription\": \"Fotografie de eveniment, aftermovie,",
+    "new": "\"seoDescription\": \"Fotografie de evenimente, aftermovie,"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "lede: \"Fotografie de eveniment și aftermovie. Fotografii de brand, Reels pentru Instagram și conținut social media. Din Chișinău, pentru companii și afaceri mici.\"",
+    "new": "lede: \"Fotografie și aftermovie pentru evenimente. Ședințe foto de brand, Reels pentru Instagram și conținut pentru social media. Din Chișinău, pentru companii și afaceri mici.\""
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "livrez previzualizări editate în aceeași seară. Pentru branduri și afaceri mici, planific ședințe foto, filmez Reels pentru Instagram și creez conținut regulat",
+    "new": "trimit primele fotografii editate în aceeași seară. Pentru branduri și afaceri mici fac ședințe foto, filmez Reels pentru Instagram și pregătesc conținut regulat"
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "\"ctaTitle\": \"Un eveniment sau o poveste de brand?\"",
+    "new": "\"ctaTitle\": \"Un eveniment sau un proiect de brand?\""
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "\"ctaText\": \"Spuneți-mi despre evenimentul, afacerea sau conținutul de care aveți nevoie. Confirm disponibilitatea și propun un format potrivit într-o zi lucrătoare.\"",
+    "new": "\"ctaText\": \"Povestiți-mi despre evenimentul sau afacerea dumneavoastră și de ce conținut aveți nevoie. În cel mult o zi lucrătoare vă confirm disponibilitatea și vă propun un format potrivit.\""
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "\"text\": \"Sala, scena și fiecare banner al sponsorilor, fotografiate goale și luminate, înainte să intre primul invitat.\"",
+    "new": "\"text\": \"Sala goală, scena luminată și fiecare banner al sponsorilor, fotografiate înainte să intre primul invitat.\""
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "cadre largi care arată amploarea sălii.",
+    "new": "cadre largi care arată amploarea evenimentului."
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "\"text\": \"Săli pentru secțiuni paralele și lucru în grup:",
+    "new": "\"text\": \"Secțiuni paralele și lucru în grup:"
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "\"title\": \"Previzualizări în inbox\"",
+    "new": "\"title\": \"Primele fotografii, în inbox\""
+  },
+  {
+    "file": "src/content/pages/ro/home.json",
+    "old": "\"text\": \"O selecție de previzualizări editate pentru presă",
+    "new": "\"text\": \"O primă selecție de fotografii editate pentru presă"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "filmsHead: 'Aftermovie-uri și reel-uri'",
+    "new": "filmsHead: 'Aftermovie-uri și Reels'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "cover: 'Ce fotografiez'",
+    "new": "cover: 'Ce fotografiez și filmez'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "book: 'Planificați o ședință',\n      sheetKicker",
+    "new": "book: 'Cereți o ofertă',\n      sheetKicker"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "trust: 'Lucrări bune. Oameni buni.'",
+    "new": "trust: 'Companii cu care am lucrat'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "calc: { date: 'Data dorită pentru ședință', previews: 'Previzualizări editate'",
+    "new": "calc: { date: 'Data evenimentului', previews: 'Primele fotografii editate'"
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "seoDescription: \"Fotografie de eveniment, aftermovie, ședințe foto de brand, Reels pentru Instagram și conținut lunar pentru companii și afaceri mici din Chișinău, Moldova.\"",
+    "new": "seoDescription: \"Ellina Yatsenyuk, fotograf și videograf din Chișinău: evenimente pentru organizatori și companii, ședințe foto și Reels pentru branduri și afaceri mici.\""
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "about: { title: 'Despre',",
+    "new": "about: { title: 'Despre mine',"
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "Speakerii și invitații uită că sunt acolo.",
+    "new": "Speakerii și invitații uită de prezența mea."
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "text: \"Previzualizări în aceeași seară pentru rețelele dumneavoastră sociale, iar galeria completă editată în cinci zile lucrătoare.\"",
+    "new": "text: \"Primele fotografii editate, în aceeași seară, pentru rețelele dumneavoastră sociale. Galeria completă, în cinci zile lucrătoare.\""
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "fotografii, aftermovie și reels, ca evenimentul",
+    "new": "fotografii, aftermovie și Reels, ca evenimentul"
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "sponsori și scopul în care vor fi folosite fotografiile.",
+    "new": "sponsori și unde vor fi folosite fotografiile."
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "fotografiez locația și branding-ul înainte de sosirea invitaților, apoi acopăr întregul program.",
+    "new": "fotografiez locația și brandingul înainte de sosirea invitaților, apoi tot programul."
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "text: \"Previzualizări în aceeași seară, galeria completă și filmele în decurs de o săptămână, în formate gata pentru presă, web și rețele sociale.\"",
+    "new": "text: \"Primele fotografii în aceeași seară, galeria completă în cinci zile lucrătoare, filmele în zece. Totul în formate gata pentru presă, web și rețele sociale.\""
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "și pregătesc previzualizări editate cât impresiile",
+    "new": "și trimit primele fotografii editate cât impresiile"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "ctaTitle: 'Un eveniment sau o poveste de brand?'",
+    "new": "ctaTitle: 'Un eveniment sau un proiect de brand?'"
+  },
+  {
+    "file": "src/content/pages/ro/about.md",
+    "old": "detaliile unui magazin, un studio în lucru sau",
+    "new": "detaliile unui magazin, atmosfera unui studio sau"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "ctaText: 'Trimiteți-mi data și câteva detalii. Vă confirm disponibilitatea în cel mult o zi lucrătoare.', book: 'Planificați o ședință' }",
+    "new": "ctaText: 'Trimiteți-mi data și câteva detalii. Vă confirm disponibilitatea în cel mult o zi lucrătoare.', book: 'Cereți o ofertă' }"
+  },
+  {
+    "file": "src/content/pages/ro/booking.json",
+    "old": "\"title\": \"Planificăm o ședință foto sau video?\"",
+    "new": "\"title\": \"Planificăm o ședință foto sau o filmare?\""
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "head: ['Planificăm', 'o ședință?']",
+    "new": "head: ['Să discutăm', 'proiectul']"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "guestsPh: 'ex. 150', date: 'Data dorită pentru ședință'",
+    "new": "guestsPh: 'de ex. 150', date: 'Data dorită'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "hint: (t: string, d: number) => `Previzualizări în aceeași seară, la ${t}.",
+    "new": "hint: (t: string, d: number) => `Primele fotografii în aceeași seară, la ${t}."
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "hint: 'Previzualizări {d}, la {t}. Galeria completă până la {g}.'",
+    "new": "hint: 'Primele fotografii: {d}, la {t}. Galeria completă: {g}.'"
+  },
+  {
+    "file": "src/content/pages/ro/booking.json",
+    "old": "\"name\": \"Acoperirea unei conferințe\"",
+    "new": "\"name\": \"Conferință\""
+  },
+  {
+    "file": "src/content/pages/ro/booking.json",
+    "old": "networking și branding. Previzualizări în aceeași seară pentru rețelele sociale.",
+    "new": "networking și branding. Primele fotografii editate, în aceeași seară, pentru rețelele sociale."
+  },
+  {
+    "file": "src/content/pages/ro/booking.json",
+    "old": "\"name\": \"Aftermovie și reels\"",
+    "new": "\"name\": \"Aftermovie și Reels\""
+  },
+  {
+    "file": "src/content/pages/ro/booking.json",
+    "old": "\"includes\": \"Un aftermovie de 1–3 minute și reels verticale pentru rețelele sociale.\"",
+    "new": "\"includes\": \"Un aftermovie de 1–3 minute și Reels pentru rețelele sociale.\""
+  },
+  {
+    "file": "src/content/pages/ro/booking.json",
+    "old": "ședințe foto și video regulate",
+    "new": "ședințe foto și filmări regulate"
+  },
+  {
+    "file": "src/content/pages/ro/booking.json",
+    "old": "\"text\": \"Stabilim acoperirea, livrabilele și condițiile, înainte de rezervare.\"",
+    "new": "\"text\": \"Stabilim volumul de lucru, ce primiți și condițiile, înainte de rezervare.\""
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "skip: 'Salt la conținut'",
+    "new": "skip: 'Treceți la conținut'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "close: 'Închide', main: 'Principal'",
+    "new": "close: 'Închideți', main: 'Principal'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "elsewhere: 'Pe rețele'",
+    "new": "elsewhere: 'Rețele sociale'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "cursor: { view: 'Vezi evenimentul', play: 'Redă', expand: 'Mărește', next: 'Următorul' }",
+    "new": "cursor: { view: 'Vedeți evenimentul', play: 'Redați', expand: 'Măriți', next: 'Următorul' }"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "menu: 'Meniu', close: 'Închide' },",
+    "new": "menu: 'Meniu', close: 'Închideți' },"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "from: 'Din {x}'",
+    "new": "from: 'Din proiectul „{x}”'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "pauseLogos: 'Opriți siglele', playLogos: 'Reluați siglele'",
+    "new": "pauseLogos: 'Opriți derularea siglelor', playLogos: 'Reluați derularea siglelor'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "resetZoom: 'Resetați mărirea'",
+    "new": "resetZoom: 'Anulați mărirea'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "Escape anulează.'",
+    "new": "Tasta Escape anulează.'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "Corporate: 'Corporate', Portraits: 'Portrete'",
+    "new": "Corporate: 'Evenimente corporative', Portraits: 'Portrete'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "Highlights: 'Highlights', Reel: 'Reel', 'Behind the scenes': 'Din culise'",
+    "new": "Highlights: 'Momente-cheie', Reel: 'Reel', 'Behind the scenes': 'Din culise'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "intro: 'Aftermovie-uri, highlights și reel-uri pentru rețele sociale,",
+    "new": "intro: 'Aftermovie-uri, filme cu momente-cheie și Reels pentru rețelele sociale,"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "fast: 'A fost puțin prea rapid.'",
+    "new": "fast: 'Formularul a fost trimis prea repede. Încercați din nou.'"
+  },
+  {
+    "file": "src/lib/i18n.ts",
+    "old": "spam: 'Verificarea anti-spam nu a trecut.'",
+    "new": "spam: 'Mesajul nu a trecut verificarea anti-spam.'"
+  },
+  {
+    "file": "src/content/projects/ro/future-of-work-summit.md",
+    "old": "title: \"Summitul Viitorul Muncii\"",
+    "new": "title: \"Summitul „Viitorul Muncii”\""
+  },
+  {
+    "file": "src/content/projects/ro/future-of-work-summit.md",
+    "old": "iar între ele m-am mutat prin sălile secțiunilor paralele, trimițând în fiecare seară, la ora 21:00, o selecție de 60 de previzualizări.",
+    "new": "iar între ele am trecut prin sălile secțiunilor paralele. În fiecare seară, la ora 21:00, am trimis o selecție de 60 de fotografii editate."
+  },
+  {
+    "file": "src/content/projects/ro/future-of-work-summit.md",
+    "old": "cu previzualizări în aceeași seară pentru rețelele sociale ale organizatorilor.",
+    "new": "cu primele fotografii editate în aceeași seară, pentru rețelele sociale ale organizatorilor."
+  },
+  {
+    "file": "src/content/projects/ro/design-sprint-workshop.md",
+    "old": "excerpt: \"Notițe adezive, table albe",
+    "new": "excerpt: \"Post-it-uri, table albe"
+  },
+  {
+    "file": "src/content/projects/ro/design-sprint-workshop.md",
+    "old": "coverAlt: \"Echipă care discută idei în fața unui perete acoperit cu notițe adezive\"",
+    "new": "coverAlt: \"Echipă care discută idei în fața unui perete acoperit cu post-it-uri\""
+  },
+  {
+    "file": "src/content/projects/ro/design-sprint-workshop.md",
+    "old": "analizează împreună un cod\"",
+    "new": "analizează împreună codul\""
+  },
+  {
+    "file": "src/content/projects/ro/design-sprint-workshop.md",
+    "old": "oameni care nu sunt de acord în mod constructiv.",
+    "new": "oameni care se contrazic constructiv."
+  },
+  {
+    "file": "src/content/projects/ro/faces-of-the-forum.md",
+    "old": "role: \"Retușare\"",
+    "new": "role: \"Retuș\""
+  },
+  {
+    "file": "src/content/projects/ro/inside-the-office.md",
+    "old": "O zi obișnuită de lucru, fotografiată sincer,",
+    "new": "O zi obișnuită de lucru, fotografiată spontan,"
+  },
+  {
+    "file": "src/content/projects/ro/inside-the-office.md",
+    "old": "fotografiind discret și fără să cer ca ceva să fie regizat.",
+    "new": "fotografiind discret, fără să regizez nimic."
+  },
+  {
+    "file": "src/content/projects/ro/leadership-seminar.md",
+    "old": "Fotografiez în mod silențios, fără bliț, și rămân la marginile sălii, ca nimeni să nu joace pentru cameră.",
+    "new": "Fotografiez silențios, fără bliț, și rămân la marginea sălii, ca nimeni să nu pozeze pentru cameră."
+  },
+  {
+    "file": "src/content/films/ro/future-of-work-aftermovie.md",
+    "old": "title: \"Summitul Viitorul Muncii — aftermovie\"",
+    "new": "title: \"Summitul „Viitorul Muncii” — aftermovie\""
+  }
+]

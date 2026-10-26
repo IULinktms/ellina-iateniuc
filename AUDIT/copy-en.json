@@ -1,0 +1,182 @@
+[
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/site.json",
+    "old": "Event photographer & brand content creator",
+    "new": "Event photographer and brand content creator"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/site.json",
+    "old": "Ellina Yatsenyuk — Events & brand content in Chișinău",
+    "new": "Ellina Yatsenyuk — Event photographer in Chișinău"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/site.json",
+    "old": "Event photography and aftermovies, brand photo shoots, Instagram Reels and monthly social media content for companies and small businesses in Chișinău, Moldova.",
+    "new": "Event photography and aftermovies, brand photo shoots, Instagram Reels and monthly social content for businesses in Chișinău, Moldova."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/about.md",
+    "old": "Speakers and guests forget I'm there.",
+    "new": "Speakers and guests forget I’m there."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/about.md",
+    "old": "Previews the same evening, the full gallery and films within a week, in formats ready for press, web and social media.",
+    "new": "Previews the same evening, the full gallery within five working days and films within ten, in formats ready for press, web and social media."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/about.md",
+    "old": "Event photography and aftermovies, brand photo shoots, Instagram Reels and monthly social media content for companies and small businesses in Chișinău, Moldova.",
+    "new": "About Ellina Yatsenyuk: event photographer and videographer in Chișinău, covering conferences, seminars and brand content."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/booking.json",
+    "old": "Let’s plan your shoot",
+    "new": "Book an event or brand shoot in Chișinău"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/booking.json",
+    "old": "Monthly SMM package",
+    "new": "Monthly social media package"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/booking.json",
+    "old": "I've received your request",
+    "new": "I’ve received your request"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/booking.json",
+    "old": "Instagram content / Reels",
+    "new": "Instagram Reels and content"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/booking.json",
+    "old": "Brand / business photo shoot",
+    "new": "Brand and business photo shoot"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/booking.json",
+    "old": "Speaker & business portraits",
+    "new": "Speaker and business portraits"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/booking.json",
+    "old": "Aftermovie & reels",
+    "new": "Aftermovie and reels"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/home.json",
+    "old": "Events and brands. Thoughtfully captured.",
+    "new": "Events and brands, shot quietly."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/home.json",
+    "old": "Seminars & workshops",
+    "new": "Seminars and workshops"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/home.json",
+    "old": "Galas & celebrations",
+    "new": "Galas and celebrations"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/pages/en/home.json",
+    "old": "Brands & social media",
+    "new": "Brands and social media"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "Event photography & aftermovies. Brand photography, Instagram Reels & social media content.",
+    "new": "Event photography and aftermovies. Brand photography, Instagram Reels and social media content."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "seoTitle: 'Films & video'",
+    "new": "seoTitle: 'Films and video'"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "Brands: \"Brands & social media\"",
+    "new": "Brands: \"Brands and social media\""
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "about: { title: 'About', expect",
+    "new": "about: { title: 'About event and brand photography', expect"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "submit: 'Check availability'",
+    "new": "submit: 'Send my request'"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "hint: 'Previews {d} at {t}. Full gallery by {g}.'",
+    "new": "hint: 'Previews on {d} at {t}. Full gallery by {g}.'"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "trust: 'Good work. Good company.'",
+    "new": "trust: 'Clients and partners.'"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "advanceHint: 'Enable, then scroll through this image to continue. Escape cancels.'",
+    "new": "advanceHint: 'Turn on, then keep scrolling to move on. Press Escape to cancel.'"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/lib/i18n.ts",
+    "old": "This page doesn't exist",
+    "new": "This page doesn’t exist"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/projects/en/design-sprint-workshop.md",
+    "old": "Documentation of a three-day product workshop for internal communication and recruiting.",
+    "new": "Photographs from a three-day product workshop, used for internal communication and recruiting."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/projects/en/future-of-work-summit.md",
+    "old": "for the organisers' social channels.",
+    "new": "for the organisers’ social channels."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/projects/en/future-of-work-summit.md",
+    "old": "for the following year's marketing.",
+    "new": "for the following year’s marketing."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/projects/en/leadership-seminar.md",
+    "old": "for their next season's programme and the speaker's own website.",
+    "new": "for their next season’s programme and the speaker’s own website."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/films/en/launch-night-reel.md",
+    "old": "A vertical-friendly reel delivered the morning after the launch.",
+    "new": "A short reel, delivered the morning after the launch."
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/films/en/future-of-work-aftermovie.md",
+    "old": "Camera & edit",
+    "new": "Camera and edit"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/films/en/launch-night-reel.md",
+    "old": "Camera & edit",
+    "new": "Camera and edit"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/films/en/leadership-seminar-highlights.md",
+    "old": "Camera & edit",
+    "new": "Camera and edit"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/films/en/partners-gala-recap.md",
+    "old": "Camera & edit",
+    "new": "Camera and edit"
+  },
+  {
+    "file": "/home/claude/ellina-live/src/content/films/en/showreel-2026.md",
+    "old": "Camera & edit",
+    "new": "Camera and edit"
+  }
+]
