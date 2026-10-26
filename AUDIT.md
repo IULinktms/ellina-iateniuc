@@ -1,0 +1,81 @@
+# Aperture — baseline audit
+
+Audit date: 2026-10-26. Baseline commit: `4ee22a8`. Task branch: `IULinktms/site-v3-audit-and-upgrade-pmwp`.
+
+## Scope and method
+
+Verified `src/lib/i18n.ts` and `src/pages/[...lang]/` before proceeding. Read AGENT-PROMPT.md and the current architecture. Installed with `NODE_ENV=development npm install`; the shell resolves Node 22.22.3, below Astro 7.4.2's requirement. Used the already-installed `/opt/homebrew/bin/node` (26.12.1) for Astro; no system upgrade or service restart.
+
+Dev baseline: http://127.0.0.1:4321, explicitly development mode. Chromium screenshots and DOM inspection cover home, portfolio, films, about, contact and all seven project stories in Romanian, Russian and English, plus missing-page paths, at 375×812, 1024×768 and 1440×900. Additional reduced-motion layout probes cover 320, 768 and 1920. Local evidence is under gitignored `screenshots/<lang>/<width>/`, with top and full-page captures, `walk.json`, `extra.json`, `interactions.json`, `followup.json` and `lighthouse/`. Full-page captures follow a complete scroll to trigger lazy assets/reveals; fixed headers can appear at the capture scroll position. No email was sent; success/error requests were intercepted locally.
+
+`npm run preview` fails because @astrojs/vercel does not support preview. Lighthouse therefore measured the unchanged `.vercel/output/static` build through a local static HTTP server on 4322 (fresh headless Chromium, incognito, Lighthouse mobile simulated throttling). This is a local baseline, not production/CDN performance or an end-to-end API test. The simple baseline server has no compression/cache headers, which contributes to its scores.
+
+## Ranked findings
+
+| Priority | Before / evidence | Recommended after | Why |
+| --- | --- | --- | --- |
+| P1 | Contact heading clips at 375 in RO (`evenimentul`) and RU (`Забронировать`); project hero words clip (RO gala/leadership, RU gala/leadership). The type minimum is 4.4rem and masked lines hide overflow. | Responsive, language-safe display scale and wrapping; preserve whole words where possible. | Booking and project names must be readable. A document-width check alone misses masked text. |
+| P1 | Persisted navigation retains language links from the first page. Home → portfolio via ClientRouter leaves RU href `/ru/`, not `/ru/portfolio/`. | Refresh both persisted language switchers on every page load. | Switching language currently loses the visitor's project/page. |
+| P1 | Mobile menu lacks a focus trap and does not make background content inert. Tab can reach content hidden behind the overlay; opening focus is sensitive to timing. | Modal semantics, contained focus, reliable first focus and Escape return. | Keyboard navigation must remain usable. |
+| P1 | Mobile Lighthouse performance 68–78; LCP 4.4–5.7s. Home video starts immediately; poster has no responsive image or high-priority preload. `runOfShow()` makes all desktop pictures eager even on phones. | Responsive priority poster, video after LCP/intent with slow-network guard, defer below-fold work. | The five-second first impression currently includes loading. |
+| P1 | Generated image variants exceed 1 MB: seminar-brick-hall 1,072,630 bytes; office-floor 1,027,146. Full-size viewer requests 2400px at quality 82. | Bound generated widths/quality; verify actual served variants stay near/below 350 KB. | Image-heavy pages multiply mobile transfer costs. |
+| P1 launch | Existing photos are placeholders; clients fictional; phone `+373 00 000 000`; socials point to service roots. | Owner-provided photos, approved client references, verified direct links and inbox configuration. | Public claims and contact destinations cannot be treated as real. |
+| P2 | 320px DOM probe: RU home/about scrollWidth 353; RU portfolio 380. At 768 RU about 777. | Content-level wrapping and grid min-width corrections, with settled-font rechecks. | Meets the 320px minimum without merely hiding text. |
+| P2 | Intercepted 503 `{}` produces “The message could not be sent.” followed by RO/RU text. | Localize generic and network failures as well as API errors. | Error recovery must stay in the chosen language. |
+| P2 | Reduced-motion success still animates 20px over 1s; disciplines preview still opens/moves under reduce. | Guard every motion path, including callback-created animations. | Existing early returns do not cover all interactions. |
+| P2 | `/ru/404` and `/en/404` render Romanian content/navigation. | Path-aware localized 404 with noindex and correct home/portfolio links. | Error recovery should preserve language. |
+| P2 | Long mobile home sequence; desktop run-of-show has seven 72svh steps plus contact-sheet and film pins. Strong identity, but high scroll cost before selected projects. | Connect hero to contact sheet; tighten narrative and keep booking available. | Motion should lead toward work and booking. |
+| P2 | Project galleries have good varied layouts but little orientation; next-event navigation is a plain photo link. | Active frame strip/progress, gallery pacing, clearly signaled next-story progression with escape/click options. | Visitors need to understand where they are and keep exploring. |
+| P2 | Lightbox lacks app-level pinch zoom, adjacent preload, loading/error feedback and meaningful frame metadata. | Gesture-aware viewer with visible loading/error states, preload and caption/frame line. | Large images currently change without communicating load state. |
+| P2 | No testimonials/logos/numbers content model; booking is one long form; messenger links are generic. | CMS-editable, explicitly marked placeholder proof; stepped form; verified channel fields. | Corporate trust and local contact habits are under-served. |
+| P2 | SplitText adds `aria-label` to generic `.line` spans (Lighthouse `aria-prohibited-attr` on project); animated opacity can obscure contrast checks. Form placeholders use #5d5953 on black (~3:1, below normal-text AA). | Accessible heading split strategy; stronger placeholders, measured text-over-photo contrast. | A high automated score does not prove all animated/interactive states pass. |
+| P2 | On mobile without JS, nav links and language links are hidden while the menu button has no behavior. Home itself remains readable. | Useful no-JS navigation and language controls. | Progressive enhancement must retain a complete browsing path. |
+| P2 | npm audit reports seven high findings in the adapter dependency tree (path-to-regexp and zod advisory chains). | Review compatible dependency updates, then rebuild; do not blindly run `audit fix --force`. | Tooling/runtime exposure needs a separate compatibility assessment. |
+| P3 | OG images are width-only JPEGs, not branded 1200×630 cards; projects use CreativeWork only; films lack VideoObject; service lacks areaServed and priceRange. | Localized build-time OG cards, gallery/video/breadcrumb/service metadata. | Better sharing and more precise search context. |
+| P3 | Four font families with all imported subsets/styles; no explicit language-specific preload or adjusted fallback. | Load/preload only applicable subsets and match fallback metrics. | Reduces render dependency and project CLS (0.055). |
+| P3 | Animation lifecycle uses context/cleanup, but hover callbacks and some SplitText/event work warrant a repeated-navigation audit. Grain animates over a large fixed area. | Scoped listeners/timelines, deferred heavy effects and calmer grain. | Avoid regressions as new motion is added. |
+
+## Page and language observations
+
+- **Home:** The black/bone typography, viewfinder and contact-sheet motif are distinctive and worth preserving. First-screen proposition and CTA are localized. The desktop story is very long; the mobile contact sheet is legible but could connect more clearly to the opening image. No genuine social proof yet.
+- **Portfolio:** 48 photographs / seven projects. Category filters work in all three languages, with `aria-pressed` updates and correctly filtered lightbox counts. The RU title is especially vulnerable at small widths. Mobile project-index rows leave long names and metadata competing horizontally.
+- **Films:** Five films, working player open/Escape/focus return. Featured caption uses two columns even on narrow screens; long copy becomes cramped. No loading/failure message or user-visible preview control.
+- **About:** Clear principles/process, but large type competes with portrait at intermediate widths; RU final CTA overflows at 320. Existing portrait identity needs owner confirmation.
+- **Contact:** Localized required-field errors focus the name field; calculator date survives query-prefill. Heading clipping is the most visible problem. Validation messages are not linked by `aria-describedby`/`aria-invalid`; generic request errors leak English. Reduced-motion success animation is still active.
+- **Projects:** All seven stories share a strong cinematic skeleton, but long titles are clipped rather than scaled or reflowed. Gallery rhythm collapses to a sensible single column on phones. Add navigation and booking cues without obscuring photographs.
+- **404/admin:** Missing pages use Romanian regardless of path. CMS YAML parses; admin is an external CMS shell, not a translated portfolio page. No CMS login/write/publish was attempted.
+
+## Baseline Lighthouse
+
+One run per route; scores vary. Targets: performance ≥90, accessibility ≥95, best practices ≥95, SEO 100; LCP <2.5s, CLS <0.05.
+
+| Route | Performance before | Accessibility | Best practices | SEO | LCP | CLS | TBT | After |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| `/` | 68 | 100 | 100 | 100 | 5.7s | 0.002 | 0ms | Pending implementation |
+| `/ru/` | 71 | 100 | 100 | 100 | 5.0s | 0 | 0ms | Pending implementation |
+| `/portfolio/` | 78 | 100 | 100 | 100 | 4.4s | 0 | 0ms | Pending implementation |
+| `/work/leadership-seminar/` | 71 | 96 | 100 | 100 | 5.4s | 0.055 | 0ms | Pending implementation |
+
+Axe WCAG 2/2.1 A/AA checks on six page types × three languages in reduced motion found no violations. This does **not** clear the normal-motion SplitText issue, focus containment, placeholders or visual clipping. No measured frame-rate claim: scroll sequences were captured and inspected, not profiled on physical phone hardware.
+
+## Baseline verification
+
+- Install succeeded. No dependency manifest/lockfile change.
+- `npx astro check` under Node 26: **0 errors, 0 warnings, 2 hints**. The repository lacks check/TypeScript dependencies; temporary tools were installed outside the repository and symlinked into ignored node_modules.
+- `npm run build`: passed, 37 HTML pages (36 localized public pages + root 404).
+- CMS YAML: parsed successfully.
+- Native lightbox arrow navigation, Escape, and focus return; film Escape and focus return: passed in RO/RU/EN.
+- Date prefill and localized empty-form validation: passed; mocked success/failure exposed the defects above. Real Resend/Turnstile delivery intentionally not exercised.
+- No production deployment, main push or system-service changes during audit.
+
+## Implementation direction
+
+User expanded authorization during the audit: commit this baseline, then implement workstreams 2–8 in order, one commit per workstream, verify, and deploy a preview only. The following commits will append measured after results rather than overwrite this baseline. Preserve existing routes, spam protection, trilingual content and CMS editing.
+
+### Compression control
+
+A second baseline used the same static build with gzip for text and immutable asset caching on port 4323. This server is retained for the final comparison. Results: `/` 81 / LCP 4.0s; `/ru/` 98 / 2.0s; `/portfolio/` 89 / 3.4s; leadership story 84 / 3.8s. Accessibility/best-practices/SEO remain 100/100/100 except project accessibility 96. Raw reports: `screenshots/lighthouse-compressed-before/`. The difference confirms that local transfer setup materially affects these results; final comparisons must use this same compressed setup.
+
+Targeted built-HTML grep found no “Book your”, “Check availability”, “See the work”, “Selected work” or “Next event” on Romanian/Russian home/contact pages. Existing content intentionally includes borrowed film vocabulary and brand names; the confirmed English error leak is in client JS, not initial HTML. Output contains 38 HTML files including `/admin/index.html` (37 portfolio/404 pages).
+
+Ian supplied the verified Instagram URL during this audit: https://www.instagram.com/ellinayatsenyuk/. Apply to all three site settings with workstream 2; preserve label `Instagram`.
