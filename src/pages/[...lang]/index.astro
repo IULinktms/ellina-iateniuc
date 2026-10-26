@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Frame from '../../components/Frame.astro';
 import DeliveryCalc from '../../components/DeliveryCalc.astro';
 import ContactSheet from '../../components/ContactSheet.astro';
+import StudioProof from '../../components/StudioProof.astro';
 import { getSite, getHome, getProjects, getFilms, orientation, slugify, slugOf } from '../../lib/content';
 import { langParams, localePath, t, type Lang } from '../../lib/i18n';
 
@@ -37,10 +38,13 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
 
   <section class="hero" data-hero aria-labelledby="hero-title">
     <div class="hero__media">
+      <!-- WS3 still matches the opening contact-sheet exposure; performance delivery belongs to WS5. -->
+      <img src={poster.src} alt="" aria-hidden="true" class="hero__still" data-hero-still />
       <video data-hero-video autoplay muted loop playsinline preload="metadata" poster={poster.src} aria-label={home.heroPosterAlt}>
         <source src={home.heroVideo} type="video/mp4" />
       </video>
     </div>
+    <div class="hero__shutter" data-home-shutter aria-hidden="true"></div>
     <!-- Viewfinder HUD (decorative): frame brackets, a focus point that follows the pointer, live exposure -->
     <div class="vf" aria-hidden="true" data-vf>
       <i class="vf__c vf__c--tl"></i><i class="vf__c vf__c--tr"></i><i class="vf__c vf__c--bl"></i><i class="vf__c vf__c--br"></i>
@@ -133,9 +137,11 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
       const land = orientation(p.data.cover) === 'landscape';
       const slug = slugOf(p);
       return (
-        <article class="spread">
+        <article class="spread" data-preview>
           <div class:list={['spread__frame', land && 'spread__frame--land']} transition:name={`cover-${slug}`} data-cursor={s.cursor.view}>
-            <Frame src={p.data.cover} alt={p.data.coverAlt} parallax sizes="(max-width: 760px) 100vw, 60vw" />
+            <Frame src={p.data.cover} alt={p.data.coverAlt} parallax sizes="(max-width: 760px) 100vw, 60vw">
+              {p.data.coverVideo && <video muted loop playsinline preload="none" data-src={p.data.coverVideo} aria-hidden="true"></video>}
+            </Frame>
           </div>
           <div class="spread__text">
             <h3 class:list={['spread__title display', p.data.title.length > 14 && 'spread__title--long']} data-split>{p.data.title}</h3>
@@ -147,6 +153,8 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
       );
     })}
   </section>
+
+  <StudioProof lang={lang} home={home} />
 
   {films.length > 0 && (
     <section class="strip" data-strip aria-labelledby="films-h">

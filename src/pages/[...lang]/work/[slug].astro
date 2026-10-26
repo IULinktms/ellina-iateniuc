@@ -48,9 +48,6 @@ const ld = {
   locationCreated: d.location,
   genre: d.category,
 };
-const titleWords = d.title.split(' ');
-const half = Math.ceil(titleWords.length / 2);
-const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '), titleWords.slice(half).join(' ')] : [d.title];
 ---
 
 <Base page="work" lang={lang} title={d.title} description={d.seoDescription ?? d.excerpt} image={d.cover} imageAlt={d.coverAlt} type="article" jsonLd={ld}>
@@ -61,9 +58,7 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
       </Frame>
     </div>
     <div class="p-hero__text" data-hero-text>
-      <h1 class="display">
-        {titleLines.map((l) => <span class="line" data-split="now">{l}</span>)}
-      </h1>
+      <h1 class="display" data-split="now">{d.title}</h1>
       {d.subtitle && <p class="p-hero__sub">{d.subtitle}</p>}
     </div>
   </section>
@@ -139,7 +134,7 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
       </div>
     <a class="next" data-next-link href={localePath(lang, `/work/${nextSlug}/`)} data-cursor={s.cursor.next}>
       <div class="next__media" transition:name={`cover-${nextSlug}`}>
-        <Frame src={next.data.cover} alt="" aperture={false} sizes="100vw" widths={[800, 1400, 2000]} />
+        <Frame src={next.data.cover} alt="" aperture={false} sizes="100vw" widths={[800, 1200, 1600]} />
       </div>
       <i class="story-next__fill" data-next-fill aria-hidden="true"></i>
       <div class="next__text">

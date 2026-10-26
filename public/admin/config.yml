@@ -166,6 +166,35 @@ collections:
         media_folder: ../../../assets/uploads
         public_folder: ../../../assets/uploads
         fields:
+          # Workstream 3 — approved client proof replaces the clearly marked preview content.
+          - { name: proofPlaceholder, label: 'Show TODO / demonstration label', widget: boolean, default: true, i18n: duplicate }
+          - name: clients
+            label: Client logos
+            widget: list
+            required: false
+            i18n: true
+            fields:
+              - { name: name, label: Client name, widget: string, i18n: true }
+              - { name: logo, label: Approved logo (optional), widget: image, required: false, i18n: duplicate }
+          - name: testimonials
+            label: Approved testimonials
+            widget: list
+            required: false
+            i18n: true
+            fields:
+              - { name: quote, label: Quote, widget: text, i18n: true }
+              - { name: name, label: Name, widget: string, i18n: true }
+              - { name: role, label: Role, widget: string, i18n: true }
+              - { name: company, label: Company, widget: string, i18n: true }
+          - name: stats
+            label: Studio numbers
+            widget: list
+            required: false
+            i18n: true
+            fields:
+              - { name: value, label: Verified number (0 shows a dash), widget: number, value_type: int, min: 0, i18n: duplicate }
+              - { name: label, label: Label, widget: string, i18n: true }
+              - { name: suffix, label: Unit or suffix, widget: string, required: false, default: '', i18n: true }
           - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.', i18n: duplicate }
           - { name: heroPoster, label: Opening image, widget: image, hint: 'Shown while the video loads and on slow connections. Use the first frame of the video.', i18n: duplicate }
           - { name: heroPosterAlt, label: Opening image description, widget: string, i18n: true }

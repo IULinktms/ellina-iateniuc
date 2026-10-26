@@ -98,6 +98,11 @@ const home = defineCollection({
   loader: glob({ pattern: '*/home.json', base: './src/content/pages' }),
   schema: ({ image }) =>
     z.object({
+      // Workstream 3: editable social proof. Empty defaults preserve existing entries.
+      proofPlaceholder: z.boolean().default(true),
+      clients: z.array(z.object({ name: z.string(), logo: image().optional() })).default([]),
+      testimonials: z.array(z.object({ quote: z.string(), name: z.string(), role: z.string(), company: z.string() })).default([]),
+      stats: z.array(z.object({ value: z.number().nonnegative(), label: z.string(), suffix: z.string().default('') })).default([]),
       heroVideo: z.string(),
       heroPoster: image(),
       heroPosterAlt: z.string(),

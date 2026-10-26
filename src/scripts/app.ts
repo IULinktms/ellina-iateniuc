@@ -132,6 +132,8 @@ document.addEventListener('astro:page-load', () => {
     contactSheet();
     marquee();
     projectStory();
+    homeShutter();
+    proofNumbers();
   });
   viewfinder();
   magnetic();
@@ -150,51 +152,8 @@ document.addEventListener('astro:page-load', () => {
 /* ───────────── Intro: black → a line of light → the frame opens on the reel.
    Once per visit, about 1.6 s, and any key, click or scroll skips it. ───────────── */
 function intro() {
-  const el = document.querySelector<HTMLElement>('.intro');
-  if (!el) return;
-  let seen = false;
-  try { seen = sessionStorage.getItem('ei-intro') === '1'; } catch {}
-  const nameLines = document.querySelectorAll('.hero__name .w');
-  const rise = document.querySelectorAll('[data-hero-rise]');
-  if (reduced || seen) {
-    el.classList.add('is-done');
-    if (!reduced) {
-      gsap.from(nameLines, { yPercent: 105, duration: 1.1, ease: 'expo.out', stagger: 0.07, delay: 0.1 });
-      gsap.from(rise, { y: 16, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.07, delay: 0.35 });
-    }
-    return;
-  }
-  try { sessionStorage.setItem('ei-intro', '1'); } catch {}
-  stopScroll();
-  const bars = el.querySelectorAll('.intro__bars i');
-  const line = el.querySelector('.intro__line');
-  const count = el.querySelector<HTMLElement>('.intro__count');
-  const media = document.querySelector('.hero__media');
-  const nav = document.querySelector('.nav');
-  const counter = { f: 0 };
-  gsap.set(nameLines, { yPercent: 105 });
-  gsap.set([rise, nav], { opacity: 0 });
-  const tl = gsap.timeline({ onComplete: done })
-    .to(counter, {
-      f: 18, duration: 0.7, ease: 'none',
-      onUpdate: () => { if (count) count.textContent = `00:00:00:${String(Math.floor(counter.f)).padStart(2, '0')}`; },
-    })
-    .to(line, { scaleX: 1, duration: 0.65, ease: 'expo.inOut' }, 0.05)
-    .to([count, line], { opacity: 0, duration: 0.15 }, 0.7)
-    .to(bars, { scaleY: 0, duration: 0.9, ease: 'expo.inOut' }, 0.68)
-    .fromTo(media, { scale: 1.15 }, { scale: 1, duration: 1.6, ease: 'expo.out' }, 0.68)
-    .to(nameLines, { yPercent: 0, duration: 1.0, ease: 'expo.out', stagger: 0.07 }, 1.0)
-    .to(rise, { opacity: 1, duration: 0.6, ease: 'power2.out', stagger: 0.06 }, 1.3)
-    .fromTo(rise, { y: 16 }, { y: 0, duration: 0.8, ease: EASE, stagger: 0.06 }, 1.3)
-    .to(nav, { opacity: 1, duration: 0.5 }, 1.4);
-  const skip = () => tl.progress(1);
-  const events = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const;
-  events.forEach((t) => window.addEventListener(t, skip, { once: true, passive: true }));
-  function done() {
-    el!.classList.add('is-done');
-    startScroll();
-    events.forEach((t) => window.removeEventListener(t, skip));
-  }
+  // WS3: the aperture happens on first scroll; the opening proposition is readable immediately.
+  document.querySelector('.intro')?.classList.add('is-done');
 }
 
 /* ───────────── Section entrances: heading, then text, then picture (once) ───────────── */
@@ -254,8 +213,8 @@ function headings() {
     if (reduced) return;
     const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
     gsap.from(split.lines, {
-      yPercent: 110, duration: 1.1, ease: 'expo.out', stagger: 0.09,
-      delay: el.dataset.split === 'now' ? 0.35 : 0,
+      yPercent: el.dataset.split === 'now' ? 8 : 110, duration: el.dataset.split === 'now' ? 0.3 : 1.1, ease: 'expo.out', stagger: 0.06,
+      delay: 0,
       scrollTrigger: el.dataset.split === 'now' ? undefined : { trigger: el, start: 'top 85%', once: true },
     });
   });
@@ -861,3 +820,55 @@ photoStage.addEventListener('touchmove', (e) => {
 }, { passive: false });
 photoStage.addEventListener('touchend', () => { panStart = null; });
 document.addEventListener('astro:before-swap', () => { if (lb.open) lb.close(); resetPhotoZoom(); });
+
+
+/* ═══════════════════ Workstream 3: home exposure and studio proof ═══════════════════ */
+function homeShutter() {
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const shutter = hero?.querySelector<HTMLElement>('[data-home-shutter]');
+  const video = hero?.querySelector<HTMLVideoElement>('[data-hero-video]');
+  if (!hero || !shutter || !video || reduced) return;
+  let fired = false;
+  let animation: gsap.core.Timeline | undefined;
+  const freeze = () => {
+    if (fired || window.scrollY < 35) return;
+    fired = true;
+    hero.classList.add('is-frozen');
+    video.pause();
+    animation = gsap.timeline()
+      .set(shutter, { backgroundColor: '#000', opacity: 0.65 })
+      .to(shutter, { opacity: 0, duration: 0.14, ease: 'uiOut' })
+      .set(shutter, { backgroundColor: '#ece7df', opacity: 0.06 })
+      .to(shutter, { opacity: 0, duration: 0.2, ease: 'uiOut' });
+  };
+  window.addEventListener('scroll', freeze, { passive: true });
+  cleanups.push(() => { window.removeEventListener('scroll', freeze); animation?.kill(); });
+}
+
+function proofNumbers() {
+  const root = document.querySelector<HTMLElement>('.studio-proof');
+  if (!root) return;
+  const pause = root.querySelector<HTMLButtonElement>('[data-proof-pause]');
+  const logos = root.querySelector<HTMLElement>('[data-proof-logos]');
+  if (pause && logos) {
+    const toggle = () => { const paused = logos.classList.toggle('is-paused'); pause.setAttribute('aria-pressed', String(paused)); pause.textContent = paused ? tx().playLogos : tx().pauseLogos; };
+    pause.addEventListener('click', toggle);
+    cleanups.push(() => pause.removeEventListener('click', toggle));
+  }
+  if (reduced) return;
+  const animations: gsap.core.Tween[] = [];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      const value = Number(el.dataset.proofCount);
+      if (value > 0) {
+        const count = { n: Math.floor(value * 0.75) };
+        animations.push(gsap.to(count, { n: value, duration: 0.8, ease: 'uiOut', onUpdate: () => { el.textContent = new Intl.NumberFormat(tx().dateLocale).format(Math.round(count.n)); } }));
+      }
+      io.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  root.querySelectorAll('[data-proof-count]').forEach((el) => io.observe(el));
+  cleanups.push(() => { io.disconnect(); animations.forEach((a) => a.kill()); });
+}

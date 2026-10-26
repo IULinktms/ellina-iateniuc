@@ -95,5 +95,56 @@
       "image": "../../../assets/uploads/office-laptop.jpg",
       "alt": "Mâini la un laptop, revizuind fotografii"
     }
+  ],
+  "proofPlaceholder": true,
+  "clients": [
+    {
+      "name": "TODO · Companie 01"
+    },
+    {
+      "name": "TODO · Companie 02"
+    },
+    {
+      "name": "TODO · Companie 03"
+    },
+    {
+      "name": "TODO · Companie 04"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "TODO — Adăugați aici o recomandare aprobată de client despre colaborare și livrare.",
+      "name": "TODO — Nume",
+      "role": "TODO — Rol",
+      "company": "TODO — Companie"
+    },
+    {
+      "quote": "TODO — Adăugați aici o recomandare aprobată de client despre colaborare și livrare.",
+      "name": "TODO — Nume",
+      "role": "TODO — Rol",
+      "company": "TODO — Companie"
+    }
+  ],
+  "stats": [
+    {
+      "value": 0,
+      "label": "Evenimente fotografiate",
+      "suffix": ""
+    },
+    {
+      "value": 0,
+      "label": "Ani de experiență",
+      "suffix": ""
+    },
+    {
+      "value": 0,
+      "label": "Fotografii livrate",
+      "suffix": ""
+    },
+    {
+      "value": 5,
+      "label": "Livrarea galeriei",
+      "suffix": "zile lucrătoare"
+    }
   ]
 }

@@ -95,5 +95,56 @@
       "image": "../../../assets/uploads/office-laptop.jpg",
       "alt": "Hands at a laptop reviewing photographs"
     }
+  ],
+  "proofPlaceholder": true,
+  "clients": [
+    {
+      "name": "TODO · Company 01"
+    },
+    {
+      "name": "TODO · Company 02"
+    },
+    {
+      "name": "TODO · Company 03"
+    },
+    {
+      "name": "TODO · Company 04"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "TODO — Add an approved client recommendation about the collaboration and delivery.",
+      "name": "TODO — Name",
+      "role": "TODO — Role",
+      "company": "TODO — Company"
+    },
+    {
+      "quote": "TODO — Add an approved client recommendation about the collaboration and delivery.",
+      "name": "TODO — Name",
+      "role": "TODO — Role",
+      "company": "TODO — Company"
+    }
+  ],
+  "stats": [
+    {
+      "value": 0,
+      "label": "Events covered",
+      "suffix": ""
+    },
+    {
+      "value": 0,
+      "label": "Years of experience",
+      "suffix": ""
+    },
+    {
+      "value": 0,
+      "label": "Photographs delivered",
+      "suffix": ""
+    },
+    {
+      "value": 5,
+      "label": "Gallery delivery",
+      "suffix": "working days"
+    }
   ]
 }
