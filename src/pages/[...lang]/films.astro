@@ -12,7 +12,12 @@ const { lang } = Astro.props as { lang: Lang };
 const s = t(lang);
 const films = await getFilms(lang);
 const projects = await getProjects(lang);
-const [feature, ...rest] = films;
+// Vertical 9:16 Reels never take the 21:9 feature slot; they get their own shelf in the grid
+const isVertical = (f: (typeof films)[number]) => f.data.aspectRatio === 'portrait';
+const feature = films.find((f) => !isVertical(f));
+const rest = films.filter((f) => f !== feature);
+const wide = rest.filter((f) => !isVertical(f));
+const vertical = rest.filter(isVertical);
 const posters = Object.fromEntries(
   await Promise.all(films.map(async (f) => [f.id, (await getImage({ src: f.data.poster, width: 1920, format: 'webp', quality: 80 })).src])),
 );
@@ -37,7 +42,7 @@ const ld = films.map((f) => videoLd(f, lang, Astro.site!, posters[f.id]));
 
   {feature && (
     <section class="feature-film" aria-label={s.films.featured} data-preview>
-      <button data-film data-title={feature.data.title} data-src={feature.data.videoFile} data-url={feature.data.videoUrl} data-poster={posters[feature.id]} data-cursor={s.cursor.play} data-cursor-mode="play">
+      <button data-film data-aspect="landscape" data-title={feature.data.title} data-src={feature.data.videoFile} data-url={feature.data.videoUrl} data-poster={posters[feature.id]} data-cursor={s.cursor.play} data-cursor-mode="play">
         <span class="sr-only">{s.a11y.play(feature.data.title)}</span>
         <Frame src={feature.data.poster} alt={feature.data.posterAlt} parallax eager sizes="100vw">
           {feature.data.previewFile && <video muted loop playsinline preload="none" data-src={feature.data.previewFile} aria-hidden="true" style="position:absolute;inset:0;opacity:0;transition:opacity .6s"></video>}
@@ -54,11 +59,32 @@ const ld = films.map((f) => videoLd(f, lang, Astro.site!, posters[f.id]));
   )}
 
   <section class="film-grid" id="films" aria-label={s.films.list}>
-    {rest.map((f) => {
+    {vertical.length > 0 && (
+      <div class="reel-shelf">
+        {vertical.map((f) => {
+          const proj = projectFor(f.data.project);
+          return (
+            <article class="film-card film-card--vertical" data-cat={slugify(f.data.kind)} data-preview>
+              <button data-film data-aspect="portrait" data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={posters[f.id]} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
+                <Frame src={f.data.poster} alt={f.data.posterAlt} sizes="(max-width: 760px) 62vw, 24vw" widths={[480, 800]}>
+                  {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
+                </Frame>
+              </button>
+              <h3>{f.data.title}</h3>
+              <div class="meta">
+                <span>{s.kinds[f.data.kind]}</span>{f.data.duration && <span>{f.data.duration}</span>}
+                {proj && <a class="line-link" href={localePath(lang, `/work/${slugOf(proj)}/`)}>{s.films.photos}</a>}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    )}
+    {wide.map((f) => {
       const proj = projectFor(f.data.project);
       return (
         <article class="film-card" data-cat={slugify(f.data.kind)} data-preview>
-          <button data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={posters[f.id]} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
+          <button data-film data-aspect="landscape" data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={posters[f.id]} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
             <Frame src={f.data.poster} alt={f.data.posterAlt} sizes="(max-width: 760px) 100vw, 50vw" widths={[640, 1000, 1500]}>
               {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
             </Frame>
