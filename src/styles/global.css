@@ -83,7 +83,7 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   padding: 0.6rem 1rem; background: var(--bone); color: var(--black);
   transform: translateY(-200%); transition: transform 0.3s var(--ease-out);
 }
-.skip-link:focus { transform: none; }
+.skip-link:focus-visible { transform: none; opacity: 1; pointer-events: auto; }
 
 .serif { font-family: var(--serif); font-optical-sizing: auto; font-weight: 400; }
 .display {
@@ -1232,3 +1232,41 @@ main .notfound h1 { max-width: 14ch; font-size: clamp(2.5rem, 6vw, 6rem); }
 /* Keep a scrolling menu below its fixed close control on short screens. */
 .js .menu { top: var(--nav-h); padding-top: 1rem; }
 body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal; }
+
+/* ═══════════════════ Round 4: motion ownership (no layout changes) ═══════════════════ */
+/* Safari's touch focus must never expose the keyboard-only skip action. */
+.skip-link { opacity: 0; pointer-events: none; transition: none; }
+.skip-link:focus-visible { opacity: 1; pointer-events: auto; transform: none; }
+/* GSAP owns transforms until aperture completion; clearProps then returns them to CSS hover.
+   Keep transform transitions for open cards: the CSS compiler lowers independent scale to transform. */
+.frame[data-parallax] img { transition: none; }
+.frame[data-aperture].is-opening img { transition: none; }
+/* The aperture reveals the decoded image, without a second opacity fade inside it. */
+[data-aperture][data-lqip] img { animation: none; }
+/* Same black dimming result, composited without repainting a full-size filter layer. */
+.next .frame img { filter: none; transition: transform 1200ms var(--ease-out); }
+.next .frame::after { content: ''; position: absolute; inset: 0; background: #000; opacity: .45; pointer-events: none; transition: opacity 600ms ease; }
+.p-hero__dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+@media (hover: hover) {
+  .next:hover .frame img { filter: none; transform: scale(1.03); }
+  .next:hover .frame::after { opacity: .25; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame img { transform: none !important; }
+}
+
+/* A freeze holds the last decoded video frame; replacing it with a different poster caused a jump. */
+.hero.is-frozen .hero__media video.is-playing { opacity: 1; transition: opacity 600ms ease; }
+
+/* Match the loaded face's measured Latin widths while fonts arrive.
+   Arial Bold / Inter Tight at 700: DESPRE MINE = 689.014 / 632.568 px at 100px.
+   Keep the final About measure (9 × Inter Tight's 0.655273em zero) independent of fallback ch metrics. */
+@font-face { font-family: 'Inter Tight Fallback'; src: local('Arial Bold'); font-weight: 600 700; size-adjust: 91.81%; unicode-range: U+0000-036F,U+1E00-1EFF,U+2000-206F; }
+@media (min-width: 761px) { .about-hero h1 { max-width: 5.89746em; } }
+
+/* Review P1: no CSS interpolation until the aperture returns ownership to hover. */
+.frame[data-aperture]:not(.is-open) img { transition: none; }
+/* Keep the grain texture on phones without a four-viewport moving compositor layer. */
+@media (hover: none), (max-width: 760px) { .grain { inset: 0; animation: none; transform: none; } }
+/* Even a static filter creates expensive intermediate surfaces while its ancestor scales. */
+.sheet__img img { filter: none; }
