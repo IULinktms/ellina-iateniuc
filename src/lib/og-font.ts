@@ -136,7 +136,7 @@ export class OutlineFont {
   }
 
   glyph(code: number): Glyph {
-    const gid = this.cmap.get(code) ?? 0;
+    const gid = this.cmap.get(code === 0xa0 ? 0x20 : code) ?? 0;
     const hit = this.cache.get(gid);
     if (hit) return hit;
     let d = '';
@@ -193,7 +193,7 @@ export class OutlineFont {
   wrap(text: string, size: number, maxWidth: number, tracking = 0) {
     const lines: string[] = [];
     let line = '';
-    for (const word of text.split(/\s+/)) {
+    for (const word of text.split(/[ \t\n]+/)) { // a no-break space keeps its words together
       const next = line ? `${line} ${word}` : word;
       if (line && this.measure(next, tracking) * size > maxWidth) { lines.push(line); line = word; }
       else line = next;

@@ -52,6 +52,12 @@ const ld = {
   ],
 };
 const year = new Date().getFullYear();
+// Page change: the frame closes to a slit of light, then opens on the next page (≈0.58 s; off for reduced motion)
+const apertureSwap = {
+  old: { name: 'aperture-close', duration: '0.22s', easing: 'cubic-bezier(0.77, 0, 0.175, 1)', fillMode: 'both' },
+  new: { name: 'aperture-open', duration: '0.36s', delay: '0.2s', easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fillMode: 'both' },
+};
+const aperture = { forwards: apertureSwap, backwards: apertureSwap };
 ---
 
 <!doctype html>
@@ -132,7 +138,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <main id="main" transition:animate="fade">
+    <main id="main" transition:animate={aperture}>
       <slot />
     </main>
 

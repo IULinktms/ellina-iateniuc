@@ -755,6 +755,8 @@ function magnetic() {
 document.addEventListener('astro:page-load', () => {
   deferHeroVideo();
   splitLabels();
+  // Motion engine is running: CSS failsafes for JS-hidden content can stand down
+  document.documentElement.classList.add('motion-ready');
 });
 menuA11y();
 
