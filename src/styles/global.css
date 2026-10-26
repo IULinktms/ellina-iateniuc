@@ -1,6 +1,8 @@
 @import '@fontsource-variable/bodoni-moda/opsz.css';
 @import '@fontsource-variable/bodoni-moda/opsz-italic.css';
 @import '@fontsource-variable/hanken-grotesk/index.css';
+@import '@fontsource-variable/inter-tight/wght.css';
+@import '@fontsource-variable/inter-tight/wght-italic.css';
 /* Cyrillic: Bodoni Moda and Hanken Grotesk have no Russian letters, so those glyphs fall through to these */
 @import '@fontsource-variable/playfair-display/wght.css';
 @import '@fontsource-variable/playfair-display/wght-italic.css';
@@ -961,3 +963,31 @@ body[data-page="home"] .disciplines a .display { font-size: clamp(2.25rem, 5vw, 
 /* If the image never reports in, show it anyway */
 @keyframes lqip-failsafe { to { opacity: 1; } }
 [data-lqip].is-pending:not(.is-loaded) img { animation: lqip-failsafe 0.6s ease 8s forwards; }
+
+/* ═════════════════════════ New York type (site-ny) ═════════════════════════
+   One tight, heavy grotesk for display and UI: Inter Tight (Latin, Romanian and Cyrillic).
+   Replaces the Bodoni/Playfair serif everywhere, Russian included. */
+:root, :root:lang(ru) {
+  --serif: 'Inter Tight Variable', 'Helvetica Neue', Arial, sans-serif;
+  --sans: 'Inter Tight Variable', 'Helvetica Neue', Arial, sans-serif;
+}
+:lang(ru) :is(.nav__mark, .hero__name, .footer__big) { font-family: var(--serif); }
+.display, html[lang='ru'] .display {
+  font-weight: 650;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  font-optical-sizing: auto;
+}
+.hero__name, html[lang='ru'] .hero__name { font-weight: 700; letter-spacing: -0.065em; line-height: 0.84; text-transform: uppercase; }
+.hero__name .line + .line { padding-left: 0; }
+.nav__mark { font-weight: 700; letter-spacing: -0.03em; text-transform: uppercase; font-size: 1.05rem; }
+.footer__big { font-weight: 700; letter-spacing: -0.07em; text-transform: uppercase; }
+/* Headings set via --serif at weight 400 read too light in a grotesk: lift them */
+h2, h3, .section-head h2, .strip__caption h3, .film-card h3, .ros__item h3, .ros__time, .ros__clock,
+.principles h3, .process h3, .session h3, .direct a, .p-credits dd, .calc__out dd, .menu__list a { font-weight: 600; letter-spacing: -0.03em; }
+.menu__list a { text-transform: uppercase; letter-spacing: -0.05em; font-weight: 700; }
+/* Italic accents become weight contrast instead of a serif italic */
+.sheet__title em, .p-hero__sub { font-style: normal; font-weight: 400; }
+.marquee__word { font-weight: 700; text-transform: uppercase; letter-spacing: -0.05em; }
+.marquee__word.is-outline { font-style: normal; -webkit-text-stroke-width: 1.5px; }
+body { letter-spacing: -0.005em; }
