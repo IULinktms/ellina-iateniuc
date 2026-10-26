@@ -2,7 +2,7 @@
   "heroVideo": "/media/films/showreel-2026.mp4",
   "heroPoster": "../../assets/uploads/film-showreel-2026-poster.jpg",
   "heroPosterAlt": "Keynote speaker on a lit stage in front of a full auditorium",
-  "statement": "I photograph conferences, seminars and corporate events: the speaker's gesture, the question from the third row, the handshake after the panel. Quietly, without getting in the way, and delivered fast.",
+  "statement": "I photograph conferences, seminars and company events without getting in the way: no flash during talks, a silent shutter, and a shot list built from your agenda. The pictures reach you while people are still talking about the day.",
   "featuredProjects": [
     "future-of-work-summit",
     "leadership-seminar",
@@ -42,5 +42,58 @@
     }
   ],
   "ctaTitle": "Have an event coming up?",
-  "ctaText": "Conferences, seminars, workshops, launches and company celebrations in Moldova and abroad. Send the date and a few details, and I'll confirm availability within a day."
+  "ctaText": "Conferences, seminars, workshops, launches and company celebrations in Moldova and abroad. Send the date and a few details, and I'll confirm availability within a day.",
+  "statementTitle": "Quiet in the room. Fast after it.",
+  "runOfShowTitle": "A conference day, as I cover it",
+  "runOfShow": [
+    {
+      "time": "07:30",
+      "title": "Before the doors open",
+      "text": "The room, the stage and every sponsor banner, photographed empty and lit, before a single guest walks in.",
+      "image": "../../assets/uploads/gala-hall.jpg",
+      "alt": "Banquet hall set up before guests arrive"
+    },
+    {
+      "time": "09:00",
+      "title": "Registration",
+      "text": "Badges, coffee and first handshakes. The candid frames organisers use to show the event was full.",
+      "image": "../../assets/uploads/gala-networking.jpg",
+      "alt": "Guests talking over drinks at registration"
+    },
+    {
+      "time": "10:00",
+      "title": "Opening keynote",
+      "text": "From the stage pit: the speaker's best gestures and the audience reacting, with no flash and no distraction.",
+      "image": "../../assets/uploads/summit-arena-keynote.jpg",
+      "alt": "Keynote speaker on a lit stage before a full hall"
+    },
+    {
+      "time": "11:30",
+      "title": "Panel discussion",
+      "text": "Every panellist, every question from the floor, and wide frames that show the scale of the room.",
+      "image": "../../assets/uploads/summit-panel.jpg",
+      "alt": "Panel discussion on a round stage"
+    },
+    {
+      "time": "14:00",
+      "title": "Workshops",
+      "text": "Breakout rooms and group work: hands, whiteboards and people thinking out loud.",
+      "image": "../../assets/uploads/workshop-sticky-wall.jpg",
+      "alt": "Workshop group discussing notes on a wall"
+    },
+    {
+      "time": "18:00",
+      "title": "Closing and group photo",
+      "text": "The final applause, the speakers together, and a group photo planned in advance so it takes two minutes.",
+      "image": "../../assets/uploads/summit-crowd.jpg",
+      "alt": "Full hall at the close of a conference"
+    },
+    {
+      "time": "21:00",
+      "title": "Previews in your inbox",
+      "text": "A curated set of edited previews for press and social media, the same evening.",
+      "image": "../../assets/uploads/office-laptop.jpg",
+      "alt": "Hands at a laptop reviewing photographs"
+    }
+  ]
 }

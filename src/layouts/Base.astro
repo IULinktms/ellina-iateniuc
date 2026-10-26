@@ -44,7 +44,7 @@ const year = new Date().getFullYear();
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -80,7 +80,9 @@ const year = new Date().getFullYear();
       <nav aria-label="Main">
         <ul class="nav__links" role="list">
           {nav.map((n) => (
-            <li><a class="line-link" href={n.href} data-nav={n.key} aria-current={page === n.key ? 'page' : undefined}>{n.label}</a></li>
+            <li>
+              <a class:list={[n.key === 'contact' ? 'nav__cta' : 'line-link']} href={n.href} data-nav={n.key} aria-current={page === n.key ? 'page' : undefined}>{n.label}</a>
+            </li>
           ))}
         </ul>
       </nav>
@@ -98,7 +100,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <main id="main">
+    <main id="main" transition:animate="fade">
       <slot />
     </main>
 
@@ -139,9 +141,6 @@ const year = new Date().getFullYear();
       <div class="cursor__dot"></div>
       <div class="cursor__label"></div>
     </div>
-
-    <!-- Page-transition curtain -->
-    <div class="curtain" aria-hidden="true" transition:persist="curtain"><i></i><span class="curtain__slit"></span><i></i></div>
 
     <!-- Full-screen photo viewer -->
     <dialog class="lightbox" aria-label="Photo viewer" data-lightbox transition:persist="lightbox">

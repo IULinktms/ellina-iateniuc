@@ -152,7 +152,20 @@ collections:
           - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.' }
           - { name: heroPoster, label: Opening image, widget: image, hint: 'Shown while the video loads and on slow connections. Use the first frame of the video.' }
           - { name: heroPosterAlt, label: Opening image description, widget: string }
-          - { name: statement, label: Statement, widget: text }
+          - { name: statementTitle, label: How I work — heading, widget: string, hint: 'Two short lines at most.' }
+          - { name: statement, label: How I work — text, widget: text }
+          - { name: runOfShowTitle, label: Run of show — heading, widget: string }
+          - name: runOfShow
+            label: Run of show (a typical event day)
+            widget: list
+            summary: '{{fields.time}} — {{fields.title}}'
+            hint: The timeline on the home page. The picture changes as visitors scroll through the times.
+            fields:
+              - { name: time, label: Time, widget: string, hint: 'e.g. 10:00' }
+              - { name: title, label: Moment, widget: string }
+              - { name: text, label: What I photograph, widget: text }
+              - { name: image, label: Photo, widget: image }
+              - { name: alt, label: Photo description, widget: string }
           - name: featuredProjects
             label: Selected work (in order)
             widget: relation
@@ -233,6 +246,15 @@ collections:
           - { name: seoTitle, label: Search title, widget: string }
           - { name: seoDescription, label: Search description, widget: text }
           - { name: shareImage, label: Share image, widget: image, hint: 'Shown when a link to the site is shared on social media or messengers.' }
+          - name: delivery
+            label: Delivery promises
+            widget: object
+            hint: Used by the delivery calculator on the home and booking pages.
+            fields:
+              - { name: previewTime, label: Same-evening previews at, widget: string, default: '21:00' }
+              - { name: galleryDays, label: Full gallery after (working days), widget: number, value_type: int, default: 5 }
+              - { name: filmDays, label: Aftermovie after (working days), widget: number, value_type: int, default: 10 }
+              - { name: portraitHours, label: Portraits retouched within (hours), widget: number, value_type: int, default: 24 }
           - name: socials
             label: Social links
             widget: list

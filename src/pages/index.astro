@@ -2,6 +2,7 @@
 import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Frame from '../components/Frame.astro';
+import DeliveryCalc from '../components/DeliveryCalc.astro';
 import { getSite, getHome, getProjects, getFilms, orientation, slugify } from '../lib/content';
 
 const site = await getSite();
@@ -27,7 +28,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
     <span class="intro__count">00:00:00:00</span>
   </div>
 
-  <section class="hero" data-hero aria-label="Introduction">
+  <section class="hero" data-hero aria-labelledby="hero-title">
     <div class="hero__media">
       <video
         data-hero-video
@@ -42,24 +43,66 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
         <source src={home.heroVideo} type="video/mp4" />
       </video>
     </div>
-    <div data-hero-text>
-      <h1 class="hero__name display">
+    <div class="hero__text" data-hero-text>
+      <h1 class="hero__name display" id="hero-title">
         <span class="line"><span class="w">{site.firstName}</span></span>
         <span class="line"><span class="w">{site.lastName}</span></span>
       </h1>
-      <div class="hero__meta">
-        <p>{site.role}<br /><span class="muted">{site.location}</span></p>
+      <div class="hero__row">
+        <p class="hero__lede" data-hero-rise>
+          Event photographer and filmmaker in Chișinău. Conferences, seminars and company events, with
+          edited previews the same evening.
+        </p>
+        <div class="hero__actions" data-hero-rise>
+          <a class="btn btn--solid" href="#delivery">Check your date</a>
+          <a class="line-link" href="/portfolio/">See the work</a>
+        </div>
+      </div>
+      <div class="hero__meta" data-hero-rise>
+        <span>{site.location}</span>
         <span class="hero__tc" data-timecode aria-hidden="true">00:00:00:00</span>
       </div>
     </div>
   </section>
 
-  <section class="statement wrap grid12" aria-label="Approach">
-    <p data-statement>{home.statement}</p>
-    <div class="statement__aside">
-      <a class="line-link" href="/about/">How I work on the day</a>
+  <section class="howi wrap" id="delivery" aria-labelledby="howi-h">
+    <div class="howi__text" data-reveal>
+      <h2 id="howi-h" class="display howi__title">{home.statementTitle}</h2>
+      <p class="howi__statement">{home.statement}</p>
+      <a class="line-link small" href="/about/">How a booking works</a>
+    </div>
+    <div class="howi__calc" data-reveal>
+      <DeliveryCalc previewTime={site.delivery.previewTime} galleryDays={site.delivery.galleryDays} filmDays={site.delivery.filmDays} id="home-calc" />
     </div>
   </section>
+
+  {home.runOfShow.length > 0 && (
+    <section class="ros" aria-labelledby="ros-h" data-ros>
+      <div class="wrap ros__head" data-reveal>
+        <h2 id="ros-h" class="display ros__title">{home.runOfShowTitle}</h2>
+      </div>
+      <div class="ros__body wrap">
+        <figure class="ros__media" aria-hidden="true">
+          <div class="ros__pictures">
+            {home.runOfShow.map((r, i) => (
+              <Image src={r.image} alt="" widths={[640, 1000, 1400]} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={78} loading="lazy" class:list={[i === 0 && 'is-on']} />
+            ))}
+          </div>
+          <figcaption class="ros__clock tnum" data-ros-clock>{home.runOfShow[0].time}</figcaption>
+        </figure>
+        <ol class="ros__list" role="list">
+          {home.runOfShow.map((r) => (
+            <li class="ros__item" data-ros-item data-time={r.time}>
+              <time class="ros__time tnum">{r.time}</time>
+              <h3>{r.title}</h3>
+              <p>{r.text}</p>
+              <Image src={r.image} alt={r.alt} widths={[640, 1000]} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" />
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
 
   <section class="spreads wrap" aria-labelledby="sel-h">
     <div class="section-head">
@@ -70,14 +113,9 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
       const land = orientation(p.data.cover) === 'landscape';
       return (
         <article class="spread">
-          <Frame
-            src={p.data.cover}
-            alt={p.data.coverAlt}
-            class:list={['spread__frame', land && 'spread__frame--land']}
-            parallax
-            sizes="(max-width: 760px) 100vw, 60vw"
-            data-cursor="View event"
-          />
+          <div class:list={['spread__frame', land && 'spread__frame--land']} transition:name={`cover-${p.id}`} data-cursor="View event">
+            <Frame src={p.data.cover} alt={p.data.coverAlt} parallax sizes="(max-width: 760px) 100vw, 60vw" />
+          </div>
           <div class="spread__text">
             <h3 class:list={['spread__title display', p.data.title.length > 14 && 'spread__title--long']} data-split>{p.data.title}</h3>
             <div class="spread__meta tnum"><span>{p.data.category}</span><span>{p.data.location}</span><span>{p.data.year}</span></div>
@@ -101,7 +139,6 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
             <article class="strip__item" data-preview>
               <button
                 class="frame-btn"
-                style="display:block;width:100%;text-align:left"
                 data-film
                 data-title={f.data.title}
                 data-src={f.data.videoFile}
@@ -128,16 +165,16 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
     </section>
   )}
 
-  <section class="disciplines light" aria-labelledby="disc-h" style="margin-top: var(--section)">
+  <section class="disciplines light" aria-labelledby="disc-h">
     <div class="wrap">
-      <div class="section-head" style="color:#000">
+      <div class="section-head">
         <h2 id="disc-h">What I cover</h2>
-        <span class="small" style="color:#6b665f">Choose one to see the work</span>
+        <span class="small">Choose one to see the work</span>
       </div>
       <ul role="list" data-float-list>
         {home.disciplines.map((d) => (
           <li>
-            <a href={`/portfolio/?c=${slugify(d.category)}`} data-float={slugify(d.label)} data-cursor="Open">
+            <a href={`/portfolio/?c=${slugify(d.category)}`} data-float={slugify(d.label)}>
               <span class="display">{d.label}</span>
               <span class="count">{counts[d.category] ?? 0} photographs</span>
             </a>

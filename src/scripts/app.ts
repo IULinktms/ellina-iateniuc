@@ -7,14 +7,18 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { Flip } from 'gsap/Flip';
+import { CustomEase } from 'gsap/CustomEase';
 import Lenis from 'lenis';
 
-gsap.registerPlugin(ScrollTrigger, SplitText, Flip);
+gsap.registerPlugin(ScrollTrigger, SplitText, Flip, CustomEase);
+// Strong custom curves (Emil Kowalski): ease-out for UI, ease-in-out for things moving on screen
+CustomEase.create('uiOut', '0.23, 1, 0.32, 1');
+CustomEase.create('uiInOut', '0.77, 0, 0.175, 1');
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-const EASE = 'expo.out';
-const SHUTTER = 'power4.inOut';
+const EASE = 'uiOut';
+const SHUTTER = 'uiInOut';
 
 /* ───────────── Smooth scroll (once) ───────────── */
 let lenis: Lenis | null = null;
@@ -27,32 +31,32 @@ if (!reduced) {
 const stopScroll = () => (lenis ? lenis.stop() : (document.documentElement.style.overflow = 'hidden'));
 const startScroll = () => (lenis ? lenis.start() : (document.documentElement.style.overflow = ''));
 
-/* ───────────── Cursor (once) ───────────── */
+/* ───────────── Viewfinder (once): appears only over photographs and films ───────────── */
 const cursor = document.querySelector<HTMLElement>('.cursor');
 if (cursor && finePointer && !reduced) {
   document.documentElement.classList.add('has-cursor');
   const ring = cursor.querySelector<HTMLElement>('.cursor__ring')!;
-  const dot = cursor.querySelector<HTMLElement>('.cursor__dot')!;
   const label = cursor.querySelector<HTMLElement>('.cursor__label')!;
-  const xr = gsap.quickTo(ring, 'x', { duration: 0.55, ease: 'power3' });
-  const yr = gsap.quickTo(ring, 'y', { duration: 0.55, ease: 'power3' });
-  const xl = gsap.quickTo(label, 'x', { duration: 0.55, ease: 'power3' });
-  const yl = gsap.quickTo(label, 'y', { duration: 0.55, ease: 'power3' });
+  const xr = gsap.quickTo(ring, 'x', { duration: 0.35, ease: 'power3' });
+  const yr = gsap.quickTo(ring, 'y', { duration: 0.35, ease: 'power3' });
+  const xl = gsap.quickTo(label, 'x', { duration: 0.35, ease: 'power3' });
+  const yl = gsap.quickTo(label, 'y', { duration: 0.35, ease: 'power3' });
+  let active = false;
   window.addEventListener('pointermove', (e) => {
-    cursor.classList.remove('is-hidden');
-    gsap.set(dot, { x: e.clientX, y: e.clientY });
-    xr(e.clientX); yr(e.clientY); xl(e.clientX); yl(e.clientY);
     const target = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor]');
     if (target) {
+      if (!active) gsap.set([ring, label], { x: e.clientX, y: e.clientY }); // appear in place, no fly-in
+      active = true;
       cursor.classList.add('is-active');
       cursor.dataset.mode = target.dataset.cursorMode ?? '';
       label.textContent = target.dataset.cursor ?? '';
     } else {
+      active = false;
       cursor.classList.remove('is-active');
-      cursor.dataset.mode = '';
     }
-  });
-  document.addEventListener('pointerleave', () => cursor.classList.add('is-hidden'));
+    xr(e.clientX); yr(e.clientY); xl(e.clientX); yl(e.clientY);
+  }, { passive: true });
+  document.addEventListener('pointerleave', () => { active = false; cursor.classList.remove('is-active'); });
 }
 
 /* ───────────── Menu (once — persisted element) ───────────── */
@@ -64,51 +68,28 @@ function setMenu(open: boolean) {
   toggle.setAttribute('aria-expanded', String(open));
   toggle.textContent = open ? 'Close' : 'Menu';
   menu.setAttribute('aria-hidden', String(!open));
+  gsap.killTweensOf(menu);
   if (open) {
     menu.classList.add('is-open');
     stopScroll();
-    gsap.fromTo(menu, { clipPath: 'inset(50% 0 50% 0)' }, { clipPath: 'inset(0% 0 0% 0)', duration: reduced ? 0 : 0.9, ease: SHUTTER });
-    gsap.from('.menu__list li', { yPercent: 60, opacity: 0, stagger: 0.06, duration: 0.9, ease: EASE, delay: 0.3 });
+    gsap.fromTo(menu, { clipPath: 'inset(50% 0 50% 0)' }, { clipPath: 'inset(0% 0 0% 0)', duration: reduced ? 0 : 0.5, ease: SHUTTER });
+    if (!reduced) gsap.from('.menu__list li', { y: 24, opacity: 0, stagger: 0.05, duration: 0.5, ease: EASE, delay: 0.15 });
     menu.querySelector<HTMLElement>('a')?.focus();
   } else {
     startScroll();
-    gsap.to(menu, { clipPath: 'inset(50% 0 50% 0)', duration: reduced ? 0 : 0.7, ease: SHUTTER, onComplete: () => menu.classList.remove('is-open') });
+    // exits are quicker than entrances
+    gsap.to(menu, { clipPath: 'inset(50% 0 50% 0)', duration: reduced ? 0 : 0.32, ease: SHUTTER, onComplete: () => menu.classList.remove('is-open') });
   }
 }
 toggle.addEventListener('click', () => setMenu(!menuOpen));
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuOpen) { setMenu(false); toggle.focus(); } });
 
-/* ───────────── Page transitions: shutter closes, page swaps, shutter opens ───────────── */
-const curtainBars = document.querySelectorAll<HTMLElement>('.curtain i');
-const slit = document.querySelector<HTMLElement>('.curtain__slit');
-
-function closeShutter() {
-  return new Promise<void>((resolve) => {
-    if (reduced) return resolve();
-    gsap.timeline({ onComplete: resolve })
-      .set(curtainBars, { scaleY: 0 })
-      .to(curtainBars, { scaleY: 1, duration: 0.65, ease: SHUTTER })
-      .fromTo(slit, { scaleX: 0, opacity: 0.9 }, { scaleX: 1, duration: 0.45, ease: 'power3.out' }, '-=0.25');
-  });
-}
-function openShutter() {
-  if (reduced) return;
-  gsap.timeline()
-    .to(slit, { opacity: 0, duration: 0.25 })
-    .to(curtainBars, { scaleY: 0, duration: 0.9, ease: SHUTTER }, '<');
-}
-
-document.addEventListener('astro:before-preparation', (ev: any) => {
-  if (menuOpen) setMenu(false);
-  const original = ev.loader;
-  ev.loader = async () => {
-    await Promise.all([closeShutter(), original()]);
-  };
-});
+/* ───────────── Page transitions: the browser's view transitions (Astro ClientRouter).
+   The clicked event photo morphs into the next page's cover via transition:name. ───────────── */
+document.addEventListener('astro:before-preparation', () => { if (menuOpen) setMenu(false); });
 document.addEventListener('astro:after-swap', () => {
   lenis?.scrollTo(0, { immediate: true });
   window.scrollTo(0, 0);
-  openShutter();
 });
 
 /* ───────────── Page-level setup (every navigation) ───────────── */
@@ -133,7 +114,7 @@ document.addEventListener('astro:page-load', () => {
     apertures();
     parallax();
     headings();
-    statement();
+    reveals();
     filmStrip();
     floatPreview();
   });
@@ -143,43 +124,72 @@ document.addEventListener('astro:page-load', () => {
   filters();
   contactForm();
   heroClock();
+  deliveryCalc();
+  runOfShow();
   toTop();
   requestAnimationFrame(() => ScrollTrigger.refresh());
 });
 
-/* ───────────── Intro: black → a line of light → the frame opens on the reel ───────────── */
+/* ───────────── Intro: black → a line of light → the frame opens on the reel.
+   Once per visit, about 1.6 s, and any key, click or scroll skips it. ───────────── */
 function intro() {
   const el = document.querySelector<HTMLElement>('.intro');
   if (!el) return;
-  const seen = sessionStorage.getItem('ei-intro') === '1';
+  let seen = false;
+  try { seen = sessionStorage.getItem('ei-intro') === '1'; } catch {}
   const nameLines = document.querySelectorAll('.hero__name .w');
-  const meta = document.querySelectorAll('.hero__meta, .nav');
+  const rise = document.querySelectorAll('[data-hero-rise]');
   if (reduced || seen) {
     el.classList.add('is-done');
-    gsap.from(nameLines, { yPercent: 105, duration: 1.2, ease: EASE, stagger: 0.08, delay: 0.25 });
+    if (!reduced) {
+      gsap.from(nameLines, { yPercent: 105, duration: 1.1, ease: 'expo.out', stagger: 0.07, delay: 0.1 });
+      gsap.from(rise, { y: 16, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.07, delay: 0.35 });
+    }
     return;
   }
-  sessionStorage.setItem('ei-intro', '1');
+  try { sessionStorage.setItem('ei-intro', '1'); } catch {}
   stopScroll();
   const bars = el.querySelectorAll('.intro__bars i');
   const line = el.querySelector('.intro__line');
   const count = el.querySelector<HTMLElement>('.intro__count');
   const media = document.querySelector('.hero__media');
+  const nav = document.querySelector('.nav');
   const counter = { f: 0 };
-  gsap.set(meta, { opacity: 0 });
   gsap.set(nameLines, { yPercent: 105 });
-  gsap.timeline({ onComplete: () => { el.classList.add('is-done'); startScroll(); } })
+  gsap.set([rise, nav], { opacity: 0 });
+  const tl = gsap.timeline({ onComplete: done })
     .to(counter, {
-      f: 48, duration: 1.4, ease: 'none',
-      onUpdate: () => { if (count) count.textContent = `00:00:0${Math.floor(counter.f / 24)}:${String(Math.floor(counter.f % 24)).padStart(2, '0')}`; },
+      f: 18, duration: 0.7, ease: 'none',
+      onUpdate: () => { if (count) count.textContent = `00:00:00:${String(Math.floor(counter.f)).padStart(2, '0')}`; },
     })
-    .to(line, { scaleX: 1, duration: 1.1, ease: 'expo.inOut' }, 0.15)
-    .to(count, { opacity: 0, duration: 0.3 }, 1.3)
-    .to(line, { opacity: 0, duration: 0.2 }, 1.45)
-    .to(bars, { scaleY: 0, duration: 1.5, ease: 'expo.inOut' }, 1.35)
-    .fromTo(media, { scale: 1.25 }, { scale: 1, duration: 2.4, ease: 'expo.out' }, 1.35)
-    .to(nameLines, { yPercent: 0, duration: 1.5, ease: EASE, stagger: 0.09 }, 2.05)
-    .to(meta, { opacity: 1, duration: 1, ease: 'power2.out' }, 2.6);
+    .to(line, { scaleX: 1, duration: 0.65, ease: 'expo.inOut' }, 0.05)
+    .to([count, line], { opacity: 0, duration: 0.15 }, 0.7)
+    .to(bars, { scaleY: 0, duration: 0.9, ease: 'expo.inOut' }, 0.68)
+    .fromTo(media, { scale: 1.15 }, { scale: 1, duration: 1.6, ease: 'expo.out' }, 0.68)
+    .to(nameLines, { yPercent: 0, duration: 1.0, ease: 'expo.out', stagger: 0.07 }, 1.0)
+    .to(rise, { opacity: 1, duration: 0.6, ease: 'power2.out', stagger: 0.06 }, 1.3)
+    .fromTo(rise, { y: 16 }, { y: 0, duration: 0.8, ease: EASE, stagger: 0.06 }, 1.3)
+    .to(nav, { opacity: 1, duration: 0.5 }, 1.4);
+  const skip = () => tl.progress(1);
+  const events = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const;
+  events.forEach((t) => window.addEventListener(t, skip, { once: true, passive: true }));
+  function done() {
+    el!.classList.add('is-done');
+    startScroll();
+    events.forEach((t) => window.removeEventListener(t, skip));
+  }
+}
+
+/* ───────────── Section entrances: heading, then text, then picture (once) ───────────── */
+function reveals() {
+  if (reduced) return;
+  gsap.utils.toArray<HTMLElement>('[data-reveal], .spread__text, .section-head, .page-head__row, .p-facts, .principles li, .process li, .film-card, .session').forEach((group) => {
+    const parts = group.matches('[data-reveal], .spread__text, .page-head__row') ? Array.from(group.children) : [group];
+    gsap.from(parts, {
+      y: 24, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.07,
+      scrollTrigger: { trigger: group, start: 'top 88%', once: true },
+    });
+  });
 }
 
 /* ───────────── Aperture reveals ───────────── */
@@ -195,8 +205,8 @@ function apertures() {
       once: true,
       onEnter: () => {
         gsap.timeline({ onComplete: () => { frame.classList.add('is-open'); gsap.set(frame, { clearProps: 'clipPath' }); } })
-          .fromTo(frame, { clipPath: 'inset(49.5% 0% 49.5% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5, ease: 'expo.inOut' })
-          .from(media, { scale: 1.22, duration: 2.1, ease: EASE }, 0.1);
+          .fromTo(frame, { clipPath: 'inset(49.5% 0% 49.5% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut' })
+          .from(media, { scale: 1.18, duration: 1.8, ease: 'expo.out' }, 0.05);
       },
     });
   });
@@ -227,21 +237,10 @@ function headings() {
     if (reduced) return;
     const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
     gsap.from(split.lines, {
-      yPercent: 110, duration: 1.3, ease: EASE, stagger: 0.08,
+      yPercent: 110, duration: 1.1, ease: 'expo.out', stagger: 0.09,
       delay: el.dataset.split === 'now' ? 0.35 : 0,
       scrollTrigger: el.dataset.split === 'now' ? undefined : { trigger: el, start: 'top 85%', once: true },
     });
-  });
-}
-
-/* ───────────── Statement: words come into focus as you read ───────────── */
-function statement() {
-  const p = document.querySelector<HTMLElement>('[data-statement]');
-  if (!p || reduced) return;
-  const split = SplitText.create(p, { type: 'words', wordsClass: 'word' });
-  gsap.fromTo(split.words, { opacity: 0.16 }, {
-    opacity: 1, stagger: 0.08, ease: 'none',
-    scrollTrigger: { trigger: p, start: 'top 80%', end: 'bottom 45%', scrub: true },
   });
 }
 
@@ -315,11 +314,11 @@ function lbShow(i: number, dir = 0) {
       lbProj.hidden = false; lbProj.href = it.dataset.projectUrl!; lbProj.textContent = `From ${it.dataset.project}`;
     } else lbProj.hidden = true;
   };
-  if (!dir || reduced) { swap(); return; }
+  if (!dir || reduced) { gsap.killTweensOf(lbImg); gsap.set(lbImg, { opacity: 1, x: 0 }); swap(); return; }
   gsap.timeline()
-    .to(lbImg, { clipPath: 'inset(49.5% 0 49.5% 0)', duration: 0.35, ease: 'power3.in' })
+    .to(lbImg, { opacity: 0, x: -dir * 24, duration: 0.14, ease: 'power1.out' })
     .add(swap)
-    .to(lbImg, { clipPath: 'inset(0% 0 0% 0)', duration: 0.6, ease: 'expo.out' }, '+=0.05');
+    .fromTo(lbImg, { opacity: 0, x: dir * 32 }, { opacity: 1, x: 0, duration: 0.32, ease: EASE });
 }
 function lightbox() {
   lbItems = Array.from(document.querySelectorAll<HTMLElement>('[data-lb-item]'));
@@ -329,7 +328,7 @@ function lightbox() {
       lbShow(lbItems.indexOf(el));
       lb.showModal();
       stopScroll();
-      if (!reduced) gsap.fromTo(lb, { clipPath: 'inset(50% 0 50% 0)' }, { clipPath: 'inset(0% 0 0% 0)', duration: 0.9, ease: SHUTTER });
+      if (!reduced) gsap.fromTo(lb, { clipPath: 'inset(50% 0 50% 0)' }, { clipPath: 'inset(0% 0 0% 0)', duration: 0.45, ease: SHUTTER });
     });
   });
 }
@@ -338,8 +337,8 @@ lb.querySelectorAll('[data-lb-next]').forEach((b) => b.addEventListener('click',
 lb.querySelector('[data-lb-close]')!.addEventListener('click', () => lb.close());
 lb.addEventListener('close', () => { startScroll(); lbItems[lbIndex]?.focus(); });
 lb.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight') lbShow(lbIndex + 1, 1);
-  if (e.key === 'ArrowLeft') lbShow(lbIndex - 1, -1);
+  if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+  if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
 });
 // Swipe on touch screens
 let touchX = 0;
@@ -382,7 +381,7 @@ function player() {
       }
       pl.showModal();
       stopScroll();
-      if (!reduced) gsap.fromTo(pl, { clipPath: 'inset(50% 0 50% 0)' }, { clipPath: 'inset(0% 0 0% 0)', duration: 1, ease: SHUTTER });
+      if (!reduced) gsap.fromTo(pl, { clipPath: 'inset(50% 0 50% 0)' }, { clipPath: 'inset(0% 0 0% 0)', duration: 0.5, ease: SHUTTER });
     });
   });
 }
@@ -401,9 +400,9 @@ function filters() {
       items.forEach((it) => { it.hidden = !(cat === 'all' || it.dataset.cat === cat); });
       if (animate && !reduced) {
         Flip.from(state, {
-          duration: 0.9, ease: 'expo.inOut', absolute: true, scale: false,
-          onEnter: (els) => gsap.fromTo(els, { opacity: 0, clipPath: 'inset(50% 0 50% 0)' }, { opacity: 1, clipPath: 'inset(0% 0 0% 0)', duration: 0.9, ease: 'expo.out' }),
-          onLeave: (els) => gsap.to(els, { opacity: 0, duration: 0.35 }),
+          duration: 0.6, ease: SHUTTER, absolute: true, scale: false,
+          onEnter: (els) => gsap.fromTo(els, { opacity: 0, clipPath: 'inset(50% 0 50% 0)' }, { opacity: 1, clipPath: 'inset(0% 0 0% 0)', duration: 0.6, ease: EASE }),
+          onLeave: (els) => gsap.to(els, { opacity: 0, duration: 0.2 }),
           onComplete: () => ScrollTrigger.refresh(),
         });
       } else ScrollTrigger.refresh();
@@ -444,7 +443,7 @@ function contactForm() {
     const done = document.querySelector<HTMLElement>('[data-form-done]');
     if (!done) return;
     gsap.to(form, {
-      clipPath: 'inset(50% 0 50% 0)', duration: reduced ? 0 : 0.7, ease: SHUTTER,
+      clipPath: 'inset(50% 0 50% 0)', duration: reduced ? 0 : 0.4, ease: SHUTTER,
       onComplete: () => { form.hidden = true; done.hidden = false; gsap.from(done, { opacity: 0, y: 20, duration: 1, ease: EASE }); done.focus(); },
     });
   };
@@ -494,6 +493,96 @@ function heroClock() {
 
 function toTop() {
   document.querySelectorAll<HTMLElement>('[data-to-top]').forEach((a) =>
-    a.addEventListener('click', (e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.6 }) : window.scrollTo({ top: 0 }); }),
+    a.addEventListener('click', (e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.2 }) : window.scrollTo({ top: 0 }); }),
   );
+}
+
+/* ───────────── Live element: event date → delivery dates ───────────── */
+const fmtDay = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+function addWorkingDays(from: Date, n: number) {
+  const d = new Date(from);
+  let left = n;
+  while (left > 0) {
+    d.setDate(d.getDate() + 1);
+    const wd = d.getDay();
+    if (wd !== 0 && wd !== 6) left--;
+  }
+  return d;
+}
+function parseDate(v: string) {
+  const [y, m, d] = v.split('-').map(Number);
+  return y && m && d ? new Date(y, m - 1, d) : null;
+}
+const iso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+function deliveryCalc() {
+  document.querySelectorAll<HTMLElement>('[data-calc]').forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>('[data-calc-input]')!;
+    const out = {
+      preview: root.querySelector<HTMLElement>('[data-calc-preview]')!,
+      gallery: root.querySelector<HTMLElement>('[data-calc-gallery]')!,
+      film: root.querySelector<HTMLElement>('[data-calc-film]')!,
+    };
+    const cta = root.querySelector<HTMLAnchorElement>('[data-calc-cta]');
+    const ctaBase = cta?.getAttribute('href')?.split('?')[0] ?? '/contact/';
+    const time = root.dataset.preview || '21:00';
+    const g = Number(root.dataset.gallery || 5);
+    const f = Number(root.dataset.film || 10);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    input.min = iso(today);
+    if (!input.value) input.value = iso(addWorkingDays(today, 15));
+    const set = (el: HTMLElement, text: string) => {
+      if (el.textContent === text) return;
+      el.textContent = text;
+      if (!reduced) { el.classList.remove('is-new'); void el.offsetWidth; el.classList.add('is-new'); }
+    };
+    const update = () => {
+      const d = parseDate(input.value);
+      if (!d) return;
+      set(out.preview, `${fmtDay.format(d)}, ${time}`);
+      set(out.gallery, fmtDay.format(addWorkingDays(d, g)));
+      set(out.film, fmtDay.format(addWorkingDays(d, f)));
+      if (cta) cta.setAttribute('href', `${ctaBase}?date=${input.value}`);
+    };
+    input.addEventListener('input', update);
+    update();
+  });
+
+  // Booking form: prefill from ?date= and explain delivery under the date field
+  const dateInput = document.querySelector<HTMLInputElement>('[data-date-input]');
+  const hint = document.querySelector<HTMLElement>('[data-date-hint]');
+  if (dateInput && hint) {
+    const q = new URLSearchParams(location.search).get('date');
+    if (q && parseDate(q)) dateInput.value = q;
+    const time = hint.dataset.preview || '21:00';
+    const g = Number(hint.dataset.gallery || 5);
+    const upd = () => {
+      const d = parseDate(dateInput.value);
+      if (!d) return;
+      hint.textContent = `Previews ${fmtDay.format(d)} at ${time}. Full gallery by ${fmtDay.format(addWorkingDays(d, g))}.`;
+    };
+    dateInput.addEventListener('input', upd);
+    upd();
+  }
+}
+
+/* ───────────── Run of show: the picture holds while the day's moments pass ───────────── */
+function runOfShow() {
+  const root = document.querySelector<HTMLElement>('[data-ros]');
+  if (!root || !('IntersectionObserver' in window)) return;
+  const items = Array.from(root.querySelectorAll<HTMLElement>('[data-ros-item]'));
+  const pics = Array.from(root.querySelectorAll<HTMLImageElement>('.ros__pictures img'));
+  const clock = root.querySelector<HTMLElement>('[data-ros-clock]');
+  pics.forEach((img) => { img.loading = 'eager'; });
+  const show = (i: number) => {
+    items.forEach((el, k) => el.classList.toggle('is-active', k === i));
+    pics.forEach((el, k) => el.classList.toggle('is-on', k === i));
+    if (clock) clock.textContent = items[i]?.dataset.time ?? '';
+  };
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) show(items.indexOf(e.target as HTMLElement));
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  items.forEach((el) => io.observe(el));
+  show(0);
+  cleanups.push(() => io.disconnect());
 }

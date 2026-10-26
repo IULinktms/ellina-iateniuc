@@ -23,5 +23,11 @@
       "label": "Telegram",
       "url": "https://t.me/"
     }
-  ]
+  ],
+  "delivery": {
+    "previewTime": "21:00",
+    "galleryDays": 5,
+    "filmDays": 10,
+    "portraitHours": 24
+  }
 }

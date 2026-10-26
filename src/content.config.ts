@@ -83,6 +83,14 @@ const site = defineCollection({
       seoDescription: z.string(),
       shareImage: image(),
       socials: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
+      delivery: z
+        .object({
+          previewTime: z.string().default('21:00'),
+          galleryDays: z.number().int().default(5),
+          filmDays: z.number().int().default(10),
+          portraitHours: z.number().int().default(24),
+        })
+        .default({ previewTime: '21:00', galleryDays: 5, filmDays: 10, portraitHours: 24 }),
     }),
 });
 
@@ -93,7 +101,12 @@ const home = defineCollection({
       heroVideo: z.string(),
       heroPoster: image(),
       heroPosterAlt: z.string(),
+      statementTitle: z.string().default('Quiet in the room. Fast after it.'),
       statement: z.string(),
+      runOfShowTitle: z.string().default('A conference day, as I cover it'),
+      runOfShow: z
+        .array(z.object({ time: z.string(), title: z.string(), text: z.string(), image: image(), alt: z.string() }))
+        .default([]),
       featuredProjects: z.array(z.string()).default([]),
       disciplines: z
         .array(z.object({ label: z.string(), category: z.string(), image: image(), alt: z.string() }))

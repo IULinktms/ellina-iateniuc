@@ -83,7 +83,7 @@ const types = [...booking.sessions.map((s) => s.name), 'Something else'];
         <div class="field-row">
           <div class="field">
             <label for="f-date">Event date</label>
-            <input id="f-date" name="date" type="date" />
+            <input id="f-date" name="date" type="date" data-date-input />
             <span class="err"></span>
           </div>
           <div class="field">
@@ -91,6 +91,9 @@ const types = [...booking.sessions.map((s) => s.name), 'Something else'];
             <input id="f-loc" name="location" placeholder="Venue or city" maxlength="160" />
             <span class="err"></span>
           </div>
+        <p class="date-hint" data-date-hint data-preview={site.delivery.previewTime} data-gallery={site.delivery.galleryDays} data-film={site.delivery.filmDays} aria-live="polite">
+          Previews the same evening at {site.delivery.previewTime}. Full gallery within {site.delivery.galleryDays} working days.
+        </p>
         </div>
 
         <div class="field">
