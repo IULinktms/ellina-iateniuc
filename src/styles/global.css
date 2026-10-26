@@ -1240,17 +1240,27 @@ body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal;
 /* The aperture reveals the decoded image, without a second opacity fade inside it. */
 [data-aperture][data-lqip] img { animation: none; }
 /* Same black dimming result, composited without repainting a full-size filter layer. */
-.next .frame img { filter: none; opacity: .55; transition: opacity 600ms ease, scale 1200ms var(--ease-out); }
-@media (hover: hover) { .next:hover .frame img { filter: none; opacity: .75; transform: none; scale: 1.03; } }
+.next .frame img { filter: none; transition: scale 1200ms var(--ease-out); }
+.next .frame::after { content: ''; position: absolute; inset: 0; background: #000; opacity: .45; pointer-events: none; transition: opacity 600ms ease; }
+.p-hero__dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+@media (hover: hover) {
+  .next:hover .frame img { filter: none; transform: none; scale: 1.03; }
+  .next:hover .frame::after { opacity: .25; }
+}
 @media (prefers-reduced-motion: reduce) {
   .frame img { scale: 1 !important; }
 }
 
 /* A freeze holds the last decoded video frame; replacing it with a different poster caused a jump. */
-.hero.is-frozen .hero__media video.is-playing { opacity: 1; transition: none; }
+.hero.is-frozen .hero__media video.is-playing { opacity: 1; transition: opacity 600ms ease; }
 
 /* Match the loaded face's measured Latin widths while fonts arrive.
    Arial Bold / Inter Tight at 700: DESPRE MINE = 689.014 / 632.568 px at 100px.
    Keep the final About measure (9 × Inter Tight's 0.655273em zero) independent of fallback ch metrics. */
 @font-face { font-family: 'Inter Tight Fallback'; src: local('Arial Bold'); font-weight: 600 700; size-adjust: 91.81%; unicode-range: U+0000-036F,U+1E00-1EFF,U+2000-206F; }
 @media (min-width: 761px) { .about-hero h1 { max-width: 5.89746em; } }
+
+/* Review P1: no CSS interpolation until the aperture returns ownership to hover. */
+.frame[data-aperture]:not(.is-open) img { transition: none; }
+/* Keep the grain texture on phones without a four-viewport moving compositor layer. */
+@media (hover: none), (max-width: 760px) { .grain { inset: 0; animation: none; transform: none; } }

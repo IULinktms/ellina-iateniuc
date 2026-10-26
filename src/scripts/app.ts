@@ -34,8 +34,35 @@ if (!reduced) {
   gsap.ticker.add((t) => lenis?.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
 }
-const stopScroll = () => (lenis ? lenis.stop() : (document.documentElement.style.overflow = 'hidden'));
-const startScroll = () => (lenis ? lenis.start() : (document.documentElement.style.overflow = ''));
+let scrollLock: { y: number; body: HTMLElement; style: string; overflow: string; minHeight: string } | null = null;
+const stopScroll = () => {
+  if (scrollLock) return;
+  const body = document.body;
+  scrollLock = { y: window.scrollY, body, style: body.style.cssText, overflow: document.documentElement.style.overflow, minHeight: document.documentElement.style.minHeight };
+  lenis?.stop();
+  document.documentElement.style.overflow = 'hidden';
+  // iOS ignores overflow-only locks. Fix the body at its existing visual position on touch.
+  if (!finePointer) {
+    // Keep the scroll range so fixing the body does not overwrite Router history with scrollY=0.
+    document.documentElement.style.minHeight = `${document.documentElement.scrollHeight}px`;
+    Object.assign(body.style, { position: 'fixed', top: `${-scrollLock.y}px`, left: '0', right: '0', width: '100%', overflow: 'hidden' });
+  }
+};
+const startScroll = () => {
+  const lock = scrollLock;
+  scrollLock = null;
+  if (lock) {
+    lock.body.style.cssText = lock.style;
+    document.documentElement.style.overflow = lock.overflow;
+    document.documentElement.style.minHeight = lock.minHeight;
+  }
+  lenis?.start();
+  if (lock && !finePointer) {
+    lenis?.resize();
+    if (lenis) lenis.scrollTo(lock.y, { immediate: true, force: true });
+    else window.scrollTo({ top: lock.y, behavior: 'instant' });
+  }
+};
 
 /* ───────────── Viewfinder (once): appears only over photographs and films ───────────── */
 const cursor = document.querySelector<HTMLElement>('.cursor');
@@ -106,6 +133,8 @@ let ctx: gsap.Context | null = null;
 const cleanups: Array<() => void> = [];
 
 document.addEventListener('astro:before-swap', () => {
+  // Unlock synchronously: a dialog's queued close event must not restore the old page's scroll later.
+  startScroll();
   cleanups.splice(0).forEach((fn) => fn());
   ctx?.revert();
   ctx = null;
@@ -218,9 +247,9 @@ function apertures() {
   const frames = gsap.utils.toArray<HTMLElement>('[data-aperture]:not(.is-open)');
   if (reduced) { frames.forEach((f) => f.classList.add('is-open')); return; }
   frames.forEach((frame) => {
-    // The page aperture/shared-photo morph owns the incoming viewport; do not open it twice.
+    // Never hide media already in view; the page aperture/shared-photo morph owns navigation entry.
     const alreadyPainted = getComputedStyle(frame).clipPath === 'inset(0px 0px 0px 0px)';
-    if (alreadyPainted || (clientArrival && frame.getBoundingClientRect().top < innerHeight)) { frame.classList.add('is-open'); return; }
+    if (alreadyPainted || frame.getBoundingClientRect().top < innerHeight) { frame.classList.add('is-open'); return; }
     const media = frame.querySelector('img, video');
     let opening: gsap.core.Timeline | undefined;
     let alive = true;
@@ -234,7 +263,11 @@ function apertures() {
           if (!alive || !frame.isConnected) return;
           frame.classList.add('is-opening');
           frame.classList.remove('is-pending', 'is-loaded');
-          opening = gsap.timeline({ onComplete: () => { frame.classList.add('is-open'); frame.classList.remove('is-opening'); gsap.set(frame, { clearProps: 'clipPath' }); } })
+          opening = gsap.timeline({ onComplete: () => {
+            frame.classList.add('is-open'); frame.classList.remove('is-opening');
+            gsap.set(frame, { clearProps: 'clipPath' });
+            if (media && !frame.hasAttribute('data-parallax') && !frame.closest('.p-hero, .g-full')) gsap.set(media, { clearProps: 'transform' });
+          } })
             .fromTo(frame, { clipPath: 'inset(49.5% 0% 49.5% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut' });
           if (media && !frame.closest('.p-hero, .g-full')) opening.from(media, { scale: 1.18, duration: 1.8, ease: 'expo.out' }, 0.05);
         };
@@ -281,12 +314,24 @@ function splitHeadings() {
     if (reduced) return;
     if (el.dataset.split === 'now' || el.getBoundingClientRect().top < innerHeight) return;
     bindNbsp(el);
-    const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line', aria: /^H[1-6]$/.test(el.tagName) ? 'auto' : 'none' });
-    gsap.from(split.lines, {
-      yPercent: el.dataset.split === 'now' ? 8 : 110, duration: el.dataset.split === 'now' ? 0.3 : 1.1, ease: 'expo.out', stagger: 0.06,
-      delay: 0,
-      scrollTrigger: el.dataset.split === 'now' ? undefined : { trigger: el, start: 'top 85%', once: true },
+    let revealed = false;
+    const split = SplitText.create(el, {
+      type: 'lines', mask: 'lines', linesClass: 'split-line', autoSplit: true,
+      aria: /^H[1-6]$/.test(el.tagName) ? 'auto' : 'none',
+      onSplit: (self) => {
+        // A resize/font resplit must not conceal words that have already entered.
+        if (revealed || el.getBoundingClientRect().top < innerHeight) {
+          revealed = true;
+          return gsap.set(self.lines, { yPercent: 0 });
+        }
+        return gsap.fromTo(self.lines, { yPercent: 110 }, {
+          yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.06,
+          onStart: () => { revealed = true; },
+          scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+        });
+      },
     });
+    cleanups.push(() => split.revert());
   });
 }
 
@@ -319,7 +364,7 @@ function bindNbsp(el: HTMLElement) {
 /* ───────────── Films strip: pinned horizontal travel on desktop ───────────── */
 function filmStrip() {
   const strip = document.querySelector<HTMLElement>('[data-strip]');
-  if (!strip || reduced) return;
+  if (!strip || reduced || (!clientArrival && strip.getBoundingClientRect().top < innerHeight)) return;
   const mm = gsap.matchMedia();
   mm.add('(min-width: 901px)', () => {
     const track = strip.querySelector<HTMLElement>('.strip__track')!;
@@ -327,7 +372,7 @@ function filmStrip() {
     // The track travels its full width over 40% of that in scroll: a short pin, still easy to follow
     gsap.to(track, {
       x: () => -distance(), ease: 'none',
-      scrollTrigger: { trigger: strip, start: 'top top', end: () => `+=${Math.round(distance() * 0.4)}`, scrub: 0.6, pin: true, anticipatePin: 1, pinSpacing: true, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: strip, start: 'top top', end: () => `+=${Math.round(distance() * 0.4)}`, scrub: 0.6, pin: true, pinType: 'transform', anticipatePin: 1, pinSpacing: true, invalidateOnRefresh: true },
     });
   });
 }
@@ -489,6 +534,7 @@ function embedUrl(url: string) {
   return null;
 }
 function player() {
+  cleanups.push(() => { gsap.killTweensOf(pl); if (pl.open) pl.close(); });
   document.querySelectorAll<HTMLElement>('[data-film]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const url = btn.dataset.url || '';
@@ -677,10 +723,10 @@ function heroClock() {
     const s = Math.floor(t); const f = Math.floor((t - s) * 24);
     return `00:00:${String(s).padStart(2, '0')}:${String(f).padStart(2, '0')}`;
   };
-  let raf = 0;
-  const tick = () => { tc.textContent = fmt(v.currentTime); raf = requestAnimationFrame(tick); };
+  const tick = () => { tc.textContent = fmt(v.currentTime); };
+  v.addEventListener('timeupdate', tick);
   tick();
-  cleanups.push(() => cancelAnimationFrame(raf));
+  cleanups.push(() => v.removeEventListener('timeupdate', tick));
   if (reduced) v.pause();
 }
 
@@ -843,6 +889,8 @@ function viewfinder() {
 function contactSheet() {
   const root = document.querySelector<HTMLElement>('[data-sheet]');
   if (!root) return;
+  // A slow first download must not turn an already-visible static sheet into a zoomed pin.
+  if (!clientArrival && root.getBoundingClientRect().top < innerHeight) return;
   const grid = root.querySelector<HTMLElement>('[data-sheet-grid]')!;
   const hero = root.querySelector<HTMLElement>('.sheet__cell.is-hero .sheet__img')!;
   const others = root.querySelectorAll<HTMLElement>('.sheet__cell:not(.is-hero)');
@@ -979,11 +1027,18 @@ function projectStory() {
   if (!reduced) {
     const hero = document.querySelector('.p-hero');
     if (hero) {
-      gsap.to(hero.querySelector('.frame img'), { scale: 1.08, opacity: 0.65, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 } });
+      const frame = hero.querySelector<HTMLElement>('.frame');
+      const dim = document.createElement('span');
+      dim.className = 'p-hero__dim'; dim.setAttribute('aria-hidden', 'true');
+      frame?.append(dim);
+      cleanups.push(() => dim.remove());
+      gsap.to(frame?.querySelector('img')!, { scale: 1.08, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 } });
+      gsap.to(dim, { opacity: 0.35, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 } });
     }
     const mm = gsap.matchMedia();
     mm.add('(min-width: 901px)', () => {
       frames.filter((f) => f.classList.contains('g-full')).forEach((f) => {
+        if (!clientArrival && f.getBoundingClientRect().top < innerHeight) return;
         gsap.to(f.querySelector('img'), { scale: 1.06, ease: 'none', scrollTrigger: { trigger: f, start: 'center center', end: '+=28%', pin: true, scrub: 0.5, anticipatePin: 1 } });
       });
     });
@@ -1022,7 +1077,7 @@ function paintPhotoZoom() {
   const limitX = Math.max(0, (lbImg.clientWidth * photoZoom - photoStage.clientWidth) / 2 + 24);
   const limitY = Math.max(0, (lbImg.clientHeight * photoZoom - photoStage.clientHeight) / 2 + 24);
   photoX = gsap.utils.clamp(-limitX, limitX, photoX); photoY = gsap.utils.clamp(-limitY, limitY, photoY);
-  lbImg.style.transform = `translate(${photoX}px, ${photoY}px) scale(${photoZoom})`;
+  gsap.set(lbImg, { x: photoX, y: photoY, scale: photoZoom });
   lb.classList.toggle('is-zoomed', photoZoom > 1);
   zoomButton.setAttribute('aria-pressed', String(photoZoom > 1));
   zoomButton.textContent = photoZoom > 1 ? tx().resetZoom : tx().zoom;
