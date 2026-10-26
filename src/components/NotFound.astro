@@ -9,9 +9,10 @@ const s = t(lang).notFound;
 
 <Base page="404" lang={lang} title={s.title} noindex>
   <section class="notfound">
+    <p class="notfound__index" aria-hidden="true">404</p>
     <h1 class="display" data-split="now">{s.h}</h1>
     <p class="muted">{s.text}</p>
-    <div class="cta__actions" style="justify-content:center;margin:0">
+    <div class="cta__actions">
       <a class="btn btn--solid" href={localePath(lang, '/portfolio/')}>{s.portfolio}</a>
       <a class="btn" href={localePath(lang, '/')}>{s.home}</a>
     </div>

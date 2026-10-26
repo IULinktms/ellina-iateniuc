@@ -364,3 +364,63 @@ Things tried and dropped, with numbers: inlining all CSS (`inlineStylesheets: 'a
 - `priceRange: '€€'` in the structured data is a placeholder. Replace it with the real band before launch, or remove it (`src/lib/seo.ts`).
 - The `og:url`, canonical and JSON-LD URLs use `site` from `astro.config.mjs` (`https://ellinaiateniuc.com`). Share cards resolve only once the real domain is set.
 - Vercel must run the package.json `build` script (default for the Astro preset) for the localized 404 routes to apply.
+
+## Round 3 — NY typography and page design (2026-10-26)
+
+Baseline: production `site-v3`, Inter Tight, Ellina Yatsenyuk, direct booking only. Screenshot matrix is captured under `screenshots/{ro,ru,en}/{320,375,1440}/before/`; reduced motion makes every section inspectable without a pin/animation distorting the full-page capture. Normal motion gets a separate interaction pass.
+
+### Ranked findings before implementation
+
+| Priority | Surface | Finding / design response |
+| --- | --- | --- |
+| High | Contact, all locales | Big gap before modest sentence-case heading; two pill CTAs, repeated email and four small messenger links compete. Make one prominent statement and a six-channel panel with large, consistent actions; services become a secondary editorial list. |
+| High | Home selected projects | Serif-era negative title margins put dense bold letters over busy photographs. Keep asymmetry but allocate separate photo and type columns, aligned baselines and smaller consistent project headings. |
+| High | Menu, especially RU / 320 | Long uppercase labels inherit a 14vw size; footer destinations run to the bottom with no scroll strategy. Fit longest labels, provide a scrollable menu and 44px minimum actions. |
+| Medium | Portfolio | Page title is no longer a confident display; project index is an undivided loose list and captions disappear until hover. Use uppercase display, ruled index rows, persistent readable caption hierarchy. |
+| Medium | Films | Featured caption puts description and metadata in unequal crowded columns; headings inherit tight .9 leading. Stack metadata on phones, align desktop caption columns, use 1.05–1.15 heading leading. |
+| Medium | About | Serif sizing makes headline/portrait balance weak; long introductions and process headings lack clear levels. Rebalance title width, editorial lede, rules and process columns; avoid tiny narrow tablet columns. |
+| Medium | All seven project templates × three languages | Titles, subtitle weight, facts and captions feel unrelated. Apply one uppercase project display, quiet subtitle, tracked fact labels, consistent gallery captions and strong next-project treatment. |
+| Medium | Localized 404s | Centered generic message with mega-size serif token; little sense of the photographic identity. Add a graphic 404 index, left-aligned display and clear return actions. |
+| Medium | Global / phone | .9 display leading and -.055em tracking applied indiscriminately, 32px language taps, warm gray metadata, serif-emphasis leftovers. Separate display/headline/body/meta roles, improve tap area and make whitespace intentional. |
+
+### Direction
+
+Inter Tight only: 700 uppercase display with tight tracking, 600–650 headings with comfortable leading, 400 readable prose, 600 tracked uppercase labels. Retain cinema black, use neutral paper white and cool grays away from the approved home hero. Keep the aperture, contact sheet, marquee, photo transitions and reduced-motion fallbacks.
+
+Reference study: [Mark Seliger Studio](https://markseliger.com/studio/) separates work, capabilities and clearly named direct contacts; [FRAME DEPT](https://framedeptny.com/) distinguishes large creative statements from compact project indexing. Apply the principles of hierarchy, clear contact routing and work-first presentation, without reproducing either site's layouts or identity.
+
+### Round 3 outcome and verification
+
+- Implemented the design responses above across all 39 localized pages. Added Pinterest after Instagram as subsequently requested; contact now has seven large destinations. Desktop hero remains unchanged. Phone-only hero sizing fixes the existing surname clipping: at 320px its text width is now 280px inside a 288px mask (was 336px); at 375px, 328px inside 342px (was 369px).
+- Build: **39 pages**, success. `npx astro check`: **0 errors, 0 warnings** (4 pre-existing unused-import hints). CMS YAML parsed successfully. `node scripts/check-public-content.mjs`: **39 public HTML files**, no unfinished text or empty headings. Localized visible-template scan found no English booking/navigation leaks; proper brand/platform names remain shared.
+- Screenshot matrix: **117 before + 117 after full-page images**, all 39 pages at **320, 375, 1440**, plus 6 menu captures per phase. Before screenshots were refreshed from an isolated archive of the exact baseline source, built for consistent image loading; the live repo was never reset. After captures use the built site with trimmed fonts and reduced motion so every section is inspectable. Desktop uses inline navigation; the overlay menu is a phone surface.
+- Layout: **234 route × width checks** across **320, 375, 768, 1024, 1440, 1920**; zero document overflow and zero overflowing content headings. Visual checks also covered masked text, catching the surname and Russian menu clipping that document-width checks alone miss.
+- Accessibility: **39 page axe scans** at 375, zero WCAG A/AA violations. Seven contact actions present and at least 44px tall in all tested locales/sizes. Menu labels fit at 320/375; Enter opens, Tab stays inside, Escape closes and returns focus.
+- Normal-motion interaction checks: RO/RU/EN at 320/375/1440 passed portfolio filtering, lightbox open/next/Escape, project navigation and return-home transitions, first-scroll shutter, contact-sheet/selected-work scrolling, film player open/Escape; zero runtime errors. Reduced-motion screenshots preserve all content. **21 no-JS template/locale checks** passed at 320.
+- Short-height menu: at **320×568**, the menu has 636px of content. A final wheel test exposed Lenis intercepting nested scrolling; the menu attribute fix allows all **68px** of internal travel in RO/RU/EN, confirmed by retest. The scroll area starts below the fixed navigation so the close control remains clear.
+- Font integration: Claude's `76c7a8d` cherry-picked cleanly as `2b55a78`. A resulting portfolio filter wrap exposed a 54px font-swap jump at 412px. `6a3b8e6` uses a two-column phone filter grid; delayed-font measurement now holds the gallery at **y=477.859px before and after**. app.ts is untouched. The only Base.astro change adds `data-lenis-prevent` to the menu so it scrolls independently while background scrolling is locked.
+- Pinterest is present in the contact panel, footer/menu loops, and `ProfessionalService.sameAs` on all 39 pages. Messenger destinations were inspected, not activated to send messages.
+
+### Lighthouse — mobile, built static site with gzip
+
+Baseline is Claude's three-run median on `site-v3` (`c56b1a6`), supplied through Orca. After is this design branch with his trimmed-font commit; individual lab runs vary. Reports are under `screenshots/lighthouse-ny/`.
+
+| Route | Before performance | After performance | After A11y / Best practices / SEO | After LCP | After CLS |
+| --- | ---: | ---: | --- | --- | --- |
+| `/` | 90 | 94 | 100 / 100 / 100 | 2.9s | .001 |
+| `/ru/` | 86 | 98 | 100 / 100 / 100 | 2.0s | 0 |
+| `/portfolio/` | 86 | 91 | 100 / 100 / 100 | 3.3s | 0 |
+| `/work/leadership-seminar/` | 87 | 93 | 100 / 100 / 100 | 3.0s | .005 |
+
+Performance scores meet 90 in these runs; the stricter 2.5s LCP target still needs Claude's remaining performance work on RO home, portfolio and project pages. His ongoing JS/analytics changes are not included in this preview.
+
+### Review artifacts and deployment
+
+- Comparison viewer: `screenshots/index.html` (select language, page and width).
+- Before: `screenshots/{ro,ru,en}/{320,375,1440}/before/{page}.png`.
+- After: `screenshots/{ro,ru,en}/{320,375,1440}/after/{page}.png`.
+- Boards: `screenshots/boards/{before,after}/`; normal-motion captures: `screenshots/interactions/`.
+- Machine-readable evidence: `screenshots/ny-before.json`, `ny-after.json`, `ny-verification.json`, `ny-interactions.json`.
+- Preview: https://ellina-iateniuc-owfkb42rx-iul-ink.vercel.app . Vercel READY; preview authentication remains enabled. Production and main untouched.
+
+Remaining content: stock/demo imagery and fictional project details require Ellina's approval; generic Vimeo needs her real profile. Next priorities: approved real event/brand case studies, real vertical Reels, physical iPhone/Android booking-channel checks.

@@ -1,8 +1,8 @@
 ---
 import { getSite } from '../lib/content';
 import { t, type Lang } from '../lib/i18n';
-interface Props { lang: Lang; site: Awaited<ReturnType<typeof getSite>>; email?: boolean }
-const { lang, site, email = false } = Astro.props;
+interface Props { lang: Lang; site: Awaited<ReturnType<typeof getSite>>; email?: boolean; variant?: 'inline' | 'large' }
+const { lang, site, email = false, variant = 'inline' } = Astro.props;
 const s = t(lang).bookingUi;
 // Do not turn blank/template destinations into links to somebody else's inbox.
 const phone = site.phone && !/00[\s-]*000[\s-]*000/.test(site.phone) ? site.phone.replace(/[^+\d]/g, '') : '';
@@ -10,18 +10,14 @@ const safe = (value: string, hosts: string[], protocol = 'https:') => {
   try { const u = new URL(value); return u.protocol === protocol && (protocol === 'viber:' || hosts.includes(u.hostname)) && (u.pathname.length > 1 || !!u.search) ? value : ''; } catch { return ''; }
 };
 const links = [
-  { label: s.telegram, href: safe(site.telegram, ['t.me', 'telegram.me']) },
   { label: s.whatsapp, href: safe(site.whatsapp, ['wa.me', 'api.whatsapp.com']) },
+  { label: s.telegram, href: safe(site.telegram, ['t.me', 'telegram.me']) },
   { label: s.viber, href: safe(site.viber, [], 'viber:') },
   { label: s.call, href: phone ? `tel:${phone}` : '' },
+  ...(variant === 'large' ? site.socials.filter((x) => ['Instagram', 'Pinterest'].includes(x.label)).map((x) => ({ label: x.label, href: safe(x.url, ['instagram.com', 'www.instagram.com', 'pinterest.com', 'www.pinterest.com']) })) : []),
   { label: s.email, href: email ? `mailto:${site.email}` : '' },
 ].filter((x) => x.href);
 ---
-{links.length > 0 && <ul class="direct-channels" role="list" aria-label={s.directChannels}>
-  {links.map((link) => <li><a class="line-link" href={link.href}>{link.label}<span aria-hidden="true"> ↗</span></a></li>)}
+{links.length > 0 && <ul class:list={["direct-channels", { "direct-channels--large": variant === 'large' }]} role="list" aria-label={s.directChannels}>
+  {links.map((link) => <li><a class:list={[{ "line-link": variant === 'inline' }]} href={link.href}><span>{link.label}</span><span aria-hidden="true"> ↗</span></a></li>)}
 </ul>}
-<style>
-  /* Workstream 4: shared one-tap contact destinations. */
-  .direct-channels { display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:1rem; }
-  .direct-channels a { font-family:var(--sans);font-size:.9rem;min-height:2.75rem;display:inline-flex;align-items:center;gap:.4rem; }
-</style>
