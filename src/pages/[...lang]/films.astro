@@ -1,0 +1,77 @@
+---
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Frame from '../../components/Frame.astro';
+import { FILM_KINDS } from '../../content.config';
+import { getFilms, getProjects, slugify, slugOf } from '../../lib/content';
+import { langParams, localePath, t, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = langParams;
+const { lang } = Astro.props as { lang: Lang };
+const s = t(lang);
+const films = await getFilms(lang);
+const projects = await getProjects(lang);
+const [feature, ...rest] = films;
+const posters = Object.fromEntries(
+  await Promise.all(films.map(async (f) => [f.id, (await getImage({ src: f.data.poster, width: 1920, format: 'webp', quality: 80 })).src])),
+);
+const kinds = FILM_KINDS.filter((k) => rest.some((f) => f.data.kind === k));
+const projectFor = (slug?: string) => projects.find((p) => slugOf(p) === slug);
+---
+
+<Base page="films" lang={lang} title={s.films.seoTitle} description={s.films.desc} image={feature?.data.poster}>
+  <header class="page-head">
+    <h1 class="display"><span class="line" data-split="now">{s.films.title}</span></h1>
+    <div class="page-head__row">
+      <p>{s.films.intro}</p>
+      {kinds.length > 1 && (
+        <div class="filters" role="group" aria-label={s.films.filter} data-filters="#films">
+          <button class="filter" data-filter="all" aria-pressed="true">{s.films.all}</button>
+          {kinds.map((k) => <button class="filter" data-filter={slugify(k)} aria-pressed="false">{s.kinds[k]}</button>)}
+        </div>
+      )}
+    </div>
+  </header>
+
+  {feature && (
+    <section class="feature-film" aria-label={s.films.featured} data-preview>
+      <button data-film data-title={feature.data.title} data-src={feature.data.videoFile} data-url={feature.data.videoUrl} data-poster={posters[feature.id]} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(feature.data.title)}>
+        <Frame src={feature.data.poster} alt={feature.data.posterAlt} parallax eager sizes="100vw">
+          {feature.data.previewFile && <video muted loop playsinline preload="none" data-src={feature.data.previewFile} aria-hidden="true" style="position:absolute;inset:0;opacity:0;transition:opacity .6s"></video>}
+        </Frame>
+        <div class="feature-film__cap">
+          <div>
+            <h2 class="display">{feature.data.title}</h2>
+            <p class="muted" style="margin-top:.6rem;max-width:34rem">{feature.data.excerpt}</p>
+          </div>
+          <span class="small muted tnum">{s.kinds[feature.data.kind]}, {feature.data.year}, {feature.data.duration}</span>
+        </div>
+      </button>
+    </section>
+  )}
+
+  <section class="film-grid" id="films" aria-label={s.films.list}>
+    {rest.map((f) => {
+      const proj = projectFor(f.data.project);
+      return (
+        <article class="film-card" data-cat={slugify(f.data.kind)} data-preview>
+          <button data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={posters[f.id]} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
+            <Frame src={f.data.poster} alt={f.data.posterAlt} sizes="(max-width: 760px) 100vw, 50vw" widths={[640, 1000, 1500]}>
+              {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
+            </Frame>
+          </button>
+          <h3>{f.data.title}</h3>
+          <p>{f.data.excerpt}</p>
+          <div class="meta">
+            <span>{s.kinds[f.data.kind]}</span><span>{f.data.year}</span>{f.data.duration && <span>{f.data.duration}</span>}
+            {proj && <a class="line-link" href={localePath(lang, `/work/${slugOf(proj)}/`)}>{s.films.photos}</a>}
+          </div>
+        </article>
+      );
+    })}
+  </section>
+</Base>
+
+<style>
+  .feature-film [data-preview].is-previewing video, .feature-film.is-previewing video { opacity: 1 !important; }
+</style>

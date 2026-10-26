@@ -1,0 +1,131 @@
+---
+import { render } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import Frame from '../../../components/Frame.astro';
+import { getProjects, getFilms, fullSize, slugOf, type Project } from '../../../lib/content';
+import { LOCALES, DEFAULT_LANG, HTML_LANG, localePath, t, type Lang } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const out = [];
+  for (const lang of LOCALES) {
+    const projects = await getProjects(lang);
+    out.push(
+      ...projects.map((p, i) => ({
+        params: { lang: lang === DEFAULT_LANG ? undefined : lang, slug: slugOf(p) },
+        props: { lang, project: p, next: projects[(i + 1) % projects.length] },
+      })),
+    );
+  }
+  return out;
+}
+interface Props { lang: Lang; project: Project; next: Project; }
+const { lang, project, next } = Astro.props;
+const s = t(lang);
+const d = project.data;
+const slug = slugOf(project);
+const nextSlug = slugOf(next);
+const { Content } = await render(project);
+const films = (await getFilms(lang)).filter((f) => f.data.project === slug);
+const gallery = await Promise.all(d.gallery.map(async (g) => ({ ...g, full: await fullSize(g.image) })));
+const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp' })));
+
+const sizesFor: Record<string, string> = {
+  full: '100vw',
+  wide: '(max-width: 760px) 100vw, 84vw',
+  half: '(max-width: 760px) 100vw, 50vw',
+  'inset-left': '(max-width: 760px) 100vw, 42vw',
+  'inset-right': '(max-width: 760px) 100vw, 42vw',
+};
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: d.title,
+  description: d.seoDescription ?? d.excerpt,
+  inLanguage: HTML_LANG[lang],
+  creator: { '@type': 'Person', name: 'Ellina Iateniuc' },
+  dateCreated: String(d.year),
+  locationCreated: d.location,
+  genre: d.category,
+};
+const titleWords = d.title.split(' ');
+const half = Math.ceil(titleWords.length / 2);
+const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '), titleWords.slice(half).join(' ')] : [d.title];
+---
+
+<Base page="work" lang={lang} title={d.title} description={d.seoDescription ?? d.excerpt} image={d.cover} imageAlt={d.coverAlt} type="article" jsonLd={ld}>
+  <section class="p-hero" data-hero>
+    <div class="p-hero__media" transition:name={`cover-${slug}`}>
+      <Frame src={d.cover} alt={d.coverAlt} eager aperture={false} sizes="100vw">
+        {d.coverVideo && <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src={d.coverVideo} type="video/mp4" /></video>}
+      </Frame>
+    </div>
+    <div class="p-hero__text" data-hero-text>
+      <h1 class="display">
+        {titleLines.map((l) => <span class="line" data-split="now">{l}</span>)}
+      </h1>
+      {d.subtitle && <p class="p-hero__sub">{d.subtitle}</p>}
+    </div>
+  </section>
+
+  <dl class="p-facts">
+    <div><dt>{s.work.category}</dt><dd>{s.categories[d.category]}</dd></div>
+    {d.client && <div><dt>{s.work.client}</dt><dd>{d.client}</dd></div>}
+    {d.location && <div><dt>{s.work.location}</dt><dd>{d.location}</dd></div>}
+    <div><dt>{s.work.year}</dt><dd class="tnum">{d.year}</dd></div>
+  </dl>
+
+  <section class="p-story wrap grid12">
+    <p class="lede" data-split>{d.excerpt}</p>
+    <div class="prose"><Content /></div>
+  </section>
+
+  <section class="p-gallery" aria-label={s.work.photos(d.title)}>
+    {gallery.map((g) => (
+      <figure class={`g-${g.layout}`}>
+        <button data-lb-item data-full={g.full} data-alt={g.alt} data-caption={g.caption ?? ''} data-cursor={s.cursor.expand} aria-label={s.a11y.open(g.alt)}>
+          <Frame src={g.image} alt={g.alt} parallax={g.layout === 'full' || g.layout === 'wide'} sizes={sizesFor[g.layout]} style={g.layout === 'full' ? 'aspect-ratio:16/9' : `aspect-ratio:${g.image.width}/${g.image.height}`} />
+        </button>
+        {g.caption && <figcaption>{g.caption}</figcaption>}
+      </figure>
+    ))}
+  </section>
+
+  {films.length > 0 && (
+    <section class="wrap" style="padding-bottom: var(--section)" aria-label={s.work.filmAria}>
+      <div class="section-head"><h2>{s.work.film}</h2></div>
+      {films.map((f, i) => (
+        <div class="film-card" data-preview>
+          <button data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
+            <Frame src={f.data.poster} alt={f.data.posterAlt} sizes="100vw" style="aspect-ratio:21/9">
+              {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
+            </Frame>
+          </button>
+          <h3>{f.data.title}</h3>
+          <p>{f.data.excerpt}</p>
+        </div>
+      ))}
+    </section>
+  )}
+
+  {d.credits.length > 0 && (
+    <section class="p-credits" aria-labelledby="credits-h">
+      <h2 id="credits-h">{s.work.credits}</h2>
+      <dl>
+        {d.credits.map((c) => <div><dt>{c.role}</dt><dd>{c.name}</dd></div>)}
+      </dl>
+    </section>
+  )}
+
+  {nextSlug !== slug && (
+    <a class="next" href={localePath(lang, `/work/${nextSlug}/`)} data-cursor={s.cursor.next}>
+      <div class="next__media" transition:name={`cover-${nextSlug}`}>
+        <Frame src={next.data.cover} alt="" aperture={false} sizes="100vw" widths={[800, 1400, 2000]} />
+      </div>
+      <div class="next__text">
+        <span>{s.work.next}</span>
+        <h2 class="display">{next.data.title}</h2>
+      </div>
+    </a>
+  )}
+</Base>

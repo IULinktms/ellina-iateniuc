@@ -11,7 +11,13 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://ellinaiateniuc.com',
   output: 'static',
   adapter: isStaticPreview ? undefined : vercel({ imageService: false }),
-  integrations: [sitemap({ filter: (page) => !page.includes('/admin') })],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/admin'),
+      // hreflang alternates: Romanian at /, Russian at /ru/, English at /en/
+      i18n: { defaultLocale: 'ro', locales: { ro: 'ro', ru: 'ru', en: 'en' } },
+    }),
+  ],
   trailingSlash: 'ignore',
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   image: {

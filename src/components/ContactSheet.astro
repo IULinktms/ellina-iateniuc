@@ -6,8 +6,12 @@
  */
 import { Image } from 'astro:assets';
 import { getProjects } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
 
-const projects = await getProjects();
+const { lang } = Astro.props as { lang: Lang };
+const tx = t(lang);
+
+const projects = await getProjects(lang);
 const pool = projects.flatMap((p) => [
   { src: p.data.cover, alt: p.data.coverAlt, project: p.data.title },
   ...p.data.gallery.filter((g) => g.inPortfolio).map((g) => ({ src: g.image, alt: g.alt, project: p.data.title })),
@@ -53,8 +57,8 @@ const roll = 14;
         ))}
       </div>
       <div class="sheet__copy" data-sheet-copy>
-        <p class="sheet__kicker tnum">Roll {roll}. Frame {String(SELECT + 1).padStart(2, '0')}.</p>
-        <h2 id="sheet-h" class="display sheet__title">Hundreds of frames. <em>Only the ones worth sending.</em></h2>
+        <p class="sheet__kicker tnum">{tx.home.sheetKicker(roll, String(SELECT + 1).padStart(2, '0'))}</p>
+        <h2 id="sheet-h" class="display sheet__title">{tx.home.sheetA} <em>{tx.home.sheetB}</em></h2>
       </div>
     </div>
   </section>

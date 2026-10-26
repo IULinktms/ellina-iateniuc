@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getBooking, getSite } from '../../lib/content';
+import { langParams, t, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = langParams;
+const { lang } = Astro.props as { lang: Lang };
+const s = t(lang);
+const c = s.contact;
+const booking = await getBooking(lang);
+const site = await getSite(lang);
+const isPreview = import.meta.env.PUBLIC_PREVIEW_LITE === '1';
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+const types = [...booking.sessions.map((x) => x.name), c.other];
+---
+
+<Base page="contact" lang={lang} title={booking.title} description={booking.intro}>
+  <header class="page-head">
+    <h1 class="display">
+      {c.head.map((l) => <span class="line" data-split="now">{l}</span>)}
+    </h1>
+    <div class="page-head__row"><p>{booking.intro}</p></div>
+  </header>
+
+  <section class="contact grid12">
+    <aside class="contact__aside" aria-labelledby="sessions-h">
+      <h2 id="sessions-h" class="small muted" style="font-weight:500;margin-bottom:1rem">{c.services}</h2>
+      <div class="sessions">
+        {booking.sessions.map((x) => (
+          <div class="session">
+            <h3>{x.name}</h3>
+            <p>{x.includes}</p>
+            <div class="meta"><span>{x.duration}</span>{x.price && <span>{x.price}</span>}</div>
+          </div>
+        ))}
+      </div>
+      <div class="direct">
+        <span class="small muted">{c.direct}</span>
+        <a class="line-link" href={`mailto:${site.email}`}>{site.email}</a>
+        {site.phone && <a class="line-link" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>}
+        <span class="small" style="margin-top:.75rem">
+          {site.socials.map((x, i) => <>{i > 0 && ', '}<a class="line-link" href={x.url} target="_blank" rel="me noopener">{x.label}</a></>)}
+        </span>
+      </div>
+    </aside>
+
+    <div class="contact__form">
+      <form action="/api/contact" method="post" data-contact novalidate data-preview={isPreview ? '' : undefined}>
+        <input type="hidden" name="lang" value={lang} />
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">{c.name}</label>
+            <input id="f-name" name="name" autocomplete="name" required maxlength="120" />
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="f-email">{c.email}</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="200" />
+            <span class="err" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <fieldset class="field" style="border-left:0;border-right:0;border-top:0;margin:0;padding-inline:0">
+          <legend class="xsmall muted" style="padding:0">{c.kind}</legend>
+          <div class="chips">
+            {types.map((x, i) => (
+              <>
+                <input type="radio" name="type" id={`t-${i}`} value={x} checked={i === 0} />
+                <label for={`t-${i}`}>{x}</label>
+              </>
+            ))}
+          </div>
+        </fieldset>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-org">{c.org}</label>
+            <input id="f-org" name="organisation" autocomplete="organization" maxlength="160" />
+            <span class="err"></span>
+          </div>
+          <div class="field">
+            <label for="f-guests">{c.guests}</label>
+            <input id="f-guests" name="guests" inputmode="numeric" placeholder={c.guestsPh} maxlength="20" />
+            <span class="err"></span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-date">{c.date}</label>
+            <input id="f-date" name="date" type="date" data-date-input lang={lang} />
+            <span class="err"></span>
+          </div>
+          <div class="field">
+            <label for="f-loc">{c.location}</label>
+            <input id="f-loc" name="location" placeholder={c.locationPh} maxlength="160" />
+            <span class="err"></span>
+          </div>
+        <p class="date-hint" data-date-hint data-preview={site.delivery.previewTime} data-gallery={site.delivery.galleryDays} data-film={site.delivery.filmDays} aria-live="polite">
+          {c.hint(site.delivery.previewTime, site.delivery.galleryDays)}
+        </p>
+        </div>
+
+        <div class="field">
+          <label for="f-msg">{c.message}</label>
+          <textarea id="f-msg" name="message" required maxlength="5000" placeholder={c.messagePh}></textarea>
+          <span class="err" aria-live="polite"></span>
+        </div>
+
+        <!-- Spam protection: hidden honeypot field + time-to-fill check (+ Turnstile if configured) -->
+        <div class="hp" aria-hidden="true">
+          <label for="f-website">Website</label>
+          <input id="f-website" name="website_url" tabindex="-1" autocomplete="off" />
+        </div>
+        <input type="hidden" name="_t" value="" />
+        {turnstileKey && (
+          <>
+            <div class="cf-turnstile" data-sitekey={turnstileKey} data-theme="dark" data-language={lang} style="margin-top:1.5rem"></div>
+            <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+          </>
+        )}
+
+        <div class="form-foot">
+          <p class="form-status" data-status role="status" aria-live="polite">{site.responseTime}</p>
+          <button class="btn btn--solid" type="submit">{c.submit}</button>
+        </div>
+      </form>
+
+      <div class="form-done" data-form-done hidden tabindex="-1">
+        <p>{booking.successMessage}</p>
+      </div>
+    </div>
+  </section>
+</Base>

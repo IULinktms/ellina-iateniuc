@@ -3,33 +3,36 @@
  * The live element: pick an event date and see when each deliverable arrives.
  * Works without JavaScript (shows the plain promises); script fills in real dates.
  */
+import { t, localePath, type Lang } from '../lib/i18n';
 interface Props {
+  lang: Lang;
   previewTime: string;
   galleryDays: number;
   filmDays: number;
   id?: string;
 }
-const { previewTime, galleryDays, filmDays, id = 'calc' } = Astro.props;
+const { lang, previewTime, galleryDays, filmDays, id = 'calc' } = Astro.props;
+const c = t(lang).calc;
 ---
 
 <div class="calc" data-calc data-preview={previewTime} data-gallery={galleryDays} data-film={filmDays}>
   <div class="calc__field">
-    <label for={`${id}-date`}>Your event date</label>
+    <label for={`${id}-date`}>{c.date}</label>
     <input type="date" id={`${id}-date`} data-calc-input />
   </div>
   <dl class="calc__out" aria-live="polite">
     <div>
-      <dt>Edited previews</dt>
-      <dd data-calc-preview>The same evening, {previewTime}</dd>
+      <dt>{c.previews}</dt>
+      <dd data-calc-preview>{c.sameEvening(previewTime)}</dd>
     </div>
     <div>
-      <dt>Full gallery</dt>
-      <dd data-calc-gallery>Within {galleryDays} working days</dd>
+      <dt>{c.gallery}</dt>
+      <dd data-calc-gallery>{c.within(galleryDays)}</dd>
     </div>
     <div>
-      <dt>Aftermovie</dt>
-      <dd data-calc-film>Within {filmDays} working days</dd>
+      <dt>{c.film}</dt>
+      <dd data-calc-film>{c.within(filmDays)}</dd>
     </div>
   </dl>
-  <a class="btn btn--solid calc__cta" href="/contact/" data-calc-cta>Check this date</a>
+  <a class="btn btn--solid calc__cta" href={localePath(lang, '/contact/')} data-calc-cta>{c.check}</a>
 </div>

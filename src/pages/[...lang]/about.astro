@@ -1,0 +1,57 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Frame from '../../components/Frame.astro';
+import { getAbout, getSite } from '../../lib/content';
+import { langParams, localePath, t, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = langParams;
+const { lang } = Astro.props as { lang: Lang };
+const s = t(lang);
+const about = await getAbout(lang);
+const site = await getSite(lang);
+const d = about.data;
+const { Content } = await render(about);
+---
+
+<Base page="about" lang={lang} title={s.about.title} description={d.seoDescription} image={d.portrait} imageAlt={d.portraitAlt}>
+  <section class="about-hero grid12">
+    <h1 class="display"><span data-split="now">{d.title}</span></h1>
+    <p class="lede" data-split>{d.intro}</p>
+    <Frame src={d.portrait} alt={d.portraitAlt} class="portrait" parallax eager sizes="(max-width: 760px) 100vw, 40vw" />
+  </section>
+
+  <section class="about-body wrap grid12">
+    {d.secondImage && <Frame src={d.secondImage} alt={d.secondImageAlt ?? ''} parallax sizes="(max-width: 760px) 100vw, 32vw" />}
+    <div class="prose"><Content /></div>
+  </section>
+
+  {d.principles.length > 0 && (
+    <section class="principles light" aria-labelledby="pr-h">
+      <div class="wrap">
+        <div class="section-head" style="color:#000"><h2 id="pr-h">{s.about.expect}</h2></div>
+        <ul role="list">
+          {d.principles.map((p) => <li><h3>{p.title}</h3><p>{p.text}</p></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {d.process.length > 0 && (
+    <section class="process wrap" aria-labelledby="proc-h">
+      <div class="section-head"><h2 id="proc-h">{s.about.howBooking}</h2></div>
+      <ol>
+        {d.process.map((x) => <li><h3>{x.title}</h3><p>{x.text}</p></li>)}
+      </ol>
+    </section>
+  )}
+
+  <section class="cta wrap">
+    <h2 class="display" data-split>{s.about.ctaTitle}</h2>
+    <p>{s.about.ctaText}</p>
+    <div class="cta__actions">
+      <a class="btn btn--solid" href={localePath(lang, '/contact/')}>{s.about.book}</a>
+      <a class="btn" href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+  </section>
+</Base>

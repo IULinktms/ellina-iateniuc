@@ -1,6 +1,10 @@
 @import '@fontsource-variable/bodoni-moda/opsz.css';
 @import '@fontsource-variable/bodoni-moda/opsz-italic.css';
 @import '@fontsource-variable/hanken-grotesk/index.css';
+/* Cyrillic: Bodoni Moda and Hanken Grotesk have no Russian letters, so those glyphs fall through to these */
+@import '@fontsource-variable/playfair-display/wght.css';
+@import '@fontsource-variable/playfair-display/wght-italic.css';
+@import '@fontsource-variable/manrope/index.css';
 
 /* ───────────────────────── Tokens ───────────────────────── */
 :root {
@@ -15,8 +19,8 @@
   --line: rgb(236 231 223 / 0.14);
   --line-strong: rgb(236 231 223 / 0.32);
 
-  --serif: 'Bodoni Moda Variable', 'Bodoni 72', 'Didot', Georgia, serif;
-  --sans: 'Hanken Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+  --serif: 'Bodoni Moda Variable', 'Playfair Display Variable', 'Bodoni 72', 'Didot', Georgia, serif;
+  --sans: 'Hanken Grotesk Variable', 'Manrope Variable', 'Helvetica Neue', Arial, sans-serif;
 
   /* Type scale — perfect fourth from 17px */
   --t-xs: 0.8125rem;
@@ -730,3 +734,16 @@ html:not(.js) .sheet__mark path { stroke-dashoffset: 0; }
 
 /* ───────── Magnetic buttons: transform comes from JS ───────── */
 .btn.is-magnetic, .nav__cta.is-magnetic { transition: color var(--t-ui) ease, border-color var(--t-ui) ease; }
+
+/* ───────── Languages ───────── */
+.nav__right { display: flex; align-items: center; gap: 2.2rem; }
+.lang { display: flex; gap: 0.15rem; font-size: var(--t-xs); letter-spacing: 0.06em; }
+.lang a { display: inline-grid; place-items: center; min-width: 2rem; height: 2rem; padding-inline: 0.35rem; opacity: 0.55; transition: opacity var(--t-hover) ease; }
+.lang a[aria-current='true'] { opacity: 1; text-decoration: underline; text-underline-offset: 0.35em; text-decoration-thickness: 1px; }
+@media (hover: hover) and (pointer: fine) { .lang a:hover { opacity: 1; } }
+.lang--menu { gap: 1.25rem; font-size: var(--t-sm); letter-spacing: 0; width: 100%; }
+.lang--menu a { min-width: 0; height: 2.75rem; padding: 0; }
+@media (max-width: 760px) { .nav__right > .lang { display: none; } }
+/* Cyrillic display type: Playfair sits a touch larger than Bodoni, tighten slightly */
+html[lang='ru'] .display { letter-spacing: -0.03em; line-height: 0.92; }
+html[lang='ru'] .hero__name { line-height: 0.88; }

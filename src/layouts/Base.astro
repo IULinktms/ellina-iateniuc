@@ -3,9 +3,11 @@ import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import type { ImageMetadata } from 'astro';
 import { getSite, shareImage } from '../lib/content';
+import { LOCALES, LANG_NAMES, LANG_SHORT, HTML_LANG, OG_LOCALE, DEFAULT_LANG, localePath, splitPath, t, clientStrings, type Lang } from '../lib/i18n';
 import Icon from '../components/Icon.astro';
 
 interface Props {
+  lang: Lang;
   title?: string;
   description?: string;
   image?: ImageMetadata;
@@ -15,42 +17,49 @@ interface Props {
   page: string;
   noindex?: boolean;
 }
-const { title, description, image, imageAlt, type = 'website', jsonLd, page, noindex = false } = Astro.props;
-const site = await getSite();
+const { lang, title, description, image, imageAlt, type = 'website', jsonLd, page, noindex = false } = Astro.props;
+const s = t(lang);
+const site = await getSite(lang);
 const fullTitle = title ? `${title} — ${site.name}` : site.seoTitle;
 const desc = description ?? site.seoDescription;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const { rest } = splitPath(Astro.url.pathname);
+const canonical = new URL(localePath(lang, rest), Astro.site);
+const alternates = LOCALES.map((l) => ({ lang: l, href: new URL(localePath(l, rest), Astro.site).toString() }));
 const og = new URL(await shareImage(image ?? site.shareImage), Astro.site);
+const L = (p: string) => localePath(lang, p);
 
 const nav = [
-  { href: '/portfolio/', label: 'Portfolio', key: 'portfolio' },
-  { href: '/films/', label: 'Films', key: 'films' },
-  { href: '/about/', label: 'About', key: 'about' },
-  { href: '/contact/', label: 'Book an event', key: 'contact' },
+  { href: L('/portfolio/'), label: s.nav.portfolio, key: 'portfolio' },
+  { href: L('/films/'), label: s.nav.films, key: 'films' },
+  { href: L('/about/'), label: s.nav.about, key: 'about' },
+  { href: L('/contact/'), label: s.nav.book, key: 'contact' },
 ];
 const personLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: site.name,
   description: site.seoDescription,
-  url: Astro.site?.toString(),
+  url: canonical.toString(),
+  inLanguage: HTML_LANG[lang],
   image: og.toString(),
   email: site.email,
   address: { '@type': 'PostalAddress', addressLocality: site.location },
   founder: { '@type': 'Person', name: site.name, jobTitle: site.role },
-  sameAs: site.socials.map((s) => s.url),
+  sameAs: site.socials.map((x) => x.url),
 };
 const year = new Date().getFullYear();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={HTML_LANG[lang]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={HTML_LANG[a.lang]} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.lang === DEFAULT_LANG)!.href} />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -58,6 +67,8 @@ const year = new Date().getFullYear();
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    {LOCALES.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
@@ -72,12 +83,13 @@ const year = new Date().getFullYear();
     <script is:inline>document.documentElement.classList.add('js');</script>
     <ClientRouter fallback="swap" />
   </head>
-  <body data-page={page}>
-    <a class="skip-link" href="#main">Skip to content</a>
+  <body data-page={page} data-lang={lang}>
+    <script type="application/json" id="i18n" set:html={JSON.stringify(clientStrings(lang))} />
+    <a class="skip-link" href="#main">{s.skip}</a>
 
-    <header class="nav" transition:persist="nav">
-      <a href="/" class="nav__mark" aria-label={`${site.name}, home`}>Ellina <span>Iateniuc</span></a>
-      <nav aria-label="Main">
+    <header class="nav" transition:persist={`nav-${lang}`}>
+      <a href={L('/')} class="nav__mark" aria-label={`${site.name}, ${s.nav.home}`}>Ellina <span>Iateniuc</span></a>
+      <nav aria-label={s.nav.main} class="nav__right">
         <ul class="nav__links" role="list">
           {nav.map((n) => (
             <li>
@@ -85,18 +97,30 @@ const year = new Date().getFullYear();
             </li>
           ))}
         </ul>
+        <ul class="lang" role="list" aria-label={s.nav.language}>
+          {LOCALES.map((l) => (
+            <li>
+              <a href={localePath(l, rest)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} title={LANG_NAMES[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_SHORT[l]}</a>
+            </li>
+          ))}
+        </ul>
       </nav>
-      <button class="nav__toggle" aria-expanded="false" aria-controls="menu" data-menu-toggle>Menu</button>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="menu" data-menu-toggle>{s.nav.menu}</button>
     </header>
 
-    <div class="menu" id="menu" aria-hidden="true" transition:persist="menu">
+    <div class="menu" id="menu" aria-hidden="true" transition:persist={`menu-${lang}`}>
       <ul class="menu__list" role="list">
-        <li><a href="/" data-nav="home">Home</a></li>
+        <li><a href={L('/')} data-nav="home">{s.nav.home}</a></li>
         {nav.map((n) => <li><a href={n.href} data-nav={n.key}>{n.label}</a></li>)}
       </ul>
       <div class="menu__foot">
+        <ul class="lang lang--menu" role="list" aria-label={s.nav.language}>
+          {LOCALES.map((l) => (
+            <li><a href={localePath(l, rest)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_NAMES[l]}</a></li>
+          ))}
+        </ul>
         <a href={`mailto:${site.email}`}>{site.email}</a>
-        <span>{site.socials.map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="me noopener" target="_blank">{s.label}</a></>)}</span>
+        <span>{site.socials.map((x, i) => <>{i > 0 && ', '}<a href={x.url} rel="me noopener" target="_blank">{x.label}</a></>)}</span>
       </div>
     </div>
 
@@ -112,25 +136,22 @@ const year = new Date().getFullYear();
             <p style="margin-top:.4rem"><a class="line-link" href={`mailto:${site.email}`}>{site.email}</a></p>
           </div>
           <div>
-            <h2>Pages</h2>
+            <h2>{s.footer.pages}</h2>
             <ul role="list">
-              <li><a class="line-link" href="/portfolio/">Portfolio</a></li>
-              <li><a class="line-link" href="/films/">Films</a></li>
-              <li><a class="line-link" href="/about/">About</a></li>
-              <li><a class="line-link" href="/contact/">Book an event</a></li>
+              {nav.map((n) => <li><a class="line-link" href={n.href}>{n.label}</a></li>)}
             </ul>
           </div>
           <div>
-            <h2>Elsewhere</h2>
+            <h2>{s.footer.elsewhere}</h2>
             <ul role="list">
-              {site.socials.map((s) => <li><a class="line-link" href={s.url} rel="me noopener" target="_blank">{s.label}</a></li>)}
+              {site.socials.map((x) => <li><a class="line-link" href={x.url} rel="me noopener" target="_blank">{x.label}</a></li>)}
             </ul>
           </div>
         </div>
         <p class="footer__big" aria-hidden="true">Ellina <span>Iateniuc</span></p>
         <div class="footer__legal">
-          <span>© {year} {site.name}. All photographs and films are protected by copyright.</span>
-          <a href="#main" class="line-link" data-to-top>Back to top</a>
+          <span>© {year} {site.name}. {s.footer.rights}</span>
+          <a href="#main" class="line-link" data-to-top>{s.footer.toTop}</a>
         </div>
       </footer>
     )}
@@ -146,10 +167,10 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- Full-screen photo viewer -->
-    <dialog class="lightbox" aria-label="Photo viewer" data-lightbox transition:persist="lightbox">
+    <dialog class="lightbox" aria-label={s.viewer.photo} data-lightbox transition:persist={`lightbox-${lang}`}>
       <div class="lightbox__bar">
         <span class="tnum" data-lb-count></span>
-        <button class="icon-btn" data-lb-close aria-label="Close viewer"><Icon name="close" /></button>
+        <button class="icon-btn" data-lb-close aria-label={s.viewer.close}><Icon name="close" /></button>
       </div>
       <div class="lightbox__stage">
         <img alt="" data-lb-img />
@@ -159,18 +180,18 @@ const year = new Date().getFullYear();
       <div class="lightbox__foot">
         <p data-lb-caption></p>
         <div class="lightbox__nav">
-          <a class="line-link" data-lb-project href="#" hidden>See the project</a>
-          <button class="icon-btn" data-lb-prev aria-label="Previous photo"><Icon name="prev" /></button>
-          <button class="icon-btn" data-lb-next aria-label="Next photo"><Icon name="next" /></button>
+          <a class="line-link" data-lb-project href="#" hidden>{s.viewer.project}</a>
+          <button class="icon-btn" data-lb-prev aria-label={s.viewer.prev}><Icon name="prev" /></button>
+          <button class="icon-btn" data-lb-next aria-label={s.viewer.next}><Icon name="next" /></button>
         </div>
       </div>
     </dialog>
 
     <!-- Film player -->
-    <dialog class="player" aria-label="Film player" data-player transition:persist="player">
+    <dialog class="player" aria-label={s.viewer.film} data-player transition:persist={`player-${lang}`}>
       <div class="lightbox__bar">
         <span data-player-title></span>
-        <button class="icon-btn" data-player-close aria-label="Close film"><Icon name="close" /></button>
+        <button class="icon-btn" data-player-close aria-label={s.viewer.closeFilm}><Icon name="close" /></button>
       </div>
       <div class="player__stage" data-player-stage></div>
     </dialog>

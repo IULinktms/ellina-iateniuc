@@ -18,6 +18,12 @@ CustomEase.create('uiInOut', '0.77, 0, 0.175, 1');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const EASE = 'uiOut';
+/* Interface strings for the current language, embedded by Base.astro */
+type Strings = { sending: string; errorTail: string; required: string; emailBad: string; from: string; hint: string; menu: string; close: string; dateLocale: string };
+const tx = (): Strings => {
+  try { return JSON.parse(document.getElementById('i18n')?.textContent || '{}'); } catch { return {} as Strings; }
+};
+const fill = (tpl: string, v: Record<string, string>) => tpl.replace(/\{(\w)\}/g, (_, k) => v[k] ?? '');
 const SHUTTER = 'uiInOut';
 
 /* ───────────── Smooth scroll (once) ───────────── */
@@ -66,7 +72,7 @@ let menuOpen = false;
 function setMenu(open: boolean) {
   menuOpen = open;
   toggle.setAttribute('aria-expanded', String(open));
-  toggle.textContent = open ? 'Close' : 'Menu';
+  toggle.textContent = open ? (tx().close || 'Close') : (tx().menu || 'Menu');
   menu.setAttribute('aria-hidden', String(!open));
   gsap.killTweensOf(menu);
   if (open) {
@@ -315,7 +321,7 @@ function lbShow(i: number, dir = 0) {
     lbCount.textContent = `${String(lbIndex + 1).padStart(2, '0')} / ${String(lbItems.length).padStart(2, '0')}`;
     lbCap.textContent = it.dataset.caption ?? '';
     if (it.dataset.project && it.dataset.projectUrl !== location.pathname) {
-      lbProj.hidden = false; lbProj.href = it.dataset.projectUrl!; lbProj.textContent = `From ${it.dataset.project}`;
+      lbProj.hidden = false; lbProj.href = it.dataset.projectUrl!; lbProj.textContent = fill(tx().from || 'From {x}', { x: it.dataset.project! });
     } else lbProj.hidden = true;
   };
   if (!dir || reduced) { gsap.killTweensOf(lbImg); gsap.set(lbImg, { opacity: 1, x: 0 }); swap(); return; }
@@ -435,8 +441,8 @@ function contactForm() {
       const err = f.querySelector<HTMLElement>('.err');
       if (!input || !err) return;
       let msg = '';
-      if (input.required && !input.value.trim()) msg = 'This field is needed so I can reply.';
-      else if (input.type === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) msg = 'Check the email address, it looks incomplete.';
+      if (input.required && !input.value.trim()) msg = tx().required;
+      else if (input.type === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) msg = tx().emailBad;
       err.textContent = msg;
       if (msg) { f.setAttribute('data-invalid', ''); ok = false; } else f.removeAttribute('data-invalid');
     });
@@ -458,7 +464,7 @@ function contactForm() {
     const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     btn.disabled = true;
     status.dataset.state = '';
-    status.textContent = 'Sending your message…';
+    status.textContent = tx().sending;
     try {
       if (form.dataset.preview !== undefined) {
         // Static preview: there is no server, so show the confirmation without sending
@@ -473,7 +479,7 @@ function contactForm() {
       showDone();
     } catch (err) {
       status.dataset.state = 'error';
-      status.textContent = `${(err as Error).message} Please email me directly instead.`;
+      status.textContent = `${(err as Error).message} ${tx().errorTail}`;
       btn.disabled = false;
     }
   });
@@ -502,7 +508,7 @@ function toTop() {
 }
 
 /* ───────────── Live element: event date → delivery dates ───────────── */
-const fmtDay = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+const fmtDay = { format: (d: Date) => new Intl.DateTimeFormat(tx().dateLocale || 'en-GB', { weekday: 'short', day: 'numeric', month: 'short' }).format(d) };
 function addWorkingDays(from: Date, n: number) {
   const d = new Date(from);
   let left = n;
@@ -563,7 +569,7 @@ function deliveryCalc() {
     const upd = () => {
       const d = parseDate(dateInput.value);
       if (!d) return;
-      hint.textContent = `Previews ${fmtDay.format(d)} at ${time}. Full gallery by ${fmtDay.format(addWorkingDays(d, g))}.`;
+      hint.textContent = fill(tx().hint, { d: fmtDay.format(d), t: time, g: fmtDay.format(addWorkingDays(d, g)) });
     };
     dateInput.addEventListener('input', upd);
     upd();

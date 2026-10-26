@@ -1,0 +1,33 @@
+{
+  "name": "Ellina Iateniuc",
+  "firstName": "Ellina",
+  "lastName": "Iateniuc",
+  "role": "Fotograf și videograf de evenimente",
+  "location": "Chișinău, Moldova",
+  "email": "hello@ellinaiateniuc.com",
+  "phone": "+373 00 000 000",
+  "responseTime": "Răspund în cel mult o zi lucrătoare și vă confirm disponibilitatea pentru data dorită.",
+  "seoTitle": "Ellina Iateniuc — Fotograf de evenimente în Chișinău",
+  "seoDescription": "Fotografie la conferințe, seminare, evenimente corporative, portrete de speakeri și aftermovie-uri realizate de Ellina Iateniuc, din Chișinău, Moldova.",
+  "shareImage": "../../../assets/uploads/summit-arena-keynote.jpg",
+  "socials": [
+    {
+      "label": "Instagram",
+      "url": "https://instagram.com/"
+    },
+    {
+      "label": "Vimeo",
+      "url": "https://vimeo.com/"
+    },
+    {
+      "label": "Telegram",
+      "url": "https://t.me/"
+    }
+  ],
+  "delivery": {
+    "previewTime": "21:00",
+    "galleryDays": 5,
+    "filmDays": 10,
+    "portraitHours": 24
+  }
+}

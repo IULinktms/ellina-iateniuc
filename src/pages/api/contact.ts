@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { apiErrors, isLang, DEFAULT_LANG } from '../../lib/i18n';
 
 /**
  * Contact endpoint (runs as a Vercel serverless function).
@@ -23,9 +24,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
     form = await request.formData();
   } catch {
-    return json({ ok: false, error: 'The form data could not be read.' }, 400);
+    return json({ ok: false, error: apiErrors[DEFAULT_LANG].read }, 400);
   }
   const get = (k: string) => String(form.get(k) ?? '').trim();
+  const lang = isLang(get('lang')) ? (get('lang') as keyof typeof apiErrors) : DEFAULT_LANG;
+  const E = apiErrors[lang];
 
   // 1. Honeypot: real people never see this field
   if (get('website_url')) return json({ ok: true });
@@ -33,13 +36,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   // 2. Too fast to be human (under 3 s) or a stale page (over 2 h)
   const started = Number(get('_t'));
   const elapsed = Date.now() - started;
-  if (!started || elapsed < 3000) return json({ ok: false, error: 'That was a little too quick.' }, 400);
+  if (!started || elapsed < 3000) return json({ ok: false, error: E.fast }, 400);
 
   // 3. Rate limit: 5 messages per 10 minutes per address
   const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
   const now = Date.now();
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < 600_000);
-  if (recent.length >= 5) return json({ ok: false, error: 'Too many messages in a short time.' }, 429);
+  if (recent.length >= 5) return json({ ok: false, error: E.many }, 429);
   hits.set(ip, [...recent, now]);
 
   // 4. Cloudflare Turnstile (only if configured)
@@ -49,7 +52,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       method: 'POST',
       body: new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: token, remoteip: ip }),
     }).then((res) => res.json() as Promise<{ success: boolean }>).catch(() => ({ success: false }));
-    if (!r.success) return json({ ok: false, error: 'The spam check did not pass.' }, 400);
+    if (!r.success) return json({ ok: false, error: E.spam }, 400);
   }
 
   // 5. Validation
@@ -62,17 +65,17 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const organisation = get('organisation').slice(0, 160);
   const guests = get('guests').slice(0, 20);
   if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return json({ ok: false, error: 'Name, a valid email and a message are needed.' }, 400);
+    return json({ ok: false, error: E.fields }, 400);
   }
   const links = (message.match(/https?:\/\//g) ?? []).length;
-  if (links > 3) return json({ ok: false, error: 'Please include fewer links.' }, 400);
+  if (links > 3) return json({ ok: false, error: E.links }, 400);
 
   if (!env.RESEND_API_KEY || !env.CONTACT_TO) {
     console.warn('[contact] RESEND_API_KEY or CONTACT_TO not set — inquiry logged only', { name, email, type });
-    return json({ ok: false, error: 'The form is not connected to an inbox yet.' }, 503);
+    return json({ ok: false, error: E.inbox }, 503);
   }
 
-  const rows: [string, string][] = [['Name', name], ['Email', email], ['Organisation', organisation], ['Event type', type], ['Date', date], ['Location', location], ['Guests', guests]];
+  const rows: [string, string][] = [['Language', lang.toUpperCase()], ['Name', name], ['Email', email], ['Organisation', organisation], ['Event type', type], ['Date', date], ['Location', location], ['Guests', guests]];
   const html = `<div style="font-family:Georgia,serif;font-size:16px;line-height:1.6;color:#111">
     <h2 style="font-weight:400">New inquiry from ${esc(name)}</h2>
     <table style="border-collapse:collapse">${rows.filter(([, v]) => v).map(([k, v]) => `<tr><td style="padding:4px 16px 4px 0;color:#777">${k}</td><td>${esc(v)}</td></tr>`).join('')}</table>
@@ -92,7 +95,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   });
   if (!res.ok) {
     console.error('[contact] Resend error', res.status, await res.text());
-    return json({ ok: false, error: 'The message could not be delivered.' }, 502);
+    return json({ ok: false, error: E.deliver }, 502);
   }
   return json({ ok: true });
 };

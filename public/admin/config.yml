@@ -16,7 +16,7 @@ publish_mode: simple
 
 # Photos live here and are turned into fast, responsive WebP versions when the site builds.
 media_folder: src/assets/uploads
-public_folder: ../../assets/uploads
+public_folder: ../../../assets/uploads
 
 # Uploads are resized and converted in the browser before they're saved, so huge camera files never bloat the site.
 media_libraries:
@@ -30,6 +30,15 @@ media_libraries:
           width: 3000
           height: 3000
 
+# Three languages. Romanian is the main one; Russian and English are translations of the same entries.
+# Photos, dates, categories and order are shared — change them once and every language follows.
+i18n:
+  structure: multiple_folders
+  locales: [ro, ru, en]
+  default_locale: ro
+  initial_locales: all
+  save_all_locales: true
+
 slug:
   encoding: ascii
   clean_accents: true
@@ -37,6 +46,7 @@ slug:
 collections:
   # ───────────── Projects (photo stories) ─────────────
   - name: projects
+    i18n: true
     label: Projects
     label_singular: Project
     description: Each project is a full-screen photo story. Turn on "Hide from the site" to unpublish without deleting.
@@ -44,8 +54,8 @@ collections:
     create: true
     delete: true
     slug: '{{title}}'
-    media_folder: ../../assets/uploads
-    public_folder: ../../assets/uploads
+    media_folder: ../../../assets/uploads
+    public_folder: ../../../assets/uploads
     summary: '{{title}} — {{category}}, {{year}}{{draft | ternary(" (hidden)", "")}}'
     sortable_fields: [order, year, title]
     view_filters:
@@ -56,27 +66,29 @@ collections:
       - { label: Celebrations, field: category, pattern: Celebrations }
       - { label: Hidden, field: draft, pattern: true }
     fields:
-      - { name: title, label: Title, widget: string }
-      - { name: subtitle, label: Subtitle, widget: string, required: false, hint: 'A short line under the title, e.g. "Two days, 1,200 guests, 40 speakers".' }
-      - { name: category, label: Category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations] }
-      - { name: year, label: Year, widget: number, value_type: int }
-      - { name: location, label: Location, widget: string, required: false }
-      - { name: client, label: Client, widget: string, required: false }
-      - { name: excerpt, label: Short description, widget: text, hint: 'One or two sentences. Shown on the home page, in the portfolio and in search results.' }
-      - { name: cover, label: Cover photo, widget: image, hint: 'The large opening photo of the project. Landscape or portrait both work.' }
-      - { name: coverAlt, label: Cover description, widget: string, hint: 'Describe what is in the photo for people using screen readers and for Google.' }
-      - { name: coverVideo, label: Cover video (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short, silent MP4 loop that plays behind the title. Keep under 15 MB.' }
+      - { name: title, label: Title, widget: string, i18n: true }
+      - { name: subtitle, label: Subtitle, widget: string, required: false, hint: 'A short line under the title, e.g. "Two days, 1,200 guests, 40 speakers".', i18n: true }
+      - { name: category, label: Category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations], i18n: duplicate }
+      - { name: year, label: Year, widget: number, value_type: int, i18n: duplicate }
+      - { name: location, label: Location, widget: string, required: false, i18n: true }
+      - { name: client, label: Client, widget: string, required: false, i18n: true }
+      - { name: excerpt, label: Short description, widget: text, hint: 'One or two sentences. Shown on the home page, in the portfolio and in search results.', i18n: true }
+      - { name: cover, label: Cover photo, widget: image, hint: 'The large opening photo of the project. Landscape or portrait both work.', i18n: duplicate }
+      - { name: coverAlt, label: Cover description, widget: string, hint: 'Describe what is in the photo for people using screen readers and for Google.', i18n: true }
+      - { name: coverVideo, label: Cover video (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short, silent MP4 loop that plays behind the title. Keep under 15 MB.', i18n: duplicate }
       - name: gallery
+        i18n: true
         label: Photo story
         label_singular: Photo
         widget: list
         summary: '{{fields.layout}} — {{fields.alt}}'
         hint: Drag to reorder. Pick a layout per photo to shape the rhythm of the story.
         fields:
-          - { name: image, label: Photo, widget: image }
-          - { name: alt, label: Description, widget: string }
-          - { name: caption, label: Caption (optional), widget: string, required: false }
+          - { name: image, label: Photo, widget: image, i18n: duplicate }
+          - { name: alt, label: Description, widget: string, i18n: true }
+          - { name: caption, label: Caption (optional), widget: string, required: false, i18n: true }
           - name: layout
+            i18n: duplicate
             label: Layout
             widget: select
             default: wide
@@ -86,22 +98,24 @@ collections:
               - { label: 'Half — two side by side (use in pairs)', value: half }
               - { label: 'Small, left', value: inset-left }
               - { label: 'Small, right', value: inset-right }
-          - { name: inPortfolio, label: Show in the portfolio gallery, widget: boolean, default: true }
+          - { name: inPortfolio, label: Show in the portfolio gallery, widget: boolean, default: true, i18n: duplicate }
       - name: credits
+        i18n: true
         label: Credits
         widget: list
         required: false
         summary: '{{fields.role}}: {{fields.name}}'
         fields:
-          - { name: role, label: Role, widget: string }
-          - { name: name, label: Name, widget: string }
-      - { name: body, label: Story, widget: markdown, required: false, hint: 'The text that accompanies the photographs.' }
-      - { name: seoDescription, label: Search description (optional), widget: text, required: false }
-      - { name: order, label: Order, widget: number, value_type: int, default: 100, hint: 'Lower numbers appear first.' }
-      - { name: draft, label: Hide from the site, widget: boolean, default: false }
+          - { name: role, label: Role, widget: string, i18n: true }
+          - { name: name, label: Name, widget: string, i18n: true }
+      - { name: body, label: Story, widget: markdown, required: false, hint: 'The text that accompanies the photographs.', i18n: true }
+      - { name: seoDescription, label: Search description (optional), widget: text, required: false, i18n: true }
+      - { name: order, label: Order, widget: number, value_type: int, default: 100, hint: 'Lower numbers appear first.', i18n: duplicate }
+      - { name: draft, label: Hide from the site, widget: boolean, default: false, i18n: duplicate }
 
   # ───────────── Films ─────────────
   - name: films
+    i18n: true
     label: Films & video
     label_singular: Film
     description: Films, reels and behind-the-scenes. Upload an MP4 or paste a Vimeo/YouTube link.
@@ -109,64 +123,69 @@ collections:
     create: true
     delete: true
     slug: '{{title}}'
-    media_folder: ../../assets/uploads
-    public_folder: ../../assets/uploads
+    media_folder: ../../../assets/uploads
+    public_folder: ../../../assets/uploads
     summary: '{{title}} — {{kind}}, {{year}}{{draft | ternary(" (hidden)", "")}}'
     sortable_fields: [order, year, title]
     fields:
-      - { name: title, label: Title, widget: string }
-      - { name: kind, label: Type, widget: select, options: [Aftermovie, Highlights, Reel, Behind the scenes] }
-      - { name: year, label: Year, widget: number, value_type: int }
-      - { name: duration, label: Duration, widget: string, required: false, hint: 'e.g. 3:42' }
-      - { name: location, label: Location, widget: string, required: false }
-      - { name: excerpt, label: Short description, widget: text }
-      - { name: poster, label: Poster image, widget: image, hint: 'A still from the film. Shown before it plays.' }
-      - { name: posterAlt, label: Poster description, widget: string }
-      - { name: videoUrl, label: Vimeo or YouTube link, widget: string, required: false, hint: 'Best for long films. Paste the normal page link — it is converted to a player automatically.' }
-      - { name: videoFile, label: Or upload an MP4, widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'For short films under ~50 MB.' }
-      - { name: previewFile, label: Hover preview (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short silent loop that plays when someone hovers the film.' }
-      - { name: project, label: Related project, widget: relation, collection: projects, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false }
+      - { name: title, label: Title, widget: string, i18n: true }
+      - { name: kind, label: Type, widget: select, options: [Aftermovie, Highlights, Reel, Behind the scenes], i18n: duplicate }
+      - { name: year, label: Year, widget: number, value_type: int, i18n: duplicate }
+      - { name: duration, label: Duration, widget: string, required: false, hint: 'e.g. 3:42', i18n: true }
+      - { name: location, label: Location, widget: string, required: false, i18n: true }
+      - { name: excerpt, label: Short description, widget: text, i18n: true }
+      - { name: poster, label: Poster image, widget: image, hint: 'A still from the film. Shown before it plays.', i18n: duplicate }
+      - { name: posterAlt, label: Poster description, widget: string, i18n: true }
+      - { name: videoUrl, label: Vimeo or YouTube link, widget: string, required: false, hint: 'Best for long films. Paste the normal page link — it is converted to a player automatically.', i18n: duplicate }
+      - { name: videoFile, label: Or upload an MP4, widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'For short films under ~50 MB.', i18n: duplicate }
+      - { name: previewFile, label: Hover preview (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short silent loop that plays when someone hovers the film.', i18n: duplicate }
+      - { name: project, label: Related project, widget: relation, collection: projects, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false, i18n: duplicate }
       - name: credits
+        i18n: true
         label: Credits
         widget: list
         required: false
         summary: '{{fields.role}}: {{fields.name}}'
         fields:
-          - { name: role, label: Role, widget: string }
-          - { name: name, label: Name, widget: string }
-      - { name: order, label: Order, widget: number, value_type: int, default: 100, hint: 'The film with the lowest number is the large featured film.' }
-      - { name: featured, label: Show on the home page, widget: boolean, default: false }
-      - { name: draft, label: Hide from the site, widget: boolean, default: false }
+          - { name: role, label: Role, widget: string, i18n: true }
+          - { name: name, label: Name, widget: string, i18n: true }
+      - { name: order, label: Order, widget: number, value_type: int, default: 100, hint: 'The film with the lowest number is the large featured film.', i18n: duplicate }
+      - { name: featured, label: Show on the home page, widget: boolean, default: false, i18n: duplicate }
+      - { name: draft, label: Hide from the site, widget: boolean, default: false, i18n: duplicate }
 
   # ───────────── Pages ─────────────
   - name: pages
+    i18n: true
     label: Pages & settings
     editor: { preview: false }
     files:
       - name: home
+        i18n: true
         label: Home page
-        file: src/content/pages/home.json
-        media_folder: ../../assets/uploads
-        public_folder: ../../assets/uploads
+        file: src/content/pages/{{locale}}/home.json
+        media_folder: ../../../assets/uploads
+        public_folder: ../../../assets/uploads
         fields:
-          - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.' }
-          - { name: heroPoster, label: Opening image, widget: image, hint: 'Shown while the video loads and on slow connections. Use the first frame of the video.' }
-          - { name: heroPosterAlt, label: Opening image description, widget: string }
-          - { name: statementTitle, label: How I work — heading, widget: string, hint: 'Two short lines at most.' }
-          - { name: statement, label: How I work — text, widget: text }
-          - { name: runOfShowTitle, label: Run of show — heading, widget: string }
+          - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.', i18n: duplicate }
+          - { name: heroPoster, label: Opening image, widget: image, hint: 'Shown while the video loads and on slow connections. Use the first frame of the video.', i18n: duplicate }
+          - { name: heroPosterAlt, label: Opening image description, widget: string, i18n: true }
+          - { name: statementTitle, label: How I work — heading, widget: string, hint: 'Two short lines at most.', i18n: true }
+          - { name: statement, label: How I work — text, widget: text, i18n: true }
+          - { name: runOfShowTitle, label: Run of show — heading, widget: string, i18n: true }
           - name: runOfShow
+            i18n: true
             label: Run of show (a typical event day)
             widget: list
             summary: '{{fields.time}} — {{fields.title}}'
             hint: The timeline on the home page. The picture changes as visitors scroll through the times.
             fields:
-              - { name: time, label: Time, widget: string, hint: 'e.g. 10:00' }
-              - { name: title, label: Moment, widget: string }
-              - { name: text, label: What I photograph, widget: text }
-              - { name: image, label: Photo, widget: image }
-              - { name: alt, label: Photo description, widget: string }
+              - { name: time, label: Time, widget: string, hint: 'e.g. 10:00', i18n: duplicate }
+              - { name: title, label: Moment, widget: string, i18n: true }
+              - { name: text, label: What I photograph, widget: text, i18n: true }
+              - { name: image, label: Photo, widget: image, i18n: duplicate }
+              - { name: alt, label: Photo description, widget: string, i18n: true }
           - name: featuredProjects
+            i18n: duplicate
             label: Selected work (in order)
             widget: relation
             collection: projects
@@ -175,88 +194,97 @@ collections:
             display_fields: [title]
             multiple: true
           - name: disciplines
+            i18n: true
             label: What I cover
             widget: list
             summary: '{{fields.label}}'
             fields:
-              - { name: label, label: Label, widget: string }
-              - { name: category, label: Opens portfolio category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations] }
-              - { name: image, label: Hover image, widget: image }
-              - { name: alt, label: Image description, widget: string }
-          - { name: ctaTitle, label: Closing headline, widget: string }
-          - { name: ctaText, label: Closing text, widget: text }
+              - { name: label, label: Label, widget: string, i18n: true }
+              - { name: category, label: Opens portfolio category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations], i18n: duplicate }
+              - { name: image, label: Hover image, widget: image, i18n: duplicate }
+              - { name: alt, label: Image description, widget: string, i18n: true }
+          - { name: ctaTitle, label: Closing headline, widget: string, i18n: true }
+          - { name: ctaText, label: Closing text, widget: text, i18n: true }
 
       - name: about
+        i18n: true
         label: About page
-        file: src/content/pages/about.md
-        media_folder: ../../assets/uploads
-        public_folder: ../../assets/uploads
+        file: src/content/pages/{{locale}}/about.md
+        media_folder: ../../../assets/uploads
+        public_folder: ../../../assets/uploads
         fields:
-          - { name: title, label: Heading, widget: string }
-          - { name: intro, label: Introduction, widget: text }
-          - { name: portrait, label: Portrait, widget: image }
-          - { name: portraitAlt, label: Portrait description, widget: string }
-          - { name: secondImage, label: Second image, widget: image, required: false }
-          - { name: secondImageAlt, label: Second image description, widget: string, required: false }
-          - { name: body, label: Story, widget: markdown }
+          - { name: title, label: Heading, widget: string, i18n: true }
+          - { name: intro, label: Introduction, widget: text, i18n: true }
+          - { name: portrait, label: Portrait, widget: image, i18n: duplicate }
+          - { name: portraitAlt, label: Portrait description, widget: string, i18n: true }
+          - { name: secondImage, label: Second image, widget: image, required: false, i18n: duplicate }
+          - { name: secondImageAlt, label: Second image description, widget: string, required: false, i18n: true }
+          - { name: body, label: Story, widget: markdown, i18n: true }
           - name: principles
+            i18n: true
             label: What clients can expect
             widget: list
             summary: '{{fields.title}}'
-            fields: [{ name: title, label: Title, widget: string }, { name: text, label: Text, widget: text }]
+            fields: [{ name: title, label: Title, widget: string , i18n: true }, { name: text, label: Text, widget: text , i18n: true }]
           - name: process
+            i18n: true
             label: How a commission works (steps)
             widget: list
             summary: '{{fields.title}}'
-            fields: [{ name: title, label: Step, widget: string }, { name: text, label: Text, widget: text }]
-          - { name: seoDescription, label: Search description, widget: text, required: false }
+            fields: [{ name: title, label: Step, widget: string , i18n: true }, { name: text, label: Text, widget: text , i18n: true }]
+          - { name: seoDescription, label: Search description, widget: text, required: false, i18n: true }
 
       - name: booking
+        i18n: true
         label: Booking page
-        file: src/content/pages/booking.json
+        file: src/content/pages/{{locale}}/booking.json
         fields:
-          - { name: title, label: Heading, widget: string }
-          - { name: intro, label: Introduction, widget: text }
+          - { name: title, label: Heading, widget: string, i18n: true }
+          - { name: intro, label: Introduction, widget: text, i18n: true }
           - name: sessions
+            i18n: true
             label: Session types
             widget: list
             summary: '{{fields.name}}'
             hint: These also become the options in the inquiry form.
             fields:
-              - { name: name, label: Name, widget: string }
-              - { name: duration, label: Duration, widget: string }
-              - { name: includes, label: What's included, widget: text }
-              - { name: price, label: Price (optional), widget: string, required: false }
-          - { name: successMessage, label: Message after sending, widget: text }
+              - { name: name, label: Name, widget: string, i18n: true }
+              - { name: duration, label: Duration, widget: string, i18n: true }
+              - { name: includes, label: What's included, widget: text, i18n: true }
+              - { name: price, label: Price (optional), widget: string, required: false, i18n: true }
+          - { name: successMessage, label: Message after sending, widget: text, i18n: true }
 
       - name: site
+        i18n: true
         label: Site settings
-        file: src/content/pages/site.json
-        media_folder: ../../assets/uploads
-        public_folder: ../../assets/uploads
+        file: src/content/pages/{{locale}}/site.json
+        media_folder: ../../../assets/uploads
+        public_folder: ../../../assets/uploads
         fields:
-          - { name: name, label: Full name, widget: string }
-          - { name: firstName, label: First name (large title line 1), widget: string }
-          - { name: lastName, label: Last name (large title line 2), widget: string }
-          - { name: role, label: Role, widget: string }
-          - { name: location, label: Based in, widget: string }
-          - { name: email, label: Email, widget: string }
-          - { name: phone, label: Phone, widget: string, required: false }
-          - { name: responseTime, label: Reply-time note, widget: string, required: false }
-          - { name: seoTitle, label: Search title, widget: string }
-          - { name: seoDescription, label: Search description, widget: text }
-          - { name: shareImage, label: Share image, widget: image, hint: 'Shown when a link to the site is shared on social media or messengers.' }
+          - { name: name, label: Full name, widget: string, i18n: duplicate }
+          - { name: firstName, label: First name (large title line 1), widget: string, i18n: duplicate }
+          - { name: lastName, label: Last name (large title line 2), widget: string, i18n: duplicate }
+          - { name: role, label: Role, widget: string, i18n: true }
+          - { name: location, label: Based in, widget: string, i18n: true }
+          - { name: email, label: Email, widget: string, i18n: duplicate }
+          - { name: phone, label: Phone, widget: string, required: false, i18n: duplicate }
+          - { name: responseTime, label: Reply-time note, widget: string, required: false, i18n: true }
+          - { name: seoTitle, label: Search title, widget: string, i18n: true }
+          - { name: seoDescription, label: Search description, widget: text, i18n: true }
+          - { name: shareImage, label: Share image, widget: image, hint: 'Shown when a link to the site is shared on social media or messengers.', i18n: duplicate }
           - name: delivery
+            i18n: duplicate
             label: Delivery promises
             widget: object
             hint: Used by the delivery calculator on the home and booking pages.
             fields:
-              - { name: previewTime, label: Same-evening previews at, widget: string, default: '21:00' }
-              - { name: galleryDays, label: Full gallery after (working days), widget: number, value_type: int, default: 5 }
-              - { name: filmDays, label: Aftermovie after (working days), widget: number, value_type: int, default: 10 }
-              - { name: portraitHours, label: Portraits retouched within (hours), widget: number, value_type: int, default: 24 }
+              - { name: previewTime, label: Same-evening previews at, widget: string, default: '21:00', i18n: true }
+              - { name: galleryDays, label: Full gallery after (working days), widget: number, value_type: int, default: 5, i18n: duplicate }
+              - { name: filmDays, label: Aftermovie after (working days), widget: number, value_type: int, default: 10, i18n: duplicate }
+              - { name: portraitHours, label: Portraits retouched within (hours), widget: number, value_type: int, default: 24, i18n: duplicate }
           - name: socials
+            i18n: duplicate
             label: Social links
             widget: list
             summary: '{{fields.label}}'
-            fields: [{ name: label, label: Label, widget: string }, { name: url, label: Link, widget: string }]
+            fields: [{ name: label, label: Label, widget: string , i18n: true }, { name: url, label: Link, widget: string , i18n: true }]

@@ -68,7 +68,7 @@ const films = defineCollection({
 });
 
 const site = defineCollection({
-  loader: glob({ pattern: 'site.json', base: './src/content/pages' }),
+  loader: glob({ pattern: '*/site.json', base: './src/content/pages' }),
   schema: ({ image }) =>
     z.object({
       name: z.string(),
@@ -95,7 +95,7 @@ const site = defineCollection({
 });
 
 const home = defineCollection({
-  loader: glob({ pattern: 'home.json', base: './src/content/pages' }),
+  loader: glob({ pattern: '*/home.json', base: './src/content/pages' }),
   schema: ({ image }) =>
     z.object({
       heroVideo: z.string(),
@@ -117,7 +117,7 @@ const home = defineCollection({
 });
 
 const about = defineCollection({
-  loader: glob({ pattern: 'about.md', base: './src/content/pages' }),
+  loader: glob({ pattern: '*/about.md', base: './src/content/pages' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -133,7 +133,7 @@ const about = defineCollection({
 });
 
 const booking = defineCollection({
-  loader: glob({ pattern: 'booking.json', base: './src/content/pages' }),
+  loader: glob({ pattern: '*/booking.json', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
     intro: z.string(),
