@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/localize-404.mjs",
     "preview": "astro preview",
     "build:static-preview": "node scripts/static-preview.mjs"
   },

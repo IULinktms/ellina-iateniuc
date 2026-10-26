@@ -5,6 +5,7 @@ import Frame from '../../components/Frame.astro';
 import { FILM_KINDS } from '../../content.config';
 import { getFilms, getProjects, slugify, slugOf } from '../../lib/content';
 import { langParams, localePath, t, type Lang } from '../../lib/i18n';
+import { videoLd } from '../../lib/seo';
 
 export const getStaticPaths = langParams;
 const { lang } = Astro.props as { lang: Lang };
@@ -17,9 +18,10 @@ const posters = Object.fromEntries(
 );
 const kinds = FILM_KINDS.filter((k) => rest.some((f) => f.data.kind === k));
 const projectFor = (slug?: string) => projects.find((p) => slugOf(p) === slug);
+const ld = films.map((f) => videoLd(f, lang, Astro.site!, posters[f.id]));
 ---
 
-<Base page="films" lang={lang} title={s.films.seoTitle} description={s.films.desc} image={feature?.data.poster}>
+<Base page="films" lang={lang} title={s.films.seoTitle} description={s.films.desc} image={feature?.data.poster} jsonLd={ld}>
   <header class="page-head">
     <h1 class="display"><span class="line" data-split="now">{s.films.title}</span></h1>
     <div class="page-head__row">

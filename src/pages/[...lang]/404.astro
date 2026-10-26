@@ -1,0 +1,13 @@
+---
+/**
+ * Localized "page not found" for /ru/ and /en/. Vercel serves these for unknown paths under
+ * each prefix (routes added after the build by scripts/localize-404.mjs).
+ */
+import NotFound from '../../components/NotFound.astro';
+import { LOCALES, DEFAULT_LANG, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = () => LOCALES.filter((l) => l !== DEFAULT_LANG).map((l) => ({ params: { lang: l }, props: { lang: l } }));
+const { lang } = Astro.props as { lang: Lang };
+---
+
+<NotFound lang={lang} />
