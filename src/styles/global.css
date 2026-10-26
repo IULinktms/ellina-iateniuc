@@ -747,3 +747,45 @@ html:not(.js) .sheet__mark path { stroke-dashoffset: 0; }
 /* Cyrillic display type: Playfair sits a touch larger than Bodoni, tighten slightly */
 html[lang='ru'] .display { letter-spacing: -0.03em; line-height: 0.92; }
 html[lang='ru'] .hero__name { line-height: 0.88; }
+
+/* ═══════════════════ Workstream 2: project stories + audited heading fit ═══════════════════ */
+/* Keep glyphs readable inside the existing masks at every locale/width. */
+.page-head h1, .p-hero__text h1 { font-size: clamp(2.5rem, 9vw, 9rem); overflow-wrap: anywhere; text-wrap: balance; }
+.p-hero__text h1 .line { overflow: visible; }
+.page-head h1 .line { overflow: visible; }
+.about-hero h1 { font-size: clamp(3rem, 10vw, 10rem); min-width: 0; overflow-wrap: anywhere; }
+.cta h2, .next__text h2 { overflow-wrap: anywhere; text-wrap: balance; }
+@media (max-width: 760px) {
+  .page-head h1, .p-hero__text h1 { font-size: clamp(2.15rem, 9vw, 4.2rem); }
+  .cta h2, .next__text h2 { font-size: clamp(2.25rem, 10vw, 4rem); }
+}
+.story-gallery { position: relative; }
+.story-frames { position: sticky; top: var(--nav-h); z-index: 30; display: flex; justify-content: center; gap: .7rem; padding: .75rem var(--gutter); background: rgb(0 0 0 / .94); border-block: 1px solid var(--line); margin-bottom: 3rem; }
+.story-frames a { display: grid; grid-template-columns: 4rem auto; align-items: center; gap: .4rem; color: var(--ash); font-size: .7rem; padding: .25rem; }
+.story-frames img { width: 4rem; height: 2.5rem; object-fit: cover; filter: grayscale(1); opacity: .5; transition: opacity 180ms, filter 180ms; }
+.story-frames a[aria-current] { color: var(--bone); }
+.story-frames a[aria-current] img, .story-frames a:hover img { filter: none; opacity: 1; }
+[data-story-frame] { scroll-margin-top: 11rem; }
+.story-progress { display: none; }
+.story-booking { padding-block: clamp(4rem, 8vw, 8rem); display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
+.story-booking h2 { font-size: var(--t-xl); max-width: 20ch; text-wrap: balance; }
+.story-booking .btn { flex-shrink: 0; }
+.story-next__controls { display: flex; justify-content: space-between; gap: 2rem; padding-block: 1.5rem; border-top: 1px solid var(--line); }
+.story-next__controls p { max-width: 30rem; }
+.story-next__controls button[aria-pressed='true'] { color: var(--projector); }
+.story-next__fill { position: absolute; inset: auto 0 0; height: 4px; background: var(--bone); z-index: 3; transform: scaleX(0); transform-origin: left; }
+.lightbox__status { position: absolute; top: 1rem; left: var(--gutter); right: var(--gutter); text-align: center; pointer-events: none; }
+.lightbox.is-zoomed .lightbox__prev-zone, .lightbox.is-zoomed .lightbox__next-zone { pointer-events: none; }
+.lightbox.is-zoomed .lightbox__stage { touch-action: none; }
+@media (max-width: 900px) {
+  .story-frames { display: none; }
+  .story-progress { display: block; position: sticky; top: var(--nav-h); z-index: 30; height: 3px; background: var(--graphite); }
+  .story-progress i { display: block; height: 100%; background: var(--projector); transform: scaleX(0); transform-origin: left; }
+  .story-booking, .story-next__controls { flex-direction: column; align-items: start; }
+  .story-next__controls { display: none; }
+}
+@media (max-width: 560px) {
+  .lightbox__foot { flex-direction: column; align-items: start; gap: .6rem; }
+  .lightbox__nav { width: 100%; justify-content: end; align-items: center; }
+  .lightbox__nav a { margin-right: auto; }
+}

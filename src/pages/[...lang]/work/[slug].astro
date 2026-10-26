@@ -1,6 +1,6 @@
 ---
 import { render } from 'astro:content';
-import { getImage } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Base from '../../../layouts/Base.astro';
 import Frame from '../../../components/Frame.astro';
 import { getProjects, getFilms, fullSize, slugOf, type Project } from '../../../lib/content';
@@ -80,16 +80,26 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
     <div class="prose"><Content /></div>
   </section>
 
+  <div class="story-gallery" data-story-gallery>
+    <nav class="story-frames" aria-label={s.studio.frames}>
+      {gallery.map((g, i) => <a href={`#frame-${i + 1}`} data-frame-link aria-label={`${s.studio.frame} ${i + 1}: ${g.caption || g.alt}`}>
+        <Image src={g.image} alt="" width={140} format="webp" quality={60} loading="lazy" />
+        <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
+      </a>)}
+    </nav>
+    <div class="story-progress" aria-hidden="true"><i data-story-progress></i></div>
   <section class="p-gallery" aria-label={s.work.photos(d.title)}>
-    {gallery.map((g) => (
-      <figure class={`g-${g.layout}`}>
-        <button data-lb-item data-full={g.full} data-alt={g.alt} data-caption={g.caption ?? ''} data-cursor={s.cursor.expand} aria-label={s.a11y.open(g.alt)}>
+    {gallery.map((g, i) => (
+      <figure class={`g-${g.layout}`} id={`frame-${i + 1}`} data-story-frame>
+        <button data-lb-item data-full={g.full} data-alt={g.alt} data-caption={`${s.studio.frame} ${String(i + 1).padStart(2, '0')} · ${d.year} · ${g.caption || g.alt}`} data-cursor={s.cursor.expand} aria-label={s.a11y.open(g.alt)}>
           <Frame src={g.image} alt={g.alt} parallax={g.layout === 'full' || g.layout === 'wide'} sizes={sizesFor[g.layout]} style={g.layout === 'full' ? 'aspect-ratio:16/9' : `aspect-ratio:${g.image.width}/${g.image.height}`} />
         </button>
         {g.caption && <figcaption>{g.caption}</figcaption>}
       </figure>
     ))}
   </section>
+
+  </div>
 
   {films.length > 0 && (
     <section class="wrap" style="padding-bottom: var(--section)" aria-label={s.work.filmAria}>
@@ -117,15 +127,26 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
     </section>
   )}
 
+  <section class="story-booking wrap">
+    <h2 class="display">{s.studio.bookStory}</h2>
+    <a class="btn btn--solid" href={localePath(lang, '/contact/')}>{s.studio.book}</a>
+  </section>
   {nextSlug !== slug && (
-    <a class="next" href={localePath(lang, `/work/${nextSlug}/`)} data-cursor={s.cursor.next}>
+    <section class="story-next" data-next-story>
+      <div class="story-next__controls wrap">
+        <button class="line-link" data-next-arm aria-pressed="false">{s.studio.advance}</button>
+        <p class="small muted" id="advance-hint">{s.studio.advanceHint}</p>
+      </div>
+    <a class="next" data-next-link href={localePath(lang, `/work/${nextSlug}/`)} data-cursor={s.cursor.next}>
       <div class="next__media" transition:name={`cover-${nextSlug}`}>
         <Frame src={next.data.cover} alt="" aperture={false} sizes="100vw" widths={[800, 1400, 2000]} />
       </div>
+      <i class="story-next__fill" data-next-fill aria-hidden="true"></i>
       <div class="next__text">
         <span>{s.work.next}</span>
         <h2 class="display">{next.data.title}</h2>
       </div>
     </a>
+    </section>
   )}
 </Base>

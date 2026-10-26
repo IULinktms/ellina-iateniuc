@@ -170,10 +170,12 @@ const year = new Date().getFullYear();
     <dialog class="lightbox" aria-label={s.viewer.photo} data-lightbox transition:persist={`lightbox-${lang}`}>
       <div class="lightbox__bar">
         <span class="tnum" data-lb-count></span>
+        <button class="line-link small" data-lb-zoom aria-pressed="false">{s.studio.zoom}</button>
         <button class="icon-btn" data-lb-close aria-label={s.viewer.close}><Icon name="close" /></button>
       </div>
       <div class="lightbox__stage">
         <img alt="" data-lb-img />
+        <p class="lightbox__status small" data-lb-status role="status"></p>
         <button class="lightbox__prev-zone" data-lb-prev tabindex="-1" aria-hidden="true"></button>
         <button class="lightbox__next-zone" data-lb-next tabindex="-1" aria-hidden="true"></button>
       </div>

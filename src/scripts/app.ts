@@ -19,7 +19,7 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const EASE = 'uiOut';
 /* Interface strings for the current language, embedded by Base.astro */
-type Strings = { sending: string; errorTail: string; required: string; emailBad: string; from: string; hint: string; menu: string; close: string; dateLocale: string };
+type Strings = ReturnType<typeof import('../lib/i18n').clientStrings>;
 const tx = (): Strings => {
   try { return JSON.parse(document.getElementById('i18n')?.textContent || '{}'); } catch { return {} as Strings; }
 };
@@ -110,6 +110,12 @@ document.addEventListener('astro:before-swap', () => {
 
 document.addEventListener('astro:page-load', () => {
   const page = document.body.dataset.page ?? '';
+  // Persisted language navigation must follow the current story, not the entry page.
+  const rest = location.pathname.replace(/^\/(ru|en)(?=\/|$)/, '') || '/';
+  document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]').forEach((a) => {
+    const prefix = a.hreflang === 'ro' ? '' : `/${a.hreflang}`;
+    a.href = `${prefix}${rest}${location.search}${location.hash}`;
+  });
   document.querySelectorAll<HTMLAnchorElement>('[data-nav]').forEach((a) => {
     if (a.dataset.nav === page) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
@@ -125,6 +131,7 @@ document.addEventListener('astro:page-load', () => {
     floatPreview();
     contactSheet();
     marquee();
+    projectStory();
   });
   viewfinder();
   magnetic();
@@ -316,7 +323,16 @@ function lbShow(i: number, dir = 0) {
   lbIndex = (i + lbItems.length) % lbItems.length;
   const it = lbItems[lbIndex];
   const swap = () => {
+    resetPhotoZoom();
+    const status = lb.querySelector<HTMLElement>('[data-lb-status]')!;
+    status.textContent = tx().loading;
+    lbImg.onload = () => { status.textContent = ''; };
+    lbImg.onerror = () => { status.textContent = tx().imageError; };
     lbImg.src = it.dataset.full!;
+    for (const offset of [-1, 1]) {
+      const adjacent = lbItems[(lbIndex + offset + lbItems.length) % lbItems.length];
+      if (adjacent?.dataset.full) { const preload = new Image(); preload.src = adjacent.dataset.full; }
+    }
     lbImg.alt = it.dataset.alt ?? '';
     lbCount.textContent = `${String(lbIndex + 1).padStart(2, '0')} / ${String(lbItems.length).padStart(2, '0')}`;
     lbCap.textContent = it.dataset.caption ?? '';
@@ -345,17 +361,17 @@ function lightbox() {
 lb.querySelectorAll('[data-lb-prev]').forEach((b) => b.addEventListener('click', () => lbShow(lbIndex - 1, -1)));
 lb.querySelectorAll('[data-lb-next]').forEach((b) => b.addEventListener('click', () => lbShow(lbIndex + 1, 1)));
 lb.querySelector('[data-lb-close]')!.addEventListener('click', () => lb.close());
-lb.addEventListener('close', () => { startScroll(); lbItems[lbIndex]?.focus(); });
+lb.addEventListener('close', () => { resetPhotoZoom(); startScroll(); lbItems[lbIndex]?.focus(); });
 lb.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
   if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
 });
 // Swipe on touch screens
 let touchX = 0;
-lb.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchstart', (e) => { touchX = e.touches.length === 1 && photoZoom === 1 ? e.touches[0].clientX : NaN; }, { passive: true });
 lb.addEventListener('touchend', (e) => {
   const dx = e.changedTouches[0].clientX - touchX;
-  if (Math.abs(dx) > 50) lbShow(lbIndex + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  if (photoZoom === 1 && Number.isFinite(touchX) && Math.abs(dx) > 50) lbShow(lbIndex + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
 });
 lbProj.addEventListener('click', () => lb.close());
 
@@ -750,3 +766,98 @@ function magnetic() {
     el.addEventListener('pointerleave', () => { xTo(0); yTo(0); gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' }); });
   });
 }
+
+
+/* ═══════════════════ Workstream 2: the photo story ═══════════════════ */
+function projectStory() {
+  const root = document.querySelector<HTMLElement>('[data-story-gallery]');
+  if (!root) return;
+  const frames = Array.from(root.querySelectorAll<HTMLElement>('[data-story-frame]'));
+  const links = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-frame-link]'));
+  const bar = root.querySelector<HTMLElement>('[data-story-progress]');
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) {
+      const index = frames.indexOf(e.target as HTMLElement);
+      links.forEach((a, i) => { if (i === index) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+      if (bar) bar.style.transform = `scaleX(${(index + 1) / frames.length})`;
+    }
+  }, { rootMargin: '-25% 0px -35% 0px' });
+  frames.forEach((f) => io.observe(f));
+  cleanups.push(() => io.disconnect());
+  links.forEach((a) => {
+    const jump = (e: MouseEvent) => {
+      const frame = document.getElementById(a.hash.slice(1));
+      if (!frame) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(frame.getBoundingClientRect().top + window.scrollY - 170, { immediate: true, force: true });
+      else frame.scrollIntoView({ block: 'start', behavior: 'instant' });
+      frame.querySelector<HTMLElement>('button')?.focus({ preventScroll: true });
+    };
+    a.addEventListener('click', jump);
+    cleanups.push(() => a.removeEventListener('click', jump));
+  });
+  if (!reduced) {
+    const hero = document.querySelector('.p-hero');
+    if (hero) {
+      gsap.to(hero.querySelector('.frame img'), { scale: 1.08, filter: 'brightness(0.65)', ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 } });
+    }
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 901px)', () => {
+      frames.filter((f) => f.classList.contains('g-full')).forEach((f) => {
+        gsap.to(f.querySelector('img'), { scale: 1.06, ease: 'none', scrollTrigger: { trigger: f, start: 'center center', end: '+=28%', pin: true, scrub: 0.5, anticipatePin: 1 } });
+      });
+    });
+    cleanups.push(() => mm.revert());
+  }
+  const next = document.querySelector<HTMLElement>('[data-next-story]');
+  const arm = next?.querySelector<HTMLButtonElement>('[data-next-arm]');
+  const link = next?.querySelector<HTMLAnchorElement>('[data-next-link]');
+  const fill = next?.querySelector<HTMLElement>('[data-next-fill]');
+  if (!next || !arm || !link || !fill) return;
+  if (reduced) { arm.hidden = true; next.querySelector('p')?.setAttribute('hidden', ''); return; }
+  let armed = false, start = 0, progress = 0, raf = 0;
+  const reset = () => { armed = false; arm.setAttribute('aria-pressed', 'false'); fill.style.transform = 'scaleX(0)'; };
+  const toggle = () => { armed = !armed; start = window.scrollY; arm.setAttribute('aria-pressed', String(armed)); if (!armed) reset(); };
+  const scroll = () => {
+    if (raf || !armed) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      if (!armed) return;
+      progress = Math.min(1, Math.max(0, (window.scrollY - start) / (innerHeight * 0.5)));
+      fill.style.transform = `scaleX(${progress})`;
+      if (progress >= 1) { reset(); link.click(); }
+    });
+  };
+  const cancel = (e: KeyboardEvent) => { if (e.key === 'Escape') reset(); };
+  arm.addEventListener('click', toggle); window.addEventListener('scroll', scroll, { passive: true }); window.addEventListener('keydown', cancel);
+  cleanups.push(() => { cancelAnimationFrame(raf); arm.removeEventListener('click', toggle); window.removeEventListener('scroll', scroll); window.removeEventListener('keydown', cancel); });
+}
+
+// Persisted viewer: listeners are installed once; page teardown closes/reset the viewer.
+let photoZoom = 1, photoX = 0, photoY = 0, pinchDistance = 0, pinchScale = 1;
+let panStart: { x: number; y: number; ox: number; oy: number } | null = null;
+const zoomButton = lb.querySelector<HTMLButtonElement>('[data-lb-zoom]')!;
+const photoStage = lb.querySelector<HTMLElement>('.lightbox__stage')!;
+function paintPhotoZoom() {
+  const limitX = Math.max(0, (lbImg.clientWidth * photoZoom - photoStage.clientWidth) / 2 + 24);
+  const limitY = Math.max(0, (lbImg.clientHeight * photoZoom - photoStage.clientHeight) / 2 + 24);
+  photoX = gsap.utils.clamp(-limitX, limitX, photoX); photoY = gsap.utils.clamp(-limitY, limitY, photoY);
+  lbImg.style.transform = `translate(${photoX}px, ${photoY}px) scale(${photoZoom})`;
+  lb.classList.toggle('is-zoomed', photoZoom > 1);
+  zoomButton.setAttribute('aria-pressed', String(photoZoom > 1));
+  zoomButton.textContent = photoZoom > 1 ? tx().resetZoom : tx().zoom;
+}
+function resetPhotoZoom() { photoZoom = 1; photoX = photoY = pinchDistance = 0; panStart = null; paintPhotoZoom(); }
+zoomButton.addEventListener('click', () => { photoZoom = photoZoom > 1 ? 1 : 2; photoX = photoY = 0; paintPhotoZoom(); });
+photoStage.addEventListener('dblclick', () => zoomButton.click());
+photoStage.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2) { pinchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); pinchScale = photoZoom; }
+  else if (photoZoom > 1) panStart = { x: e.touches[0].clientX, y: e.touches[0].clientY, ox: photoX, oy: photoY };
+}, { passive: true });
+photoStage.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 2 && pinchDistance) {
+    e.preventDefault(); photoZoom = gsap.utils.clamp(1, 4, pinchScale * Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY) / pinchDistance); paintPhotoZoom();
+  } else if (photoZoom > 1 && panStart) { e.preventDefault(); photoX = panStart.ox + e.touches[0].clientX - panStart.x; photoY = panStart.oy + e.touches[0].clientY - panStart.y; paintPhotoZoom(); }
+}, { passive: false });
+photoStage.addEventListener('touchend', () => { panStart = null; });
+document.addEventListener('astro:before-swap', () => { if (lb.open) lb.close(); resetPhotoZoom(); });
