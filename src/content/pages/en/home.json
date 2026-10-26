@@ -2,7 +2,7 @@
   "heroVideo": "/media/films/showreel-2026.mp4",
   "heroPoster": "../../../assets/uploads/film-showreel-2026-poster.jpg",
   "heroPosterAlt": "Keynote speaker on a lit stage in front of a full auditorium",
-  "statement": "I photograph conferences, seminars and company events without getting in the way: no flash during talks, a silent shutter, and a shot list built from your agenda. The pictures reach you while people are still talking about the day.",
+  "statement": "At events, I work quietly and deliver edited previews the same evening. For brands and small businesses, I plan photo shoots, film Instagram Reels and create regular social media content around your goals.",
   "featuredProjects": [
     "future-of-work-summit",
     "leadership-seminar",
@@ -29,7 +29,7 @@
       "alt": "Launch event stage"
     },
     {
-      "label": "Speaker portraits",
+      "label": "Business portraits",
       "category": "Portraits",
       "image": "../../../assets/uploads/portrait-elena.jpg",
       "alt": "Business portrait"
@@ -39,11 +39,16 @@
       "category": "Celebrations",
       "image": "../../../assets/uploads/gala-ballroom.jpg",
       "alt": "Gala ballroom"
+    },
+    {
+      "label": "Brands & social media",
+      "category": "Brands",
+      "alt": ""
     }
   ],
-  "ctaTitle": "Have an event coming up?",
-  "ctaText": "Conferences, seminars, workshops, launches and company celebrations in Moldova and abroad. Send the date and a few details, and I'll confirm availability within a day.",
-  "statementTitle": "Quiet in the room. Fast after it.",
+  "ctaTitle": "An event or a brand story?",
+  "ctaText": "Tell me about your event, your business or the content you need. I’ll confirm availability and suggest a suitable format within one working day.",
+  "statementTitle": "Your event. Your brand. My full attention.",
   "runOfShowTitle": "A conference day, as I cover it",
   "runOfShow": [
     {
@@ -145,5 +150,6 @@
       "label": "Gallery delivery",
       "suffix": "working days"
     }
-  ]
+  ],
+  "disciplinesIntro": "Events and brands, in stills and motion. Conferences and company celebrations; photo shoots, Instagram Reels and monthly content for cafés, shops, salons, studios and local brands."
 }

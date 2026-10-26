@@ -6,7 +6,7 @@ import { typesetData, typesetHtml } from './typography.mjs';
 
 /** Editorial drafts never become public claims or prices. */
 export const hasRealContent = (value: unknown): value is string =>
-  typeof value === 'string' && value.trim().length > 0 && !/^(?:TODO)\b|placeholder|preț provizoriu|цена уточняется|provisional/i.test(value.trim());
+  typeof value === 'string' && value.trim().length > 0 && !/^TODO|placeholder|preț provizoriu|цена уточняется|provisional/i.test(value.trim());
 
 export type Project = CollectionEntry<'projects'>;
 export type Film = CollectionEntry<'films'>;

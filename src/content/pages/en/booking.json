@@ -1,6 +1,6 @@
 {
-  "title": "Book your event",
-  "intro": "Send the date, the place and what kind of event it is. I'll confirm availability within one working day and send a quote.",
+  "title": "Let’s plan your shoot",
+  "intro": "Tell me about your event or business, the date and the content you need. I’ll confirm availability within one working day and send a tailored quote.",
   "sessions": [
     {
       "name": "Conference coverage",
@@ -30,6 +30,24 @@
       "name": "Aftermovie & reels",
       "duration": "Added to any booking",
       "includes": "A 1–3 minute aftermovie plus vertical reels for social media.",
+      "price": ""
+    },
+    {
+      "name": "Instagram content / Reels",
+      "duration": "One shoot or a series",
+      "includes": "Short vertical videos and photographs for Instagram, planned around your audience and message.",
+      "price": ""
+    },
+    {
+      "name": "Brand / business photo shoot",
+      "duration": "Scope agreed together",
+      "includes": "People, products, spaces and services for your website, Instagram and other communication.",
+      "price": ""
+    },
+    {
+      "name": "Monthly SMM package",
+      "duration": "Monthly collaboration",
+      "includes": "A content plan, regular photo and video shoots, and ready-to-publish social media content. We agree the volume and channels together.",
       "price": ""
     }
   ],

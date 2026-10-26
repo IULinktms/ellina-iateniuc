@@ -24,6 +24,11 @@ const featured = home.featuredProjects
 const counts = Object.fromEntries(
   home.disciplines.map((d) => [d.category, projects.filter((p) => p.data.category === d.category).reduce((n, p) => n + p.data.gallery.length + 1, 0)]),
 );
+// Only published work gets a category tile. New categories appear with their first project.
+const disciplines = home.disciplines.flatMap((d) => {
+  const project = projects.find((p) => p.data.category === d.category);
+  return project ? [{ ...d, image: d.image ?? project.data.cover, alt: d.alt || project.data.coverAlt }] : [];
+});
 // LCP: a responsive still of the reel paints first; the video itself loads after (see deferHeroVideo in app.ts)
 const posterSet = await getImage({ src: home.heroPoster, widths: [480, 800, 1280].filter((w) => w <= home.heroPoster.width), format: 'webp', quality: 70 });
 const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp', quality: 78 })));
@@ -76,6 +81,34 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
 
   <ContactSheet lang={lang} />
 
+  <section class="spreads wrap" aria-labelledby="sel-h">
+    <div class="section-head">
+      <h2 id="sel-h">{s.home.selected}</h2>
+      <a class="line-link small" href={L('/portfolio/')}>{s.home.fullPortfolio}</a>
+    </div>
+    {featured.map((p) => {
+      const land = orientation(p.data.cover) === 'landscape';
+      const slug = slugOf(p);
+      return (
+        <article class="spread" data-preview>
+          <div class:list={['spread__frame', land && 'spread__frame--land']} transition:name={`cover-${slug}`} data-cursor={s.cursor.view}>
+            <Frame src={p.data.cover} alt={p.data.coverAlt} parallax sizes="(max-width: 760px) 100vw, 60vw">
+              {p.data.coverVideo && <video muted loop playsinline preload="none" data-src={p.data.coverVideo} aria-hidden="true"></video>}
+            </Frame>
+          </div>
+          <div class="spread__text">
+            <h3 class:list={['spread__title display', p.data.title.length > 14 && 'spread__title--long']} data-split>{p.data.title}</h3>
+            <div class="spread__meta tnum"><span>{s.categories[p.data.category]}</span><span>{p.data.location}</span><span>{p.data.year}</span></div>
+            <p class="spread__excerpt">{p.data.excerpt}</p>
+          </div>
+          <a class="spread__link" href={L(`/work/${slug}/`)} data-cursor={s.cursor.view} aria-label={s.work.view(p.data.title)}></a>
+        </article>
+      );
+    })}
+  </section>
+
+  <StudioProof lang={lang} home={home} />
+
   <section class="howi wrap" id="delivery" aria-labelledby="howi-h">
     <div class="howi__text" data-reveal>
       <h2 id="howi-h" class="display howi__title">{home.statementTitle}</h2>
@@ -115,46 +148,6 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
     </section>
   )}
 
-  <div class="marquee" data-marquee aria-hidden="true">
-    <div class="marquee__track" data-marquee-track>
-      {[0, 1].map(() => (
-        <div class="marquee__set">
-          {home.disciplines.map((d, i) => (
-            <span class:list={['marquee__word display', i % 2 === 1 && 'is-outline']}>{d.label}<i>✦</i></span>
-          ))}
-        </div>
-      ))}
-    </div>
-  </div>
-
-  <section class="spreads wrap" aria-labelledby="sel-h">
-    <div class="section-head">
-      <h2 id="sel-h">{s.home.selected}</h2>
-      <a class="line-link small" href={L('/portfolio/')}>{s.home.fullPortfolio}</a>
-    </div>
-    {featured.map((p) => {
-      const land = orientation(p.data.cover) === 'landscape';
-      const slug = slugOf(p);
-      return (
-        <article class="spread" data-preview>
-          <div class:list={['spread__frame', land && 'spread__frame--land']} transition:name={`cover-${slug}`} data-cursor={s.cursor.view}>
-            <Frame src={p.data.cover} alt={p.data.coverAlt} parallax sizes="(max-width: 760px) 100vw, 60vw">
-              {p.data.coverVideo && <video muted loop playsinline preload="none" data-src={p.data.coverVideo} aria-hidden="true"></video>}
-            </Frame>
-          </div>
-          <div class="spread__text">
-            <h3 class:list={['spread__title display', p.data.title.length > 14 && 'spread__title--long']} data-split>{p.data.title}</h3>
-            <div class="spread__meta tnum"><span>{s.categories[p.data.category]}</span><span>{p.data.location}</span><span>{p.data.year}</span></div>
-            <p class="spread__excerpt">{p.data.excerpt}</p>
-          </div>
-          <a class="spread__link" href={L(`/work/${slug}/`)} data-cursor={s.cursor.view} aria-label={s.work.view(p.data.title)}></a>
-        </article>
-      );
-    })}
-  </section>
-
-  <StudioProof lang={lang} home={home} />
-
   {films.length > 0 && (
     <section class="strip" data-strip aria-labelledby="films-h">
       <div class="section-head wrap">
@@ -190,8 +183,9 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
         <h2 id="disc-h">{s.home.cover}</h2>
         <span class="small">{s.home.choose}</span>
       </div>
+      {home.disciplinesIntro && <p class="disciplines__intro">{home.disciplinesIntro}</p>}
       <ul role="list" data-float-list>
-        {home.disciplines.map((d) => (
+        {disciplines.map((d) => (
           <li>
             <a href={L(`/portfolio/?c=${slugify(d.category)}`)} data-float={slugify(d.category)}>
               <span class="display">{d.label}</span>
@@ -202,7 +196,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
       </ul>
     </div>
     <div class="float-preview" aria-hidden="true">
-      {home.disciplines.map((d) => (
+      {disciplines.map((d) => (
         <Image src={d.image} alt="" widths={[400, 700]} width={700} sizes="22vw" format="webp" quality={75} loading="lazy" data-key={slugify(d.category)} />
       ))}
     </div>
