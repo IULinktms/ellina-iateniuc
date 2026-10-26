@@ -747,3 +747,22 @@ html:not(.js) .sheet__mark path { stroke-dashoffset: 0; }
 /* Cyrillic display type: Playfair sits a touch larger than Bodoni, tighten slightly */
 html[lang='ru'] .display { letter-spacing: -0.03em; line-height: 0.92; }
 html[lang='ru'] .hero__name { line-height: 0.88; }
+
+/* ───── Perf/A11y/SEO pass ───── */
+
+/* Fallback faces sized to the webfonts (measured: Bodoni ≈ 103% of Georgia, Hanken ≈ 100% of Arial), so the swap barely shifts layout.
+   Fonts are not preloaded: on mobile they compete with the hero still and the script, and these fallbacks hold CLS down. */
+@font-face { font-family: 'Bodoni Fallback'; src: local('Georgia'), local('Times New Roman'); size-adjust: 103%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%; }
+@font-face { font-family: 'Hanken Fallback'; src: local('Arial'), local('Helvetica Neue'), local('Helvetica'); size-adjust: 100%; ascent-override: 98%; descent-override: 26%; line-gap-override: 0%; }
+:root {
+  --serif: 'Bodoni Moda Variable', 'Playfair Display Variable', 'Bodoni Fallback', 'Bodoni 72', 'Didot', Georgia, serif;
+  --sans: 'Hanken Grotesk Variable', 'Manrope Variable', 'Hanken Fallback', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Hero: the poster still is the LCP; the reel fades in over it once it actually plays */
+.hero__media .hero__poster, .hero__media video { position: absolute; inset: 0; }
+.hero__media video { opacity: 0; transition: opacity 600ms ease; }
+.hero__media video.is-playing { opacity: 1; }
+
+/* Closed menu leaves layout entirely, so its "Русский" label doesn't pull the Cyrillic font onto RO/EN pages */
+.js .menu:not(.is-open) { display: none; }

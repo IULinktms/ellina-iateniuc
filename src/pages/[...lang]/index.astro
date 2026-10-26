@@ -23,11 +23,13 @@ const featured = home.featuredProjects
 const counts = Object.fromEntries(
   home.disciplines.map((d) => [d.category, projects.filter((p) => p.data.category === d.category).reduce((n, p) => n + p.data.gallery.length + 1, 0)]),
 );
-const poster = await getImage({ src: home.heroPoster, width: 1600, format: 'webp', quality: 70 });
+// LCP: a responsive still of the reel paints first; the video itself loads after (see deferHeroVideo in app.ts)
+const posterSet = await getImage({ src: home.heroPoster, widths: [480, 800, 1280].filter((w) => w <= home.heroPoster.width), format: 'webp', quality: 70 });
 const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp', quality: 78 })));
 ---
 
 <Base page="home" lang={lang}>
+  <link slot="head" rel="preload" as="image" type="image/webp" imagesrcset={posterSet.srcSet.attribute} imagesizes="100vw" fetchpriority="high" />
   <!-- Opening sequence: covers the hero until the shutter opens -->
   <div class="intro" aria-hidden="true">
     <div class="intro__bars"><i></i><i></i></div>
@@ -37,9 +39,8 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
 
   <section class="hero" data-hero aria-labelledby="hero-title">
     <div class="hero__media">
-      <video data-hero-video autoplay muted loop playsinline preload="metadata" poster={poster.src} aria-label={home.heroPosterAlt}>
-        <source src={home.heroVideo} type="video/mp4" />
-      </video>
+      <img src={posterSet.src} srcset={posterSet.srcSet.attribute} sizes="100vw" alt={home.heroPosterAlt} fetchpriority="high" decoding="async" class="hero__poster" data-hero-still />
+      <video data-hero-video muted loop playsinline preload="none" aria-hidden="true" data-src={home.heroVideo}></video>
     </div>
     <!-- Viewfinder HUD (decorative): frame brackets, a focus point that follows the pointer, live exposure -->
     <div class="vf" aria-hidden="true" data-vf>
@@ -93,7 +94,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
         <figure class="ros__media" aria-hidden="true">
           <div class="ros__pictures">
             {home.runOfShow.map((r, i) => (
-              <Image src={r.image} alt="" widths={[640, 1000, 1400]} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={78} loading="lazy" class:list={[i === 0 && 'is-on']} />
+              <Image src={r.image} alt="" widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={78} loading="lazy" class:list={[i === 0 && 'is-on']} />
             ))}
           </div>
           <figcaption class="ros__clock tnum" data-ros-clock>{home.runOfShow[0].time}</figcaption>
@@ -104,7 +105,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
               <time class="ros__time tnum">{r.time}</time>
               <h3>{r.title}</h3>
               <p>{r.text}</p>
-              <Image src={r.image} alt={r.alt} widths={[640, 1000]} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" />
+              <Image src={r.image} alt={r.alt} widths={[640, 1000]} width={1000} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" />
             </li>
           ))}
         </ol>
@@ -160,7 +161,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
             <article class="strip__item" data-preview>
               <button class="frame-btn" data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(f.data.title)}>
                 <div class="frame">
-                  <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} sizes="(max-width: 900px) 82vw, 46vw" format="webp" quality={78} loading="lazy" />
+                  <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 900px) 82vw, 46vw" format="webp" quality={78} loading="lazy" />
                   {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
                 </div>
                 <div class="strip__caption">
@@ -195,7 +196,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
     </div>
     <div class="float-preview" aria-hidden="true">
       {home.disciplines.map((d) => (
-        <Image src={d.image} alt="" widths={[400, 700]} sizes="22vw" format="webp" quality={75} loading="lazy" data-key={slugify(d.category)} />
+        <Image src={d.image} alt="" widths={[400, 700]} width={700} sizes="22vw" format="webp" quality={75} loading="lazy" data-key={slugify(d.category)} />
       ))}
     </div>
   </section>

@@ -47,9 +47,9 @@ function pick<T extends Sortable>(all: T[], lang: Lang) {
 export const getProjects = async (lang: Lang) => pick(await getCollection('projects', visible), lang);
 export const getFilms = async (lang: Lang) => pick(await getCollection('films', visible), lang);
 
-/** Large WebP used by the full-screen viewer. */
+/** Large WebP used by the full-screen viewer (kept under ~350 KB). */
 export async function fullSize(src: ImageMetadata) {
-  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1400 : 2400, src.width), format: 'webp', quality: 82 });
+  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1400 : 1800, src.width), format: 'webp', quality: 70 });
   return img.src;
 }
 

@@ -64,6 +64,7 @@ const year = new Date().getFullYear();
     <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <slot name="head" />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={site.name} />

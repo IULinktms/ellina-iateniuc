@@ -583,7 +583,7 @@ function runOfShow() {
   const items = Array.from(root.querySelectorAll<HTMLElement>('[data-ros-item]'));
   const pics = Array.from(root.querySelectorAll<HTMLImageElement>('.ros__pictures img'));
   const clock = root.querySelector<HTMLElement>('[data-ros-clock]');
-  pics.forEach((img) => { img.loading = 'eager'; });
+  primeRosPictures(root, pics);
   const show = (i: number) => {
     items.forEach((el, k) => el.classList.toggle('is-active', k === i));
     pics.forEach((el, k) => el.classList.toggle('is-on', k === i));
@@ -749,4 +749,44 @@ function magnetic() {
     });
     el.addEventListener('pointerleave', () => { xTo(0); yTo(0); gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' }); });
   });
+}
+
+/* ═════════════════════════ Perf/A11y/SEO pass ═════════════════════════ */
+document.addEventListener('astro:page-load', () => {
+  deferHeroVideo();
+});
+
+/* ───────────── Hero reel loads after the poster has painted (LCP), and not at all
+   on Save-Data, 2G or reduced motion: the still frame stays instead. ───────────── */
+function deferHeroVideo() {
+  const v = document.querySelector<HTMLVideoElement>('[data-hero-video][data-src]');
+  if (!v) return;
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  if (reduced || conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType ?? '')) return;
+  let cancelled = false;
+  const start = () => {
+    // The first-scroll shutter (WS3) may have frozen the hero on its still frame
+    if (cancelled || !v.isConnected || v.closest('.is-frozen')) return;
+    v.src = v.dataset.src!;
+    v.removeAttribute('data-src');
+    v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
+    v.play().catch(() => {});
+  };
+  const later = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 200));
+  if (document.readyState === 'complete') later();
+  else window.addEventListener('load', later, { once: true });
+  cleanups.push(() => { cancelled = true; window.removeEventListener('load', later); });
+}
+
+/* Run-of-show stills: only the desktop stack shows them, so load them as the section nears */
+function primeRosPictures(root: HTMLElement, pics: HTMLImageElement[]) {
+  const stack = root.querySelector<HTMLElement>('.ros__pictures');
+  if (!stack || !pics.length) return;
+  const io = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting) || !stack.offsetParent) return;
+    pics.forEach((img) => { img.loading = 'eager'; });
+    io.disconnect();
+  }, { rootMargin: '100% 0px' });
+  io.observe(root);
+  cleanups.push(() => io.disconnect());
 }
