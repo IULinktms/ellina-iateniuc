@@ -6,6 +6,8 @@ import { getSite, shareImage } from '../lib/content';
 import { LOCALES, LANG_NAMES, LANG_SHORT, HTML_LANG, OG_LOCALE, DEFAULT_LANG, localePath, splitPath, t, clientStrings, type Lang } from '../lib/i18n';
 import Icon from '../components/Icon.astro';
 import DirectContact from '../components/DirectContact.astro';
+import fontLatin from '../assets/fonts/inter-tight-latin.woff2?url';
+import fontCyrillic from '../assets/fonts/inter-tight-cyrillic.woff2?url';
 import { serviceLd, breadcrumbLd } from '../lib/seo';
 
 interface Props {
@@ -75,6 +77,8 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
     <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" as="font" type="font/woff2" href={fontLatin} crossorigin />
+    {lang === 'ru' && <link rel="preload" as="font" type="font/woff2" href={fontCyrillic} crossorigin />}
     <slot name="head" />
 
     <meta property="og:type" content={type} />
