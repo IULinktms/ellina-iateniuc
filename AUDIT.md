@@ -364,3 +364,31 @@ Things tried and dropped, with numbers: inlining all CSS (`inlineStylesheets: 'a
 - `priceRange: '€€'` in the structured data is a placeholder. Replace it with the real band before launch, or remove it (`src/lib/seo.ts`).
 - The `og:url`, canonical and JSON-LD URLs use `site` from `astro.config.mjs` (`https://ellinaiateniuc.com`). Share cards resolve only once the real domain is set.
 - Vercel must run the package.json `build` script (default for the Astro preset) for the localized 404 routes to apply.
+
+## Round 3 — NY typography and page design (2026-10-26)
+
+Baseline: production `site-v3`, Inter Tight, Ellina Yatsenyuk, direct booking only. Screenshot matrix is being captured under `screenshots/{ro,ru,en}/{320,375,1440}/before/`; reduced motion makes every section inspectable without a pin/animation distorting the full-page capture. Normal motion gets a separate interaction pass.
+
+### Ranked findings before implementation
+
+| Priority | Surface | Finding / design response |
+| --- | --- | --- |
+| High | Contact, all locales | Big gap before modest sentence-case heading; two pill CTAs, repeated email and four small messenger links compete. Make one prominent statement and a six-channel panel with large, consistent actions; services become a secondary editorial list. |
+| High | Home selected projects | Serif-era negative title margins put dense bold letters over busy photographs. Keep asymmetry but allocate separate photo and type columns, aligned baselines and smaller consistent project headings. |
+| High | Menu, especially RU / 320 | Long uppercase labels inherit a 14vw size; footer destinations run to the bottom with no scroll strategy. Fit longest labels, provide a scrollable menu and 44px minimum actions. |
+| Medium | Portfolio | Page title is no longer a confident display; project index is an undivided loose list and captions disappear until hover. Use uppercase display, ruled index rows, persistent readable caption hierarchy. |
+| Medium | Films | Featured caption puts description and metadata in unequal crowded columns; headings inherit tight .9 leading. Stack metadata on phones, align desktop caption columns, use 1.05–1.15 heading leading. |
+| Medium | About | Serif sizing makes headline/portrait balance weak; long introductions and process headings lack clear levels. Rebalance title width, editorial lede, rules and process columns; avoid tiny narrow tablet columns. |
+| Medium | All seven project templates × three languages | Titles, subtitle weight, facts and captions feel unrelated. Apply one uppercase project display, quiet subtitle, tracked fact labels, consistent gallery captions and strong next-project treatment. |
+| Medium | Localized 404s | Centered generic message with mega-size serif token; little sense of the photographic identity. Add a graphic 404 index, left-aligned display and clear return actions. |
+| Medium | Global / phone | .9 display leading and -.055em tracking applied indiscriminately, 32px language taps, warm gray metadata, serif-emphasis leftovers. Separate display/headline/body/meta roles, improve tap area and make whitespace intentional. |
+
+### Direction
+
+Inter Tight only: 700 uppercase display with tight tracking, 600–650 headings with comfortable leading, 400 readable prose, 600 tracked uppercase labels. Retain cinema black, use neutral paper white and cool grays away from the approved home hero. Keep the aperture, contact sheet, marquee, photo transitions and reduced-motion fallbacks.
+
+Reference study: [Mark Seliger Studio](https://markseliger.com/studio/) separates work, capabilities and clearly named direct contacts; [FRAME DEPT](https://framedeptny.com/) distinguishes large creative statements from compact project indexing. Apply the principles of hierarchy, clear contact routing and work-first presentation, without reproducing either site's layouts or identity.
+
+### Verification pending
+
+Build, Astro check, CMS parse, public-copy scan, complete screenshot/overflow matrix, normal/reduced-motion and keyboard checks, preview deployment. Lighthouse before/after will be recorded for this branch; performance implementation belongs to Claude's parallel branch.
