@@ -11,9 +11,10 @@ export const hasRealContent = (value: unknown): value is string =>
 export type Project = CollectionEntry<'projects'>;
 export type Film = CollectionEntry<'films'>;
 
-const isProd = import.meta.env.PROD;
-/** Drafts are visible in `npm run dev`, hidden on the live site. */
-const visible = (e: { data: { draft: boolean } }) => !isProd || !e.data.draft;
+/** Drafts are visible in `npm run dev`, hidden on the live site. A build never includes them: on this Mac builds run
+ *  with NODE_ENV=development, which leaves import.meta.env.PROD false, so the mode alone cannot be trusted here. */
+const showDrafts = import.meta.env.DEV && !process.argv.includes('build');
+const visible = (e: { data: { draft: boolean } }) => showDrafts || !e.data.draft;
 
 /** Entry ids look like "ro/annual-partners-gala"; the URL slug is the part after the language. */
 export const slugOf = (e: { id: string }) => e.id.split('/').slice(1).join('/') || e.id;
@@ -63,6 +64,14 @@ export const getProjects = async (lang: Lang) => pick(await getCollection('proje
   },
 }));
 export const getFilms = async (lang: Lang) => pick(await getCollection('films', visible), lang);
+
+/** A project's portfolio frames: the cover, then gallery photos marked for the portfolio (a gallery copy of the cover counts once). */
+export const projectPhotos = (p: { data: Project['data'] }) => [
+  { src: p.data.cover, alt: p.data.coverAlt, caption: p.data.title },
+  ...p.data.gallery
+    .filter((g) => g.inPortfolio && g.image.src !== p.data.cover.src)
+    .map((g) => ({ src: g.image, alt: g.alt, caption: g.caption ?? p.data.title })),
+];
 
 /** Large WebP used by the full-screen viewer (kept under ~350 KB). */
 export async function fullSize(src: ImageMetadata) {
