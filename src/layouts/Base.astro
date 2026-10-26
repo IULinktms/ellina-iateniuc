@@ -221,7 +221,36 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
     </dialog>
 
     <script>
-      import '../scripts/app';
+      // Lazy photographs (Frame.astro) and the motion bundle (GSAP, Lenis, app.ts) both start just after
+      // the first paint is on screen, so the opening text never waits on them.
+      const arm = () => document.querySelectorAll<HTMLImageElement>('img[data-defer-srcset]').forEach((img) => {
+        img.srcset = img.dataset.deferSrcset!;
+        img.src = img.dataset.deferSrc!;
+        img.removeAttribute('data-defer-srcset');
+        img.removeAttribute('data-defer-src');
+      });
+      let started = false;
+      const start = () => {
+        if (started) return;
+        started = true;
+        arm();
+        import('../scripts/app');
+      };
+      // Paint timing reports the first contentful paint (rAF alone fires before it)…
+      if (PerformanceObserver.supportedEntryTypes?.includes('paint')) {
+        new PerformanceObserver((list, obs) => {
+          if (!list.getEntriesByName('first-contentful-paint').length) return;
+          obs.disconnect();
+          // …a few ms before it is presented, so give it one more frame
+          requestAnimationFrame(() => setTimeout(start, 0));
+        }).observe({ type: 'paint', buffered: true });
+      } else {
+        requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(start, 0)));
+      }
+      // Safety net only: window load can fire before the first paint (a page with one eager photo)
+      addEventListener('load', () => setTimeout(start, 3000), { once: true });
+      // Client-side navigation: the new page is already past its first paint
+      document.addEventListener('astro:after-swap', arm);
     </script>
   </body>
 </html>

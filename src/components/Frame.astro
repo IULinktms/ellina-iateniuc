@@ -4,7 +4,7 @@
  * aperture: opens from a thin horizontal slit when scrolled into view.
  * parallax: the image drifts slightly slower than the page.
  */
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { lqip, withLqip } from '../lib/lqip';
 
@@ -40,6 +40,8 @@ const ws = (lite ? [1400] : widths ?? [480, 800, 1200, 1600]).filter((w) => w <=
 if (!ws.length) ws.push(src.width);
 // Blurred preview painted with the HTML; lazy images crossfade over it once decoded
 const placeholder = await lqip(src);
+const img = await getImage({ src, widths: ws, width: Math.max(...ws), sizes, format: 'webp', quality: 75 });
+const { width, height } = img.attributes;
 ---
 
 <div
@@ -51,17 +53,15 @@ const placeholder = await lqip(src);
   {...placeholder?.attrs}
   {...rest}
 >
-  <Image
-    src={src}
-    alt={alt}
-    widths={ws}
-    width={Math.max(...ws)}
-    sizes={sizes}
-    format="webp"
-    quality={75}
-    loading={eager ? 'eager' : 'lazy'}
-    fetchpriority={eager ? 'high' : 'auto'}
-    decoding="async"
-  />
+  {eager ? (
+    <img src={img.src} srcset={img.srcSet.attribute} sizes={sizes} alt={alt} width={width} height={height} loading="eager" fetchpriority="high" decoding="async" />
+  ) : (
+    <>
+      {/* Lazy photos get their srcset two frames after the first paint (Base.astro), so even the ones near
+          the fold never compete with the opening text for bandwidth. Without JS the <noscript> copy loads. */}
+      <img data-defer-src={img.src} data-defer-srcset={img.srcSet.attribute} sizes={sizes} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+      <noscript><img src={img.src} srcset={img.srcSet.attribute} sizes={sizes} alt={alt} width={width} height={height} loading="lazy" decoding="async" /></noscript>
+    </>
+  )}
   <slot />
 </div>
