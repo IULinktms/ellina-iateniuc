@@ -279,15 +279,42 @@ function floatPreview() {
   const imgs = box.querySelectorAll<HTMLImageElement>('img');
   const x = gsap.quickTo(box, 'x', { duration: 0.7, ease: 'power3' });
   const y = gsap.quickTo(box, 'y', { duration: 0.7, ease: 'power3' });
-  const move = (e: PointerEvent) => { x(e.clientX + 120); y(e.clientY); };
+  let open = false;
+  let lastX = -1, lastY = -1;
+  const move = (e: PointerEvent) => { lastX = e.clientX; lastY = e.clientY; x(e.clientX + 120); y(e.clientY); };
+  const show = (e: PointerEvent) => {
+    // Never open at the box's resting spot (0,0 = top-left corner): jump to the pointer first
+    lastX = e.clientX; lastY = e.clientY;
+    gsap.set(box, { x: e.clientX + 120, y: e.clientY });
+    open = true;
+    gsap.to(box, { clipPath: 'inset(0% 0 0% 0)', duration: 0.8, ease: 'expo.out', overwrite: 'auto' });
+  };
+  const hide = () => {
+    if (!open) return;
+    open = false;
+    gsap.to(box, { clipPath: 'inset(50% 0 50% 0)', duration: 0.5, ease: 'expo.inOut', overwrite: 'auto' });
+  };
   list.addEventListener('pointermove', move);
   list.querySelectorAll<HTMLElement>('[data-float]').forEach((a) => {
     a.addEventListener('pointerenter', () => {
       imgs.forEach((im) => im.classList.toggle('is-on', im.dataset.key === a.dataset.float));
     });
   });
-  list.addEventListener('pointerenter', () => gsap.to(box, { clipPath: 'inset(0% 0 0% 0)', duration: 0.8, ease: 'expo.out' }));
-  list.addEventListener('pointerleave', () => gsap.to(box, { clipPath: 'inset(50% 0 50% 0)', duration: 0.6, ease: 'expo.inOut' }));
+  list.addEventListener('pointerenter', show);
+  list.addEventListener('pointerleave', hide);
+  // Scrolling moves the list away from a still pointer without any pointerleave: close if it is no longer under it
+  const onScroll = () => {
+    if (!open) return;
+    const r = list.getBoundingClientRect();
+    if (lastX < r.left || lastX > r.right || lastY < r.top || lastY > r.bottom) hide();
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('blur', hide);
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('blur', hide);
+    gsap.set(box, { clipPath: 'inset(50% 0 50% 0)' });
+  }, { once: true });
 }
 
 /* ───────────── Muted video previews on hover ───────────── */
@@ -731,8 +758,14 @@ function contactSheet() {
   const nums = root.querySelectorAll<HTMLElement>('.sheet__num');
   const mark = root.querySelector<SVGPathElement>('.sheet__mark path');
   const copy = root.querySelectorAll<HTMLElement>('[data-sheet-copy] > *');
-  const select = root.querySelector<HTMLElement>('.sheet__cell.is-select .sheet__img');
   if (reduced) return;
+  const dimmed = root.querySelectorAll<HTMLElement>('.sheet__cell:not(.is-hero):not(.is-select) .sheet__img');
+  // Load every frame well before the sheet arrives, so none pop in mid-animation
+  const imgs = root.querySelectorAll<HTMLImageElement>('img');
+  ScrollTrigger.create({
+    trigger: root, start: 'top bottom+=150%', once: true,
+    onEnter: () => imgs.forEach((im) => { im.loading = 'eager'; }),
+  });
 
   const mm = gsap.matchMedia();
   mm.add('(min-width: 761px)', () => {
@@ -752,8 +785,8 @@ function contactSheet() {
     tl.fromTo(grid, { scale: () => cover(), x: () => ox() * cover(), y: () => oy() * cover() }, { scale: 1, x: 0, y: 0, duration: 1, ease: 'power2.inOut' })
       .fromTo(others, { opacity: 0.35 }, { opacity: 1, duration: 0.6 }, 0.25)
       .fromTo(nums, { opacity: 0 }, { opacity: 0.85, duration: 0.3 }, 0.7)
-      .fromTo(others, { filter: 'brightness(1)' }, { filter: 'brightness(0.55)', duration: 0.3 }, 1.05)
-      .fromTo(select, { filter: 'brightness(0.55)' }, { filter: 'brightness(1.05)', duration: 0.3 }, 1.05)
+      // Dim with opacity over the near-black sheet, not filter: filters repaint every frame and flicker while scaled
+      .fromTo(dimmed, { opacity: 1 }, { opacity: 0.5, duration: 0.3 }, 1.05)
       .to(mark, { strokeDashoffset: 0, duration: 0.45, ease: 'power1.inOut' }, 1.0)
       .from(copy, { y: 30, opacity: 0, duration: 0.35, stagger: 0.08, ease: 'power2.out' }, 1.1)
       .to({}, { duration: 0.25 }); // hold before release

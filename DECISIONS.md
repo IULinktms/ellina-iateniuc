@@ -33,3 +33,12 @@ A final font-settled review corrected the upstream contact-sheet pin refresh ord
 - Retain the existing `Reel` enum for old content and add `Reels`, plus a separate `aspectRatio` field (landscape by default, portrait for 9:16). Claude owns the matching presentation/player work.
 - Proof is evaluated per field, not by a manual public “demonstration” switch. Empty/TODO names and quotes, invalid optional attribution, and absent/zero counts do not render. No proof content means no section. The existing five-day gallery promise is valid content.
 - Keep all four selected projects and seven run-of-show moments. Put selected work before explanatory sections, remove the decorative middle marquee, reduce blank space, and coordinate pin-distance changes with Claude.
+
+## Round 3 — New York editorial system
+
+- Preserve the approved Inter Tight home hero and the existing motion engine. New design rules live in the marked **NY design system (round 3)** section at the end of global.css, separate from Claude's font/performance changes.
+- Huge uppercase type is reserved for page openings and next-project invitations. Project indexes, captions and body copy use distinct sizes, tracking and leading. Selected-work titles get their own columns instead of overlapping photos.
+- Contact is a statement followed by one light panel with large native links for WhatsApp, Telegram, Viber, call, Instagram, Pinterest and email. At 320px the channel list becomes one column; wider phones use two. Service information follows the actions in both DOM and visual order.
+- Reuse CMS social/contact fields; do not invent accounts, services, statistics or client claims. Booking remains direct-only; no form is restored. Move existing contact UI copy into the three-language dictionary.
+- Pinterest was supplied by Ian: https://www.pinterest.com/ellinayatsenyuk/ . Store it after Instagram in each locale's socials array. Existing footer/menu loops and JSON-LD sameAs inherit it; the contact component's large variant also exposes it.
+- Keep compact inline messenger links in the menu/footer with 44px minimum hit areas. The phone menu scrolls internally when its content exceeds the viewport, with readable, fitted Russian labels.

@@ -1,8 +1,8 @@
 ---
 title: "Обо мне"
 intro: "Я Эллина, фотограф, видеограф и создатель контента из Кишинёва. Снимаю мероприятия для организаторов и компаний, а также создаю фотографии, Reels для Instagram и контент для соцсетей брендов и малого бизнеса."
-portrait: ../../../assets/uploads/portrait-irina.jpg
-portraitAlt: "Портрет при естественном свете"
+portrait: ../../../assets/uploads/portrait-ellina.jpg
+portraitAlt: "Эллина Яценюк, фотограф и видеограф из Кишинёва"
 secondImage: ../../../assets/uploads/summit-microphone.jpg
 secondImageAlt: "Микрофон на сцене перед зрителями"
 principles:

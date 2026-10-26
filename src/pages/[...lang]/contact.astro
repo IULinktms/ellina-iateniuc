@@ -10,14 +10,6 @@ const s = t(lang);
 const c = s.contact;
 const booking = await getBooking(lang);
 const site = await getSite(lang);
-
-// No web form: visitors write directly (Instagram, email, messengers when set in /admin)
-const copy = {
-  ro: { title: 'Scrieți-mi', text: 'Trimiteți data, locul și tipul evenimentului sau al proiectului. Vă răspund în cel mult o zi lucrătoare.', ig: 'Mesaj pe Instagram', mail: 'Scrieți pe email' },
-  ru: { title: 'Напишите мне', text: 'Пришлите дату, место и тип мероприятия или проекта. Отвечу в течение рабочего дня.', ig: 'Написать в Instagram', mail: 'Написать на почту' },
-  en: { title: 'Write to me', text: 'Send the date, place and type of event or project. I reply within one working day.', ig: 'Message on Instagram', mail: 'Send an email' },
-}[lang];
-const instagram = site.socials.find((x) => /instagram\.com\/[^/?#]+/.test(x.url))?.url;
 ---
 
 <Base page="contact" lang={lang} title={booking.title} description={booking.intro}>
@@ -29,8 +21,16 @@ const instagram = site.socials.find((x) => /instagram\.com\/[^/?#]+/.test(x.url)
   </header>
 
   <section class="contact grid12">
+    <div class="reach" aria-labelledby="reach-h">
+      <div class="reach__intro">
+        <h2 id="reach-h" class="reach__title">{s.bookingUi.reachTitle}</h2>
+        <p class="reach__text">{s.bookingUi.reachText}</p>
+      </div>
+      <DirectContact lang={lang} site={site} email variant="large" />
+    </div>
+
     <aside class="contact__aside" aria-labelledby="sessions-h">
-      <h2 id="sessions-h" class="small muted" style="font-weight:500;margin-bottom:1rem">{c.services}</h2>
+      <h2 id="sessions-h" class="ny-label muted">{c.services}</h2>
       <div class="sessions">
         {booking.sessions.map((x) => (
           <div class="session">
@@ -41,24 +41,5 @@ const instagram = site.socials.find((x) => /instagram\.com\/[^/?#]+/.test(x.url)
         ))}
       </div>
     </aside>
-
-    <div class="contact__form reach" aria-labelledby="reach-h">
-      <h2 id="reach-h" class="display reach__title">{copy.title}</h2>
-      <p class="reach__text">{copy.text}</p>
-      <div class="reach__actions">
-        {instagram && <a class="btn btn--solid" href={instagram} target="_blank" rel="me noopener">{copy.ig}</a>}
-        <a class="btn" href={`mailto:${site.email}`}>{copy.mail}</a>
-      </div>
-      <a class="reach__mail line-link" href={`mailto:${site.email}`}>{site.email}</a>
-      <DirectContact lang={lang} site={site} />
-    </div>
   </section>
 </Base>
-
-<style>
-  .reach { align-self: start; display: grid; gap: 1.5rem; justify-items: start; }
-  .reach__title { font-size: var(--t-2xl); }
-  .reach__text { max-width: 30rem; font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem); line-height: 1.5; }
-  .reach__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .reach__mail { font-family: var(--serif); font-size: var(--t-md); overflow-wrap: anywhere; }
-</style>
