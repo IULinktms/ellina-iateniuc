@@ -28,9 +28,9 @@ gallery:
     layout: wide
 credits:
   - role: "Фотосъёмка"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Ретушь"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Спикеры заняты и часто волнуются перед выходом на сцену. Поэтому свет и фон готовы ещё до их прихода, а сама съёмка занимает пять минут. Отретушированные портреты — в течение 24 часов.

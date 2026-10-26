@@ -94,7 +94,7 @@ export function projectLd(
         contentUrl: new URL(im.src, origin).toString(),
         description: im.alt,
         ...(im.caption ? { caption: im.caption } : {}),
-        creator: { '@type': 'Person', name: 'Ellina Iateniuc' },
+        creator: { '@type': 'Person', name: 'Ellina Yatsenyuk' },
       })),
     },
   ];

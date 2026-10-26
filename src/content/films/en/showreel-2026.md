@@ -14,5 +14,5 @@ featured: true
 draft: false
 credits:
   - role: Camera & edit
-    name: Ellina Iateniuc
+    name: Ellina Yatsenyuk
 ---

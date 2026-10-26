@@ -31,7 +31,7 @@ gallery:
     layout: inset-right
 credits:
   - role: "Photography"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Workshops are about process, so the pictures need to show work being done: hands, walls of notes, people disagreeing productively.

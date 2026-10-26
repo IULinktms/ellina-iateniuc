@@ -31,7 +31,7 @@ gallery:
     layout: inset-right
 credits:
   - role: "Фотосъёмка"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Воркшоп — это прежде всего процесс, поэтому снимки должны показывать работу в действии: руки, стены из заметок, людей, которые спорят по делу.

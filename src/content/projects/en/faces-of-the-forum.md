@@ -28,9 +28,9 @@ gallery:
     layout: wide
 credits:
   - role: "Photography"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Retouching"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Speakers are busy and often nervous before going on stage. The set-up is ready before they arrive, and the session takes five minutes. Retouched portraits go out within 24 hours.

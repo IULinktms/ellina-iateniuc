@@ -28,9 +28,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Фотосъёмка"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Рилс"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Двадцать фотографий я передала прямо во время мероприятия для публикаций в реальном времени, а полную галерею — на следующее утро.

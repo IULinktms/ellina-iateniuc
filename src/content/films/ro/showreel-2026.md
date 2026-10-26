@@ -14,5 +14,5 @@ featured: true
 draft: false
 credits:
   - role: Filmare și montaj
-    name: Ellina Iateniuc
+    name: Ellina Yatsenyuk
 ---

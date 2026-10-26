@@ -31,9 +31,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Photography"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Recap film"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Event agency"
     name: "Placeholder agency"
 ---

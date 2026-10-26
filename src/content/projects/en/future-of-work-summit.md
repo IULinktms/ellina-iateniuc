@@ -35,9 +35,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Photography"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Aftermovie"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Organiser"
     name: "Placeholder agency"
 ---

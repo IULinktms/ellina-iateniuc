@@ -35,9 +35,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Фотосъёмка"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Афтемуви"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Организатор"
     name: "Placeholder agency"
 ---

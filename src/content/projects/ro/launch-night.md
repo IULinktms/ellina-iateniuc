@@ -28,9 +28,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Fotografie"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Reel"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Douăzeci de fotografii au fost livrate chiar în timpul evenimentului, pentru publicare live, iar galeria completă a doua zi dimineață.

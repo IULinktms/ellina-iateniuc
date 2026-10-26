@@ -28,9 +28,9 @@ gallery:
     layout: wide
 credits:
   - role: "Fotografie"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Retușare"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Speakerii sunt ocupați și adesea emoționați înainte de a urca pe scenă. Studioul este pregătit înainte ca ei să sosească, iar ședința durează cinci minute. Portretele retușate sunt livrate în 24 de ore.

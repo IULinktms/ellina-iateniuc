@@ -31,7 +31,7 @@ gallery:
     layout: inset-right
 credits:
   - role: "Fotografie"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Am petrecut o zi întreagă cu echipa, fotografiind discret și fără să cer ca ceva să fie regizat. Rezultatul este o bibliotecă de 150 de imagini pe care compania le folosește și astăzi.

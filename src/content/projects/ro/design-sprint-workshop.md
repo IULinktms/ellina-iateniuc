@@ -31,7 +31,7 @@ gallery:
     layout: inset-right
 credits:
   - role: "Fotografie"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Atelierele sunt despre proces, așa că fotografiile trebuie să arate munca în desfășurare: mâini, pereți plini de notițe, oameni care nu sunt de acord în mod constructiv.

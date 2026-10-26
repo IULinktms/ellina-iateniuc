@@ -31,9 +31,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Photography"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Highlights film"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Seminars are quieter than conferences, and the pictures should be too. I shoot silently, without flash, and keep to the edges of the room so nobody performs for the camera.

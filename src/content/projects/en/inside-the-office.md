@@ -31,7 +31,7 @@ gallery:
     layout: inset-right
 credits:
   - role: "Photography"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 I spent a full day with the team, shooting quietly and asking for nothing to be staged. The result is a library of 150 images the company still uses.

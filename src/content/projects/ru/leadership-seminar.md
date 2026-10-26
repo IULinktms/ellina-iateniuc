@@ -31,9 +31,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Фотосъёмка"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Хайлайтс-ролик"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Семинары тише конференций — и снимки должны быть такими же. Я снимаю бесшумно, без вспышки и держусь по краям зала, чтобы никто не играл на камеру.

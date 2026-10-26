@@ -31,9 +31,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Фотосъёмка"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Фильм о вечере"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Ивент-агентство"
     name: "Placeholder agency"
 ---

@@ -15,5 +15,5 @@ featured: false
 draft: false
 credits:
   - role: Съёмка и монтаж
-    name: Ellina Iateniuc
+    name: Ellina Yatsenyuk
 ---

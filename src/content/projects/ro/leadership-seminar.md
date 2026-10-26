@@ -31,9 +31,9 @@ gallery:
     layout: inset-right
 credits:
   - role: "Fotografie"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
   - role: "Film cu momente-cheie"
-    name: "Ellina Iateniuc"
+    name: "Ellina Yatsenyuk"
 ---
 
 Seminarele sunt mai liniștite decât conferințele, iar fotografiile trebuie să fie la fel. Fotografiez în mod silențios, fără bliț, și rămân la marginile sălii, ca nimeni să nu joace pentru cameră.
