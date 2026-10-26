@@ -5,7 +5,7 @@
  * Frames come from project galleries automatically, so it stays current from /admin.
  */
 import { Image } from 'astro:assets';
-import { getProjects, getHome } from '../lib/content';
+import { getProjects, getHome, projectPhotos } from '../lib/content';
 import { t, type Lang } from '../lib/i18n';
 import { lqip } from '../lib/lqip';
 
@@ -13,10 +13,8 @@ const { lang } = Astro.props as { lang: Lang };
 const tx = t(lang);
 
 const projects = await getProjects(lang);
-const pool = projects.flatMap((p) => [
-  { src: p.data.cover, alt: p.data.coverAlt, project: p.data.title },
-  ...p.data.gallery.filter((g) => g.inPortfolio).map((g) => ({ src: g.image, alt: g.alt, project: p.data.title })),
-]);
+// With fewer than 15 frames in total the sheet stays hidden (see below)
+const pool = projects.flatMap((p) => projectPhotos(p).map((f) => ({ src: f.src, alt: f.alt, project: p.data.title })));
 // Interleave projects so neighbouring frames differ
 const groups = new Map<string, typeof pool>();
 for (const f of pool) groups.set(f.project, [...(groups.get(f.project) ?? []), f]);

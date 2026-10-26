@@ -376,6 +376,8 @@ function filmStrip() {
   mm.add('(min-width: 901px)', () => {
     const track = strip.querySelector<HTMLElement>('.strip__track')!;
     const distance = () => track.scrollWidth - window.innerWidth;
+    // One or two films fit the screen: nothing to travel, so no pin
+    if (distance() <= 0) return;
     // The track travels its full width over 40% of that in scroll: a short pin, still easy to follow
     gsap.to(track, {
       x: () => -distance(), ease: 'none',
@@ -771,6 +773,9 @@ function deliveryCalc() {
     };
     const cta = root.querySelector<HTMLAnchorElement>('[data-calc-cta]');
     const ctaBase = cta?.getAttribute('href')?.split('?')[0] ?? '/contact/';
+    // WhatsApp button: the chosen date goes into the prefilled message (lib/whatsapp.ts builds the no-JS link)
+    const wa = cta?.dataset.wa;
+    const longDay = new Intl.DateTimeFormat(tx().dateLocale || 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     const time = root.dataset.preview || '21:00';
     const g = Number(root.dataset.gallery || 5);
     const f = Number(root.dataset.filmDays || 10);
@@ -788,7 +793,7 @@ function deliveryCalc() {
       set(out.preview, `${fmtDay.format(d)}, ${time}`);
       set(out.gallery, fmtDay.format(addWorkingDays(d, g)));
       set(out.film, fmtDay.format(addWorkingDays(d, f)));
-      if (cta) cta.setAttribute('href', `${ctaBase}?date=${input.value}`);
+      if (cta) cta.setAttribute('href', wa ? `${wa}?text=${encodeURIComponent(fill(tx().waText, { d: longDay.format(d) }))}` : `${ctaBase}?date=${input.value}`);
     };
     input.addEventListener('input', update);
     update();

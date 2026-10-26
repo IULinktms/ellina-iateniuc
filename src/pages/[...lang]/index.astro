@@ -5,7 +5,8 @@ import Frame from '../../components/Frame.astro';
 import DeliveryCalc from '../../components/DeliveryCalc.astro';
 import ContactSheet from '../../components/ContactSheet.astro';
 import StudioProof from '../../components/StudioProof.astro';
-import { getSite, getHome, getProjects, getFilms, orientation, slugify, slugOf } from '../../lib/content';
+import { getSite, getHome, getProjects, getFilms, projectPhotos, orientation, slugify, slugOf } from '../../lib/content';
+import { whatsappHref } from '../../lib/whatsapp';
 import { langParams, localePath, t, type Lang } from '../../lib/i18n';
 import { lqip } from '../../lib/lqip';
 
@@ -23,13 +24,17 @@ const featured = home.featuredProjects
   .map((slug) => projects.find((p) => slugOf(p) === slug))
   .filter((p): p is NonNullable<typeof p> => Boolean(p));
 const counts = Object.fromEntries(
-  home.disciplines.map((d) => [d.category, projects.filter((p) => p.data.category === d.category).reduce((n, p) => n + p.data.gallery.length + 1, 0)]),
+  home.disciplines.map((d) => [d.category, projects.filter((p) => p.data.category === d.category).reduce((n, p) => n + projectPhotos(p).length, 0)]),
 );
 // Only published work gets a category tile. New categories appear with their first project.
 const disciplines = home.disciplines.flatMap((d) => {
   const project = projects.find((p) => p.data.category === d.category);
   return project ? [{ ...d, image: d.image ?? project.data.cover, alt: d.alt || project.data.coverAlt }] : [];
 });
+// A single tile is not a list of what I cover: the list waits for a second category, the intro stays
+const showDisciplines = disciplines.length > 1;
+// Primary booking action: WhatsApp with the message prefilled; the date calculator below stays as the second step
+const whatsapp = whatsappHref(site.whatsapp, lang);
 // LCP: a responsive still of the reel paints first; the video itself loads after (see deferHeroVideo in app.ts)
 const posterSet = await getImage({ src: home.heroPoster, widths: [480, 800, 1280].filter((w) => w <= home.heroPoster.width), format: 'webp', quality: 70 });
 const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp', quality: 78 })));
@@ -51,7 +56,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
   <section class="hero" data-hero aria-labelledby="hero-title">
     <div class="hero__media" data-lqip={heroPlaceholder ? 'eager' : undefined} style={heroPlaceholder?.style} {...heroPlaceholder?.attrs}>
       <img src={posterSet.src} srcset={posterSet.srcSet.attribute} sizes="100vw" alt={home.heroPosterAlt} fetchpriority="high" decoding="async" class="hero__poster" data-hero-still />
-      <video data-hero-video muted loop playsinline preload="none" aria-hidden="true" data-src={home.heroVideo}></video>
+      {home.heroVideo && <video data-hero-video muted loop playsinline preload="none" aria-hidden="true" data-src={home.heroVideo}></video>}
     </div>
     <div class="hero__shutter" data-home-shutter aria-hidden="true"></div>
     <!-- Viewfinder HUD (decorative): frame brackets, a focus point that follows the pointer, live exposure -->
@@ -73,7 +78,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
       <div class="hero__row">
         <p class="hero__lede" data-hero-rise>{s.home.lede}</p>
         <div class="hero__actions" data-hero-rise>
-          <a class="btn btn--solid" href="#delivery">{s.home.checkDate}</a>
+          {whatsapp ? <a class="btn btn--solid" href={whatsapp}>{s.bookingUi.waCta}</a> : <a class="btn btn--solid" href="#delivery">{s.home.checkDate}</a>}
           <a class="line-link" href={L('/portfolio/')}>{s.home.seeWork}</a>
         </div>
       </div>
@@ -121,7 +126,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
       <a class="line-link small" href={L('/about/')}>{s.home.howBooking}</a>
     </div>
     <div class="howi__calc" data-reveal>
-      <DeliveryCalc lang={lang} previewTime={site.delivery.previewTime} galleryDays={site.delivery.galleryDays} filmDays={site.delivery.filmDays} id="home-calc" />
+      <DeliveryCalc lang={lang} whatsapp={site.whatsapp} previewTime={site.delivery.previewTime} galleryDays={site.delivery.galleryDays} filmDays={site.delivery.filmDays} id="home-calc" />
     </div>
   </section>
 
@@ -182,14 +187,14 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
     </section>
   )}
 
-  <section class="disciplines light" aria-labelledby="disc-h">
+  {(showDisciplines || home.disciplinesIntro) && <section class="disciplines light" aria-labelledby="disc-h">
     <div class="wrap">
       <div class="section-head">
         <h2 id="disc-h">{s.home.cover}</h2>
-        <span class="small">{s.home.choose}</span>
+        {showDisciplines && <span class="small">{s.home.choose}</span>}
       </div>
       {home.disciplinesIntro && <p class="disciplines__intro">{home.disciplinesIntro}</p>}
-      <ul role="list" data-float-list>
+      {showDisciplines && <ul role="list" data-float-list>
         {disciplines.map((d) => (
           <li>
             <a href={L(`/portfolio/?c=${slugify(d.category)}`)} data-float={slugify(d.category)}>
@@ -198,14 +203,14 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
             </a>
           </li>
         ))}
-      </ul>
+      </ul>}
     </div>
-    <div class="float-preview" aria-hidden="true">
+    {showDisciplines && <div class="float-preview" aria-hidden="true">
       {disciplines.map((d) => (
         <Image src={d.image} alt="" widths={[400, 700]} width={700} sizes="22vw" format="webp" quality={75} loading="lazy" data-key={slugify(d.category)} />
       ))}
-    </div>
-  </section>
+    </div>}
+  </section>}
 
   <section class="cta wrap" aria-labelledby="cta-h">
     <h2 id="cta-h" class="display" data-split>{home.ctaTitle}</h2>

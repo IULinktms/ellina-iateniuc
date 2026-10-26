@@ -9,6 +9,7 @@ import DirectContact from '../components/DirectContact.astro';
 import fontLatin from '../assets/fonts/inter-tight-latin.woff2?url';
 import fontCyrillic from '../assets/fonts/inter-tight-cyrillic.woff2?url';
 import { serviceLd, breadcrumbLd } from '../lib/seo';
+import { whatsappHref } from '../lib/whatsapp';
 
 interface Props {
   lang: Lang;
@@ -56,6 +57,7 @@ const workSlug = page === 'work' ? rest.match(/^\/work\/([^/]+)/)?.[1] : undefin
 const ogCard = workSlug ? `/og/${lang}/${workSlug}.jpg` : !image ? `/og/${lang}/site.jpg` : undefined;
 const og = new URL(ogCard ?? (await shareImage(image!)), Astro.site);
 const L = (p: string) => localePath(lang, p);
+const whatsapp = whatsappHref(site.whatsapp, lang);
 
 const nav = [
   { href: L('/portfolio/'), label: s.nav.portfolio, key: 'portfolio' },
@@ -201,7 +203,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
 
     <!-- Workstream 4: booking remains one tap away after the opening frame. -->
     {page !== 'contact' && page !== '404' && <aside class="mobile-booking" data-mobile-booking hidden>
-      <span class="small">{site.name}</span><a href={L('/contact/')} class="btn btn--solid">{s.studio.book}<span aria-hidden="true">↗</span></a>
+      <span class="small">{site.name}</span><a href={whatsapp || L('/contact/')} class="btn btn--solid">{whatsapp ? s.bookingUi.waCta : s.studio.book}<span aria-hidden="true">↗</span></a>
     </aside>}
 
     <!-- Film grain over everything (decorative) -->

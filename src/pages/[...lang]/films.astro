@@ -58,7 +58,8 @@ const ld = films.map((f) => videoLd(f, lang, Astro.site!, posters[f.id]));
     </section>
   )}
 
-  <section class="film-grid" id="films" aria-label={s.films.list}>
+  {/* With only the featured film there is nothing to list */}
+  {rest.length > 0 && <section class="film-grid" id="films" aria-label={s.films.list}>
     {vertical.length > 0 && (
       <div class="reel-shelf">
         {vertical.map((f) => {
@@ -98,7 +99,7 @@ const ld = films.map((f) => videoLd(f, lang, Astro.site!, posters[f.id]));
         </article>
       );
     })}
-  </section>
+  </section>}
 </Base>
 
 <style>

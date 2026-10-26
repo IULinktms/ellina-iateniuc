@@ -197,7 +197,7 @@ collections:
               - { name: value, label: Verified number, widget: number, required: false, value_type: int, min: 0, i18n: duplicate }
               - { name: label, label: Label, widget: string, i18n: true }
               - { name: suffix, label: Unit or suffix, widget: string, required: false, default: '', i18n: true }
-          - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.', i18n: duplicate }
+          - { name: heroVideo, label: Opening video, widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'Optional. Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones. Leave empty to show only the opening image.', i18n: duplicate }
           - { name: heroPoster, label: Opening image, widget: image, hint: 'Shown while the video loads and on slow connections. Use the first frame of the video.', i18n: duplicate }
           - { name: heroPosterAlt, label: Opening image description, widget: string, i18n: true }
           - { name: statementTitle, label: How I work — heading, widget: string, hint: 'Two short lines at most.', i18n: true }

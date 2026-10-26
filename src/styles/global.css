@@ -273,7 +273,10 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
 .hero__sound { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; }
 @media (max-width: 760px) {
   .hero__name .line + .line { padding-left: 0.3em; }
-  .hero__actions { width: 100%; justify-content: space-between; }
+  .hero__actions { width: 100%; justify-content: space-between; gap: 1rem; }
+  /* "Написать в WhatsApp" is the longest label: one line, a little less padding */
+  .hero__actions > * { white-space: nowrap; }
+  .hero__actions .btn { padding-inline: 1.25rem; }
 }
 
 /* ───────────────────────── Statement ───────────────────────── */
@@ -483,6 +486,8 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
 .p-hero { position: relative; height: 100svh; min-height: 36rem; overflow: hidden; }
 .p-hero__media, .p-hero .frame { position: absolute; inset: 0; }
 .p-hero .frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0.05) 55%, rgb(0 0 0 / 0.3)); }
+/* Portrait covers in a landscape window: keep faces, not waists */
+.p-hero--portrait .frame img { object-position: 50% 8%; }
 .p-hero__text { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(2rem, 6vh, 4rem); z-index: 2; }
 .p-hero__text h1 { font-size: var(--t-mega); }
 .p-hero__text h1 .line { display: block; overflow: hidden; padding-bottom: 0.06em; }

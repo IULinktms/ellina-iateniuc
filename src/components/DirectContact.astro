@@ -1,6 +1,7 @@
 ---
 import { getSite } from '../lib/content';
 import { t, type Lang } from '../lib/i18n';
+import { whatsappHref } from '../lib/whatsapp';
 interface Props { lang: Lang; site: Awaited<ReturnType<typeof getSite>>; email?: boolean; variant?: 'inline' | 'large' }
 const { lang, site, email = false, variant = 'inline' } = Astro.props;
 const s = t(lang).bookingUi;
@@ -10,7 +11,7 @@ const safe = (value: string, hosts: string[], protocol = 'https:') => {
   try { const u = new URL(value); return u.protocol === protocol && (protocol === 'viber:' || hosts.includes(u.hostname)) && (u.pathname.length > 1 || !!u.search) ? value : ''; } catch { return ''; }
 };
 const links = [
-  { label: s.whatsapp, href: safe(site.whatsapp, ['wa.me', 'api.whatsapp.com']) },
+  { label: s.whatsapp, href: whatsappHref(site.whatsapp, lang) },
   { label: s.telegram, href: safe(site.telegram, ['t.me', 'telegram.me']) },
   { label: s.viber, href: safe(site.viber, [], 'viber:') },
   { label: s.call, href: phone ? `tel:${phone}` : '' },

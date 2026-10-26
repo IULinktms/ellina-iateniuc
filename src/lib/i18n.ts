@@ -75,6 +75,7 @@ const dict = {
       filter: 'Filter films', all: 'All', featured: 'Featured film', list: 'All films', photos: 'Photographs from this event' },
     portfolio: { title: 'Portfolio', desc: 'Conference, seminar, corporate event and speaker portrait photography by Ellina Yatsenyuk.',
       intro: (p: number, e: number) => `${en(p, 'photograph', 'photographs')} from ${en(e, 'event', 'events')}. Choose a category, or open any frame to see it full screen.`,
+      introOne: 'Open any frame to see it full screen.',
       filter: 'Filter by category', all: 'All', projects: 'Projects', photos: 'Photographs' },
     work: { category: 'Category', client: 'Client', location: 'Location', year: 'Year', photos: (t: string) => `${t} photographs`,
       filmAria: 'Film from this event', film: 'The film', credits: 'Credits', next: 'Next event', view: (t: string) => `${t}, view the project` },
@@ -118,6 +119,7 @@ const dict = {
       filter: 'Filtrați filmele', all: 'Toate', featured: 'Film recomandat', list: 'Toate filmele', photos: 'Fotografii de la acest eveniment' },
     portfolio: { title: 'Portofoliu', desc: 'Fotografie de conferințe, seminare, evenimente corporative și portrete de speakeri, de Ellina Yatsenyuk.',
       intro: (p: number, e: number) => `${ro(p, 'fotografie', 'fotografii')} de la ${ro(e, 'eveniment', 'evenimente')}. Alegeți o categorie sau deschideți orice cadru pe tot ecranul.`,
+      introOne: 'Deschideți orice cadru pe tot ecranul.',
       filter: 'Filtrați după categorie', all: 'Toate', projects: 'Proiecte', photos: 'Fotografii' },
     work: { category: 'Categorie', client: 'Client', location: 'Locație', year: 'An', photos: (t: string) => `Fotografii: ${t}`,
       filmAria: 'Filmul de la acest eveniment', film: 'Filmul', credits: 'Echipa', next: 'Următorul eveniment', view: (t: string) => `${t}, vedeți proiectul` },
@@ -161,6 +163,7 @@ const dict = {
       filter: 'Фильтр фильмов', all: 'Все', featured: 'Главный фильм', list: 'Все фильмы', photos: 'Фотографии с этого мероприятия' },
     portfolio: { title: 'Портфолио', desc: 'Съёмка конференций, семинаров, корпоративных мероприятий и портретов спикеров — Эллина Яценюк.',
       intro: (p: number, e: number) => `${ru(p, 'фотография', 'фотографии', 'фотографий')} с ${ru(e, 'мероприятия', 'мероприятий', 'мероприятий')}. Выберите категорию или откройте любой кадр на весь экран.`,
+      introOne: 'Откройте любой кадр на весь экран.',
       filter: 'Фильтр по категориям', all: 'Все', projects: 'Проекты', photos: 'Фотографии' },
     work: { category: 'Категория', client: 'Клиент', location: 'Место', year: 'Год', photos: (t: string) => `Фотографии: ${t}`,
       filmAria: 'Фильм с этого мероприятия', film: 'Фильм', credits: 'Команда', next: 'Следующее мероприятие', view: (t: string) => `${t} — открыть проект` },
@@ -205,7 +208,11 @@ const bookingUi = {
     "telegram": "Telegram",
     "whatsapp": "WhatsApp",
     "viber": "Viber",
-    "email": "Email"
+    "email": "Email",
+    "waCta": "Message on WhatsApp",
+    "waCheck": "Check this date on WhatsApp",
+    "waText": "Hello Ellina! I would like to book a shoot.\nDate: {d}\nPlace: …\nType: event / brand / Reels",
+    "waNoDate": "…"
   },
   "ro": {
     "onRequest": "La cerere",
@@ -229,7 +236,11 @@ const bookingUi = {
     "telegram": "Telegram",
     "whatsapp": "WhatsApp",
     "viber": "Viber",
-    "email": "Email"
+    "email": "Email",
+    "waCta": "Scrieți pe WhatsApp",
+    "waCheck": "Verificați data pe WhatsApp",
+    "waText": "Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: {d}\nLocul: …\nTipul: eveniment / brand / Reels",
+    "waNoDate": "…"
   },
   "ru": {
     "onRequest": "По запросу",
@@ -253,7 +264,11 @@ const bookingUi = {
     "telegram": "Telegram",
     "whatsapp": "WhatsApp",
     "viber": "Viber",
-    "email": "Email"
+    "email": "Email",
+    "waCta": "Написать в WhatsApp",
+    "waCheck": "Проверить дату в WhatsApp",
+    "waText": "Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: {d}\nМесто: …\nТип: мероприятие / бренд / Reels",
+    "waNoDate": "…"
   }
 };
 

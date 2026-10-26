@@ -4,15 +4,19 @@
  * Works without JavaScript (shows the plain promises); script fills in real dates.
  */
 import { t, localePath, type Lang } from '../lib/i18n';
+import { whatsappBase, whatsappHref } from '../lib/whatsapp';
 interface Props {
   lang: Lang;
+  /** site.whatsapp: when set, the button opens WhatsApp with the chosen date in the message (app.ts) */
+  whatsapp?: string;
   previewTime: string;
   galleryDays: number;
   filmDays: number;
   id?: string;
 }
-const { lang, previewTime, galleryDays, filmDays, id = 'calc' } = Astro.props;
+const { lang, whatsapp = '', previewTime, galleryDays, filmDays, id = 'calc' } = Astro.props;
 const c = t(lang).calc;
+const wa = whatsappHref(whatsapp, lang);
 ---
 
 <div class="calc" data-calc data-preview={previewTime} data-gallery={galleryDays} data-film-days={filmDays}>
@@ -34,5 +38,5 @@ const c = t(lang).calc;
       <dd data-calc-film>{c.within(filmDays)}</dd>
     </div>
   </dl>
-  <a class="btn btn--solid calc__cta" href={localePath(lang, '/contact/')} data-calc-cta>{c.check}</a>
+  <a class="btn btn--solid calc__cta" href={wa || localePath(lang, '/contact/')} data-calc-cta data-wa={wa ? whatsappBase(whatsapp) : undefined}>{wa ? t(lang).bookingUi.waCheck : c.check}</a>
 </div>

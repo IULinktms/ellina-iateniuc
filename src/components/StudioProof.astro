@@ -51,7 +51,8 @@ const hasProof = clients.length + testimonials.length + stats.length > 0;
   .studio-proof--numbers .proof-numbers .display { font-size: 3.5rem; }
   .proof-head { display:flex;justify-content:space-between;align-items:start;gap:1.5rem; }
   .proof-numbers { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;margin-block:2rem; }
-  .proof-numbers dd { display:flex;flex-direction:column;align-items:start;gap:.6rem; }
+  /* Dark figures on the bone band: the global `main > :not(.hero) { color: var(--bone) }` outranks .studio-proof */
+  .proof-numbers dd { display:flex;flex-direction:column;align-items:start;gap:.6rem;color:var(--black); }
   .proof-numbers .display { font-size:clamp(3.5rem,7vw,7rem);font-variant-numeric:tabular-nums; }
   .proof-numbers dt { margin-top:.75rem;font-size:.9rem;color:#514d46; }
   .proof-heading { display:flex;align-items:end;justify-content:space-between;gap:2rem; }

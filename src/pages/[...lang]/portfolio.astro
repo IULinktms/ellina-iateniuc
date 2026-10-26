@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Frame from '../../components/Frame.astro';
 import { CATEGORIES } from '../../content.config';
-import { getProjects, fullSize, slugify, slugOf } from '../../lib/content';
+import { getProjects, projectPhotos, fullSize, slugify, slugOf } from '../../lib/content';
 import { langParams, localePath, t, type Lang } from '../../lib/i18n';
 
 export const getStaticPaths = langParams;
@@ -13,10 +13,7 @@ const projects = await getProjects(lang);
 // Every portfolio photograph: each project's cover plus its gallery images
 const photos = await Promise.all(
   projects
-    .flatMap((p) => [
-      { src: p.data.cover, alt: p.data.coverAlt, caption: p.data.title, p },
-      ...p.data.gallery.filter((g) => g.inPortfolio).map((g) => ({ src: g.image, alt: g.alt, caption: g.caption ?? p.data.title, p })),
-    ])
+    .flatMap((p) => projectPhotos(p).map((ph) => ({ ...ph, p })))
     .map(async (ph) => ({ ...ph, full: await fullSize(ph.src) })),
 );
 // Interleave projects so the "All" view doesn't read as blocks
@@ -33,11 +30,14 @@ const url = (p: (typeof projects)[number]) => localePath(lang, `/work/${slugOf(p
   <header class="page-head">
     <h1 class="display" data-split="now">{s.portfolio.title}</h1>
     <div class="page-head__row">
-      <p>{s.portfolio.intro(photos.length, projects.length)}</p>
-      <div class="filters" role="group" aria-label={s.portfolio.filter} data-filters="#gallery">
-        <button class="filter" data-filter="all" aria-pressed="true">{s.portfolio.all}<sup>{photos.length}</sup></button>
-        {cats.map((c) => <button class="filter" data-filter={slugify(c)} aria-pressed="false">{s.categories[c]}<sup>{counts[c]}</sup></button>)}
-      </div>
+      {/* With one event, "N photographs from 1 event" and a one-category filter say nothing */}
+      <p>{projects.length > 1 ? s.portfolio.intro(photos.length, projects.length) : s.portfolio.introOne}</p>
+      {cats.length > 1 && (
+        <div class="filters" role="group" aria-label={s.portfolio.filter} data-filters="#gallery">
+          <button class="filter" data-filter="all" aria-pressed="true">{s.portfolio.all}<sup>{photos.length}</sup></button>
+          {cats.map((c) => <button class="filter" data-filter={slugify(c)} aria-pressed="false">{s.categories[c]}<sup>{counts[c]}</sup></button>)}
+        </div>
+      )}
     </div>
   </header>
 

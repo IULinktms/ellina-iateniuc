@@ -107,7 +107,8 @@ const home = defineCollection({
       clients: z.array(z.object({ name: z.string().default(''), logo: image().optional() })).default([]),
       testimonials: z.array(z.object({ quote: z.string().default(''), name: z.string().default(''), role: z.string().default(''), company: z.string().default('') })).default([]),
       stats: z.array(z.object({ value: z.number().nonnegative().nullish(), label: z.string().default(''), suffix: z.string().default('') })).default([]),
-      heroVideo: z.string(),
+      // Optional: without a real reel the hero is the still alone
+      heroVideo: z.string().default(''),
       heroPoster: image(),
       heroPosterAlt: z.string(),
       statementTitle: z.string().default('Quiet in the room. Fast after it.'),
