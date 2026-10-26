@@ -15,7 +15,7 @@ const { lang, previewTime, galleryDays, filmDays, id = 'calc' } = Astro.props;
 const c = t(lang).calc;
 ---
 
-<div class="calc" data-calc data-preview={previewTime} data-gallery={galleryDays} data-film={filmDays}>
+<div class="calc" data-calc data-preview={previewTime} data-gallery={galleryDays} data-film-days={filmDays}>
   <div class="calc__field">
     <label for={`${id}-date`}>{c.date}</label>
     <input type="date" id={`${id}-date`} data-calc-input />
