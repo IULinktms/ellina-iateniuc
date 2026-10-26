@@ -8,8 +8,8 @@ import { z } from 'astro/zod';
  * responsive WebP versions at build time.
  */
 
-export const CATEGORIES = ['Portraits', 'Editorial', 'Weddings', 'Landscape', 'Commercial'] as const;
-export const FILM_KINDS = ['Film', 'Reel', 'Behind the scenes'] as const;
+export const CATEGORIES = ['Conferences', 'Seminars', 'Corporate', 'Portraits', 'Celebrations'] as const;
+export const FILM_KINDS = ['Aftermovie', 'Highlights', 'Reel', 'Behind the scenes'] as const;
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),

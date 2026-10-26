@@ -35,7 +35,7 @@ const { Content } = await render(about);
 
   {d.process.length > 0 && (
     <section class="process wrap" aria-labelledby="proc-h">
-      <div class="section-head"><h2 id="proc-h">How a commission works</h2></div>
+      <div class="section-head"><h2 id="proc-h">How a booking works</h2></div>
       <ol>
         {d.process.map((s) => <li><h3>{s.title}</h3><p>{s.text}</p></li>)}
       </ol>
@@ -43,10 +43,10 @@ const { Content } = await render(about);
   )}
 
   <section class="cta wrap">
-    <h2 class="display" data-split>Have something in mind?</h2>
-    <p>Tell me about it. I reply to every message personally, usually within two working days.</p>
+    <h2 class="display" data-split>Have an event coming up?</h2>
+    <p>Send me the date and a few details. I confirm availability within one working day.</p>
     <div class="cta__actions">
-      <a class="btn btn--solid" href="/contact/">Book a session</a>
+      <a class="btn btn--solid" href="/contact/">Book your event</a>
       <a class="btn" href={`mailto:${site.email}`}>{site.email}</a>
     </div>
   </section>

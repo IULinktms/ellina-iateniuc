@@ -79,7 +79,7 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
   </section>
 
   {films.length > 0 && (
-    <section class="wrap" style="padding-bottom: var(--section)" aria-label="Film from this project">
+    <section class="wrap" style="padding-bottom: var(--section)" aria-label="Film from this event">
       <div class="section-head"><h2>The film</h2></div>
       {films.map((f, i) => (
         <div class="film-card" data-preview>
@@ -105,10 +105,10 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
   )}
 
   {next.id !== project.id && (
-    <a class="next" href={`/work/${next.id}/`} data-cursor="Next story">
+    <a class="next" href={`/work/${next.id}/`} data-cursor="Next event">
       <Frame src={next.data.cover} alt="" aperture={false} sizes="100vw" widths={[800, 1400, 2000]} />
       <div class="next__text">
-        <span>Next project</span>
+        <span>Next event</span>
         <h2 class="display">{next.data.title}</h2>
       </div>
     </a>

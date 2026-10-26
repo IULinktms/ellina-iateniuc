@@ -1,46 +1,46 @@
 {
   "heroVideo": "/media/films/showreel-2026.mp4",
   "heroPoster": "../../assets/uploads/film-showreel-2026-poster.jpg",
-  "heroPosterAlt": "Mist rolling over green cliffs at sunrise",
-  "statement": "I photograph people and places the way they feel when no one is directing them: unhurried, a little imperfect, and lit by whatever the day provides.",
+  "heroPosterAlt": "Keynote speaker on a lit stage in front of a full auditorium",
+  "statement": "I photograph conferences, seminars and corporate events: the speaker's gesture, the question from the third row, the handshake after the panel. Quietly, without getting in the way, and delivered fast.",
   "featuredProjects": [
-    "salt-and-veil",
-    "quiet-hours",
-    "milano-off-duty",
-    "nocturne"
+    "future-of-work-summit",
+    "leadership-seminar",
+    "annual-partners-gala",
+    "faces-of-the-forum"
   ],
   "disciplines": [
     {
-      "label": "Portraits",
+      "label": "Conferences",
+      "category": "Conferences",
+      "image": "../../assets/uploads/summit-panel.jpg",
+      "alt": "Panel discussion on stage"
+    },
+    {
+      "label": "Seminars & workshops",
+      "category": "Seminars",
+      "image": "../../assets/uploads/seminar-brick-hall.jpg",
+      "alt": "Speaker at a seminar"
+    },
+    {
+      "label": "Corporate events",
+      "category": "Corporate",
+      "image": "../../assets/uploads/launch-stage-light.jpg",
+      "alt": "Launch event stage"
+    },
+    {
+      "label": "Speaker portraits",
       "category": "Portraits",
-      "image": "../../assets/uploads/quiet-hours-blue-hour.jpg",
-      "alt": "Portrait in blue light"
+      "image": "../../assets/uploads/portrait-elena.jpg",
+      "alt": "Business portrait"
     },
     {
-      "label": "Weddings",
-      "category": "Weddings",
-      "image": "../../assets/uploads/salt-veil-bride-shoreline.jpg",
-      "alt": "Couple on a beach"
-    },
-    {
-      "label": "Editorial",
-      "category": "Editorial",
-      "image": "../../assets/uploads/nocturne-green-room.jpg",
-      "alt": "Model against a green wall"
-    },
-    {
-      "label": "Commercial",
-      "category": "Commercial",
-      "image": "../../assets/uploads/linen-archive-rail.jpg",
-      "alt": "Knitwear on a rail"
-    },
-    {
-      "label": "Landscape",
-      "category": "Landscape",
-      "image": "../../assets/uploads/valley-glacier-lake.jpg",
-      "alt": "Glacier lake at sunset"
+      "label": "Galas & celebrations",
+      "category": "Celebrations",
+      "image": "../../assets/uploads/gala-ballroom.jpg",
+      "alt": "Gala ballroom"
     }
   ],
-  "ctaTitle": "Let's make something that lasts.",
-  "ctaText": "Portraits, weddings, editorial and brand work in Moldova and across Europe. Tell me what you have in mind."
+  "ctaTitle": "Have an event coming up?",
+  "ctaText": "Conferences, seminars, workshops, launches and company celebrations in Moldova and abroad. Send the date and a few details, and I'll confirm availability within a day."
 }

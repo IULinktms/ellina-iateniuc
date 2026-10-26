@@ -1,4 +1,4 @@
-# Ellina Iateniuc — Photography & Film
+# Ellina Iateniuc — Event Photography & Film
 
 A cinematic portfolio site built with **Astro**, **GSAP** and **Lenis**, with a no-code editor at `/admin` (**Sveltia CMS**) and a spam-protected contact form (**Vercel function + Resend + Cloudflare Turnstile**).
 
@@ -36,13 +36,13 @@ Open **your-domain.com/admin** and sign in. Every save publishes the site automa
 
 | I want to… | Where |
 |---|---|
-| Add a new photo story | **Projects → New Project**. Add a cover, then photos under *Photo story*. Pick a layout per photo (full bleed, wide, half, small left/right). Use *half* in pairs. |
+| Add a new event | **Projects → New Project** (one project = one event). Add a cover, then photos under *Photo story*. Pick a layout per photo (full bleed, wide, half, small left/right). Use *half* in pairs. Categories: Conferences, Seminars, Corporate, Portraits, Celebrations. |
 | Reorder photos | Drag them in *Photo story*. |
 | Hide a project without deleting it | Turn on **Hide from the site**. |
 | Change which projects appear on the home page | **Pages & settings → Home page → Selected work**. |
-| Change the opening video | **Home page → Opening video** (silent MP4, 15–30 s, under 15 MB) + **Opening image** (its first frame). |
+| Change the opening video | **Home page → Opening video** — her event showreel (silent MP4, 15–30 s, under 15 MB) + **Opening image** (its first frame). |
 | Add a film | **Films & video → New Film**. Paste a Vimeo/YouTube link for long films, or upload an MP4 for short ones. Lowest *Order* number = the big featured film. |
-| Edit About, booking sessions, email, socials | **Pages & settings**. Session types also become the choices in the inquiry form. |
+| Edit About, services, email, socials | **Pages & settings → Booking page**. Each service also becomes an "event type" choice in the inquiry form. |
 
 **Photo tips:** upload JPEGs straight from Lightroom (long edge 3000–4000 px). The editor converts to WebP on upload and the site generates every size phones and desktops need. Always fill in the *Description* field — it is read aloud to blind visitors and used by Google.
 
@@ -85,4 +85,4 @@ public/
 
 **Adding a category** — add it to `CATEGORIES` in `src/content.config.ts` and to the `category` options in `public/admin/config.yml`.
 
-Placeholder photography: Unsplash (Unsplash License). Placeholder reels were rendered from those stills; one landscape clip is from Pexels. Replace all before launch.
+Placeholder photography: Unsplash (Unsplash License). Placeholder aftermovies were rendered from those stills. Event and client names are fictional placeholders. Replace all before launch.

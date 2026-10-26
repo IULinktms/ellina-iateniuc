@@ -43,7 +43,7 @@ export async function getFilms() {
 
 /** Large WebP used by the full-screen viewer. */
 export async function fullSize(src: ImageMetadata) {
-  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1800 : 2400, src.width), format: 'webp', quality: 82 });
+  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1400 : 2400, src.width), format: 'webp', quality: 82 });
   return img.src;
 }
 

@@ -49,16 +49,16 @@ collections:
     summary: '{{title}} — {{category}}, {{year}}{{draft | ternary(" (hidden)", "")}}'
     sortable_fields: [order, year, title]
     view_filters:
-      - { label: Weddings, field: category, pattern: Weddings }
+      - { label: Conferences, field: category, pattern: Conferences }
+      - { label: Seminars, field: category, pattern: Seminars }
+      - { label: Corporate, field: category, pattern: Corporate }
       - { label: Portraits, field: category, pattern: Portraits }
-      - { label: Editorial, field: category, pattern: Editorial }
-      - { label: Commercial, field: category, pattern: Commercial }
-      - { label: Landscape, field: category, pattern: Landscape }
+      - { label: Celebrations, field: category, pattern: Celebrations }
       - { label: Hidden, field: draft, pattern: true }
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: subtitle, label: Subtitle, widget: string, required: false, hint: 'A short line under the title, e.g. "A wedding on the edge of the Black Sea".' }
-      - { name: category, label: Category, widget: select, options: [Portraits, Editorial, Weddings, Landscape, Commercial] }
+      - { name: subtitle, label: Subtitle, widget: string, required: false, hint: 'A short line under the title, e.g. "Two days, 1,200 guests, 40 speakers".' }
+      - { name: category, label: Category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations] }
       - { name: year, label: Year, widget: number, value_type: int }
       - { name: location, label: Location, widget: string, required: false }
       - { name: client, label: Client, widget: string, required: false }
@@ -115,7 +115,7 @@ collections:
     sortable_fields: [order, year, title]
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: kind, label: Type, widget: select, options: [Film, Reel, Behind the scenes] }
+      - { name: kind, label: Type, widget: select, options: [Aftermovie, Highlights, Reel, Behind the scenes] }
       - { name: year, label: Year, widget: number, value_type: int }
       - { name: duration, label: Duration, widget: string, required: false, hint: 'e.g. 3:42' }
       - { name: location, label: Location, widget: string, required: false }
@@ -162,12 +162,12 @@ collections:
             display_fields: [title]
             multiple: true
           - name: disciplines
-            label: What I photograph
+            label: What I cover
             widget: list
             summary: '{{fields.label}}'
             fields:
               - { name: label, label: Label, widget: string }
-              - { name: category, label: Opens portfolio category, widget: select, options: [Portraits, Editorial, Weddings, Landscape, Commercial] }
+              - { name: category, label: Opens portfolio category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations] }
               - { name: image, label: Hover image, widget: image }
               - { name: alt, label: Image description, widget: string }
           - { name: ctaTitle, label: Closing headline, widget: string }

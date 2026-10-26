@@ -1,31 +1,37 @@
 {
-  "title": "Book a session",
-  "intro": "Tell me a little about what you're planning. I'll come back with availability, a rough plan and a quote.",
+  "title": "Book your event",
+  "intro": "Send the date, the place and what kind of event it is. I'll confirm availability within one working day and send a quote.",
   "sessions": [
     {
-      "name": "Portrait session",
-      "duration": "2 hours",
-      "includes": "Location or studio, 25 edited photographs, private online gallery",
+      "name": "Conference coverage",
+      "duration": "Half day, full day or multi-day",
+      "includes": "Keynotes, panels, audience, networking and branding. Same-evening previews for social media.",
       "price": "Placeholder price"
     },
     {
-      "name": "Wedding & celebration",
-      "duration": "Half or full day",
-      "includes": "Photography, optional film, edited gallery within six weeks",
+      "name": "Seminar or workshop",
+      "duration": "From 2 hours",
+      "includes": "Speakers, participants and group work, photographed silently and without flash.",
       "price": "Placeholder price"
     },
     {
-      "name": "Editorial & brand",
-      "duration": "By project",
-      "includes": "Creative direction, production support, usage licensing",
-      "price": "Quoted per project"
+      "name": "Corporate event",
+      "duration": "From 3 hours",
+      "includes": "Launches, team events, office days and reportage for websites and annual reports.",
+      "price": "Placeholder price"
     },
     {
-      "name": "Film & motion",
-      "duration": "By project",
-      "includes": "Short films, reels and behind-the-scenes content, delivered in all formats",
-      "price": "Quoted per project"
+      "name": "Speaker & business portraits",
+      "duration": "5 minutes per person",
+      "includes": "Portable on-site studio, retouched portraits within 24 hours.",
+      "price": "Placeholder price"
+    },
+    {
+      "name": "Aftermovie & reels",
+      "duration": "Added to any booking",
+      "includes": "A 1–3 minute aftermovie plus vertical reels for social media.",
+      "price": "Quoted per event"
     }
   ],
-  "successMessage": "Thank you. Your message is with me, and I'll reply within two working days."
+  "successMessage": "Thank you. I've received your request and will confirm availability within one working day."
 }

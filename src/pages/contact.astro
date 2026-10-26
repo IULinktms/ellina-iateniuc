@@ -12,15 +12,15 @@ const types = [...booking.sessions.map((s) => s.name), 'Something else'];
 <Base page="contact" title={booking.title} description={booking.intro}>
   <header class="page-head">
     <h1 class="display">
-      <span class="line" data-split="now">Book a</span>
-      <span class="line" data-split="now">session</span>
+      <span class="line" data-split="now">Book your</span>
+      <span class="line" data-split="now">event</span>
     </h1>
     <div class="page-head__row"><p>{booking.intro}</p></div>
   </header>
 
   <section class="contact grid12">
     <aside class="contact__aside" aria-labelledby="sessions-h">
-      <h2 id="sessions-h" class="small muted" style="font-weight:500;margin-bottom:1rem">Sessions</h2>
+      <h2 id="sessions-h" class="small muted" style="font-weight:500;margin-bottom:1rem">Services</h2>
       <div class="sessions">
         {booking.sessions.map((s) => (
           <div class="session">
@@ -56,7 +56,7 @@ const types = [...booking.sessions.map((s) => s.name), 'Something else'];
         </div>
 
         <fieldset class="field" style="border-left:0;border-right:0;border-top:0;margin:0;padding-inline:0">
-          <legend class="xsmall muted" style="padding:0">What are you planning?</legend>
+          <legend class="xsmall muted" style="padding:0">What kind of event?</legend>
           <div class="chips">
             {types.map((t, i) => (
               <>
@@ -69,27 +69,40 @@ const types = [...booking.sessions.map((s) => s.name), 'Something else'];
 
         <div class="field-row">
           <div class="field">
-            <label for="f-date">Preferred date (optional)</label>
+            <label for="f-org">Company or event name (optional)</label>
+            <input id="f-org" name="organisation" autocomplete="organization" maxlength="160" />
+            <span class="err"></span>
+          </div>
+          <div class="field">
+            <label for="f-guests">Expected guests (optional)</label>
+            <input id="f-guests" name="guests" inputmode="numeric" placeholder="e.g. 150" maxlength="20" />
+            <span class="err"></span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-date">Event date</label>
             <input id="f-date" name="date" type="date" />
             <span class="err"></span>
           </div>
           <div class="field">
             <label for="f-loc">Location (optional)</label>
-            <input id="f-loc" name="location" placeholder="City or venue" maxlength="160" />
+            <input id="f-loc" name="location" placeholder="Venue or city" maxlength="160" />
             <span class="err"></span>
           </div>
         </div>
 
         <div class="field">
           <label for="f-msg">Tell me about it</label>
-          <textarea id="f-msg" name="message" required maxlength="5000" placeholder="The people, the place, the feeling you want the pictures to have."></textarea>
+          <textarea id="f-msg" name="message" required maxlength="5000" placeholder="Programme, hours of coverage, and what the photos are for: press, social media, next year’s promotion."></textarea>
           <span class="err" aria-live="polite"></span>
         </div>
 
         <!-- Spam protection: hidden honeypot field + time-to-fill check (+ Turnstile if configured) -->
         <div class="hp" aria-hidden="true">
-          <label for="f-company">Company website</label>
-          <input id="f-company" name="company" tabindex="-1" autocomplete="off" />
+          <label for="f-website">Website</label>
+          <input id="f-website" name="website_url" tabindex="-1" autocomplete="off" />
         </div>
         <input type="hidden" name="_t" value="" />
         {turnstileKey && (
@@ -101,7 +114,7 @@ const types = [...booking.sessions.map((s) => s.name), 'Something else'];
 
         <div class="form-foot">
           <p class="form-status" data-status role="status" aria-live="polite">{site.responseTime}</p>
-          <button class="btn btn--solid" type="submit">Send inquiry</button>
+          <button class="btn btn--solid" type="submit">Check availability</button>
         </div>
       </form>
 

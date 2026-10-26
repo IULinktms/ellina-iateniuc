@@ -57,7 +57,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
   <section class="statement wrap grid12" aria-label="Approach">
     <p data-statement>{home.statement}</p>
     <div class="statement__aside">
-      <a class="line-link" href="/about/">More about how I work</a>
+      <a class="line-link" href="/about/">How I work on the day</a>
     </div>
   </section>
 
@@ -76,14 +76,14 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
             class:list={['spread__frame', land && 'spread__frame--land']}
             parallax
             sizes="(max-width: 760px) 100vw, 60vw"
-            data-cursor="View story"
+            data-cursor="View event"
           />
           <div class="spread__text">
-            <h3 class="spread__title display" data-split>{p.data.title}</h3>
+            <h3 class:list={['spread__title display', p.data.title.length > 14 && 'spread__title--long']} data-split>{p.data.title}</h3>
             <div class="spread__meta tnum"><span>{p.data.category}</span><span>{p.data.location}</span><span>{p.data.year}</span></div>
             <p class="spread__excerpt">{p.data.excerpt}</p>
           </div>
-          <a class="spread__link" href={`/work/${p.id}/`} data-cursor="View story" aria-label={`${p.data.title}, view the project`}></a>
+          <a class="spread__link" href={`/work/${p.id}/`} data-cursor="View event" aria-label={`${p.data.title}, view the project`}></a>
         </article>
       );
     })}
@@ -92,7 +92,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
   {films.length > 0 && (
     <section class="strip" data-strip aria-labelledby="films-h">
       <div class="section-head wrap">
-        <h2 id="films-h">Films &amp; motion</h2>
+        <h2 id="films-h">Aftermovies &amp; reels</h2>
         <a class="line-link small" href="/films/">All films</a>
       </div>
       <div class="strip__viewport">
@@ -131,7 +131,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
   <section class="disciplines light" aria-labelledby="disc-h" style="margin-top: var(--section)">
     <div class="wrap">
       <div class="section-head" style="color:#000">
-        <h2 id="disc-h">What I photograph</h2>
+        <h2 id="disc-h">What I cover</h2>
         <span class="small" style="color:#6b665f">Choose one to see the work</span>
       </div>
       <ul role="list" data-float-list>
@@ -156,7 +156,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
     <h2 id="cta-h" class="display" data-split>{home.ctaTitle}</h2>
     <p>{home.ctaText}</p>
     <div class="cta__actions">
-      <a class="btn btn--solid" href="/contact/">Book a session</a>
+      <a class="btn btn--solid" href="/contact/">Book your event</a>
       <a class="btn" href={`mailto:${site.email}`}>{site.email}</a>
     </div>
   </section>

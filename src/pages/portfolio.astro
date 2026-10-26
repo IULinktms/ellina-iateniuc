@@ -24,11 +24,11 @@ const counts = Object.fromEntries(CATEGORIES.map((c) => [c, photos.filter((ph) =
 const cats = CATEGORIES.filter((c) => counts[c] > 0);
 ---
 
-<Base page="portfolio" title="Portfolio" description="Portraits, weddings, editorial, commercial and landscape photography by Ellina Iateniuc.">
+<Base page="portfolio" title="Portfolio" description="Conference, seminar, corporate event and speaker portrait photography by Ellina Iateniuc.">
   <header class="page-head">
     <h1 class="display" data-split="now">Portfolio</h1>
     <div class="page-head__row">
-      <p>{photos.length} photographs from {projects.length} projects. Choose a category, or open any frame to see it full screen.</p>
+      <p>{photos.length} photographs from {projects.length} events. Choose a category, or open any frame to see it full screen.</p>
       <div class="filters" role="group" aria-label="Filter by category" data-filters="#gallery">
         <button class="filter" data-filter="all" aria-pressed="true">All<sup>{photos.length}</sup></button>
         {cats.map((c) => <button class="filter" data-filter={slugify(c)} aria-pressed="false">{c}<sup>{counts[c]}</sup></button>)}

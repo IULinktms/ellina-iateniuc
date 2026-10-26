@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const get = (k: string) => String(form.get(k) ?? '').trim();
 
   // 1. Honeypot: real people never see this field
-  if (get('company')) return json({ ok: true });
+  if (get('website_url')) return json({ ok: true });
 
   // 2. Too fast to be human (under 3 s) or a stale page (over 2 h)
   const started = Number(get('_t'));
@@ -59,6 +59,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const type = get('type').slice(0, 80);
   const date = get('date').slice(0, 20);
   const location = get('location').slice(0, 160);
+  const organisation = get('organisation').slice(0, 160);
+  const guests = get('guests').slice(0, 20);
   if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json({ ok: false, error: 'Name, a valid email and a message are needed.' }, 400);
   }
@@ -70,7 +72,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return json({ ok: false, error: 'The form is not connected to an inbox yet.' }, 503);
   }
 
-  const rows: [string, string][] = [['Name', name], ['Email', email], ['Session', type], ['Date', date], ['Location', location]];
+  const rows: [string, string][] = [['Name', name], ['Email', email], ['Organisation', organisation], ['Event type', type], ['Date', date], ['Location', location], ['Guests', guests]];
   const html = `<div style="font-family:Georgia,serif;font-size:16px;line-height:1.6;color:#111">
     <h2 style="font-weight:400">New inquiry from ${esc(name)}</h2>
     <table style="border-collapse:collapse">${rows.filter(([, v]) => v).map(([k, v]) => `<tr><td style="padding:4px 16px 4px 0;color:#777">${k}</td><td>${esc(v)}</td></tr>`).join('')}</table>
@@ -83,7 +85,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       from: env.CONTACT_FROM || 'Website <onboarding@resend.dev>',
       to: [env.CONTACT_TO],
       reply_to: email,
-      subject: `Inquiry: ${type || 'Session'} — ${name}`,
+      subject: `Event inquiry: ${type || 'Event'}${date ? ` on ${date}` : ''} — ${organisation || name}`,
       html,
       text: `${rows.filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${message}`,
     }),

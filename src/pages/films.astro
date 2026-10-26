@@ -15,11 +15,11 @@ const kinds = FILM_KINDS.filter((k) => rest.some((f) => f.data.kind === k));
 const projectTitle = (id?: string) => projects.find((p) => p.id === id);
 ---
 
-<Base page="films" title="Films & video" description="Cinematic films, reels and behind-the-scenes work by Ellina Iateniuc." image={feature?.data.poster}>
+<Base page="films" title="Films & video" description="Event aftermovies, highlight films and reels by Ellina Iateniuc." image={feature?.data.poster}>
   <header class="page-head">
     <h1 class="display"><span class="line" data-split="now">Films</span></h1>
     <div class="page-head__row">
-      <p>Wedding films, editorial motion, reels and the occasional look behind the camera. Every film opens full screen.</p>
+      <p>Aftermovies, highlight films and social reels from conferences, seminars and corporate events. Every film opens full screen.</p>
       {kinds.length > 1 && (
         <div class="filters" role="group" aria-label="Filter films" data-filters="#films">
           <button class="filter" data-filter="all" aria-pressed="true">All</button>
@@ -60,7 +60,7 @@ const projectTitle = (id?: string) => projects.find((p) => p.id === id);
           <p>{f.data.excerpt}</p>
           <div class="meta">
             <span>{f.data.kind}</span><span>{f.data.year}</span>{f.data.duration && <span>{f.data.duration}</span>}
-            {proj && <a class="line-link" href={`/work/${proj.id}/`}>Photographs from this project</a>}
+            {proj && <a class="line-link" href={`/work/${proj.id}/`}>Photographs from this event</a>}
           </div>
         </article>
       );

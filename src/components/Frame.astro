@@ -34,7 +34,7 @@ const {
 
 // Lightweight variant set for the hosted static preview only
 const lite = import.meta.env.PUBLIC_PREVIEW_LITE === '1';
-const ws = (lite ? [900, 1800] : widths ?? [480, 800, 1200, 1700, 2400]).filter((w) => w <= src.width);
+const ws = (lite ? [1400] : widths ?? [480, 800, 1200, 1700, 2400]).filter((w) => w <= src.width);
 if (!ws.length) ws.push(src.width);
 ---
 

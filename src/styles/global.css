@@ -268,7 +268,7 @@ html:not(.js) .intro, .intro.is-done { display: none; }
 .spread:nth-child(even) .spread__text { grid-column: 1 / span 6; grid-row: 1; text-align: left; }
 .spread__title { font-size: var(--t-2xl); margin-left: -0.5em; }
 .spread:nth-child(even) .spread__title { margin-left: 0; margin-right: -0.5em; }
-.spread__title em { font-style: italic; }
+.spread__title--long { font-size: var(--t-xl); line-height: 0.95; }
 .spread__meta { display: flex; gap: 1.5rem; margin-top: 1.25rem; color: var(--ash); font-size: var(--t-sm); }
 .spread__excerpt { max-width: 26rem; margin-top: 1rem; color: var(--bone-dim); }
 .spread a.spread__link { position: absolute; inset: 0; z-index: 3; }
