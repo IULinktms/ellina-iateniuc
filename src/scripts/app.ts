@@ -272,15 +272,42 @@ function floatPreview() {
   const imgs = box.querySelectorAll<HTMLImageElement>('img');
   const x = gsap.quickTo(box, 'x', { duration: 0.7, ease: 'power3' });
   const y = gsap.quickTo(box, 'y', { duration: 0.7, ease: 'power3' });
-  const move = (e: PointerEvent) => { x(e.clientX + 120); y(e.clientY); };
+  let open = false;
+  let lastX = -1, lastY = -1;
+  const move = (e: PointerEvent) => { lastX = e.clientX; lastY = e.clientY; x(e.clientX + 120); y(e.clientY); };
+  const show = (e: PointerEvent) => {
+    // Never open at the box's resting spot (0,0 = top-left corner): jump to the pointer first
+    lastX = e.clientX; lastY = e.clientY;
+    gsap.set(box, { x: e.clientX + 120, y: e.clientY });
+    open = true;
+    gsap.to(box, { clipPath: 'inset(0% 0 0% 0)', duration: 0.8, ease: 'expo.out', overwrite: 'auto' });
+  };
+  const hide = () => {
+    if (!open) return;
+    open = false;
+    gsap.to(box, { clipPath: 'inset(50% 0 50% 0)', duration: 0.5, ease: 'expo.inOut', overwrite: 'auto' });
+  };
   list.addEventListener('pointermove', move);
   list.querySelectorAll<HTMLElement>('[data-float]').forEach((a) => {
     a.addEventListener('pointerenter', () => {
       imgs.forEach((im) => im.classList.toggle('is-on', im.dataset.key === a.dataset.float));
     });
   });
-  list.addEventListener('pointerenter', () => gsap.to(box, { clipPath: 'inset(0% 0 0% 0)', duration: 0.8, ease: 'expo.out' }));
-  list.addEventListener('pointerleave', () => gsap.to(box, { clipPath: 'inset(50% 0 50% 0)', duration: 0.6, ease: 'expo.inOut' }));
+  list.addEventListener('pointerenter', show);
+  list.addEventListener('pointerleave', hide);
+  // Scrolling moves the list away from a still pointer without any pointerleave: close if it is no longer under it
+  const onScroll = () => {
+    if (!open) return;
+    const r = list.getBoundingClientRect();
+    if (lastX < r.left || lastX > r.right || lastY < r.top || lastY > r.bottom) hide();
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('blur', hide);
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('blur', hide);
+    gsap.set(box, { clipPath: 'inset(50% 0 50% 0)' });
+  }, { once: true });
 }
 
 /* ───────────── Muted video previews on hover ───────────── */
