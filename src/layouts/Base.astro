@@ -107,9 +107,10 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
       <button class="nav__toggle" aria-expanded="false" aria-controls="menu" data-menu-toggle>{s.nav.menu}</button>
+      <a class="nav__nojs" href="#menu">{s.nav.menu}</a>
     </header>
 
-    <div class="menu" id="menu" aria-hidden="true" transition:persist={`menu-${lang}`}>
+    <div class="menu" id="menu" transition:persist={`menu-${lang}`}>
       <ul class="menu__list" role="list">
         <li><a href={L('/')} data-nav="home">{s.nav.home}</a></li>
         {nav.map((n) => <li><a href={n.href} data-nav={n.key}>{n.label}</a></li>)}

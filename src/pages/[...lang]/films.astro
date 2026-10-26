@@ -35,7 +35,8 @@ const projectFor = (slug?: string) => projects.find((p) => slugOf(p) === slug);
 
   {feature && (
     <section class="feature-film" aria-label={s.films.featured} data-preview>
-      <button data-film data-title={feature.data.title} data-src={feature.data.videoFile} data-url={feature.data.videoUrl} data-poster={posters[feature.id]} data-cursor={s.cursor.play} data-cursor-mode="play" aria-label={s.a11y.play(feature.data.title)}>
+      <button data-film data-title={feature.data.title} data-src={feature.data.videoFile} data-url={feature.data.videoUrl} data-poster={posters[feature.id]} data-cursor={s.cursor.play} data-cursor-mode="play">
+        <span class="sr-only">{s.a11y.play(feature.data.title)}</span>
         <Frame src={feature.data.poster} alt={feature.data.posterAlt} parallax eager sizes="100vw">
           {feature.data.previewFile && <video muted loop playsinline preload="none" data-src={feature.data.previewFile} aria-hidden="true" style="position:absolute;inset:0;opacity:0;transition:opacity .6s"></video>}
         </Frame>

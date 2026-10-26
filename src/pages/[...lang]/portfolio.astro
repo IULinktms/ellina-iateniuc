@@ -52,9 +52,9 @@ const url = (p: (typeof projects)[number]) => localePath(lang, `/work/${slugOf(p
           data-project={ph.p.data.title}
           data-project-url={url(ph.p)}
           data-cursor={s.cursor.expand}
-          aria-label={s.a11y.open(ph.alt)}
         >
-          <Frame src={ph.src} alt={ph.alt} sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw" widths={[480, 800, 1200]} style={`aspect-ratio:${ph.src.width}/${ph.src.height}`} />
+          <span class="sr-only">{s.a11y.open(ph.alt)}</span>
+          <Frame src={ph.src} alt="" sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw" widths={[480, 800, 1200]} style={`aspect-ratio:${ph.src.width}/${ph.src.height}`} />
           <figcaption><span>{ph.p.data.title}</span><span>{s.categories[ph.p.data.category]}</span></figcaption>
         </button>
       </figure>

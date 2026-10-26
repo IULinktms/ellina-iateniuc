@@ -754,7 +754,9 @@ function magnetic() {
 /* ═════════════════════════ Perf/A11y/SEO pass ═════════════════════════ */
 document.addEventListener('astro:page-load', () => {
   deferHeroVideo();
+  splitLabels();
 });
+menuA11y();
 
 /* ───────────── Hero reel loads after the poster has painted (LCP), and not at all
    on Save-Data, 2G or reduced motion: the still frame stays instead. ───────────── */
@@ -789,4 +791,38 @@ function primeRosPictures(root: HTMLElement, pics: HTMLImageElement[]) {
   }, { rootMargin: '100% 0px' });
   io.observe(root);
   cleanups.push(() => io.disconnect());
+}
+
+/* ───────────── Mobile menu as a modal: focus stays inside (menu + its toggle), the page behind
+   is inert, and closing returns focus to the toggle. Watches the toggle so setMenu stays as is. ───────────── */
+function menuA11y() {
+  const behind = () => document.querySelectorAll<HTMLElement>('main, footer, .nav__mark, .nav__right, .skip-link');
+  const focusables = () => [toggle, ...menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
+  const sync = () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    menu.setAttribute('aria-hidden', String(!open));
+    behind().forEach((el) => { el.inert = open; });
+  };
+  new MutationObserver(sync).observe(toggle, { attributes: true, attributeFilter: ['aria-expanded'] });
+  // The page behind is swapped on navigation; re-apply to the new <main>/<footer>
+  document.addEventListener('astro:page-load', sync);
+  sync();
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || toggle.getAttribute('aria-expanded') !== 'true') return;
+    const list = focusables();
+    const i = list.indexOf(document.activeElement as HTMLElement);
+    const next = e.shiftKey ? (i <= 0 ? list.length - 1 : i - 1) : (i === -1 || i === list.length - 1 ? 0 : i + 1);
+    e.preventDefault();
+    list[next].focus();
+  });
+}
+
+/* SplitText (aria: auto) names the split element and hides its lines. That's right for headings,
+   but aria-label is not allowed on a plain span/p: keep the real text readable there instead. */
+function splitLabels() {
+  document.querySelectorAll<HTMLElement>('[data-split][aria-label]').forEach((el) => {
+    if (/^H[1-6]$/.test(el.tagName)) return;
+    el.removeAttribute('aria-label');
+    el.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.removeAttribute('aria-hidden'));
+  });
 }

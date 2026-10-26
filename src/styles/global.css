@@ -766,3 +766,28 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
 
 /* Closed menu leaves layout entirely, so its "Русский" label doesn't pull the Cyrillic font onto RO/EN pages */
 .js .menu:not(.is-open) { display: none; }
+
+/* ── Accessibility ── */
+:focus-visible { outline-width: 2px; }
+/* Placeholders were ~3:1 on black; ash is ~5.6:1 */
+.field input::placeholder, .field textarea::placeholder { color: var(--ash); }
+/* Decorative layers never take pointer or screen-reader focus */
+.grain, .vf, .marquee, .intro, .cursor, .float-preview { pointer-events: none; }
+
+/* No JS: the menu button can't work, so a plain link opens the menu as an in-page block (:target) */
+.nav__nojs { display: none; }
+@media (max-width: 760px) {
+  html:not(.js) .nav__toggle { display: none; }
+  html:not(.js) .nav__nojs { display: inline-flex; align-items: center; height: 2.75rem; font-size: var(--t-sm); }
+  html:not(.js) .menu:target { position: relative; visibility: visible; clip-path: none; min-height: 100svh; }
+}
+
+/* Reduced motion: a complete, still fallback even for effects without their own guard */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .float-preview { display: none; }
+}
