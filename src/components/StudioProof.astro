@@ -8,12 +8,13 @@ const s = t(lang).studio;
 const clients = home.clients.filter((item) => hasRealContent(item.name));
 const testimonials = home.testimonials.filter((item) => hasRealContent(item.quote) && hasRealContent(item.name));
 const stats = home.stats.filter((item) => typeof item.value === 'number' && item.value > 0 && hasRealContent(item.label) && (!item.suffix || hasRealContent(item.suffix)));
+const statsOnly = !clients.length && !testimonials.length;
 const hasProof = clients.length + testimonials.length + stats.length > 0;
 ---
 {hasProof && (
-<section class="studio-proof" aria-labelledby="proof-h">
+<section class:list={["studio-proof", statsOnly && "studio-proof--numbers"]} aria-labelledby="proof-h">
   {stats.length > 0 && <div class="wrap proof-head">
-    <span class="small tnum">01 — {s.numbers}</span>
+    <h2 class="small tnum" id={statsOnly ? "proof-h" : undefined}>{s.numbers}</h2>
   </div>}
   {stats.length > 0 && <dl class="proof-numbers wrap">
     {stats.map((stat) => <div>
@@ -21,10 +22,10 @@ const hasProof = clients.length + testimonials.length + stats.length > 0;
       <dt>{stat.label}</dt>
     </div>)}
   </dl>}
-  <div class="proof-heading wrap">
+  {!statsOnly && <div class="proof-heading wrap">
     <h2 class="display" id="proof-h">{s.trust}</h2>
     {clients.length > 1 && <button class="line-link small" data-proof-pause aria-pressed="false">{s.pauseLogos}</button>}
-  </div>
+  </div>}
   {clients.length > 0 && <div class="proof-logos" data-proof-logos>
     <div class="proof-track">
       {[0,1].map((copy) => <ul role="list" aria-hidden={copy === 1 ? 'true' : undefined}>
@@ -44,6 +45,10 @@ const hasProof = clients.length + testimonials.length + stats.length > 0;
 <style>
   /* Workstream 3: studio proof */
   .studio-proof { padding-block: clamp(2.5rem,5vw,4.5rem); background: var(--bone); color: var(--black); overflow: hidden; }
+  .studio-proof--numbers { padding-block: 2rem; }
+  .studio-proof--numbers .proof-numbers { grid-template-columns: repeat(auto-fit,minmax(12rem,1fr)); margin-block: 1rem 0; }
+  .studio-proof--numbers .proof-numbers dd { flex-direction: row; align-items: baseline; flex-wrap: wrap; gap: 1rem; }
+  .studio-proof--numbers .proof-numbers .display { font-size: 3.5rem; }
   .proof-head { display:flex;justify-content:space-between;align-items:start;gap:1.5rem; }
   .proof-numbers { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;margin-block:2rem; }
   .proof-numbers dd { display:flex;flex-direction:column;align-items:start;gap:.6rem; }

@@ -25,3 +25,11 @@ The form enhances four semantic fieldsets into steps; without JavaScript all fie
 Messenger fields are editable and shared through CMS. Empty or invalid destinations and the existing zero-filled phone placeholder do not render as contact actions. Owner-supplied numbers/accounts are required before these buttons can go live; a generic messenger homepage is not a usable contact destination.
 
 A final font-settled review corrected the upstream contact-sheet pin refresh order so the downstream film strip cannot cover the new proof section. Claude requested a small home film accessible-name adjustment and conditional SplitText heading labels; these integration changes are included without taking over workstreams 5–8.
+
+## Round 2 — content and flow
+
+- Keep events first and brand/social media content equally explicit in hero, services, home statement, about and SEO. Ian clarified that salons are only one example; the neutral category enum is `Brands`.
+- No new brand project or stock-image portfolio claim. A CMS discipline can omit its hover image and inherit the first published matching project cover; an empty category has no public filter or tile.
+- Retain the existing `Reel` enum for old content and add `Reels`, plus a separate `aspectRatio` field (landscape by default, portrait for 9:16). Claude owns the matching presentation/player work.
+- Proof is evaluated per field, not by a manual public “demonstration” switch. Empty/TODO names and quotes, invalid optional attribution, and absent/zero counts do not render. No proof content means no section. The existing five-day gallery promise is valid content.
+- Keep all four selected projects and seven run-of-show moments. Put selected work before explanatory sections, remove the decorative middle marquee, reduce blank space, and coordinate pin-distance changes with Claude.

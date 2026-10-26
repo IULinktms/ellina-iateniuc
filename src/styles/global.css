@@ -607,7 +607,7 @@ html:not(.js) .intro, .intro.is-done { display: none; }
   .js .ros__pictures img.is-on { opacity: 1; transform: scale(1); }
   .ros__clock { font-family: var(--serif); font-size: var(--t-xl); line-height: 1; color: var(--bone); }
   .js .ros__inline { display: none; }
-  .js .ros__item { min-height: 38svh; align-content: center; opacity: 0.4; transition: opacity var(--t-ui) ease; }
+  .js .ros__item { min-height: 36svh; align-content: center; opacity: 0.4; transition: opacity var(--t-ui) ease; }
   .js .ros__item.is-active { opacity: 1; }
   .js .ros__list { grid-column: 9 / span 4; }
 }
@@ -884,7 +884,7 @@ html.js:not(.motion-ready) .frame[data-aperture]:not(.is-open) { animation: aper
 .hero.is-frozen .hero__media video { opacity: 0; transition: opacity 120ms linear; }
 
 /* Round 2: home pacing keeps the work and booking within a shorter visit. */
-body[data-page="home"] { --section: clamp(3rem, 5vw, 4.5rem); }
+body[data-page="home"] { --section: clamp(3rem, 4vw, 3.5rem); }
 body[data-page="home"] .section-head { margin-bottom: 2rem; }
 body[data-page="home"] .disciplines a .display { font-size: clamp(2.25rem, 5vw, 4.5rem); }
 .disciplines__intro { max-width: 48rem; margin-bottom: 2rem; font-size: clamp(1rem, 1.5vw, 1.25rem); }
