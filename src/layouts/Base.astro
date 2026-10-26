@@ -123,7 +123,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
       <a class="nav__nojs" href="#menu">{s.nav.menu}</a>
     </header>
 
-    <div class="menu" id="menu" transition:persist={`menu-${lang}`}>
+    <div class="menu" id="menu" data-lenis-prevent transition:persist={`menu-${lang}`}>
       <ul class="menu__list" role="list">
         <li><a href={L('/')} data-nav="home">{s.nav.home}</a></li>
         {nav.map((n) => <li><a href={n.href} data-nav={n.key}>{n.label}</a></li>)}
