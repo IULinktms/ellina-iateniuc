@@ -3,7 +3,7 @@
  * pages add their own nodes (project gallery, films) through its jsonLd prop.
  */
 import type { CollectionEntry } from 'astro:content';
-import { HTML_LANG, type Lang } from './i18n';
+import { LOCALES, HTML_LANG, type Lang } from './i18n';
 
 type Site = CollectionEntry<'site'>['data'];
 type Node = Record<string, unknown>;
@@ -29,7 +29,7 @@ export function serviceLd(site: Site, lang: Lang, origin: URL, home: string, ima
     ],
     // TODO before launch: replace with the real price band (see LAUNCH-CHECKLIST.md)
     priceRange: '€€',
-    knowsLanguage: ['ro', 'ru', 'en'],
+    knowsLanguage: [...LOCALES],
     founder: { '@type': 'Person', name: site.name, jobTitle: site.role },
     sameAs: site.socials.map((x) => x.url).filter((u) => /^https?:\/\/[^/]+\/.+/.test(u)),
   };

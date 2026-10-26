@@ -30,12 +30,12 @@ media_libraries:
           width: 3000
           height: 3000
 
-# Three languages. Romanian is the main one; Russian and English are translations of the same entries.
+# Three languages. Russian is the main one; Romanian and English are translations of the same entries.
 # Photos, dates, categories and order are shared — change them once and every language follows.
 i18n:
   structure: multiple_folders
-  locales: [ro, ru, en]
-  default_locale: ro
+  locales: [ru, ro, en]
+  default_locale: ru
   initial_locales: all
   save_all_locales: true
 

@@ -1,27 +1,27 @@
 /**
- * Languages: Romanian is the default (served at /), Russian at /ru/, English at /en/.
+ * Languages: Russian is the default (served at /), Romanian at /ro/, English at /en/.
  * Content (projects, films, pages) lives in src/content/<collection>/<lang>/ and is edited in /admin.
  * Interface text (buttons, labels, form messages) lives here.
  */
-export const LOCALES = ['ro', 'ru', 'en'] as const;
+export const LOCALES = ['ru', 'ro', 'en'] as const;
 export type Lang = (typeof LOCALES)[number];
-export const DEFAULT_LANG: Lang = 'ro';
+export const DEFAULT_LANG: Lang = 'ru';
 export const LANG_NAMES: Record<Lang, string> = { ro: 'Română', ru: 'Русский', en: 'English' };
 export const LANG_SHORT: Record<Lang, string> = { ro: 'RO', ru: 'RU', en: 'EN' };
 export const HTML_LANG: Record<Lang, string> = { ro: 'ro', ru: 'ru', en: 'en' };
-export const OG_LOCALE: Record<Lang, string> = { ro: 'ro_MD', ru: 'ru_MD', en: 'en_US' };
+export const OG_LOCALE: Record<Lang, string> = { ro: 'ro_RO', ru: 'ru_RU', en: 'en_US' };
 export const DATE_LOCALE: Record<Lang, string> = { ro: 'ro-RO', ru: 'ru-RU', en: 'en-GB' };
 
 export const isLang = (s: unknown): s is Lang => LOCALES.includes(s as Lang);
 
-/** Path for a page in a language: localePath('ru', '/portfolio/') → '/ru/portfolio/' */
+/** Path for a page in a language: localePath('ro', '/portfolio/') → '/ro/portfolio/' */
 export function localePath(lang: Lang, p = '/') {
   const clean = p.startsWith('/') ? p : `/${p}`;
   return lang === DEFAULT_LANG ? clean : `/${lang}${clean}`;
 }
 /** Language and language-free path from a URL pathname */
 export function splitPath(pathname: string): { lang: Lang; rest: string } {
-  const m = pathname.match(/^\/(ru|en)(\/.*|$)/);
+  const m = pathname.match(/^\/(ro|en)(\/.*|$)/);
   if (m) return { lang: m[1] as Lang, rest: m[2] || '/' };
   return { lang: DEFAULT_LANG, rest: pathname || '/' };
 }

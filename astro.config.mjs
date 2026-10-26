@@ -14,8 +14,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/admin') && !/\/404\/?$/.test(page),
-      // hreflang alternates: Romanian at /, Russian at /ru/, English at /en/
-      i18n: { defaultLocale: 'ro', locales: { ro: 'ro', ru: 'ru', en: 'en' } },
+      // hreflang alternates: Russian at /, Romanian at /ro/, English at /en/
+      i18n: { defaultLocale: 'ru', locales: { ru: 'ru', ro: 'ro', en: 'en' } },
     }),
   ],
   trailingSlash: 'ignore',

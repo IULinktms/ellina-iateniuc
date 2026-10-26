@@ -49,7 +49,7 @@ export async function getAbout(lang: Lang) {
 
 type Sortable = { id: string; data: { order: number; year: number; draft: boolean } };
 const order = (a: Sortable, b: Sortable) => a.data.order - b.data.order || b.data.year - a.data.year;
-/** Entries in a language; anything not yet translated falls back to the Romanian version. */
+/** Entries in a language; anything not yet translated falls back to the Russian version. */
 function pick<T extends Sortable>(all: T[], lang: Lang) {
   const mine = all.filter(inLang(lang));
   const have = new Set(mine.map(slugOf));

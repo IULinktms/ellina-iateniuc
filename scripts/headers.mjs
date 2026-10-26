@@ -13,11 +13,14 @@ const security = {
   'strict-transport-security': 'max-age=63072000; includeSubDomains',
 };
 const ours = [
+  // Legacy Russian URLs now resolve at the root, before any filesystem lookup.
+  { src: '^/ru/?$', headers: { Location: '/' }, status: 308 },
+  { src: '^/ru/(.*)$', headers: { Location: '/$1' }, status: 308 },
   { src: '^/(?!admin/).*$', headers: security, continue: true },
   { src: '^/admin/.*$', headers: { ...security, 'referrer-policy': 'no-referrer' }, continue: true },
   { src: '^/media/(.*)$', headers: { 'cache-control': 'public, max-age=604800' }, continue: true },
 ];
 // Idempotent: drop routes from an earlier run, then put ours first
-config.routes = [...ours, ...config.routes.filter((r) => !ours.some((o) => o.src === r.src && r.continue))];
+config.routes = [...ours, ...config.routes.filter((r) => !ours.some((o) => o.src === r.src))];
 fs.writeFileSync(file, JSON.stringify(config, null, '\t'));
-console.log('[headers] security + media cache headers added');
+console.log('[headers] legacy Russian redirects + security + media cache headers added');
