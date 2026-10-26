@@ -154,6 +154,20 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   pointer-events: none;
 }
 .nav > * { pointer-events: auto; }
+/* Once the page moves, a blurred strip sits under the nav: the difference-blend wordmark and links
+   keep their look over photos, but no longer collide with headings scrolling underneath */
+body::before {
+  content: ''; position: fixed; inset: 0 0 auto 0; z-index: 59; height: var(--nav-h); pointer-events: none;
+  background: rgb(0 0 0 / 0.28);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  opacity: 0; visibility: hidden; transition: opacity 240ms var(--ease-out), visibility 0s 240ms;
+}
+html.is-scrolled body::before { opacity: 1; visibility: visible; transition: opacity 240ms var(--ease-out); }
+html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
+@media (prefers-reduced-transparency: reduce) {
+  body::before { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(0 0 0 / 0.86); }
+}
 .nav__mark { font-family: var(--serif); font-size: 1.35rem; letter-spacing: -0.01em; line-height: 1; }
 .nav__cta {
   display: inline-flex; align-items: center; height: 2.5rem; padding-inline: 1.1rem; border-radius: 999px;
@@ -281,11 +295,15 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .spread__frame--land { aspect-ratio: 3 / 2; }
 .spread:nth-child(odd) .spread__frame { grid-column: 1 / span 7; }
 .spread:nth-child(even) .spread__frame { grid-column: 6 / span 7; }
-.spread:nth-child(odd) .spread__frame--land { grid-column: 1 / span 9; }
-.spread:nth-child(even) .spread__frame--land { grid-column: 4 / span 9; }
+.spread:nth-child(odd) .spread__frame--land { grid-column: 1 / span 8; }
+.spread:nth-child(even) .spread__frame--land { grid-column: 5 / span 8; }
 .spread__text { grid-row: 1; z-index: 2; padding-bottom: 1rem; }
 .spread:nth-child(odd) .spread__text { grid-column: 7 / span 6; }
 .spread:nth-child(even) .spread__text { grid-column: 1 / span 6; grid-row: 1; text-align: left; }
+/* Landscape covers overlap their text by one column, like the portrait ones: only the display title
+   touches the photo, never the meta line or the excerpt */
+.spread:nth-child(odd):has(.spread__frame--land) .spread__text { grid-column: 8 / span 5; }
+.spread:nth-child(even):has(.spread__frame--land) .spread__text { grid-column: 1 / span 5; }
 .spread__title { font-size: var(--t-2xl); margin-left: -0.5em; }
 .spread:nth-child(even) .spread__title { margin-left: 0; margin-right: -0.5em; }
 .spread__title--long { font-size: var(--t-xl); line-height: 0.95; }
@@ -352,8 +370,9 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 @media (hover: none) { .float-preview { display: none; } }
 
 /* ───────────────────────── CTA + footer ───────────────────────── */
-.cta { padding-block: var(--section); text-align: left; }
-.cta h2 { font-size: var(--t-2xl); max-width: 14ch; }
+/* Less air under the buttons: the footer follows straight on */
+.cta { padding-block: var(--section) calc(var(--section) * 0.55); text-align: left; }
+.cta h2 { font-size: var(--t-2xl); max-width: 18ch; }
 .cta p { max-width: 34rem; margin-top: 2rem; color: var(--bone); }
 .cta__actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
 .footer { background: var(--graphite); padding: clamp(3rem, 6vw, 5rem) var(--gutter) 2rem; }
@@ -532,7 +551,8 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .session { padding: 1.25rem 1.25rem 1.1rem; background: var(--graphite); }
 .session h3 { font-family: var(--serif); font-weight: 400; font-size: var(--t-md); }
 .session p { font-size: var(--t-sm); color: var(--bone); margin-top: 0.3rem; }
-.session .meta { display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: var(--t-xs); color: var(--ash); }
+.session .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: 0.5rem; font-size: var(--t-xs); color: var(--ash); }
+.session .meta > :last-child { white-space: nowrap; text-align: right; }
 .direct { margin-top: 3rem; display: grid; gap: 0.4rem; }
 .direct a { font-family: var(--serif); font-size: var(--t-md); }
 .field { position: relative; display: grid; gap: 0.4rem; padding-block: 1.1rem 0.6rem; border-bottom: 1px solid var(--line-strong); }
@@ -842,6 +862,11 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
   --serif: 'Bodoni Moda Variable', 'Playfair Display Variable', 'Bodoni Fallback', 'Bodoni 72', 'Didot', Georgia, serif;
   --sans: 'Hanken Grotesk Variable', 'Manrope Variable', 'Hanken Fallback', 'Helvetica Neue', Arial, sans-serif;
 }
+/* Russian: Cyrillic is set in Playfair, so its punctuation must be too. Bodoni's hairline dashes, hyphens,
+   commas and guillemets all but vanished beside Playfair's letters (бизнес-конференции — с…).
+   The Latin brand marks keep Bodoni. */
+:root:lang(ru) { --serif: 'Playfair Display Variable', 'Bodoni Fallback', 'Bodoni 72', Georgia, serif; }
+:lang(ru) :is(.nav__mark, .hero__name, .footer__big) { font-family: 'Bodoni Moda Variable', 'Playfair Display Variable', 'Bodoni Fallback', serif; }
 
 /* Hero: the poster still is the LCP; the reel fades in over it once it actually plays */
 .hero__media .hero__poster, .hero__media video { position: absolute; inset: 0; }

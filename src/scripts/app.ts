@@ -212,6 +212,7 @@ function parallax() {
 function headings() {
   document.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
     if (reduced) return;
+    bindNbsp(el);
     const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line', aria: /^H[1-6]$/.test(el.tagName) ? 'auto' : 'none' });
     gsap.from(split.lines, {
       yPercent: el.dataset.split === 'now' ? 8 : 110, duration: el.dataset.split === 'now' ? 0.3 : 1.1, ease: 'expo.out', stagger: 0.06,
@@ -219,6 +220,27 @@ function headings() {
       scrollTrigger: el.dataset.split === 'now' ? undefined : { trigger: el, start: 'top 85%', once: true },
     });
   });
+}
+
+/* SplitText re-wraps with ordinary spaces, losing the typesetter's no-break spaces (lib/typography.mjs):
+   „sau o” would end a line again. Words bound by U+00A0 go into a nowrap span first, which SplitText keeps. */
+function bindNbsp(el: HTMLElement) {
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const nodes: Text[] = [];
+  while (walker.nextNode()) if ((walker.currentNode as Text).data.includes('\u00A0')) nodes.push(walker.currentNode as Text);
+  for (const node of nodes) {
+    const frag = document.createDocumentFragment();
+    for (const part of node.data.split(/(\S+(?:\u00A0\S+)+)/)) {
+      if (!part) continue;
+      if (part.includes('\u00A0')) {
+        const span = document.createElement('span');
+        span.style.whiteSpace = 'nowrap';
+        span.textContent = part.replace(/\u00A0/g, ' ');
+        frag.append(span);
+      } else frag.append(part);
+    }
+    node.replaceWith(frag);
+  }
 }
 
 /* ───────────── Films strip: pinned horizontal travel on desktop ───────────── */
@@ -958,6 +980,15 @@ document.addEventListener('astro:page-load', () => {
   document.documentElement.classList.add('motion-ready');
 });
 menuA11y();
+
+/* Nav scrim (global.css body::before) shows once the page has moved off the top */
+{
+  let ticking = false;
+  const flag = () => { ticking = false; document.documentElement.classList.toggle('is-scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(flag); } }, { passive: true });
+  document.addEventListener('astro:page-load', flag);
+  flag();
+}
 
 /* ───────────── Hero reel loads after the poster has painted (LCP), and not at all
    on Save-Data, 2G or reduced motion: the still frame stays instead. ───────────── */
