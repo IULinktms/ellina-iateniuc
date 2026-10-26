@@ -37,7 +37,6 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
 const heroPlaceholder = await lqip(home.heroPoster);
 const rosPlaceholders = await Promise.all(home.runOfShow.map((r) => lqip(r.image)));
 const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster)));
-const bg = (p?: { image: string; color: string }) => p && `background:${p.color} ${p.image} center/cover`;
 ---
 
 <Base page="home" lang={lang}>
@@ -50,7 +49,7 @@ const bg = (p?: { image: string; color: string }) => p && `background:${p.color}
   </div>
 
   <section class="hero" data-hero aria-labelledby="hero-title">
-    <div class="hero__media" data-lqip={heroPlaceholder ? 'eager' : undefined} style={heroPlaceholder?.style}>
+    <div class="hero__media" data-lqip={heroPlaceholder ? 'eager' : undefined} style={heroPlaceholder?.style} {...heroPlaceholder?.attrs}>
       <img src={posterSet.src} srcset={posterSet.srcSet.attribute} sizes="100vw" alt={home.heroPosterAlt} fetchpriority="high" decoding="async" class="hero__poster" data-hero-still />
       <video data-hero-video muted loop playsinline preload="none" aria-hidden="true" data-src={home.heroVideo}></video>
     </div>
@@ -133,7 +132,7 @@ const bg = (p?: { image: string; color: string }) => p && `background:${p.color}
       </div>
       <div class="ros__body wrap">
         <figure class="ros__media" aria-hidden="true">
-          <div class="ros__pictures" data-lqip={rosPlaceholders[0] ? 'eager' : undefined} style={rosPlaceholders[0]?.style}>
+          <div class="ros__pictures" data-lqip={rosPlaceholders[0] ? 'eager' : undefined} style={rosPlaceholders[0]?.style} {...rosPlaceholders[0]?.attrs}>
             {home.runOfShow.map((r, i) => (
               <Image src={r.image} alt="" widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={78} loading="lazy" class:list={[i === 0 && 'is-on']} />
             ))}
@@ -146,7 +145,7 @@ const bg = (p?: { image: string; color: string }) => p && `background:${p.color}
               <time class="ros__time tnum">{r.time}</time>
               <h3>{r.title}</h3>
               <p>{r.text}</p>
-              <Image src={r.image} alt={r.alt} widths={[640, 1000]} width={1000} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" style={bg(rosPlaceholders[i])} />
+              <Image src={r.image} alt={r.alt} widths={[640, 1000]} width={1000} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" style={rosPlaceholders[i]?.style} {...rosPlaceholders[i]?.attrs} />
             </li>
           ))}
         </ol>
@@ -166,7 +165,7 @@ const bg = (p?: { image: string; color: string }) => p && `background:${p.color}
             <article class:list={['strip__item', f.data.aspectRatio === 'portrait' && 'strip__item--vertical']} data-preview>
               <button class="frame-btn" data-film data-aspect={f.data.aspectRatio} data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play">
                 <span class="sr-only">{s.a11y.play(f.data.title)}</span>
-                <div class="frame" data-lqip={filmPlaceholders[i] ? '' : undefined} style={filmPlaceholders[i]?.style}>
+                <div class="frame" data-lqip={filmPlaceholders[i] ? '' : undefined} style={filmPlaceholders[i]?.style} {...filmPlaceholders[i]?.attrs}>
                   <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} width={1400} sizes={f.data.aspectRatio === 'portrait' ? '(max-width: 900px) 46vw, 17vw' : '(max-width: 900px) 82vw, 46vw'} format="webp" quality={78} loading="lazy" />
                   {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
                 </div>

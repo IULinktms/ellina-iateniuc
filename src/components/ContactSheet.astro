@@ -40,7 +40,7 @@ const roll = 14;
       <div class="sheet__grid" data-sheet-grid>
         {frames.map((f, i) => (
           <figure class:list={['sheet__cell', i === HERO && 'is-hero', i === SELECT && 'is-select']} data-sheet-cell={i}>
-            <div class="sheet__img" data-lqip={placeholders[i] ? '' : undefined} style={placeholders[i]?.style}>
+            <div class="sheet__img" data-lqip={placeholders[i] ? '' : undefined} style={placeholders[i]?.style} {...placeholders[i]?.attrs}>
               <Image
                 src={f.src}
                 alt={i === HERO ? f.alt : ''}

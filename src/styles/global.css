@@ -922,13 +922,14 @@ body[data-page="home"] .disciplines a .display { font-size: clamp(2.25rem, 5vw, 
   body[data-page="home"] .footer__big { font-size: clamp(3rem, 13vw, 14rem); margin-top: 2rem; }
 }
 
-/* ───── Loading placeholders: blurred preview + dominant colour behind every photo (lib/lqip.ts) ───── */
+/* ───── Loading placeholders: dominant colour, then a blurred preview, behind every photo (lib/lqip.ts) ───── */
 [data-lqip] {
   background-color: var(--lqip-color, var(--graphite));
   background-image: var(--lqip);
   background-size: cover;
   background-position: center;
 }
+.ros__inline[data-lqip-img] { background-color: var(--lqip-color); background-image: var(--lqip); background-size: cover; background-position: center; }
 .js .ros__pictures[data-lqip] { background-color: var(--lqip-color); background-image: var(--lqip); background-size: cover; background-position: center; }
 [data-lqip].is-pending img { opacity: 0; transition: opacity 700ms var(--ease-out); }
 [data-lqip].is-pending.is-loaded img { opacity: 1; }

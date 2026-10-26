@@ -48,6 +48,7 @@ const placeholder = await lqip(src);
   data-parallax={parallax ? '' : undefined}
   data-lqip={placeholder ? (eager ? 'eager' : '') : undefined}
   style={withLqip(placeholder, style)}
+  {...placeholder?.attrs}
   {...rest}
 >
   <Image

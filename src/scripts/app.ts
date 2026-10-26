@@ -1028,9 +1028,9 @@ function splitLabels() {
   });
 }
 
-/* ───────────── Loading placeholders: frames paint a blurred preview from the HTML (lib/lqip.ts).
-   Images still loading below the fold crossfade in over it; anything in view at load is never
-   hidden, so the LCP image paints as soon as it arrives. Broken images reveal the preview. ───────────── */
+/* ───────────── Loading placeholders (lib/lqip.ts): frames paint their dominant colour from the HTML,
+   then a blurred preview. Images still loading below the fold crossfade in over it; anything in view
+   at load is never hidden, so the LCP image paints as soon as it arrives. ───────────── */
 const lqipDone = (img: HTMLImageElement) => {
   const frame = img.closest<HTMLElement>('[data-lqip]');
   if (!frame?.classList.contains('is-pending')) return;
@@ -1044,6 +1044,21 @@ const lqipDone = (img: HTMLImageElement) => {
 };
 document.addEventListener('load', (e) => { if (e.target instanceof HTMLImageElement) lqipDone(e.target); }, true);
 document.addEventListener('error', (e) => { if (e.target instanceof HTMLImageElement) lqipDone(e.target); }, true);
+// The blurred previews attach two screens ahead of the viewport
+const lqipIo = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (!e.isIntersecting) continue;
+    const el = e.target as HTMLElement;
+    el.style.setProperty('--lqip', `url(${el.dataset.lqipImg})`);
+    lqipIo.unobserve(el);
+  }
+}, { rootMargin: '200% 0px' });
+document.addEventListener('astro:before-swap', () => lqipIo.disconnect());
+// After window load (page-load): the inline colour covers the first paint, so LCP never waits on these
+const lqipAttach = () => document.querySelectorAll<HTMLElement>('[data-lqip-img]').forEach((el) => lqipIo.observe(el));
+document.addEventListener('astro:page-load', lqipAttach);
+// …or sooner if one slow eager image is holding window load back
+setTimeout(lqipAttach, 2500);
 // Marks as soon as the DOM is in (page-load waits for window load, too late for placeholders)
 const lqipMark = () => {
   const fold = window.innerHeight * 1.1;
