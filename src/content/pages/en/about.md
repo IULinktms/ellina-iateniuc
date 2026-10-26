@@ -1,29 +1,29 @@
 ---
 title: "About"
-intro: "I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies, and shoot photos, Instagram Reels and social media content for brands and small businesses."
+intro: "I’m Ellina, a photographer and videographer in Chișinău. You should see the photos, not the photographer. I cover events for organisers and companies, and shoot photos, Reels and social content for brands and small businesses."
 portrait: ../../../assets/uploads/portrait-ellina.jpg
 portraitAlt: "Ellina Yatsenyuk, photographer and videographer in Chișinău"
 secondImage: ../../../assets/uploads/casmara-certificate-stage.jpg
 secondImageAlt: "A Casmara seminar participant with her certificate beside a brand representative holding a microphone, Chișinău, 2026"
 principles:
   - title: "Invisible on the day"
-    text: "Silent shutter, no flash during talks, and dressed to blend in. Speakers and guests forget I'm there."
-  - title: "Fast delivery"
-    text: "Previews the same evening for your social channels, the full edited gallery within five working days."
-  - title: "Photo and video together"
-    text: "One person for photographs, aftermovie and reels, so the event is covered without a crew getting in the way."
+    text: "Silent shutter. No flash during talks. Dressed to disappear. Speakers and guests soon forget I’m there."
+  - title: "Same-evening photos"
+    text: "Edited photos for your social channels the same evening. The full gallery within five working days."
+  - title: "One person, photo and video"
+    text: "Photographs, aftermovie and Reels from one person. No crew between you and your guests."
 process:
   - title: "Brief"
-    text: "A short call about the programme, the key speakers, sponsors and what the photos will be used for."
+    text: "A short call: the programme, key speakers, sponsors and where the photos will be published."
   - title: "Shot list"
-    text: "I prepare a shot list and timing plan from your agenda, so every important moment is covered."
-  - title: "The event"
-    text: "I arrive early to photograph the venue and branding before guests arrive, then cover the programme."
+    text: "From your agenda, I build a shot list and timing plan. No key moment slips through."
+  - title: "The day"
+    text: "I arrive early for the venue and branding, before the guests. Then the whole programme."
   - title: "Delivery"
-    text: "Previews the same evening, the full gallery and films within a week, in formats ready for press, web and social media."
-seoDescription: "Event photography and aftermovies, brand photo shoots, Instagram Reels and monthly social media content for companies and small businesses in Chișinău, Moldova."
+    text: "First photos the same evening. The full gallery within five working days, films within ten. Formatted for press, web and social media."
+seoDescription: "Ellina Yatsenyuk, photographer and videographer in Chișinău: events for organisers and companies, photo shoots and Reels for brands and small businesses."
 ---
 
-For events, I follow the programme, the people and the atmosphere. I work discreetly during talks and prepare edited previews while the day is still fresh.
+At events, I follow the programme, the people and the atmosphere. During talks you won’t hear me, and you’ll barely see me. Your first edited photos arrive while the day is still fresh.
 
-For small businesses and brands, I help turn everyday work into images worth sharing: the people behind a café, details in a shop, a studio at work or a salon’s services. We can plan one photo shoot, a series of Reels or a monthly content package together.
+For small businesses and brands, I photograph an ordinary working day in a way you’ll want to share: the barista behind the counter, the details of a shop, a studio mid-session, a salon at work. One shoot, a series of Reels or content every month — we decide together.

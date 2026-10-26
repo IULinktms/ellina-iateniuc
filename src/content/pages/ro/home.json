@@ -2,7 +2,7 @@
   "heroVideo": "",
   "heroPoster": "../../../assets/uploads/casmara-stage-team.jpg",
   "heroPosterAlt": "Echipa Casmara aplaudă pe scena Seminarului Internațional Casmara de la Chișinău, iar prezentatoarea vorbește la microfon; pe ecran, sigla brandului",
-  "statement": "La evenimente lucrez discret și livrez previzualizări editate în aceeași seară. Pentru branduri și afaceri mici, planific ședințe foto, filmez Reels pentru Instagram și creez conținut regulat pentru social media, pornind de la obiectivele dumneavoastră.",
+  "statement": "Dumneavoastră faceți evenimentul, eu am grijă să se vorbească despre el. În sală nu mă observă nimeni, iar primele fotografii editate ajung în aceeași seară. Cu brandurile, aceeași regulă: brandul dumneavoastră arată deja bine, trebuie doar dovedit. Fotografii, Reels și conținut — o dată sau lunar.",
   "featuredProjects": [
     "casmara-international-seminar-2026"
   ],
@@ -43,57 +43,57 @@
       "alt": ""
     }
   ],
-  "ctaTitle": "Un eveniment sau o poveste de brand?",
-  "ctaText": "Spuneți-mi despre evenimentul, afacerea sau conținutul de care aveți nevoie. Confirm disponibilitatea și propun un format potrivit într-o zi lucrătoare.",
-  "statementTitle": "Evenimente și branduri. Cu atenție la detalii.",
-  "runOfShowTitle": "O zi de conferință, așa cum o fotografiez",
+  "ctaTitle": "Cel mai bun cadru încă nu e făcut.",
+  "ctaText": "Scrieți-mi ce, unde și când. În cel mult o zi lucrătoare vă spun dacă data e liberă — și ce vă propun.",
+  "statementTitle": "Seara se termină. Fotografiile rămân.",
+  "runOfShowTitle": "O zi de conferință, oră cu oră",
   "runOfShow": [
     {
       "time": "07:30",
-      "title": "Înainte de deschiderea ușilor",
-      "text": "Sala, scena și fiecare banner al sponsorilor, fotografiate goale și luminate, înainte să intre primul invitat.",
+      "title": "Înainte de primul invitat",
+      "text": "Sala goală, scena și fiecare banner al sponsorilor, în lumină plină, înainte să intre cineva.",
       "image": "../../../assets/uploads/gala-hall.jpg",
       "alt": "Sală de banchet pregătită înainte de sosirea invitaților"
     },
     {
       "time": "09:00",
       "title": "Înregistrarea",
-      "text": "Ecusoane, cafea și primele strângeri de mână. Cadrele spontane cu care organizatorii arată că sala a fost plină.",
+      "text": "Ecusoane, cafea, primele strângeri de mână. Cadre spontane care arată că sala a fost plină.",
       "image": "../../../assets/uploads/gala-networking.jpg",
       "alt": "Invitați care discută la un pahar, la înregistrare"
     },
     {
       "time": "10:00",
-      "title": "Discursul de deschidere",
-      "text": "Din fața scenei: cele mai bune gesturi ale speakerului și reacțiile publicului, fără bliț și fără să distrag atenția.",
+      "title": "Discursul principal",
+      "text": "Din fața scenei: cele mai bune gesturi ale speakerului și reacția publicului. Fără bliț, fără să deranjez.",
       "image": "../../../assets/uploads/summit-arena-keynote.jpg",
       "alt": "Speaker principal pe o scenă luminată, în fața unei săli pline"
     },
     {
       "time": "11:30",
-      "title": "Panelul de discuții",
-      "text": "Fiecare participant la panel, fiecare întrebare din sală și cadre largi care arată amploarea sălii.",
+      "title": "Panelul",
+      "text": "Fiecare participant la panel, fiecare întrebare din sală și cadre largi care arată amploarea evenimentului.",
       "image": "../../../assets/uploads/summit-panel.jpg",
       "alt": "Discuție în panel pe o scenă rotundă"
     },
     {
       "time": "14:00",
-      "title": "Ateliere",
-      "text": "Săli pentru secțiuni paralele și lucru în grup: mâini, table albe și oameni care gândesc cu voce tare.",
+      "title": "Atelierele",
+      "text": "Secțiuni paralele și lucru în grup: mâini, flipcharturi, oameni care gândesc cu voce tare.",
       "image": "../../../assets/uploads/workshop-sticky-wall.jpg",
       "alt": "Grup la un atelier, discutând notițele de pe un perete"
     },
     {
       "time": "18:00",
       "title": "Închiderea și fotografia de grup",
-      "text": "Aplauzele finale, speakerii împreună și o fotografie de grup planificată din timp, ca să dureze doar două minute.",
+      "text": "Aplauzele de final, toți speakerii împreună. Fotografia de grup e planificată din timp: două minute și gata.",
       "image": "../../../assets/uploads/summit-crowd.jpg",
       "alt": "Sală plină la închiderea unei conferințe"
     },
     {
       "time": "21:00",
-      "title": "Previzualizări în inbox",
-      "text": "O selecție de previzualizări editate pentru presă și rețelele sociale, chiar în aceeași seară.",
+      "title": "Primele fotografii, în inbox",
+      "text": "O selecție editată pentru presă și rețelele sociale. În aceeași seară.",
       "image": "../../../assets/uploads/office-laptop.jpg",
       "alt": "Mâini la un laptop, revizuind fotografii"
     }
@@ -144,9 +144,9 @@
     },
     {
       "value": 5,
-      "label": "Livrarea galeriei",
+      "label": "Galeria completă",
       "suffix": "zile lucrătoare"
     }
   ],
-  "disciplinesIntro": "Evenimente și branduri, în fotografii și video. Conferințe și sărbători de companie; ședințe foto, Reels pentru Instagram și conținut lunar pentru cafenele, magazine, saloane, studiouri și branduri locale."
+  "disciplinesIntro": "Foto și video pentru evenimente și branduri. Conferințe, seminare, evenimente corporative. Ședințe foto, Reels și conținut lunar pentru cafenele, magazine, saloane și studiouri."
 }

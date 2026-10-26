@@ -1275,3 +1275,6 @@ body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal;
 @media (hover: none), (max-width: 760px) { .grain { inset: 0; animation: none; transform: none; } }
 /* Even a static filter creates expensive intermediate surfaces while its ancestor scales. */
 .sheet__img img { filter: none; }
+
+/* Hero placeholder: dark under the white type, whatever the photo's dominant colour (a light frame made phones paint a white screen before decode) */
+.hero__media[data-lqip] { background-color: #0b0a09 !important; }

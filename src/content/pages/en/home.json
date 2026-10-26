@@ -2,7 +2,7 @@
   "heroVideo": "",
   "heroPoster": "../../../assets/uploads/casmara-stage-team.jpg",
   "heroPosterAlt": "The Casmara team applauding on stage at the Casmara International Seminar in Chișinău as the host speaks into a microphone, the brand logo on screen",
-  "statement": "At events, I work quietly and deliver edited previews the same evening. For brands and small businesses, I plan photo shoots, film Instagram Reels and create regular social media content around your goals.",
+  "statement": "You make the event happen. I make sure people talk about it. Nobody notices me in the room, and the first edited photos arrive the same evening. Brands get the same rule: yours already looks good — now we prove it. Photos, Reels and content, once or every month.",
   "featuredProjects": [
     "casmara-international-seminar-2026"
   ],
@@ -14,7 +14,7 @@
       "alt": "Panel discussion on stage"
     },
     {
-      "label": "Seminars & workshops",
+      "label": "Seminars and workshops",
       "category": "Seminars",
       "image": "../../../assets/uploads/seminar-brick-hall.jpg",
       "alt": "Speaker at a seminar"
@@ -32,68 +32,68 @@
       "alt": "Business portrait"
     },
     {
-      "label": "Galas & celebrations",
+      "label": "Galas and celebrations",
       "category": "Celebrations",
       "image": "../../../assets/uploads/gala-ballroom.jpg",
       "alt": "Gala ballroom"
     },
     {
-      "label": "Brands & social media",
+      "label": "Brands and social media",
       "category": "Brands",
       "alt": ""
     }
   ],
-  "ctaTitle": "An event or a brand story?",
-  "ctaText": "Tell me about your event, your business or the content you need. I’ll confirm availability and suggest a suitable format within one working day.",
-  "statementTitle": "Events and brands. Thoughtfully captured.",
-  "runOfShowTitle": "A conference day, as I cover it",
+  "ctaTitle": "Your best frame is still ahead.",
+  "ctaText": "Tell me what, where and when. Within one working day I’ll tell you if the date is free — and what I suggest.",
+  "statementTitle": "The evening ends. The photos don’t.",
+  "runOfShowTitle": "A conference day, hour by hour",
   "runOfShow": [
     {
       "time": "07:30",
-      "title": "Before the doors open",
-      "text": "The room, the stage and every sponsor banner, photographed empty and lit, before a single guest walks in.",
+      "title": "Before the first guest",
+      "text": "The empty room, the stage, every sponsor banner. In full light, before anyone walks in.",
       "image": "../../../assets/uploads/gala-hall.jpg",
       "alt": "Banquet hall set up before guests arrive"
     },
     {
       "time": "09:00",
       "title": "Registration",
-      "text": "Badges, coffee and first handshakes. The candid frames organisers use to show the event was full.",
+      "text": "Badges, coffee, first handshakes. Candid frames that prove the room was full.",
       "image": "../../../assets/uploads/gala-networking.jpg",
       "alt": "Guests talking over drinks at registration"
     },
     {
       "time": "10:00",
       "title": "Opening keynote",
-      "text": "From the stage pit: the speaker's best gestures and the audience reacting, with no flash and no distraction.",
+      "text": "From the foot of the stage: the speaker’s best gestures and the room reacting. No flash, no distraction.",
       "image": "../../../assets/uploads/summit-arena-keynote.jpg",
       "alt": "Keynote speaker on a lit stage before a full hall"
     },
     {
       "time": "11:30",
       "title": "Panel discussion",
-      "text": "Every panellist, every question from the floor, and wide frames that show the scale of the room.",
+      "text": "Every panellist, every question from the floor, and wide frames that show the scale.",
       "image": "../../../assets/uploads/summit-panel.jpg",
       "alt": "Panel discussion on a round stage"
     },
     {
       "time": "14:00",
       "title": "Workshops",
-      "text": "Breakout rooms and group work: hands, whiteboards and people thinking out loud.",
+      "text": "Breakout rooms and group work: hands, flip charts, people thinking out loud.",
       "image": "../../../assets/uploads/workshop-sticky-wall.jpg",
       "alt": "Workshop group discussing notes on a wall"
     },
     {
       "time": "18:00",
       "title": "Closing and group photo",
-      "text": "The final applause, the speakers together, and a group photo planned in advance so it takes two minutes.",
+      "text": "The final applause, all the speakers together. The group photo is planned in advance: two minutes, done.",
       "image": "../../../assets/uploads/summit-crowd.jpg",
       "alt": "Full hall at the close of a conference"
     },
     {
       "time": "21:00",
-      "title": "Previews in your inbox",
-      "text": "A curated set of edited previews for press and social media, the same evening.",
+      "title": "First photos in your inbox",
+      "text": "An edited selection for press and social media. The same evening.",
       "image": "../../../assets/uploads/office-laptop.jpg",
       "alt": "Hands at a laptop reviewing photographs"
     }
@@ -144,9 +144,9 @@
     },
     {
       "value": 5,
-      "label": "Gallery delivery",
+      "label": "Full gallery",
       "suffix": "working days"
     }
   ],
-  "disciplinesIntro": "Events and brands, in stills and motion. Conferences and company celebrations; photo shoots, Instagram Reels and monthly content for cafés, shops, salons, studios and local brands."
+  "disciplinesIntro": "Photo and video for events and brands. Conferences, seminars, corporate evenings. Shoots, Reels and monthly content for cafés, shops, salons and studios."
 }
