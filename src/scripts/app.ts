@@ -562,7 +562,7 @@ function deliveryCalc() {
     const ctaBase = cta?.getAttribute('href')?.split('?')[0] ?? '/contact/';
     const time = root.dataset.preview || '21:00';
     const g = Number(root.dataset.gallery || 5);
-    const f = Number(root.dataset.film || 10);
+    const f = Number(root.dataset.filmDays || 10);
     const today = new Date(); today.setHours(0, 0, 0, 0);
     input.min = iso(today);
     if (!input.value) input.value = iso(addWorkingDays(today, 15));

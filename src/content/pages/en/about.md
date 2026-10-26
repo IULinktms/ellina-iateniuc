@@ -1,8 +1,8 @@
 ---
 title: "About"
-intro: "I'm Ellina, an event photographer and filmmaker based in Chișinău. I cover conferences, seminars, workshops and corporate celebrations for organisers, agencies and companies."
+intro: "I’m Ellina, a photographer, filmmaker and content creator in Chișinău. I cover events for organisers and companies, and create photography, Instagram Reels and social media content for brands and small businesses."
 portrait: ../../../assets/uploads/portrait-irina.jpg
-portraitAlt: "Placeholder portrait — replace with a photograph of Ellina"
+portraitAlt: "Portrait in natural light"
 secondImage: ../../../assets/uploads/summit-microphone.jpg
 secondImageAlt: "Microphone on stage in front of an audience"
 principles:
@@ -21,11 +21,9 @@ process:
     text: "I arrive early to photograph the venue and branding before guests arrive, then cover the programme."
   - title: "Delivery"
     text: "Previews the same evening, the full gallery and films within a week, in formats ready for press, web and social media."
-seoDescription: "About Ellina Iateniuc, event photographer and filmmaker in Chișinău, Moldova."
+seoDescription: "Event photography and aftermovies, brand photo shoots, Instagram Reels and monthly social media content for companies and small businesses in Chișinău, Moldova."
 ---
 
-I started out photographing friends' talks and small meetups, and found that I liked the rhythm of events: the build-up, the moment a room goes quiet for a speaker, the noise of the coffee break.
+For events, I follow the programme, the people and the atmosphere. I work discreetly during talks and prepare edited previews while the day is still fresh.
 
-Today I work with conference organisers, training companies, agencies and businesses across Moldova and abroad. I cover the programme, the people and the atmosphere, and I deliver quickly, because event photos are most valuable in the first 24 hours.
-
-This text is a placeholder. Ellina can replace it from the admin panel in a couple of minutes.
+For small businesses and brands, I help turn everyday work into images worth sharing: the people behind a café, details in a shop, a studio at work or a salon’s services. We can plan one photo shoot, a series of Reels or a monthly content package together.

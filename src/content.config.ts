@@ -8,8 +8,8 @@ import { z } from 'astro/zod';
  * responsive WebP versions at build time.
  */
 
-export const CATEGORIES = ['Conferences', 'Seminars', 'Corporate', 'Portraits', 'Celebrations'] as const;
-export const FILM_KINDS = ['Aftermovie', 'Highlights', 'Reel', 'Behind the scenes'] as const;
+export const CATEGORIES = ['Conferences', 'Seminars', 'Corporate', 'Portraits', 'Celebrations', 'Brands'] as const;
+export const FILM_KINDS = ['Aftermovie', 'Highlights', 'Reel', 'Behind the scenes', 'Reels'] as const;
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
@@ -50,6 +50,7 @@ const films = defineCollection({
     z.object({
       title: z.string(),
       kind: z.enum(FILM_KINDS),
+      aspectRatio: z.enum(['landscape', 'portrait']).default('landscape'),
       year: z.number().int(),
       duration: z.string().optional(),
       location: z.string().optional(),
@@ -103,10 +104,9 @@ const home = defineCollection({
   schema: ({ image }) =>
     z.object({
       // Workstream 3: editable social proof. Empty defaults preserve existing entries.
-      proofPlaceholder: z.boolean().default(true),
-      clients: z.array(z.object({ name: z.string(), logo: image().optional() })).default([]),
-      testimonials: z.array(z.object({ quote: z.string(), name: z.string(), role: z.string(), company: z.string() })).default([]),
-      stats: z.array(z.object({ value: z.number().nonnegative(), label: z.string(), suffix: z.string().default('') })).default([]),
+      clients: z.array(z.object({ name: z.string().default(''), logo: image().optional() })).default([]),
+      testimonials: z.array(z.object({ quote: z.string().default(''), name: z.string().default(''), role: z.string().default(''), company: z.string().default('') })).default([]),
+      stats: z.array(z.object({ value: z.number().nonnegative().nullish(), label: z.string().default(''), suffix: z.string().default('') })).default([]),
       heroVideo: z.string(),
       heroPoster: image(),
       heroPosterAlt: z.string(),
@@ -117,8 +117,9 @@ const home = defineCollection({
         .array(z.object({ time: z.string(), title: z.string(), text: z.string(), image: image(), alt: z.string() }))
         .default([]),
       featuredProjects: z.array(z.string()).default([]),
+      disciplinesIntro: z.string().default(''),
       disciplines: z
-        .array(z.object({ label: z.string(), category: z.string(), image: image(), alt: z.string() }))
+        .array(z.object({ label: z.string(), category: z.string(), image: image().optional(), alt: z.string().default('') }))
         .default([]),
       ctaTitle: z.string(),
       ctaText: z.string(),

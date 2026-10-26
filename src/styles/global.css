@@ -273,9 +273,9 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 @media (max-width: 760px) { .statement p, .statement__aside { grid-column: 1 / -1; } }
 
 /* ───────────────────────── Selected work spreads ───────────────────────── */
-.spreads { padding-bottom: var(--section); }
+.spreads { padding-block: clamp(2rem, 4vw, 3rem) var(--section); }
 .spread { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
-.spread + .spread { margin-top: clamp(6rem, 14vw, 14rem); }
+.spread + .spread { margin-top: 3rem; }
 .spread__frame { grid-row: 1; aspect-ratio: 4 / 5; position: relative; }
 .spread__frame > .frame { position: absolute; inset: 0; }
 .spread__frame--land { aspect-ratio: 3 / 2; }
@@ -562,12 +562,12 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 /* ───────────────────────── How I work + delivery calculator ───────────────────────── */
 .howi {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 3rem;
-  align-items: end; padding-block: var(--section);
+  align-items: center; padding-block: var(--section);
 }
-.howi__text { grid-column: 1 / span 6; display: grid; gap: 1.75rem; justify-items: start; }
-.howi__title { font-size: var(--t-2xl); max-width: 11ch; }
+.howi__text { grid-column: 1 / span 5; display: grid; gap: 1.75rem; justify-items: start; }
+.howi__title { font-size: clamp(2.5rem, 4.2vw, 4rem); max-width: 17ch; line-height: 1.02; text-wrap: balance; }
 .howi__statement { font-size: clamp(1.2rem, 1rem + 0.6vw, 1.6rem); line-height: 1.45; max-width: 34rem; text-wrap: pretty; }
-.howi__calc { grid-column: 8 / span 5; }
+.howi__calc { grid-column: 7 / span 6; min-width: 0; }
 @media (max-width: 900px) { .howi__text, .howi__calc { grid-column: 1 / -1; } }
 
 .calc { background: var(--graphite); padding: clamp(1.5rem, 3vw, 2.5rem); display: grid; gap: 1.75rem; }
@@ -593,7 +593,7 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 /* ───────────────────────── Run of show (held picture, passing moments) ───────────────────────── */
 .ros { padding-bottom: var(--section); }
 .ros__head { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
-.ros__title { font-size: var(--t-2xl); max-width: 14ch; }
+.ros__title { font-size: clamp(2.6rem, 5vw, 4.5rem); max-width: 14ch; }
 .ros__body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
 .ros__media { grid-column: 1 / span 7; margin: 0; align-self: start; display: none; }
 .ros__list { grid-column: 9 / span 4; list-style: none; margin: 0; padding: 0; }
@@ -609,12 +609,12 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   .js .ros__pictures img.is-on { opacity: 1; transform: scale(1); }
   .ros__clock { font-family: var(--serif); font-size: var(--t-xl); line-height: 1; color: var(--bone); }
   .js .ros__inline { display: none; }
-  .js .ros__item { min-height: 72svh; align-content: center; opacity: 0.4; transition: opacity var(--t-ui) ease; }
+  .js .ros__item { min-height: 30svh; align-content: center; opacity: 0.65; transition: opacity var(--t-ui) ease; }
   .js .ros__item.is-active { opacity: 1; }
   .js .ros__list { grid-column: 9 / span 4; }
 }
 @media (max-width: 800px) { .ros__list { grid-column: 1 / -1; } .ros__item { padding-block: 1.75rem; } }
-@media (prefers-reduced-motion: reduce) { .js .ros__pictures img, .js .ros__item { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .js .ros__pictures img, .js .ros__item { transition: none; } .js .ros__item { opacity: 1; } }
 
 /* Portfolio project index without hairlines */
 .proj-list { display: grid; gap: 0.25rem; }
@@ -884,6 +884,24 @@ html.js:not(.motion-ready) .frame[data-aperture]:not(.is-open) { animation: aper
 
 /* ───── Merge: Codex's first-scroll shutter freezes the hero on the poster still (Claude's LCP image) ───── */
 .hero.is-frozen .hero__media video { opacity: 0; transition: opacity 120ms linear; }
+
+/* Round 2: home pacing keeps the work and booking within a shorter visit. */
+body[data-page="home"] { --section: clamp(3rem, 4vw, 3.5rem); }
+body[data-page="home"] .section-head { margin-bottom: 2rem; }
+body[data-page="home"] .disciplines a .display { font-size: clamp(2.25rem, 5vw, 4.5rem); }
+.disciplines__intro { max-width: 48rem; margin-bottom: 2rem; font-size: clamp(1rem, 1.5vw, 1.25rem); }
+@media (min-width: 761px) {
+  .spread__frame { max-height: 50svh; }
+  .spread__frame--land { max-height: 48svh; }
+}
+@media (max-width: 800px) {
+  .ros__item { padding-block: 1.25rem; }
+}
+
+@media (min-width: 901px) {
+  body[data-page="home"] .footer { padding-top: 3rem; }
+  body[data-page="home"] .footer__big { font-size: clamp(3rem, 13vw, 14rem); margin-top: 2rem; }
+}
 
 /* ───── Loading placeholders: blurred preview + dominant colour behind every photo (lib/lqip.ts) ───── */
 [data-lqip] {

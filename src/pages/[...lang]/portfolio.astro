@@ -77,8 +77,13 @@ const url = (p: (typeof projects)[number]) => localePath(lang, `/work/${slugOf(p
 </Base>
 
 <style>
+  .proj-list > li, .proj-row, .proj-row > span { min-width: 0; }
   .proj-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-block: 0.6rem; transition: transform 400ms var(--ease-out), opacity 240ms ease; }
   .proj-row .display { font-size: var(--t-xl); }
+  @media (max-width: 760px) {
+    .proj-row { flex-direction: column; align-items: flex-start; gap: .35rem; }
+    .proj-row .display { font-size: clamp(2rem, 9vw, 3rem); overflow-wrap: anywhere; }
+  }
   @media (hover: hover) and (pointer: fine) {
     .proj-list:hover .proj-row { opacity: 0.35; }
     .proj-list:hover .proj-row:hover { opacity: 1; transform: translateX(1.25rem); }

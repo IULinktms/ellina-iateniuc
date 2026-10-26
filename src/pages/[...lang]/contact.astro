@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import BookingForm from '../../components/BookingForm.astro';
 import DirectContact from '../../components/DirectContact.astro';
-import { getBooking, getSite } from '../../lib/content';
+import { getBooking, getSite, hasRealContent } from '../../lib/content';
 import { langParams, t, type Lang } from '../../lib/i18n';
 
 export const getStaticPaths = langParams;
@@ -29,7 +29,7 @@ const site = await getSite(lang);
           <div class="session">
             <h3>{x.name}</h3>
             <p>{x.includes}</p>
-            <div class="meta"><span>{x.duration}</span>{x.price && <span>{x.price}</span>}</div>
+            <div class="meta"><span>{x.duration}</span><span>{hasRealContent(x.price) ? x.price : s.bookingUi.onRequest}</span></div>
           </div>
         ))}
       </div>

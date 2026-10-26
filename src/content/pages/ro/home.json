@@ -2,7 +2,7 @@
   "heroVideo": "/media/films/showreel-2026.mp4",
   "heroPoster": "../../../assets/uploads/film-showreel-2026-poster.jpg",
   "heroPosterAlt": "Speaker principal pe o scenă luminată, în fața unei săli pline",
-  "statement": "Fotografiez conferințe, seminare și evenimente corporative fără să deranjez: fără bliț în timpul prezentărilor, cu declanșator silențios și cu o listă de cadre construită după agenda dumneavoastră. Fotografiile ajung la dumneavoastră cât încă se vorbește despre eveniment.",
+  "statement": "La evenimente lucrez discret și livrez previzualizări editate în aceeași seară. Pentru branduri și afaceri mici, planific ședințe foto, filmez Reels pentru Instagram și creez conținut regulat pentru social media, pornind de la obiectivele dumneavoastră.",
   "featuredProjects": [
     "future-of-work-summit",
     "leadership-seminar",
@@ -29,7 +29,7 @@
       "alt": "Scena unui eveniment de lansare"
     },
     {
-      "label": "Portrete de speakeri",
+      "label": "Portrete de business",
       "category": "Portraits",
       "image": "../../../assets/uploads/portrait-elena.jpg",
       "alt": "Portret de business"
@@ -39,11 +39,16 @@
       "category": "Celebrations",
       "image": "../../../assets/uploads/gala-ballroom.jpg",
       "alt": "Sală de bal pentru gală"
+    },
+    {
+      "label": "Branduri și social media",
+      "category": "Brands",
+      "alt": ""
     }
   ],
-  "ctaTitle": "Pregătiți un eveniment?",
-  "ctaText": "Conferințe, seminare, ateliere, lansări și sărbători corporative, în Moldova și peste hotare. Trimiteți-mi data și câteva detalii, iar eu vă confirm disponibilitatea în cel mult o zi.",
-  "statementTitle": "Discretă în sală. Rapidă după.",
+  "ctaTitle": "Un eveniment sau o poveste de brand?",
+  "ctaText": "Spuneți-mi despre evenimentul, afacerea sau conținutul de care aveți nevoie. Confirm disponibilitatea și propun un format potrivit într-o zi lucrătoare.",
+  "statementTitle": "Evenimente și branduri. Cu atenție la detalii.",
   "runOfShowTitle": "O zi de conferință, așa cum o fotografiez",
   "runOfShow": [
     {
@@ -96,7 +101,6 @@
       "alt": "Mâini la un laptop, revizuind fotografii"
     }
   ],
-  "proofPlaceholder": true,
   "clients": [
     {
       "name": "TODO · Companie 01"
@@ -146,5 +150,6 @@
       "label": "Livrarea galeriei",
       "suffix": "zile lucrătoare"
     }
-  ]
+  ],
+  "disciplinesIntro": "Evenimente și branduri, în fotografii și video. Conferințe și sărbători de companie; ședințe foto, Reels pentru Instagram și conținut lunar pentru cafenele, magazine, saloane, studiouri și branduri locale."
 }

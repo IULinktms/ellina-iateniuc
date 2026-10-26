@@ -1,48 +1,56 @@
 ---
 import { Image } from 'astro:assets';
-import { getHome } from '../lib/content';
+import { getHome, hasRealContent } from '../lib/content';
 import { t, type Lang } from '../lib/i18n';
 interface Props { lang: Lang; home: Awaited<ReturnType<typeof getHome>> }
 const { lang, home } = Astro.props;
 const s = t(lang).studio;
+const clients = home.clients.filter((item) => hasRealContent(item.name));
+const testimonials = home.testimonials.filter((item) => hasRealContent(item.quote) && hasRealContent(item.name));
+const stats = home.stats.filter((item) => typeof item.value === 'number' && item.value > 0 && hasRealContent(item.label) && (!item.suffix || hasRealContent(item.suffix)));
+const statsOnly = !clients.length && !testimonials.length;
+const hasProof = clients.length + testimonials.length + stats.length > 0;
 ---
-<!-- Workstream 3: a quiet editorial proof section; placeholders remain explicit. -->
-<section class="studio-proof" aria-labelledby="proof-h">
-  <div class="wrap proof-head">
-    <span class="small tnum">01 — {s.numbers}</span>
-    {home.proofPlaceholder && <p class="proof-todo">{s.placeholder}</p>}
-  </div>
-  {home.stats.length > 0 && <dl class="proof-numbers wrap">
-    {home.stats.map((stat) => <div>
-      <dd><span class="display" data-proof-count={stat.value}>{stat.value || '—'}</span>{stat.suffix && <span class="small">{stat.suffix}</span>}</dd>
+{hasProof && (
+<section class:list={["studio-proof", statsOnly && "studio-proof--numbers"]} aria-labelledby="proof-h">
+  {stats.length > 0 && <div class="wrap proof-head">
+    <h2 class="small tnum" id={statsOnly ? "proof-h" : undefined}>{s.numbers}</h2>
+  </div>}
+  {stats.length > 0 && <dl class="proof-numbers wrap">
+    {stats.map((stat) => <div>
+      <dd><span class="display" data-proof-count={stat.value}>{stat.value}</span>{stat.suffix && <span class="small">{stat.suffix}</span>}</dd>
       <dt>{stat.label}</dt>
     </div>)}
   </dl>}
-  <div class="proof-heading wrap">
+  {!statsOnly && <div class="proof-heading wrap">
     <h2 class="display" id="proof-h">{s.trust}</h2>
-    {home.clients.length > 1 && <button class="line-link small" data-proof-pause aria-pressed="false">{s.pauseLogos}</button>}
-  </div>
-  {home.clients.length > 0 && <div class="proof-logos" data-proof-logos>
+    {clients.length > 1 && <button class="line-link small" data-proof-pause aria-pressed="false">{s.pauseLogos}</button>}
+  </div>}
+  {clients.length > 0 && <div class="proof-logos" data-proof-logos>
     <div class="proof-track">
       {[0,1].map((copy) => <ul role="list" aria-hidden={copy === 1 ? 'true' : undefined}>
-        {home.clients.map((client) => <li>{client.logo ? <Image src={client.logo} alt={client.name} width={220} format="webp" loading="lazy" /> : <span>{client.name}</span>}</li>)}
+        {clients.map((client) => <li>{client.logo ? <Image src={client.logo} alt={client.name} width={220} format="webp" loading="lazy" /> : <span>{client.name}</span>}</li>)}
       </ul>)}
     </div>
   </div>}
-  {home.testimonials.length > 0 && <div class="proof-quotes wrap">
-    {home.testimonials.slice(0,4).map((item) => <figure>
+  {testimonials.length > 0 && <div class="proof-quotes wrap">
+    {testimonials.slice(0,4).map((item) => <figure>
       <blockquote><p>{lang === 'ru' ? '«' : lang === 'ro' ? '„' : '“'}{item.quote}{lang === 'ru' ? '»' : '”'}</p></blockquote>
-      <figcaption><strong>{item.name}</strong><span>{item.role} · {item.company}</span></figcaption>
+      <figcaption><strong>{item.name}</strong><span>{[item.role, item.company].filter(hasRealContent).join(' · ')}</span></figcaption>
     </figure>)}
   </div>}
 </section>
+)}
 
 <style>
   /* Workstream 3: studio proof */
-  .studio-proof { padding-block: clamp(4rem,8vw,8rem); background: var(--bone); color: var(--black); overflow: hidden; }
+  .studio-proof { padding-block: clamp(2.5rem,5vw,4.5rem); background: var(--bone); color: var(--black); overflow: hidden; }
+  .studio-proof--numbers { padding-block: 2rem; }
+  .studio-proof--numbers .proof-numbers { grid-template-columns: repeat(auto-fit,minmax(12rem,1fr)); margin-block: 1rem 0; }
+  .studio-proof--numbers .proof-numbers dd { flex-direction: row; align-items: baseline; flex-wrap: wrap; gap: 1rem; }
+  .studio-proof--numbers .proof-numbers .display { font-size: 3.5rem; }
   .proof-head { display:flex;justify-content:space-between;align-items:start;gap:1.5rem; }
-  .proof-todo { max-width:30rem;font-size:.75rem;color:#5f5a53; }
-  .proof-numbers { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;margin-block:3rem 6rem; }
+  .proof-numbers { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;margin-block:2rem; }
   .proof-numbers dd { display:flex;flex-direction:column;align-items:start;gap:.6rem; }
   .proof-numbers .display { font-size:clamp(3.5rem,7vw,7rem);font-variant-numeric:tabular-nums; }
   .proof-numbers dt { margin-top:.75rem;font-size:.9rem;color:#514d46; }

@@ -1,8 +1,8 @@
 ---
 title: "Despre mine"
-intro: "Sunt Ellina, fotograf și videograf de evenimente din Chișinău. Fotografiez conferințe, seminare, ateliere și sărbători corporative pentru organizatori, agenții și companii."
+intro: "Sunt Ellina, fotograf, videograf și creator de conținut din Chișinău. Fotografiez evenimente pentru organizatori și companii și creez fotografii, Reels pentru Instagram și conținut social media pentru branduri și afaceri mici."
 portrait: ../../../assets/uploads/portrait-irina.jpg
-portraitAlt: "Portret provizoriu — de înlocuit cu o fotografie a Ellinei"
+portraitAlt: "Portret în lumină naturală"
 secondImage: ../../../assets/uploads/summit-microphone.jpg
 secondImageAlt: "Microfon pe scenă, în fața publicului"
 principles:
@@ -21,11 +21,9 @@ process:
     text: "Ajung devreme ca să fotografiez locația și branding-ul înainte de sosirea invitaților, apoi acopăr întregul program."
   - title: "Livrarea"
     text: "Previzualizări în aceeași seară, galeria completă și filmele în decurs de o săptămână, în formate gata pentru presă, web și rețele sociale."
-seoDescription: "Despre Ellina Iateniuc, fotograf și videograf de evenimente din Chișinău, Moldova."
+seoDescription: "Fotografie de eveniment, aftermovie, ședințe foto de brand, Reels pentru Instagram și conținut lunar pentru companii și afaceri mici din Chișinău, Moldova."
 ---
 
-Am început prin a fotografia prezentările prietenilor și întâlniri mici, și am descoperit că îmi place ritmul evenimentelor: pregătirile, momentul în care sala amuțește pentru un speaker, zumzetul din pauza de cafea.
+La evenimente urmăresc programul, oamenii și atmosfera. Lucrez discret în timpul prezentărilor și pregătesc previzualizări editate cât impresiile zilei sunt încă proaspete.
 
-Astăzi lucrez cu organizatori de conferințe, companii de training, agenții și afaceri din toată Moldova și de peste hotare. Surprind programul, oamenii și atmosfera și livrez repede, pentru că fotografiile de la evenimente valorează cel mai mult în primele 24 de ore.
-
-Acest text este provizoriu. Ellina îl poate înlocui din panoul de administrare în câteva minute.
+Pentru afaceri mici și branduri, transform munca de zi cu zi în imagini care merită distribuite: oamenii dintr-o cafenea, detaliile unui magazin, un studio în lucru sau serviciile unui salon. Putem planifica împreună o ședință foto, o serie de Reels sau un pachet lunar de conținut.

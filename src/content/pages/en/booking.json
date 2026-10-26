@@ -1,43 +1,61 @@
 {
-  "title": "Book your event",
-  "intro": "Send the date, the place and what kind of event it is. I'll confirm availability within one working day and send a quote.",
+  "title": "Let’s plan your shoot",
+  "intro": "Tell me about your event or business, the date and the content you need. I’ll confirm availability within one working day and send a tailored quote.",
   "sessions": [
     {
       "name": "Conference coverage",
       "duration": "Half day, full day or multi-day",
       "includes": "Keynotes, panels, audience, networking and branding. Same-evening previews for social media.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Seminar or workshop",
       "duration": "From 2 hours",
       "includes": "Speakers, participants and group work, photographed silently and without flash.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Corporate event",
       "duration": "From 3 hours",
       "includes": "Launches, team events, office days and reportage for websites and annual reports.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Speaker & business portraits",
       "duration": "5 minutes per person",
       "includes": "Portable on-site studio, retouched portraits within 24 hours.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Aftermovie & reels",
       "duration": "Added to any booking",
       "includes": "A 1–3 minute aftermovie plus vertical reels for social media.",
-      "price": "Quoted per event"
+      "price": ""
+    },
+    {
+      "name": "Instagram content / Reels",
+      "duration": "One shoot or a series",
+      "includes": "Short vertical videos and photographs for Instagram, planned around your audience and message.",
+      "price": ""
+    },
+    {
+      "name": "Brand / business photo shoot",
+      "duration": "Scope agreed together",
+      "includes": "People, products, spaces and services for your website, Instagram and other communication.",
+      "price": ""
+    },
+    {
+      "name": "Monthly SMM package",
+      "duration": "Monthly collaboration",
+      "includes": "A content plan, regular photo and video shoots, and ready-to-publish social media content. We agree the volume and channels together.",
+      "price": ""
     }
   ],
   "successMessage": "Thank you. I've received your request and will confirm availability within one working day.",
   "successSteps": [
     {
       "title": "Within one working day",
-      "text": "I confirm availability and ask about your event programme."
+      "text": "I confirm availability and ask about your event or business goals."
     },
     {
       "title": "A clear proposal",

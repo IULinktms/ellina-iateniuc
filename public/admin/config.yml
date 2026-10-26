@@ -68,7 +68,7 @@ collections:
     fields:
       - { name: title, label: Title, widget: string, i18n: true }
       - { name: subtitle, label: Subtitle, widget: string, required: false, hint: 'A short line under the title, e.g. "Two days, 1,200 guests, 40 speakers".', i18n: true }
-      - { name: category, label: Category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations], i18n: duplicate }
+      - { name: category, label: Category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations, Brands], i18n: duplicate }
       - { name: year, label: Year, widget: number, value_type: int, i18n: duplicate }
       - { name: location, label: Location, widget: string, required: false, i18n: true }
       - { name: client, label: Client, widget: string, required: false, i18n: true }
@@ -129,7 +129,8 @@ collections:
     sortable_fields: [order, year, title]
     fields:
       - { name: title, label: Title, widget: string, i18n: true }
-      - { name: kind, label: Type, widget: select, options: [Aftermovie, Highlights, Reel, Behind the scenes], i18n: duplicate }
+      - { name: aspectRatio, label: Video format, widget: select, options: [landscape, portrait], default: landscape, hint: "Choose portrait for vertical 9:16 Reels.", i18n: duplicate }
+      - { name: kind, label: Type, widget: select, options: [Aftermovie, Highlights, Reel, Behind the scenes, Reels], i18n: duplicate }
       - { name: year, label: Year, widget: number, value_type: int, i18n: duplicate }
       - { name: duration, label: Duration, widget: string, required: false, hint: 'e.g. 3:42', i18n: true }
       - { name: location, label: Location, widget: string, required: false, i18n: true }
@@ -166,10 +167,9 @@ collections:
         media_folder: ../../../assets/uploads
         public_folder: ../../../assets/uploads
         fields:
-          # Workstream 3 — approved client proof replaces the clearly marked preview content.
-          - { name: proofPlaceholder, label: 'Show TODO / demonstration label', widget: boolean, default: true, i18n: duplicate }
           - name: clients
             label: Client logos
+            hint: "Appears automatically when a real client name is filled in. Empty or TODO entries stay hidden."
             widget: list
             required: false
             i18n: true
@@ -178,6 +178,7 @@ collections:
               - { name: logo, label: Approved logo (optional), widget: image, required: false, i18n: duplicate }
           - name: testimonials
             label: Approved testimonials
+            hint: "Appears automatically once the quote and name are filled in. Empty or TODO fields stay hidden."
             widget: list
             required: false
             i18n: true
@@ -188,11 +189,12 @@ collections:
               - { name: company, label: Company, widget: string, i18n: true }
           - name: stats
             label: Studio numbers
+            hint: "Verified positive numbers appear automatically. Empty values and zero stay hidden."
             widget: list
             required: false
             i18n: true
             fields:
-              - { name: value, label: Verified number (0 shows a dash), widget: number, value_type: int, min: 0, i18n: duplicate }
+              - { name: value, label: Verified number, widget: number, required: false, value_type: int, min: 0, i18n: duplicate }
               - { name: label, label: Label, widget: string, i18n: true }
               - { name: suffix, label: Unit or suffix, widget: string, required: false, default: '', i18n: true }
           - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.', i18n: duplicate }
@@ -222,16 +224,18 @@ collections:
             search_fields: [title]
             display_fields: [title]
             multiple: true
+          - { name: disciplinesIntro, label: Services introduction, widget: text, required: false, i18n: true }
           - name: disciplines
             i18n: true
             label: What I cover
+            hint: "Category tiles appear only when a published project exists. An omitted hover image uses its cover."
             widget: list
             summary: '{{fields.label}}'
             fields:
               - { name: label, label: Label, widget: string, i18n: true }
-              - { name: category, label: Opens portfolio category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations], i18n: duplicate }
-              - { name: image, label: Hover image, widget: image, i18n: duplicate }
-              - { name: alt, label: Image description, widget: string, i18n: true }
+              - { name: category, label: Opens portfolio category, widget: select, options: [Conferences, Seminars, Corporate, Portraits, Celebrations, Brands], i18n: duplicate }
+              - { name: image, label: Hover image, widget: image, required: false, i18n: duplicate }
+              - { name: alt, label: Image description, widget: string, required: false, i18n: true }
           - { name: ctaTitle, label: Closing headline, widget: string, i18n: true }
           - { name: ctaText, label: Closing text, widget: text, i18n: true }
 
@@ -280,7 +284,7 @@ collections:
               - { name: name, label: Name, widget: string, i18n: true }
               - { name: duration, label: Duration, widget: string, i18n: true }
               - { name: includes, label: What's included, widget: text, i18n: true }
-              - { name: price, label: Price (optional), widget: string, required: false, i18n: true }
+              - { name: price, label: Price (optional), widget: string, required: false, hint: "Leave empty to show La cerere / По запросу / On request.", i18n: true }
           - name: successSteps
             label: What happens after sending
             widget: list
