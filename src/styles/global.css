@@ -1223,3 +1223,6 @@ main .notfound h1 { max-width: 14ch; font-size: clamp(2.5rem, 6vw, 6rem); }
   body[data-page='portfolio'] .filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   body[data-page='portfolio'] .filter { padding-inline: .65rem; font-size: .875rem; }
 }
+/* Keep a scrolling menu below its fixed close control on short screens. */
+.js .menu { top: var(--nav-h); padding-top: 1rem; }
+body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal; }
