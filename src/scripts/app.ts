@@ -1003,12 +1003,13 @@ menuA11y();
 }
 
 /* ───────────── Hero reel loads after the poster has painted (LCP), and not at all
-   on Save-Data, 2G or reduced motion: the still frame stays instead. ───────────── */
+   on Save-Data, 2G/3G or reduced motion: the still frame stays instead. ───────────── */
 function deferHeroVideo() {
   const v = document.querySelector<HTMLVideoElement>('[data-hero-video][data-src]');
   if (!v) return;
   const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
-  if (reduced || conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType ?? '')) return;
+  // 3G and slower keep the still: the reel is ~4 MB
+  if (reduced || conn?.saveData || /^(slow-2g|2g|3g)$/.test(conn?.effectiveType ?? '')) return;
   let cancelled = false;
   const start = () => {
     // The first-scroll shutter (WS3) may have frozen the hero on its still frame
