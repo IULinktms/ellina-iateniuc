@@ -1,111 +1,48 @@
-# Copy v2 — preview of the 12 most visible strings
+# Copy v2.1: bolder voice (preview)
 
-Russian is the master; RO and EN are adaptations. Unchanged on purpose: nav buttons `Забронировать` / `Rezervați` / `Book a shoot` and hero button `Проверить дату` / `Verificați data` / `Check your date` (already short, clear, ≤3 words).
+Russian is the master. RO and EN are written in their own idiom, not translated literally. Facts are unchanged: first photos the same evening, full gallery in 5 working days, films in 10, a reply within one working day. Buttons are 3 words or fewer.
 
-## 1. Home hero lede (i18n home.lede)
+## A. Home hero lede: 3 alternatives (option 1 is in edits.json)
 
-- **RU** before: lede: "Фотосъёмка мероприятий и афтемуви. Фотографии для брендов, Reels для Instagram и контент для соцсетей. В Кишинёве, для компаний и малого бизнеса."
-  - after: lede: "Фото и видео мероприятий. Съёмки, Reels и контент для соцсетей — для компаний и малого бизнеса в Кишинёве."
-- **RO** before: lede: "Fotografie de eveniment și aftermovie. Fotografii de brand, Reels pentru Instagram și conținut social media. Din Chișinău, pentru companii și afaceri mici."
-  - after: lede: "Fotografie și aftermovie de eveniment. Ședințe foto, Reels și conținut pentru rețelele sociale, pentru companii și afaceri mici din Chișinău."
-- **EN** before: lede: "Event photography & aftermovies. Brand photography, Instagram Reels & social media content. Based in Chișinău, working with companies and small businesses."
-  - after: lede: "Event photography and aftermovies. Brand shoots, Reels and social content for companies and small businesses in Chișinău."
+**1. Pick: the "those who didn't come" paradox**
+- RU: Фото и видео для мероприятий и брендов в Кишинёве. Снимаю так, что те, кто не пришёл, пожалеют.
+- RO: Foto și video pentru evenimente și branduri, în Chișinău. Fotografiez așa încât cei care n-au venit să regrete.
+- EN: Photo and video for events and brands in Chișinău. I shoot it so the people who didn’t come will wish they had.
 
-## 2. Home statement title (home.json statementTitle)
+**2. The roles split**
+- RU: Вы делаете событие. Я делаю так, чтобы о нём говорили. Фото, видео и Reels в Кишинёве.
+- RO: Dumneavoastră faceți evenimentul. Eu am grijă să se vorbească despre el. Foto, video și Reels în Chișinău.
+- EN: You make the event happen. I make sure people talk about it. Photo, video and Reels in Chișinău.
 
-- **RU** before: "statementTitle": "События и бренды. Внимание к деталям."
-  - after: "statementTitle": "Мероприятия и бренды. Тихо, точно, вовремя."
-- **RO** before: "statementTitle": "Evenimente și branduri. Cu atenție la detalii."
-  - after: "statementTitle": "Evenimente și branduri. Discret, precis, la timp."
-- **EN** before: "statementTitle": "Events and brands. Thoughtfully captured."
-  - after: "statementTitle": "Events and brands. Quiet, precise, on time."
+**3. The "afterlife" line**
+- RU: Мероприятие заканчивается вечером. Фотографии работают на вас ещё годы. Фото, видео и Reels в Кишинёве.
+- RO: Evenimentul se termină seara. Fotografiile lucrează pentru dumneavoastră ani la rând. Foto, video și Reels în Chișinău.
+- EN: The event ends tonight. The photos keep working for years. Photo, video and Reels in Chișinău.
 
-## 3. Home statement (home.json statement)
+Option 1 is the strongest hook and works as a sentence in all three languages. Options 2 and 3 are not lost: their ideas are used in the statement below.
 
-- **RU** before: "statement": "На мероприятиях я работаю незаметно и отдаю обработанные превью в тот же вечер. Для брендов и малого бизнеса планирую фотосъёмки, снимаю Reels для Instagram и создаю регулярный контент для соцсетей с учётом ваших задач."
-  - after: "statement": "На мероприятии меня не замечают. Первые обработанные кадры — у вас в тот же вечер. Для брендов и малого бизнеса снимаю фото и Reels и веду контент для соцсетей: разово или каждый месяц."
-- **RO** before: "statement": "La evenimente lucrez discret și livrez previzualizări editate în aceeași seară. Pentru branduri și afaceri mici, planific ședințe foto, filmez Reels pentru Instagram și creez conținut regulat pentru social media, pornind de la obiectivele dumneavoastră."
-  - after: "statement": "La evenimente lucrez fără să atrag atenția. Primele fotografii editate ajung la dumneavoastră în aceeași seară. Pentru branduri și afaceri mici fac fotografii, Reels și conținut pentru rețelele sociale: o singură dată sau în fiecare lună."
-- **EN** before: "statement": "At events, I work quietly and deliver edited previews the same evening. For brands and small businesses, I plan photo shoots, film Instagram Reels and create regular social media content around your goals."
-  - after: "statement": "At events, nobody notices me. Your first edited photos arrive the same evening. For brands and small businesses, I shoot photos and Reels and run social media content: once, or every month."
+## B. Final strings (before → after)
 
-## 4. Home CTA title (home.json ctaTitle; same in about CTA)
+| String | RU | RO | EN |
+|---|---|---|---|
+| Statement title | События и бренды. Внимание к деталям. → **Вечер закончится. Фотографии — нет.** | Evenimente și branduri. Cu atenție la detalii. → **Seara se termină. Fotografiile rămân.** | Events and brands. Thoughtfully captured. → **The evening ends. The photos don’t.** |
+| Statement | (v1: list of services) → **Вы делаете событие — я делаю так, чтобы о нём говорили. В зале меня не замечают, а первые обработанные кадры приходят в тот же вечер. С брендами то же правило: ваш бренд уже красивый, осталось это доказать. Фото, Reels и контент — разово или каждый месяц.** | **Dumneavoastră faceți evenimentul, eu am grijă să se vorbească despre el. În sală nu mă observă nimeni, iar primele fotografii editate ajung în aceeași seară. Cu brandurile, aceeași regulă: brandul dumneavoastră arată deja bine, trebuie doar dovedit. Fotografii, Reels și conținut — o dată sau lunar.** | **You make the event happen. I make sure people talk about it. Nobody notices me in the room, and the first edited photos arrive the same evening. Brands get the same rule: yours already looks good — now we prove it. Photos, Reels and content, once or every month.** |
+| CTA title (home and about) | Событие или история вашего бренда? → **Лучший кадр вашего события ещё не снят.** | Un eveniment sau o poveste de brand? → **Cel mai bun cadru încă nu e făcut.** | An event or a brand story? → **Your best frame is still ahead.** |
+| CTA text (home) | **Напишите, что снимаем, где и когда. В течение рабочего дня отвечу, свободна ли дата, — и что предлагаю.** | **Scrieți-mi ce, unde și când. În cel mult o zi lucrătoare vă spun dacă data e liberă — și ce vă propun.** | **Tell me what, where and when. Within one working day I’ll tell you if the date is free — and what I suggest.** |
+| About intro | Я Эллина, фотограф и видеограф из Кишинёва. … → **Я Эллина, фотограф и видеограф из Кишинёва. Фотографии должно быть видно, фотографа — нет.** Снимаю мероприятия для организаторов и компаний, а для брендов и малого бизнеса — фото, Reels и контент для соцсетей. | **… Fotografiile trebuie să se vadă, fotograful — nu.** … | **… You should see the photos, not the photographer.** … |
+| Contact heading | Запланируем / съёмку? → **Ваша дата. / Мои кадры.** | Planificăm / o ședință? → **Spuneți data. / Eu fac restul.** | Plan your / shoot → **Your date. / My frames.** |
+| Contact intro (also the meta description) | **Пара строк о мероприятии или бизнесе, дата и что нужно снять — этого хватит. В течение рабочего дня отвечу, свободна ли дата, и пришлю предложение.** | **Câteva rânduri despre eveniment sau afacere, data și ce trebuie filmat sau fotografiat — e suficient. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă trimit o ofertă.** | **A few lines about your event or business, the date and what you need — that’s enough. Within one working day I’ll tell you if the date is free and send a quote.** |
+| Films intro | **Афтемуви, хайлайты и Reels с конференций, семинаров и корпоративных мероприятий. Тем, кто был, — память. Тем, кто не был, — повод прийти в следующий раз.** | **… Pentru cei care au fost — o amintire. Pentru ceilalți — un motiv să vină data viitoare.** | **… For those who came, a memory. For those who didn’t, a reason to come next time.** |
+| Portfolio intro (no counts) | (v0: “48 фотографий с 7 мероприятий…”) → **Конференции, семинары, корпоративные мероприятия и бренды. Здесь только кадры, прошедшие отбор; остальные видела только я. Откройте любой на весь экран.** | **… Aici sunt doar cadrele care au trecut selecția; pe celelalte le-am văzut doar eu. Deschideți oricare pe tot ecranul.** | **… Only the frames that made the cut — nobody else sees the rest. Open any one full screen.** |
+| 404 | Такой страницы нет или она переехала. А работы — на месте. → **Этого кадра нет. Остальные — на месте.** | **Acest cadru nu există. Celelalte sunt la locul lor.** | **This frame doesn’t exist. The rest are right where you left them.** |
+| Footer copyright line | …защищены авторским правом. → **… Вдохновляться — можно.** | **… Inspirația e gratuită.** | **… Inspiration is free.** |
+| CTA on project pages | Такая история для вашего мероприятия? → **Следующим будет ваше мероприятие?** | **Următorul — evenimentul dumneavoastră?** | **Your event, next?** |
 
-- **RU** before: "ctaTitle": "Событие или история вашего бренда?"
-  - after: "ctaTitle": "Мероприятие или бренд? Начнём с даты."
-- **RO** before: "ctaTitle": "Un eveniment sau o poveste de brand?"
-  - after: "ctaTitle": "Un eveniment sau un brand? Începem cu data."
-- **EN** before: "ctaTitle": "An event or a brand story?"
-  - after: "ctaTitle": "Event or brand? Start with a date."
+## C. Buttons
 
-## 5. Home CTA text (home.json ctaText)
-
-- **RU** before: "ctaText": "Расскажите о мероприятии, бизнесе или нужном контенте. В течение одного рабочего дня я подтвержу доступность и предложу подходящий формат."
-  - after: "ctaText": "Напишите, что снимаем, где и когда. В течение рабочего дня отвечу, свободна ли дата, и предложу формат."
-- **RO** before: "ctaText": "Spuneți-mi despre evenimentul, afacerea sau conținutul de care aveți nevoie. Confirm disponibilitatea și propun un format potrivit într-o zi lucrătoare."
-  - after: "ctaText": "Scrieți-mi ce avem de fotografiat sau filmat, unde și când. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă propun un format."
-- **EN** before: "ctaText": "Tell me about your event, your business or the content you need. I’ll confirm availability and suggest a suitable format within one working day."
-  - after: "ctaText": "Tell me what, where and when. Within one working day I’ll tell you if the date is free and suggest a format."
-
-## 6. About intro (about.md intro)
-
-- **RU** before: intro: "Я Эллина, фотограф и видеограф из Кишинёва. Снимаю мероприятия для организаторов и компаний, а для брендов и малого бизнеса делаю фотосессии, Reels для Instagram и контент для соцсетей."
-  - after: intro: "Я Эллина — фотограф и видеограф из Кишинёва. Снимаю мероприятия для организаторов и компаний. Для брендов и малого бизнеса делаю фотосъёмки, Reels и контент для соцсетей."
-- **RO** before: intro: "Sunt Ellina, fotograf și videograf din Chișinău. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac ședințe foto, Reels pentru Instagram și conținut pentru social media."
-  - after: intro: "Sunt Ellina, fotograf și videograf din Chișinău. Fotografiez evenimente pentru organizatori și companii. Pentru branduri și afaceri mici fac ședințe foto, Reels și conținut pentru rețelele sociale."
-- **EN** before: intro: "I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies, and shoot photos, Instagram Reels and social media content for brands and small businesses."
-  - after: intro: "I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies. For brands and small businesses, I shoot photos, Reels and social media content."
-
-## 7. Contact heading (i18n contact.head)
-
-- **RU** before: head: ['Запланируем', 'съёмку?']
-  - after: head: ['Начнём', 'с даты']
-- **RO** before: head: ['Planificăm', 'o ședință?']
-  - after: head: ['Începem', 'cu data']
-- **EN** before: head: ['Plan your', 'shoot']
-  - after: head: ['Start with', 'the date']
-
-## 8. Contact intro (booking.json intro, also meta description)
-
-- **RU** before: "intro": "Расскажите о мероприятии или бизнесе, дате и нужном контенте. В течение одного рабочего дня я подтвержу доступность и пришлю индивидуальное предложение."
-  - after: "intro": "Напишите о мероприятии или бизнесе, дате и нужном контенте. В течение рабочего дня отвечу, свободна ли дата, и пришлю предложение под вашу задачу."
-- **RO** before: "intro": "Spuneți-mi despre evenimentul sau afacerea dumneavoastră, data și conținutul de care aveți nevoie. Confirm disponibilitatea într-o zi lucrătoare și trimit o ofertă personalizată."
-  - after: "intro": "Scrieți-mi despre eveniment sau afacere, dată și conținutul dorit. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă trimit o ofertă pe măsură."
-- **EN** before: "intro": "Tell me about your event or business, the date and the content you need. I’ll confirm availability within one working day and send a tailored quote."
-  - after: "intro": "Tell me about your event or business, the date and the content you need. Within one working day I’ll tell you if the date is free and send a tailored quote."
-
-## 9. Contact page title (booking.json title, used as <title>)
-
-- **RU** before: "title": "Запланируем фото- или видеосъёмку?"
-  - after: "title": "Фото- и видеосъёмка в Кишинёве: бронирование"
-- **RO** before: "title": "Planificăm o ședință foto sau video?"
-  - after: "title": "Ședințe foto și filmări în Chișinău: rezervare"
-- **EN** before: "title": "Let’s plan your shoot"
-  - after: "title": "Book an event or brand shoot in Chișinău"
-
-## 10. Home and About CTA button (i18n home.book / about.book)
-
-- **RU** before: Забронировать дату
-  - after: Забронировать дату (unchanged, already right)
-- **RO** before: Planificați o ședință («ședință» alone reads as “meeting”)
-  - after: Rezervați data
-- **EN** before: Plan your shoot
-  - after: Book your date
-
-## 11. Contact form submit button (i18n contact.submit)
-
-- **RU** before: Проверить дату
-  - after: Отправить заявку
-- **RO** before: Verificați disponibilitatea
-  - after: Trimiteți cererea
-- **EN** before: Check availability
-  - after: Send request
-
-## 12. Site role / footer + JSON-LD jobTitle (site.json role)
-
-- **RU** before: "role": "Фотограф мероприятий и создатель контента для брендов"
-  - after: "role": "Фотограф и видеограф мероприятий и брендов"
-- **RO** before: "role": "Fotograf de evenimente și creator de conținut pentru branduri"
-  - after: "role": "Fotograf și videograf de evenimente și branduri"
-- **EN** before: "role": "Event photographer & brand content creator"
-  - after: "role": "Photographer and videographer for events and brands"
+| | RU | RO | EN |
+|---|---|---|---|
+| Nav | Забронировать (unchanged) | Rezervați (unchanged) | Book a shoot (unchanged) |
+| Hero button | Проверить дату (unchanged) | Verificați data (unchanged) | Check your date (unchanged) |
+| Home and About CTA | Забронировать дату | Planificați o ședință → Rezervați data | Plan your shoot → Book your date |
+| Form submit | Проверить дату → Отправить заявку | Verificați disponibilitatea → Trimiteți cererea | Check availability → Send request |

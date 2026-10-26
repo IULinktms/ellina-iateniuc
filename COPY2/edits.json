@@ -62,22 +62,22 @@
  {
   "file": "src/content/pages/ru/home.json",
   "old": "\"statement\": \"На мероприятиях я работаю незаметно и отдаю обработанные превью в тот же вечер. Для брендов и малого бизнеса планирую фотосъёмки, снимаю Reels для Instagram и создаю регулярный контент для соцсетей с учётом ваших задач.\"",
-  "new": "\"statement\": \"На мероприятии меня не замечают. Первые обработанные кадры — у вас в тот же вечер. Для брендов и малого бизнеса снимаю фото и Reels и веду контент для соцсетей: разово или каждый месяц.\""
+  "new": "\"statement\": \"Вы делаете событие — я делаю так, чтобы о нём говорили. В зале меня не замечают, а первые обработанные кадры приходят в тот же вечер. С брендами то же правило: ваш бренд уже красивый, осталось это доказать. Фото, Reels и контент — разово или каждый месяц.\""
  },
  {
   "file": "src/content/pages/ru/home.json",
   "old": "\"ctaTitle\": \"Событие или история вашего бренда?\"",
-  "new": "\"ctaTitle\": \"Мероприятие или бренд? Начнём с даты.\""
+  "new": "\"ctaTitle\": \"Лучший кадр вашего события ещё не снят.\""
  },
  {
   "file": "src/content/pages/ru/home.json",
   "old": "\"ctaText\": \"Расскажите о мероприятии, бизнесе или нужном контенте. В течение одного рабочего дня я подтвержу доступность и предложу подходящий формат.\"",
-  "new": "\"ctaText\": \"Напишите, что снимаем, где и когда. В течение рабочего дня отвечу, свободна ли дата, и предложу формат.\""
+  "new": "\"ctaText\": \"Напишите, что снимаем, где и когда. В течение рабочего дня отвечу, свободна ли дата, — и что предлагаю.\""
  },
  {
   "file": "src/content/pages/ru/home.json",
   "old": "\"statementTitle\": \"События и бренды. Внимание к деталям.\"",
-  "new": "\"statementTitle\": \"Мероприятия и бренды. Тихо, точно, вовремя.\""
+  "new": "\"statementTitle\": \"Вечер закончится. Фотографии — нет.\""
  },
  {
   "file": "src/content/pages/ru/home.json",
@@ -152,22 +152,22 @@
  {
   "file": "src/content/pages/ro/home.json",
   "old": "\"statement\": \"La evenimente lucrez discret și livrez previzualizări editate în aceeași seară. Pentru branduri și afaceri mici, planific ședințe foto, filmez Reels pentru Instagram și creez conținut regulat pentru social media, pornind de la obiectivele dumneavoastră.\"",
-  "new": "\"statement\": \"La evenimente lucrez fără să atrag atenția. Primele fotografii editate ajung la dumneavoastră în aceeași seară. Pentru branduri și afaceri mici fac fotografii, Reels și conținut pentru rețelele sociale: o singură dată sau în fiecare lună.\""
+  "new": "\"statement\": \"Dumneavoastră faceți evenimentul, eu am grijă să se vorbească despre el. În sală nu mă observă nimeni, iar primele fotografii editate ajung în aceeași seară. Cu brandurile, aceeași regulă: brandul dumneavoastră arată deja bine, trebuie doar dovedit. Fotografii, Reels și conținut — o dată sau lunar.\""
  },
  {
   "file": "src/content/pages/ro/home.json",
   "old": "\"ctaTitle\": \"Un eveniment sau o poveste de brand?\"",
-  "new": "\"ctaTitle\": \"Un eveniment sau un brand? Începem cu data.\""
+  "new": "\"ctaTitle\": \"Cel mai bun cadru încă nu e făcut.\""
  },
  {
   "file": "src/content/pages/ro/home.json",
   "old": "\"ctaText\": \"Spuneți-mi despre evenimentul, afacerea sau conținutul de care aveți nevoie. Confirm disponibilitatea și propun un format potrivit într-o zi lucrătoare.\"",
-  "new": "\"ctaText\": \"Scrieți-mi ce avem de fotografiat sau filmat, unde și când. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă propun un format.\""
+  "new": "\"ctaText\": \"Scrieți-mi ce, unde și când. În cel mult o zi lucrătoare vă spun dacă data e liberă — și ce vă propun.\""
  },
  {
   "file": "src/content/pages/ro/home.json",
   "old": "\"statementTitle\": \"Evenimente și branduri. Cu atenție la detalii.\"",
-  "new": "\"statementTitle\": \"Evenimente și branduri. Discret, precis, la timp.\""
+  "new": "\"statementTitle\": \"Seara se termină. Fotografiile rămân.\""
  },
  {
   "file": "src/content/pages/ro/home.json",
@@ -247,7 +247,7 @@
  {
   "file": "src/content/pages/en/home.json",
   "old": "\"statement\": \"At events, I work quietly and deliver edited previews the same evening. For brands and small businesses, I plan photo shoots, film Instagram Reels and create regular social media content around your goals.\"",
-  "new": "\"statement\": \"At events, nobody notices me. Your first edited photos arrive the same evening. For brands and small businesses, I shoot photos and Reels and run social media content: once, or every month.\""
+  "new": "\"statement\": \"You make the event happen. I make sure people talk about it. Nobody notices me in the room, and the first edited photos arrive the same evening. Brands get the same rule: yours already looks good — now we prove it. Photos, Reels and content, once or every month.\""
  },
  {
   "file": "src/content/pages/en/home.json",
@@ -267,17 +267,17 @@
  {
   "file": "src/content/pages/en/home.json",
   "old": "\"ctaTitle\": \"An event or a brand story?\"",
-  "new": "\"ctaTitle\": \"Event or brand? Start with a date.\""
+  "new": "\"ctaTitle\": \"Your best frame is still ahead.\""
  },
  {
   "file": "src/content/pages/en/home.json",
   "old": "\"ctaText\": \"Tell me about your event, your business or the content you need. I’ll confirm availability and suggest a suitable format within one working day.\"",
-  "new": "\"ctaText\": \"Tell me what, where and when. Within one working day I’ll tell you if the date is free and suggest a format.\""
+  "new": "\"ctaText\": \"Tell me what, where and when. Within one working day I’ll tell you if the date is free — and what I suggest.\""
  },
  {
   "file": "src/content/pages/en/home.json",
   "old": "\"statementTitle\": \"Events and brands. Thoughtfully captured.\"",
-  "new": "\"statementTitle\": \"Events and brands. Quiet, precise, on time.\""
+  "new": "\"statementTitle\": \"The evening ends. The photos don’t.\""
  },
  {
   "file": "src/content/pages/en/home.json",
@@ -342,7 +342,7 @@
  {
   "file": "src/content/pages/ru/about.md",
   "old": "intro: \"Я Эллина, фотограф и видеограф из Кишинёва. Снимаю мероприятия для организаторов и компаний, а для брендов и малого бизнеса делаю фотосессии, Reels для Instagram и контент для соцсетей.\"",
-  "new": "intro: \"Я Эллина — фотограф и видеограф из Кишинёва. Снимаю мероприятия для организаторов и компаний. Для брендов и малого бизнеса делаю фотосъёмки, Reels и контент для соцсетей.\""
+  "new": "intro: \"Я Эллина, фотограф и видеограф из Кишинёва. Фотографии должно быть видно, фотографа — нет. Снимаю мероприятия для организаторов и компаний, а для брендов и малого бизнеса — фото, Reels и контент для соцсетей.\""
  },
  {
   "file": "src/content/pages/ru/about.md",
@@ -422,7 +422,7 @@
  {
   "file": "src/content/pages/ro/about.md",
   "old": "intro: \"Sunt Ellina, fotograf și videograf din Chișinău. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac ședințe foto, Reels pentru Instagram și conținut pentru social media.\"",
-  "new": "intro: \"Sunt Ellina, fotograf și videograf din Chișinău. Fotografiez evenimente pentru organizatori și companii. Pentru branduri și afaceri mici fac ședințe foto, Reels și conținut pentru rețelele sociale.\""
+  "new": "intro: \"Sunt Ellina, fotograf și videograf din Chișinău. Fotografiile trebuie să se vadă, fotograful — nu. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac fotografii, Reels și conținut pentru rețelele sociale.\""
  },
  {
   "file": "src/content/pages/ro/about.md",
@@ -497,7 +497,7 @@
  {
   "file": "src/content/pages/en/about.md",
   "old": "intro: \"I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies, and shoot photos, Instagram Reels and social media content for brands and small businesses.\"",
-  "new": "intro: \"I’m Ellina, a photographer and videographer in Chișinău. I cover events for organisers and companies. For brands and small businesses, I shoot photos, Reels and social media content.\""
+  "new": "intro: \"I’m Ellina, a photographer and videographer in Chișinău. You should see the photos, not the photographer. I cover events for organisers and companies, and shoot photos, Reels and social content for brands and small businesses.\""
  },
  {
   "file": "src/content/pages/en/about.md",
@@ -572,7 +572,7 @@
  {
   "file": "src/content/pages/ru/booking.json",
   "old": "\"intro\": \"Расскажите о мероприятии или бизнесе, дате и нужном контенте. В течение одного рабочего дня я подтвержу доступность и пришлю индивидуальное предложение.\"",
-  "new": "\"intro\": \"Напишите о мероприятии или бизнесе, дате и нужном контенте. В течение рабочего дня отвечу, свободна ли дата, и пришлю предложение под вашу задачу.\""
+  "new": "\"intro\": \"Пара строк о мероприятии или бизнесе, дата и что нужно снять — этого хватит. В течение рабочего дня отвечу, свободна ли дата, и пришлю предложение.\""
  },
  {
   "file": "src/content/pages/ru/booking.json",
@@ -692,7 +692,7 @@
  {
   "file": "src/content/pages/ro/booking.json",
   "old": "\"intro\": \"Spuneți-mi despre evenimentul sau afacerea dumneavoastră, data și conținutul de care aveți nevoie. Confirm disponibilitatea într-o zi lucrătoare și trimit o ofertă personalizată.\"",
-  "new": "\"intro\": \"Scrieți-mi despre eveniment sau afacere, dată și conținutul dorit. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă trimit o ofertă pe măsură.\""
+  "new": "\"intro\": \"Câteva rânduri despre eveniment sau afacere, data și ce trebuie filmat sau fotografiat — e suficient. În cel mult o zi lucrătoare vă spun dacă data e liberă și vă trimit o ofertă.\""
  },
  {
   "file": "src/content/pages/ro/booking.json",
@@ -797,7 +797,7 @@
  {
   "file": "src/content/pages/en/booking.json",
   "old": "\"intro\": \"Tell me about your event or business, the date and the content you need. I’ll confirm availability within one working day and send a tailored quote.\"",
-  "new": "\"intro\": \"Tell me about your event or business, the date and the content you need. Within one working day I’ll tell you if the date is free and send a tailored quote.\""
+  "new": "\"intro\": \"A few lines about your event or business, the date and what you need — that’s enough. Within one working day I’ll tell you if the date is free and send a quote.\""
  },
  {
   "file": "src/content/pages/en/booking.json",
@@ -912,7 +912,7 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "lede: \"Event photography & aftermovies. Brand photography, Instagram Reels & social media content. Based in Chișinău, working with companies and small businesses.\"",
-  "new": "lede: \"Event photography and aftermovies. Brand shoots, Reels and social content for companies and small businesses in Chișinău.\""
+  "new": "lede: \"Photo and video for events and brands in Chișinău. I shoot it so the people who didn’t come will wish they had.\""
  },
  {
   "file": "src/lib/i18n.ts",
@@ -942,12 +942,12 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "expect: 'What you can expect', howBooking: 'How a booking works', ctaTitle: 'An event or a brand story?',\n      ctaText: 'Send me the date and a few details. I confirm availability within one working day.', book: 'Plan your shoot' }",
-  "new": "expect: 'What you get', howBooking: 'How it works', ctaTitle: 'Event or brand? Start with a date.',\n      ctaText: 'Send the date and a few details. Within one working day I’ll tell you if it’s free.', book: 'Book your date' }"
+  "new": "expect: 'What you get', howBooking: 'How it works', ctaTitle: 'Your best frame is still ahead.',\n      ctaText: 'Send the date and a few details. Within one working day I’ll tell you if it’s free.', book: 'Book your date' }"
  },
  {
   "file": "src/lib/i18n.ts",
   "old": "head: ['Plan your', 'shoot']",
-  "new": "head: ['Start with', 'the date']"
+  "new": "head: ['Your date.', 'My frames.']"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -972,17 +972,17 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "intro: 'Aftermovies, highlight films and social reels from conferences, seminars and corporate events. Every film opens full screen.'",
-  "new": "intro: 'Aftermovies, highlights and Reels from conferences, seminars and corporate events. Every film plays full screen.'"
+  "new": "intro: 'Aftermovies, highlights and Reels from conferences, seminars and corporate events. For those who came, a memory. For those who didn’t, a reason to come next time.'"
  },
  {
   "file": "src/lib/i18n.ts",
   "old": "intro: (p: number, e: number) => `${en(p, 'photograph', 'photographs')} from ${en(e, 'event', 'events')}. Choose a category, or open any frame to see it full screen.`",
-  "new": "intro: (p: number, e: number) => `Conferences, seminars, corporate events and brands. Pick a category, or open any frame full screen.`"
+  "new": "intro: (p: number, e: number) => `Conferences, seminars, corporate events and brands. Only the frames that made the cut — nobody else sees the rest. Open any one full screen.`"
  },
  {
   "file": "src/lib/i18n.ts",
   "old": "text: \"This page doesn't exist, or it has moved. The work is still here.\"",
-  "new": "text: \"This page doesn’t exist, or it has moved. The work is still here.\""
+  "new": "text: \"This frame doesn’t exist. The rest are right where you left them.\""
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1017,7 +1017,7 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "lede: \"Fotografie de eveniment și aftermovie. Fotografii de brand, Reels pentru Instagram și conținut social media. Din Chișinău, pentru companii și afaceri mici.\"",
-  "new": "lede: \"Fotografie și aftermovie de eveniment. Ședințe foto, Reels și conținut pentru rețelele sociale, pentru companii și afaceri mici din Chișinău.\""
+  "new": "lede: \"Foto și video pentru evenimente și branduri, în Chișinău. Fotografiez așa încât cei care n-au venit să regrete.\""
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1047,12 +1047,12 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "about: { title: 'Despre', expect: 'La ce vă puteți aștepta', howBooking: 'Cum decurge o rezervare', ctaTitle: 'Un eveniment sau o poveste de brand?',\n      ctaText: 'Trimiteți-mi data și câteva detalii. Vă confirm disponibilitatea în cel mult o zi lucrătoare.', book: 'Planificați o ședință' }",
-  "new": "about: { title: 'Despre mine', expect: 'Ce primiți', howBooking: 'Cum lucrăm', ctaTitle: 'Un eveniment sau un brand? Începem cu data.',\n      ctaText: 'Trimiteți-mi data și câteva detalii. În cel mult o zi lucrătoare vă spun dacă e liberă.', book: 'Rezervați data' }"
+  "new": "about: { title: 'Despre mine', expect: 'Ce primiți', howBooking: 'Cum lucrăm', ctaTitle: 'Cel mai bun cadru încă nu e făcut.',\n      ctaText: 'Trimiteți-mi data și câteva detalii. În cel mult o zi lucrătoare vă spun dacă e liberă.', book: 'Rezervați data' }"
  },
  {
   "file": "src/lib/i18n.ts",
   "old": "head: ['Planificăm', 'o ședință?']",
-  "new": "head: ['Începem', 'cu data']"
+  "new": "head: ['Spuneți data.', 'Eu fac restul.']"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1072,12 +1072,12 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "intro: 'Aftermovie-uri, highlights și reel-uri pentru rețele sociale, de la conferințe, seminare și evenimente corporative. Fiecare film se deschide pe tot ecranul.'",
-  "new": "intro: 'Aftermovie-uri, momente-cheie și Reels de la conferințe, seminare și evenimente corporative. Fiecare film se deschide pe tot ecranul.'"
+  "new": "intro: 'Aftermovie-uri, momente-cheie și Reels de la conferințe, seminare și evenimente corporative. Pentru cei care au fost — o amintire. Pentru ceilalți — un motiv să vină data viitoare.'"
  },
  {
   "file": "src/lib/i18n.ts",
   "old": "intro: (p: number, e: number) => `${ro(p, 'fotografie', 'fotografii')} de la ${ro(e, 'eveniment', 'evenimente')}. Alegeți o categorie sau deschideți orice cadru pe tot ecranul.`",
-  "new": "intro: (p: number, e: number) => `Conferințe, seminare, evenimente corporative și branduri. Alegeți o categorie sau deschideți orice cadru pe tot ecranul.`"
+  "new": "intro: (p: number, e: number) => `Conferințe, seminare, evenimente corporative și branduri. Aici sunt doar cadrele care au trecut selecția; pe celelalte le-am văzut doar eu. Deschideți oricare pe tot ecranul.`"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1107,7 +1107,7 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "lede: \"Фотосъёмка мероприятий и афтемуви. Фотографии для брендов, Reels для Instagram и контент для соцсетей. В Кишинёве, для компаний и малого бизнеса.\"",
-  "new": "lede: \"Фото и видео мероприятий. Съёмки, Reels и контент для соцсетей — для компаний и малого бизнеса в Кишинёве.\""
+  "new": "lede: \"Фото и видео для мероприятий и брендов в Кишинёве. Снимаю так, что те, кто не пришёл, пожалеют.\""
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1137,12 +1137,12 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "expect: 'Чего ожидать', howBooking: 'Как проходит бронирование', ctaTitle: 'Событие или история вашего бренда?',\n      ctaText: 'Пришлите дату и пару деталей. Я подтвержу, свободна ли, в течение одного рабочего дня.'",
-  "new": "expect: 'Что вы получаете', howBooking: 'Как мы работаем', ctaTitle: 'Мероприятие или бренд? Начнём с даты.',\n      ctaText: 'Пришлите дату и пару деталей. В течение рабочего дня отвечу, свободна ли она.'"
+  "new": "expect: 'Что вы получаете', howBooking: 'Как мы работаем', ctaTitle: 'Лучший кадр вашего события ещё не снят.',\n      ctaText: 'Пришлите дату и пару деталей. В течение рабочего дня отвечу, свободна ли она.'"
  },
  {
   "file": "src/lib/i18n.ts",
   "old": "head: ['Запланируем', 'съёмку?']",
-  "new": "head: ['Начнём', 'с даты']"
+  "new": "head: ['Ваша дата.', 'Мои кадры.']"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1162,12 +1162,12 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "intro: 'Афтемуви, хайлайты и рилсы для соцсетей с конференций, семинаров и корпоративных событий. Каждый фильм открывается на весь экран.'",
-  "new": "intro: 'Афтемуви, хайлайты и Reels с конференций, семинаров и корпоративных мероприятий. Каждый фильм — на весь экран.'"
+  "new": "intro: 'Афтемуви, хайлайты и Reels с конференций, семинаров и корпоративных мероприятий. Тем, кто был, — память. Тем, кто не был, — повод прийти в следующий раз.'"
  },
  {
   "file": "src/lib/i18n.ts",
   "old": "intro: (p: number, e: number) => `${ru(p, 'фотография', 'фотографии', 'фотографий')} с ${ru(e, 'мероприятия', 'мероприятий', 'мероприятий')}. Выберите категорию или откройте любой кадр на весь экран.`",
-  "new": "intro: (p: number, e: number) => `Конференции, семинары, корпоративные мероприятия и бренды. Выберите категорию или откройте любой кадр на весь экран.`"
+  "new": "intro: (p: number, e: number) => `Конференции, семинары, корпоративные мероприятия и бренды. Здесь только кадры, прошедшие отбор; остальные видела только я. Откройте любой на весь экран.`"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1207,7 +1207,7 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "bookStory: 'A story like this for your event?'",
-  "new": "bookStory: 'Want this for your event?'"
+  "new": "bookStory: 'Your event, next?'"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1227,7 +1227,7 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "bookStory: 'O poveste ca aceasta pentru evenimentul dumneavoastră?'",
-  "new": "bookStory: 'Fotografiem la fel evenimentul dumneavoastră?'"
+  "new": "bookStory: 'Următorul — evenimentul dumneavoastră?'"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1242,7 +1242,7 @@
  {
   "file": "src/lib/i18n.ts",
   "old": "bookStory: 'Такая история для вашего мероприятия?'",
-  "new": "bookStory: 'Снимем так же ваше мероприятие?'"
+  "new": "bookStory: 'Следующим будет ваше мероприятие?'"
  },
  {
   "file": "src/lib/i18n.ts",
@@ -1288,5 +1288,30 @@
   "file": "src/lib/i18n.ts",
   "old": "fields: 'Нужны имя, корректный email и сообщение.', links: 'Пожалуйста, добавьте меньше ссылок.'",
   "new": "fields: 'Укажите имя, корректный email и сообщение.', links: 'Уберите часть ссылок из сообщения.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "text: 'Această pagină nu există sau a fost mutată. Lucrările sunt în continuare aici.'",
+  "new": "text: 'Acest cadru nu există. Celelalte sunt la locul lor.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "text: 'Такой страницы нет или она переехала. А работы — на месте.'",
+  "new": "text: 'Этого кадра нет. Остальные — на месте.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "rights: 'All photographs and films are protected by copyright.'",
+  "new": "rights: 'All photographs and films are protected by copyright. Inspiration is free.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "rights: 'Toate fotografiile și filmele sunt protejate de dreptul de autor.'",
+  "new": "rights: 'Toate fotografiile și filmele sunt protejate de dreptul de autor. Inspirația e gratuită.'"
+ },
+ {
+  "file": "src/lib/i18n.ts",
+  "old": "rights: 'Все фотографии и фильмы защищены авторским правом.'",
+  "new": "rights: 'Все фотографии и фильмы защищены авторским правом. Вдохновляться — можно.'"
  }
 ]
