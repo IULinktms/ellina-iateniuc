@@ -74,7 +74,8 @@ function setMenu(open: boolean) {
   toggle.setAttribute('aria-expanded', String(open));
   toggle.textContent = open ? (tx().close || 'Close') : (tx().menu || 'Menu');
   menu.setAttribute('aria-hidden', String(!open));
-  gsap.killTweensOf(menu);
+  gsap.killTweensOf([menu, ...menu.querySelectorAll('.menu__list li')]);
+  gsap.set(menu.querySelectorAll('.menu__list li'), { clearProps: 'transform,opacity' });
   if (open) {
     menu.classList.add('is-open');
     stopScroll();
@@ -93,22 +94,28 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuOpen
 /* ───────────── Page transitions: the browser's view transitions (Astro ClientRouter).
    The clicked event photo morphs into the next page's cover via transition:name. ───────────── */
 document.addEventListener('astro:before-preparation', () => { if (menuOpen) setMenu(false); });
-document.addEventListener('astro:after-swap', () => {
-  lenis?.scrollTo(0, { immediate: true });
-  window.scrollTo(0, 0);
-});
+// ClientRouter owns scroll restoration, including back/forward and hash links.
+// Synchronize Lenis after restoration rather than forcing every history entry to zero.
 
 /* ───────────── Page-level setup (every navigation) ───────────── */
 let ctx: gsap.Context | null = null;
 const cleanups: Array<() => void> = [];
 
 document.addEventListener('astro:before-swap', () => {
-  ctx?.revert();
   cleanups.splice(0).forEach((fn) => fn());
+  ctx?.revert();
+  ctx = null;
+  initializedMain = null;
+  cursor?.classList.remove('is-active');
   ScrollTrigger.getAll().forEach((t) => t.kill());
 });
 
-document.addEventListener('astro:page-load', () => {
+let initializedMain: Element | null = null;
+let clientArrival = false;
+function setupPage() {
+  const main = document.querySelector('main');
+  if (!main || initializedMain === main) return;
+  initializedMain = main;
   const page = document.body.dataset.page ?? '';
   // Persisted language navigation must follow the current story, not the entry page.
   const rest = location.pathname.replace(/^\/(ru|en)(?=\/|$)/, '') || '/';
@@ -134,20 +141,39 @@ document.addEventListener('astro:page-load', () => {
     projectStory();
     homeShutter();
     proofNumbers();
+    viewfinder();
+    magnetic();
+    hoverPreviews();
+    lightbox();
+    player();
+    filters();
+    contactForm();
+    mobileBooking();
+    heroClock();
+    deliveryCalc();
+    runOfShow();
+    toTop();
   });
-  viewfinder();
-  magnetic();
-  hoverPreviews();
-  lightbox();
-  player();
-  filters();
-  contactForm();
-  mobileBooking();
-  heroClock();
-  deliveryCalc();
-  runOfShow();
-  toTop();
-  requestAnimationFrame(() => ScrollTrigger.refresh());
+  document.documentElement.classList.add('motion-ready');
+  let alive = true, refreshFrame = 0;
+  const refresh = () => {
+    if (!alive || refreshFrame) return;
+    refreshFrame = requestAnimationFrame(() => { refreshFrame = 0; if (alive) { ScrollTrigger.sort(); ScrollTrigger.refresh(true); } });
+  };
+  const imageLoaded = (e: Event) => { if (e.target instanceof HTMLImageElement) refresh(); };
+  document.addEventListener('load', imageLoaded, true);
+  document.fonts.ready.then(refresh);
+  refresh();
+  cleanups.push(() => { alive = false; cancelAnimationFrame(refreshFrame); document.removeEventListener('load', imageLoaded, true); });
+}
+// Initialize the incoming DOM before the transition snapshot, never after it has opened.
+document.addEventListener('astro:after-swap', () => { clientArrival = true; setupPage(); });
+document.addEventListener('astro:page-load', () => {
+  setupPage();
+  lenis?.resize();
+  lenis?.scrollTo(window.scrollY, { immediate: true, force: true });
+  // Safari can retain focus on the first link after pointer navigation. Keep keyboard skip navigation intact.
+  if (clientArrival && document.activeElement?.matches('.skip-link')) (document.activeElement as HTMLElement).blur();
 });
 
 /* ───────────── Intro: black → a line of light → the frame opens on the reel.
@@ -162,8 +188,9 @@ function reveals() {
   if (reduced) return;
   gsap.utils.toArray<HTMLElement>('[data-reveal], .spread__text, .section-head, .page-head__row, .p-facts, .principles li, .process li, .film-card, .session').forEach((group) => {
     const parts = group.matches('[data-reveal], .spread__text, .page-head__row') ? Array.from(group.children) : [group];
-    gsap.from(parts, {
-      y: 24, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.07,
+    if (group.getBoundingClientRect().top < innerHeight) { gsap.set(parts, { opacity: 1, y: 0 }); return; }
+    gsap.fromTo(parts, { y: 24, opacity: 0 }, {
+      y: 0, opacity: 1, duration: 0.9, ease: 'expo.out', stagger: 0.07,
       scrollTrigger: { trigger: group, start: 'top 88%', once: true },
     });
   });
@@ -174,16 +201,28 @@ function apertures() {
   const frames = gsap.utils.toArray<HTMLElement>('[data-aperture]:not(.is-open)');
   if (reduced) { frames.forEach((f) => f.classList.add('is-open')); return; }
   frames.forEach((frame) => {
-    // Frames already in view at load (e.g. heroes) open immediately
+    // The page aperture/shared-photo morph owns the incoming viewport; do not open it twice.
+    const alreadyPainted = getComputedStyle(frame).clipPath === 'inset(0px 0px 0px 0px)';
+    if (alreadyPainted || (clientArrival && frame.getBoundingClientRect().top < innerHeight)) { frame.classList.add('is-open'); return; }
     const media = frame.querySelector('img, video');
+    let opening: gsap.core.Timeline | undefined;
+    let alive = true;
+    cleanups.push(() => { alive = false; opening?.kill(); });
     ScrollTrigger.create({
       trigger: frame,
       start: 'top 88%',
       once: true,
       onEnter: () => {
-        gsap.timeline({ onComplete: () => { frame.classList.add('is-open'); gsap.set(frame, { clearProps: 'clipPath' }); } })
-          .fromTo(frame, { clipPath: 'inset(49.5% 0% 49.5% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut' })
-          .from(media, { scale: 1.18, duration: 1.8, ease: 'expo.out' }, 0.05);
+        const open = () => {
+          if (!alive || !frame.isConnected) return;
+          frame.classList.add('is-opening');
+          frame.classList.remove('is-pending', 'is-loaded');
+          opening = gsap.timeline({ onComplete: () => { frame.classList.add('is-open'); frame.classList.remove('is-opening'); gsap.set(frame, { clearProps: 'clipPath' }); } })
+            .fromTo(frame, { clipPath: 'inset(49.5% 0% 49.5% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut' });
+          if (media && !frame.closest('.p-hero, .g-full')) opening.from(media, { scale: 1.18, duration: 1.8, ease: 'expo.out' }, 0.05);
+        };
+        if (media instanceof HTMLImageElement) { media.loading = 'eager'; media.decode().then(open, open); }
+        else open();
       },
     });
   });
@@ -212,6 +251,7 @@ function parallax() {
 function headings() {
   document.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
     if (reduced) return;
+    if (el.dataset.split === 'now' || el.getBoundingClientRect().top < innerHeight) return;
     bindNbsp(el);
     const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line', aria: /^H[1-6]$/.test(el.tagName) ? 'auto' : 'none' });
     gsap.from(split.lines, {
@@ -259,7 +299,7 @@ function filmStrip() {
     // The track travels its full width over 40% of that in scroll: a short pin, still easy to follow
     gsap.to(track, {
       x: () => -distance(), ease: 'none',
-      scrollTrigger: { trigger: strip, start: 'top top', end: () => `+=${Math.round(distance() * 0.4)}`, scrub: 0.6, pin: true, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: strip, start: 'top top', end: () => `+=${Math.round(distance() * 0.4)}`, scrub: 0.6, pin: true, anticipatePin: 1, pinSpacing: true, invalidateOnRefresh: true },
     });
   });
 }
@@ -268,7 +308,7 @@ function filmStrip() {
 function floatPreview() {
   const list = document.querySelector<HTMLElement>('[data-float-list]');
   const box = document.querySelector<HTMLElement>('.float-preview');
-  if (!list || !box || !finePointer) return;
+  if (!list || !box || !finePointer || reduced) return;
   const imgs = box.querySelectorAll<HTMLImageElement>('img');
   const x = gsap.quickTo(box, 'x', { duration: 0.7, ease: 'power3' });
   const y = gsap.quickTo(box, 'y', { duration: 0.7, ease: 'power3' });
@@ -303,11 +343,15 @@ function floatPreview() {
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('blur', hide);
-  document.addEventListener('astro:before-swap', () => {
+  cleanups.push(() => {
+    list.removeEventListener('pointermove', move);
+    list.removeEventListener('pointerenter', show);
+    list.removeEventListener('pointerleave', hide);
     window.removeEventListener('scroll', onScroll);
     window.removeEventListener('blur', hide);
+    gsap.killTweensOf(box);
     gsap.set(box, { clipPath: 'inset(50% 0 50% 0)' });
-  }, { once: true });
+  });
 }
 
 /* ───────────── Muted video previews on hover ───────────── */
@@ -334,29 +378,43 @@ const lbProj = lb.querySelector<HTMLAnchorElement>('[data-lb-project]')!;
 let lbItems: HTMLElement[] = [];
 let lbIndex = 0;
 
-function lbShow(i: number, dir = 0) {
+let lbRequest = 0;
+let lbAnimation: gsap.core.Timeline | undefined;
+async function lbShow(i: number, dir = 0) {
+  if (!lbItems.length) return;
+  const request = ++lbRequest;
+  lbAnimation?.kill();
+  gsap.killTweensOf(lbImg);
+  gsap.set(lbImg, { opacity: 1, x: 0 });
   lbIndex = (i + lbItems.length) % lbItems.length;
-  const it = lbItems[lbIndex];
+  const index = lbIndex;
+  const it = lbItems[index];
+  const status = lb.querySelector<HTMLElement>('[data-lb-status]')!;
+  status.textContent = tx().loading;
+  const decoded = new Image();
+  decoded.src = it.dataset.full!;
+  try { await decoded.decode(); } catch {
+    if (request === lbRequest) status.textContent = tx().imageError;
+    return;
+  }
+  if (request !== lbRequest || !lb.open) return;
   const swap = () => {
     resetPhotoZoom();
-    const status = lb.querySelector<HTMLElement>('[data-lb-status]')!;
-    status.textContent = tx().loading;
-    lbImg.onload = () => { status.textContent = ''; };
-    lbImg.onerror = () => { status.textContent = tx().imageError; };
-    lbImg.src = it.dataset.full!;
-    for (const offset of [-1, 1]) {
-      const adjacent = lbItems[(lbIndex + offset + lbItems.length) % lbItems.length];
-      if (adjacent?.dataset.full) { const preload = new Image(); preload.src = adjacent.dataset.full; }
-    }
+    lbImg.src = decoded.src;
     lbImg.alt = it.dataset.alt ?? '';
-    lbCount.textContent = `${String(lbIndex + 1).padStart(2, '0')} / ${String(lbItems.length).padStart(2, '0')}`;
+    status.textContent = '';
+    lbCount.textContent = `${String(index + 1).padStart(2, '0')} / ${String(lbItems.length).padStart(2, '0')}`;
     lbCap.textContent = it.dataset.caption ?? '';
     if (it.dataset.project && it.dataset.projectUrl !== location.pathname) {
       lbProj.hidden = false; lbProj.href = it.dataset.projectUrl!; lbProj.textContent = fill(tx().from || 'From {x}', { x: it.dataset.project! });
     } else lbProj.hidden = true;
+    for (const offset of [-1, 1]) {
+      const adjacent = lbItems[(index + offset + lbItems.length) % lbItems.length];
+      if (adjacent?.dataset.full) { const preload = new Image(); preload.src = adjacent.dataset.full; }
+    }
   };
-  if (!dir || reduced) { gsap.killTweensOf(lbImg); gsap.set(lbImg, { opacity: 1, x: 0 }); swap(); return; }
-  gsap.timeline()
+  if (!dir || reduced) { swap(); return; }
+  lbAnimation = gsap.timeline()
     .to(lbImg, { opacity: 0, x: -dir * 24, duration: 0.14, ease: 'power1.out' })
     .add(swap)
     .fromTo(lbImg, { opacity: 0, x: dir * 32 }, { opacity: 1, x: 0, duration: 0.32, ease: EASE });
@@ -376,7 +434,7 @@ function lightbox() {
 lb.querySelectorAll('[data-lb-prev]').forEach((b) => b.addEventListener('click', () => lbShow(lbIndex - 1, -1)));
 lb.querySelectorAll('[data-lb-next]').forEach((b) => b.addEventListener('click', () => lbShow(lbIndex + 1, 1)));
 lb.querySelector('[data-lb-close]')!.addEventListener('click', () => lb.close());
-lb.addEventListener('close', () => { resetPhotoZoom(); startScroll(); lbItems[lbIndex]?.focus(); });
+lb.addEventListener('close', () => { ++lbRequest; lbAnimation?.kill(); gsap.killTweensOf([lb, lbImg]); lbImg.removeAttribute('src'); gsap.set(lbImg, { opacity: 1, x: 0 }); resetPhotoZoom(); startScroll(); lbItems[lbIndex]?.focus(); });
 lb.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
   if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
@@ -441,12 +499,24 @@ function filters() {
     const target = document.querySelector<HTMLElement>(bar.dataset.filters!)!;
     const items = Array.from(target.querySelectorAll<HTMLElement>('[data-cat]'));
     const buttons = Array.from(bar.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+    let animation: gsap.core.Timeline | undefined;
+    cleanups.push(() => { animation?.kill(); gsap.killTweensOf(items); });
     const apply = (cat: string, animate = true) => {
+      if (animation?.isActive()) animation.progress(1);
+      animation?.kill();
+      gsap.killTweensOf(items);
+      gsap.set(items, { clearProps: 'opacity,clipPath' });
       buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
       const state = Flip.getState(items);
-      items.forEach((it) => { it.hidden = !(cat === 'all' || it.dataset.cat === cat); });
+      items.forEach((it) => {
+        it.hidden = !(cat === 'all' || it.dataset.cat === cat);
+        if (animate && !it.hidden) it.querySelectorAll<HTMLElement>('[data-aperture]').forEach((frame) => {
+          ScrollTrigger.getAll().filter((t) => t.trigger === frame).forEach((t) => t.kill());
+          gsap.killTweensOf(frame); frame.classList.add('is-open'); gsap.set(frame, { clearProps: 'clipPath' });
+        });
+      });
       if (animate && !reduced) {
-        Flip.from(state, {
+        animation = Flip.from(state, {
           duration: 0.6, ease: SHUTTER, absolute: true, scale: false,
           onEnter: (els) => gsap.fromTo(els, { opacity: 0, clipPath: 'inset(50% 0 50% 0)' }, { opacity: 1, clipPath: 'inset(0% 0 0% 0)', duration: 0.6, ease: EASE }),
           onLeave: (els) => gsap.to(els, { opacity: 0, duration: 0.2 }),
@@ -733,7 +803,7 @@ function viewfinder() {
   // Hide the focus point once the hero scrolls away
   const st = ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom top', onLeave: leave, onEnterBack: enter });
   cleanups.push(() => {
-    clearTimeout(settle); st.kill();
+    clearTimeout(settle); st.kill(); gsap.killTweensOf(focus);
     hero.removeEventListener('pointermove', move);
     hero.removeEventListener('pointerenter', enter);
     hero.removeEventListener('pointerleave', leave);
@@ -799,7 +869,10 @@ function marquee() {
   const root = document.querySelector<HTMLElement>('[data-marquee]');
   if (!root || reduced) return;
   const track = root.querySelector<HTMLElement>('[data-marquee-track]')!;
-  const setW = () => (track.firstElementChild as HTMLElement).offsetWidth;
+  let width = (track.firstElementChild as HTMLElement).offsetWidth;
+  const measure = () => { width = (track.firstElementChild as HTMLElement).offsetWidth; };
+  const resize = new ResizeObserver(measure); resize.observe(track.firstElementChild!);
+  cleanups.push(() => resize.disconnect());
   let x = 0, dir = -1, boost = 0;
   const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: 'power3' });
   ScrollTrigger.create({
@@ -812,7 +885,8 @@ function marquee() {
     },
   });
   const tick = () => {
-    const w = setW();
+    const w = width;
+    if (!w) return;
     x += dir * (0.6 + boost);
     boost *= 0.92;
     if (Math.abs(boost) < 0.05) skew(0);
@@ -833,12 +907,15 @@ function magnetic() {
     el.classList.add('is-magnetic');
     const xTo = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3' });
     const yTo = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3' });
-    el.addEventListener('pointermove', (e) => {
+    const move = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
       xTo((e.clientX - (r.left + r.width / 2)) * 0.3);
       yTo((e.clientY - (r.top + r.height / 2)) * 0.4);
-    });
-    el.addEventListener('pointerleave', () => { xTo(0); yTo(0); gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' }); });
+    };
+    const leave = () => { xTo(0); yTo(0); };
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerleave', leave);
+    cleanups.push(() => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave); delete el.dataset.magnetic; el.classList.remove('is-magnetic'); gsap.killTweensOf(el); gsap.set(el, { clearProps: 'transform' }); });
   });
 }
 
@@ -874,7 +951,7 @@ function projectStory() {
   if (!reduced) {
     const hero = document.querySelector('.p-hero');
     if (hero) {
-      gsap.to(hero.querySelector('.frame img'), { scale: 1.08, filter: 'brightness(0.65)', ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 } });
+      gsap.to(hero.querySelector('.frame img'), { scale: 1.08, opacity: 0.65, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 } });
     }
     const mm = gsap.matchMedia();
     mm.add('(min-width: 901px)', () => {
@@ -944,9 +1021,6 @@ function homeShutter() {
   const shutter = hero?.querySelector<HTMLElement>('[data-home-shutter]');
   const video = hero?.querySelector<HTMLVideoElement>('[data-hero-video]');
   if (!hero || !shutter || !video || reduced) return;
-  let alive = true;
-  document.fonts.ready.then(() => { if (alive) { ScrollTrigger.sort(); ScrollTrigger.refresh(); } });
-  cleanups.push(() => { alive = false; });
   let fired = false;
   let animation: gsap.core.Timeline | undefined;
   const freeze = () => {
@@ -955,10 +1029,8 @@ function homeShutter() {
     hero.classList.add('is-frozen');
     video.pause();
     animation = gsap.timeline()
-      .set(shutter, { backgroundColor: '#000', opacity: 0.65 })
-      .to(shutter, { opacity: 0, duration: 0.14, ease: 'uiOut' })
-      .set(shutter, { backgroundColor: '#ece7df', opacity: 0.06 })
-      .to(shutter, { opacity: 0, duration: 0.2, ease: 'uiOut' });
+      .fromTo(shutter, { backgroundColor: '#000', opacity: 0 }, { opacity: 0.65, duration: 0.08, ease: 'power1.in' })
+      .to(shutter, { opacity: 0, duration: 0.26, ease: 'uiOut' });
   };
   window.addEventListener('scroll', freeze, { passive: true });
   cleanups.push(() => { window.removeEventListener('scroll', freeze); animation?.kill(); });
@@ -1047,7 +1119,7 @@ function deferHeroVideo() {
   const later = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 200));
   if (document.readyState === 'complete') later();
   else window.addEventListener('load', later, { once: true });
-  cleanups.push(() => { cancelled = true; window.removeEventListener('load', later); });
+  cleanups.push(() => { cancelled = true; v.pause(); window.removeEventListener('load', later); });
 }
 
 /* Run-of-show stills: only the desktop stack shows them, so load them as the section nears */
@@ -1103,7 +1175,9 @@ function splitLabels() {
 const lqipDone = (img: HTMLImageElement) => {
   const frame = img.closest<HTMLElement>('[data-lqip]');
   if (!frame?.classList.contains('is-pending')) return;
+  if (frame.hasAttribute('data-aperture')) { frame.classList.remove('is-pending', 'is-loaded'); return; }
   const show = () => requestAnimationFrame(() => {
+    if (!frame.isConnected) return;
     frame.classList.add('is-loaded');
     // Hand the image back to its own rules (hover zoom transitions etc.) once it has faded in
     setTimeout(() => frame.classList.remove('is-pending', 'is-loaded'), 800);
@@ -1133,9 +1207,12 @@ const lqipMark = () => {
   const fold = window.innerHeight * 1.1;
   document.querySelectorAll<HTMLElement>('[data-lqip]:not([data-lqip="eager"])').forEach((frame) => {
     const img = frame.querySelector<HTMLImageElement>('img');
-    if (!img || (img.complete && img.naturalWidth) || frame.getBoundingClientRect().top < fold) return;
+    if (frame.hasAttribute('data-aperture') || !img || (img.complete && img.naturalWidth) || frame.getBoundingClientRect().top < fold) return;
     frame.classList.add('is-pending');
   });
 };
 lqipMark();
 document.addEventListener('astro:after-swap', lqipMark);
+
+// Module scripts run after parsing; establish scroll states before waiting for media load.
+setupPage();
