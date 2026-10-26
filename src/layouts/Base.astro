@@ -235,6 +235,13 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
         started = true;
         arm();
         import('../scripts/app');
+        // Vercel Web Analytics + Speed Insights wait for idle (Speed Insights reads the buffered paint
+        // and layout-shift entries, so it still sees this load's LCP and CLS)
+        const idle = (fn: () => void) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 4000 }) : setTimeout(fn, 2000));
+        idle(() => {
+          import('@vercel/analytics').then((m) => m.inject({ framework: 'astro' }));
+          import('@vercel/speed-insights').then((m) => m.injectSpeedInsights({ framework: 'astro' }));
+        });
       };
       // Paint timing reports the first contentful paint (rAF alone fires before it)…
       if (PerformanceObserver.supportedEntryTypes?.includes('paint')) {
