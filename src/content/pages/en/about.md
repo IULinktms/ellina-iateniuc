@@ -1,8 +1,8 @@
 ---
 title: "About"
 intro: "I’m Ellina, a photographer, filmmaker and content creator in Chișinău. I cover events for organisers and companies, and create photography, Instagram Reels and social media content for brands and small businesses."
-portrait: ../../../assets/uploads/portrait-irina.jpg
-portraitAlt: "Portrait in natural light"
+portrait: ../../../assets/uploads/portrait-ellina.jpg
+portraitAlt: "Ellina Yatsenyuk, photographer and videographer in Chișinău"
 secondImage: ../../../assets/uploads/summit-microphone.jpg
 secondImageAlt: "Microphone on stage in front of an audience"
 principles:

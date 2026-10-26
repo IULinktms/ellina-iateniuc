@@ -1,8 +1,8 @@
 ---
 title: "Despre mine"
 intro: "Sunt Ellina, fotograf, videograf și creator de conținut din Chișinău. Fotografiez evenimente pentru organizatori și companii și creez fotografii, Reels pentru Instagram și conținut social media pentru branduri și afaceri mici."
-portrait: ../../../assets/uploads/portrait-irina.jpg
-portraitAlt: "Portret în lumină naturală"
+portrait: ../../../assets/uploads/portrait-ellina.jpg
+portraitAlt: "Ellina Yatsenyuk, fotograf și videograf din Chișinău"
 secondImage: ../../../assets/uploads/summit-microphone.jpg
 secondImageAlt: "Microfon pe scenă, în fața publicului"
 principles:
