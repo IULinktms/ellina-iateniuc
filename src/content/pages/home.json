@@ -1,0 +1,46 @@
+{
+  "heroVideo": "/media/films/showreel-2026.mp4",
+  "heroPoster": "../../assets/uploads/film-showreel-2026-poster.jpg",
+  "heroPosterAlt": "Mist rolling over green cliffs at sunrise",
+  "statement": "I photograph people and places the way they feel when no one is directing them: unhurried, a little imperfect, and lit by whatever the day provides.",
+  "featuredProjects": [
+    "salt-and-veil",
+    "quiet-hours",
+    "milano-off-duty",
+    "nocturne"
+  ],
+  "disciplines": [
+    {
+      "label": "Portraits",
+      "category": "Portraits",
+      "image": "../../assets/uploads/quiet-hours-blue-hour.jpg",
+      "alt": "Portrait in blue light"
+    },
+    {
+      "label": "Weddings",
+      "category": "Weddings",
+      "image": "../../assets/uploads/salt-veil-bride-shoreline.jpg",
+      "alt": "Couple on a beach"
+    },
+    {
+      "label": "Editorial",
+      "category": "Editorial",
+      "image": "../../assets/uploads/nocturne-green-room.jpg",
+      "alt": "Model against a green wall"
+    },
+    {
+      "label": "Commercial",
+      "category": "Commercial",
+      "image": "../../assets/uploads/linen-archive-rail.jpg",
+      "alt": "Knitwear on a rail"
+    },
+    {
+      "label": "Landscape",
+      "category": "Landscape",
+      "image": "../../assets/uploads/valley-glacier-lake.jpg",
+      "alt": "Glacier lake at sunset"
+    }
+  ],
+  "ctaTitle": "Let's make something that lasts.",
+  "ctaText": "Portraits, weddings, editorial and brand work in Moldova and across Europe. Tell me what you have in mind."
+}

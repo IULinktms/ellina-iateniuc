@@ -1,0 +1,180 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import type { ImageMetadata } from 'astro';
+import { getSite, shareImage } from '../lib/content';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>;
+  page: string;
+  noindex?: boolean;
+}
+const { title, description, image, imageAlt, type = 'website', jsonLd, page, noindex = false } = Astro.props;
+const site = await getSite();
+const fullTitle = title ? `${title} — ${site.name}` : site.seoTitle;
+const desc = description ?? site.seoDescription;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = new URL(await shareImage(image ?? site.shareImage), Astro.site);
+
+const nav = [
+  { href: '/portfolio/', label: 'Portfolio', key: 'portfolio' },
+  { href: '/films/', label: 'Films', key: 'films' },
+  { href: '/about/', label: 'About', key: 'about' },
+  { href: '/contact/', label: 'Book a session', key: 'contact' },
+];
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  description: site.seoDescription,
+  url: Astro.site?.toString(),
+  image: og.toString(),
+  email: site.email,
+  address: { '@type': 'PostalAddress', addressLocality: site.location },
+  founder: { '@type': 'Person', name: site.name, jobTitle: site.role },
+  sameAs: site.socials.map((s) => s.url),
+};
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en" transition:animate="none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={og} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? personLd)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <ClientRouter fallback="swap" />
+  </head>
+  <body data-page={page}>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="nav" transition:persist="nav">
+      <a href="/" class="nav__mark" aria-label={`${site.name}, home`}>Ellina <span>Iateniuc</span></a>
+      <nav aria-label="Main">
+        <ul class="nav__links" role="list">
+          {nav.map((n) => (
+            <li><a class="line-link" href={n.href} data-nav={n.key} aria-current={page === n.key ? 'page' : undefined}>{n.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="menu" data-menu-toggle>Menu</button>
+    </header>
+
+    <div class="menu" id="menu" aria-hidden="true" transition:persist="menu">
+      <ul class="menu__list" role="list">
+        <li><a href="/" data-nav="home">Home</a></li>
+        {nav.map((n) => <li><a href={n.href} data-nav={n.key}>{n.label}</a></li>)}
+      </ul>
+      <div class="menu__foot">
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <span>{site.socials.map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="me noopener" target="_blank">{s.label}</a></>)}</span>
+      </div>
+    </div>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    {page !== '404' && (
+      <footer class="footer">
+        <div class="footer__grid">
+          <div>
+            <p class="muted">{site.role}, {site.location}.</p>
+            <p style="margin-top:.4rem"><a class="line-link" href={`mailto:${site.email}`}>{site.email}</a></p>
+          </div>
+          <div>
+            <h2>Pages</h2>
+            <ul role="list">
+              <li><a class="line-link" href="/portfolio/">Portfolio</a></li>
+              <li><a class="line-link" href="/films/">Films</a></li>
+              <li><a class="line-link" href="/about/">About</a></li>
+              <li><a class="line-link" href="/contact/">Book a session</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Elsewhere</h2>
+            <ul role="list">
+              {site.socials.map((s) => <li><a class="line-link" href={s.url} rel="me noopener" target="_blank">{s.label}</a></li>)}
+            </ul>
+          </div>
+        </div>
+        <p class="footer__big" aria-hidden="true">Ellina <span>Iateniuc</span></p>
+        <div class="footer__legal">
+          <span>© {year} {site.name}. All photographs and films are protected by copyright.</span>
+          <a href="#main" class="line-link" data-to-top>Back to top</a>
+        </div>
+      </footer>
+    )}
+
+    <!-- Viewfinder cursor (decorative) -->
+    <div class="cursor is-hidden" aria-hidden="true" transition:persist="cursor">
+      <div class="cursor__ring"><i></i><i></i><i></i><i></i></div>
+      <div class="cursor__dot"></div>
+      <div class="cursor__label"></div>
+    </div>
+
+    <!-- Page-transition curtain -->
+    <div class="curtain" aria-hidden="true" transition:persist="curtain"><i></i><span class="curtain__slit"></span><i></i></div>
+
+    <!-- Full-screen photo viewer -->
+    <dialog class="lightbox" aria-label="Photo viewer" data-lightbox transition:persist="lightbox">
+      <div class="lightbox__bar">
+        <span class="tnum" data-lb-count></span>
+        <button class="icon-btn" data-lb-close aria-label="Close viewer"><Icon name="close" /></button>
+      </div>
+      <div class="lightbox__stage">
+        <img alt="" data-lb-img />
+        <button class="lightbox__prev-zone" data-lb-prev tabindex="-1" aria-hidden="true"></button>
+        <button class="lightbox__next-zone" data-lb-next tabindex="-1" aria-hidden="true"></button>
+      </div>
+      <div class="lightbox__foot">
+        <p data-lb-caption></p>
+        <div class="lightbox__nav">
+          <a class="line-link" data-lb-project href="#" hidden>See the project</a>
+          <button class="icon-btn" data-lb-prev aria-label="Previous photo"><Icon name="prev" /></button>
+          <button class="icon-btn" data-lb-next aria-label="Next photo"><Icon name="next" /></button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Film player -->
+    <dialog class="player" aria-label="Film player" data-player transition:persist="player">
+      <div class="lightbox__bar">
+        <span data-player-title></span>
+        <button class="icon-btn" data-player-close aria-label="Close film"><Icon name="close" /></button>
+      </div>
+      <div class="player__stage" data-player-stage></div>
+    </dialog>
+
+    <script>
+      import '../scripts/app';
+    </script>
+  </body>
+</html>

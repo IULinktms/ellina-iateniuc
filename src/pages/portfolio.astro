@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import Frame from '../components/Frame.astro';
+import { CATEGORIES } from '../content.config';
+import { getProjects, fullSize, slugify } from '../lib/content';
+
+const projects = await getProjects();
+
+// Every portfolio photograph: each project's cover plus its gallery images
+const photos = (
+  await Promise.all(
+    projects.flatMap((p) => [
+      { src: p.data.cover, alt: p.data.coverAlt, caption: p.data.title, p },
+      ...p.data.gallery.filter((g) => g.inPortfolio).map((g) => ({ src: g.image, alt: g.alt, caption: g.caption ?? p.data.title, p })),
+    ]).map(async (ph) => ({ ...ph, full: await fullSize(ph.src) })),
+  )
+);
+// Interleave projects so the "All" view doesn't read as blocks
+const byProject = projects.map((p) => photos.filter((ph) => ph.p.id === p.id));
+const mixed: typeof photos = [];
+for (let i = 0; byProject.some((b) => b[i]); i++) byProject.forEach((b) => b[i] && mixed.push(b[i]));
+
+const counts = Object.fromEntries(CATEGORIES.map((c) => [c, photos.filter((ph) => ph.p.data.category === c).length]));
+const cats = CATEGORIES.filter((c) => counts[c] > 0);
+---
+
+<Base page="portfolio" title="Portfolio" description="Portraits, weddings, editorial, commercial and landscape photography by Ellina Iateniuc.">
+  <header class="page-head">
+    <h1 class="display" data-split="now">Portfolio</h1>
+    <div class="page-head__row">
+      <p>{photos.length} photographs from {projects.length} projects. Choose a category, or open any frame to see it full screen.</p>
+      <div class="filters" role="group" aria-label="Filter by category" data-filters="#gallery">
+        <button class="filter" data-filter="all" aria-pressed="true">All<sup>{photos.length}</sup></button>
+        {cats.map((c) => <button class="filter" data-filter={slugify(c)} aria-pressed="false">{c}<sup>{counts[c]}</sup></button>)}
+      </div>
+    </div>
+  </header>
+
+  <section class="masonry" id="gallery" aria-label="Photographs">
+    {mixed.map((ph) => (
+      <figure class="masonry__item" data-cat={slugify(ph.p.data.category)}>
+        <button
+          data-lb-item
+          data-full={ph.full}
+          data-alt={ph.alt}
+          data-caption={ph.caption}
+          data-project={ph.p.data.title}
+          data-project-url={`/work/${ph.p.id}/`}
+          data-cursor="Expand"
+          aria-label={`Open full screen: ${ph.alt}`}
+        >
+          <Frame src={ph.src} alt={ph.alt} sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw" widths={[480, 800, 1200]} style={`aspect-ratio:${ph.src.width}/${ph.src.height}`} />
+          <figcaption><span>{ph.p.data.title}</span><span>{ph.p.data.category}</span></figcaption>
+        </button>
+      </figure>
+    ))}
+  </section>
+
+  <section class="wrap" style="padding-bottom: var(--section)" aria-labelledby="proj-h">
+    <div class="section-head"><h2 id="proj-h">Projects</h2></div>
+    <ul role="list" class="proj-list">
+      {projects.map((p) => (
+        <li>
+          <a href={`/work/${p.id}/`} class="proj-row" data-cursor="View story">
+            <span class="display">{p.data.title}</span>
+            <span class="muted small tnum">{p.data.category}, {p.data.year}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .proj-list { border-top: 1px solid var(--line); }
+  .proj-list li { border-bottom: 1px solid var(--line); }
+  .proj-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-block: 1.4rem; transition: padding 0.6s var(--ease-out); }
+  .proj-row .display { font-size: var(--t-xl); }
+  .proj-row:hover { padding-left: 1.25rem; }
+  .proj-row:hover .display { font-style: italic; }
+</style>

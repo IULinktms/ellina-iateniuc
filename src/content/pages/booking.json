@@ -1,0 +1,31 @@
+{
+  "title": "Book a session",
+  "intro": "Tell me a little about what you're planning. I'll come back with availability, a rough plan and a quote.",
+  "sessions": [
+    {
+      "name": "Portrait session",
+      "duration": "2 hours",
+      "includes": "Location or studio, 25 edited photographs, private online gallery",
+      "price": "Placeholder price"
+    },
+    {
+      "name": "Wedding & celebration",
+      "duration": "Half or full day",
+      "includes": "Photography, optional film, edited gallery within six weeks",
+      "price": "Placeholder price"
+    },
+    {
+      "name": "Editorial & brand",
+      "duration": "By project",
+      "includes": "Creative direction, production support, usage licensing",
+      "price": "Quoted per project"
+    },
+    {
+      "name": "Film & motion",
+      "duration": "By project",
+      "includes": "Short films, reels and behind-the-scenes content, delivered in all formats",
+      "price": "Quoted per project"
+    }
+  ],
+  "successMessage": "Thank you. Your message is with me, and I'll reply within two working days."
+}

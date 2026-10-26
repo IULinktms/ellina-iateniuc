@@ -1,0 +1,240 @@
+# ─────────────────────────────────────────────────────────────
+#  Ellina's studio — content editor configuration (Sveltia CMS)
+#  Open https://<your-domain>/admin to edit the site.
+# ─────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: OWNER/ellina-iateniuc   # ← replace OWNER with the GitHub account that holds the site
+  branch: main
+  # base_url: https://<your-auth-worker>.workers.dev   # optional: one-click GitHub sign-in (see README)
+
+site_url: https://ellinaiateniuc.com
+display_url: https://ellinaiateniuc.com
+logo_url: /favicon.svg
+publish_mode: simple
+
+# Photos live here and are turned into fast, responsive WebP versions when the site builds.
+media_folder: src/assets/uploads
+public_folder: ../../assets/uploads
+
+# Uploads are resized and converted in the browser before they're saved, so huge camera files never bloat the site.
+media_libraries:
+  default:
+    config:
+      max_file_size: 60000000
+      transformations:
+        raster_image:
+          format: webp
+          quality: 88
+          width: 3000
+          height: 3000
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  # ───────────── Projects (photo stories) ─────────────
+  - name: projects
+    label: Projects
+    label_singular: Project
+    description: Each project is a full-screen photo story. Turn on "Hide from the site" to unpublish without deleting.
+    folder: src/content/projects
+    create: true
+    delete: true
+    slug: '{{title}}'
+    media_folder: ../../assets/uploads
+    public_folder: ../../assets/uploads
+    summary: '{{title}} — {{category}}, {{year}}{{draft | ternary(" (hidden)", "")}}'
+    sortable_fields: [order, year, title]
+    view_filters:
+      - { label: Weddings, field: category, pattern: Weddings }
+      - { label: Portraits, field: category, pattern: Portraits }
+      - { label: Editorial, field: category, pattern: Editorial }
+      - { label: Commercial, field: category, pattern: Commercial }
+      - { label: Landscape, field: category, pattern: Landscape }
+      - { label: Hidden, field: draft, pattern: true }
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: subtitle, label: Subtitle, widget: string, required: false, hint: 'A short line under the title, e.g. "A wedding on the edge of the Black Sea".' }
+      - { name: category, label: Category, widget: select, options: [Portraits, Editorial, Weddings, Landscape, Commercial] }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: location, label: Location, widget: string, required: false }
+      - { name: client, label: Client, widget: string, required: false }
+      - { name: excerpt, label: Short description, widget: text, hint: 'One or two sentences. Shown on the home page, in the portfolio and in search results.' }
+      - { name: cover, label: Cover photo, widget: image, hint: 'The large opening photo of the project. Landscape or portrait both work.' }
+      - { name: coverAlt, label: Cover description, widget: string, hint: 'Describe what is in the photo for people using screen readers and for Google.' }
+      - { name: coverVideo, label: Cover video (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short, silent MP4 loop that plays behind the title. Keep under 15 MB.' }
+      - name: gallery
+        label: Photo story
+        label_singular: Photo
+        widget: list
+        summary: '{{fields.layout}} — {{fields.alt}}'
+        hint: Drag to reorder. Pick a layout per photo to shape the rhythm of the story.
+        fields:
+          - { name: image, label: Photo, widget: image }
+          - { name: alt, label: Description, widget: string }
+          - { name: caption, label: Caption (optional), widget: string, required: false }
+          - name: layout
+            label: Layout
+            widget: select
+            default: wide
+            options:
+              - { label: 'Full bleed — edge to edge', value: full }
+              - { label: 'Wide — large and centred', value: wide }
+              - { label: 'Half — two side by side (use in pairs)', value: half }
+              - { label: 'Small, left', value: inset-left }
+              - { label: 'Small, right', value: inset-right }
+          - { name: inPortfolio, label: Show in the portfolio gallery, widget: boolean, default: true }
+      - name: credits
+        label: Credits
+        widget: list
+        required: false
+        summary: '{{fields.role}}: {{fields.name}}'
+        fields:
+          - { name: role, label: Role, widget: string }
+          - { name: name, label: Name, widget: string }
+      - { name: body, label: Story, widget: markdown, required: false, hint: 'The text that accompanies the photographs.' }
+      - { name: seoDescription, label: Search description (optional), widget: text, required: false }
+      - { name: order, label: Order, widget: number, value_type: int, default: 100, hint: 'Lower numbers appear first.' }
+      - { name: draft, label: Hide from the site, widget: boolean, default: false }
+
+  # ───────────── Films ─────────────
+  - name: films
+    label: Films & video
+    label_singular: Film
+    description: Films, reels and behind-the-scenes. Upload an MP4 or paste a Vimeo/YouTube link.
+    folder: src/content/films
+    create: true
+    delete: true
+    slug: '{{title}}'
+    media_folder: ../../assets/uploads
+    public_folder: ../../assets/uploads
+    summary: '{{title}} — {{kind}}, {{year}}{{draft | ternary(" (hidden)", "")}}'
+    sortable_fields: [order, year, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: kind, label: Type, widget: select, options: [Film, Reel, Behind the scenes] }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: duration, label: Duration, widget: string, required: false, hint: 'e.g. 3:42' }
+      - { name: location, label: Location, widget: string, required: false }
+      - { name: excerpt, label: Short description, widget: text }
+      - { name: poster, label: Poster image, widget: image, hint: 'A still from the film. Shown before it plays.' }
+      - { name: posterAlt, label: Poster description, widget: string }
+      - { name: videoUrl, label: Vimeo or YouTube link, widget: string, required: false, hint: 'Best for long films. Paste the normal page link — it is converted to a player automatically.' }
+      - { name: videoFile, label: Or upload an MP4, widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'For short films under ~50 MB.' }
+      - { name: previewFile, label: Hover preview (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short silent loop that plays when someone hovers the film.' }
+      - { name: project, label: Related project, widget: relation, collection: projects, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false }
+      - name: credits
+        label: Credits
+        widget: list
+        required: false
+        summary: '{{fields.role}}: {{fields.name}}'
+        fields:
+          - { name: role, label: Role, widget: string }
+          - { name: name, label: Name, widget: string }
+      - { name: order, label: Order, widget: number, value_type: int, default: 100, hint: 'The film with the lowest number is the large featured film.' }
+      - { name: featured, label: Show on the home page, widget: boolean, default: false }
+      - { name: draft, label: Hide from the site, widget: boolean, default: false }
+
+  # ───────────── Pages ─────────────
+  - name: pages
+    label: Pages & settings
+    editor: { preview: false }
+    files:
+      - name: home
+        label: Home page
+        file: src/content/pages/home.json
+        media_folder: ../../assets/uploads
+        public_folder: ../../assets/uploads
+        fields:
+          - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.' }
+          - { name: heroPoster, label: Opening image, widget: image, hint: 'Shown while the video loads and on slow connections. Use the first frame of the video.' }
+          - { name: heroPosterAlt, label: Opening image description, widget: string }
+          - { name: statement, label: Statement, widget: text }
+          - name: featuredProjects
+            label: Selected work (in order)
+            widget: relation
+            collection: projects
+            value_field: '{{slug}}'
+            search_fields: [title]
+            display_fields: [title]
+            multiple: true
+          - name: disciplines
+            label: What I photograph
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: category, label: Opens portfolio category, widget: select, options: [Portraits, Editorial, Weddings, Landscape, Commercial] }
+              - { name: image, label: Hover image, widget: image }
+              - { name: alt, label: Image description, widget: string }
+          - { name: ctaTitle, label: Closing headline, widget: string }
+          - { name: ctaText, label: Closing text, widget: text }
+
+      - name: about
+        label: About page
+        file: src/content/pages/about.md
+        media_folder: ../../assets/uploads
+        public_folder: ../../assets/uploads
+        fields:
+          - { name: title, label: Heading, widget: string }
+          - { name: intro, label: Introduction, widget: text }
+          - { name: portrait, label: Portrait, widget: image }
+          - { name: portraitAlt, label: Portrait description, widget: string }
+          - { name: secondImage, label: Second image, widget: image, required: false }
+          - { name: secondImageAlt, label: Second image description, widget: string, required: false }
+          - { name: body, label: Story, widget: markdown }
+          - name: principles
+            label: What clients can expect
+            widget: list
+            summary: '{{fields.title}}'
+            fields: [{ name: title, label: Title, widget: string }, { name: text, label: Text, widget: text }]
+          - name: process
+            label: How a commission works (steps)
+            widget: list
+            summary: '{{fields.title}}'
+            fields: [{ name: title, label: Step, widget: string }, { name: text, label: Text, widget: text }]
+          - { name: seoDescription, label: Search description, widget: text, required: false }
+
+      - name: booking
+        label: Booking page
+        file: src/content/pages/booking.json
+        fields:
+          - { name: title, label: Heading, widget: string }
+          - { name: intro, label: Introduction, widget: text }
+          - name: sessions
+            label: Session types
+            widget: list
+            summary: '{{fields.name}}'
+            hint: These also become the options in the inquiry form.
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: duration, label: Duration, widget: string }
+              - { name: includes, label: What's included, widget: text }
+              - { name: price, label: Price (optional), widget: string, required: false }
+          - { name: successMessage, label: Message after sending, widget: text }
+
+      - name: site
+        label: Site settings
+        file: src/content/pages/site.json
+        media_folder: ../../assets/uploads
+        public_folder: ../../assets/uploads
+        fields:
+          - { name: name, label: Full name, widget: string }
+          - { name: firstName, label: First name (large title line 1), widget: string }
+          - { name: lastName, label: Last name (large title line 2), widget: string }
+          - { name: role, label: Role, widget: string }
+          - { name: location, label: Based in, widget: string }
+          - { name: email, label: Email, widget: string }
+          - { name: phone, label: Phone, widget: string, required: false }
+          - { name: responseTime, label: Reply-time note, widget: string, required: false }
+          - { name: seoTitle, label: Search title, widget: string }
+          - { name: seoDescription, label: Search description, widget: text }
+          - { name: shareImage, label: Share image, widget: image, hint: 'Shown when a link to the site is shared on social media or messengers.' }
+          - name: socials
+            label: Social links
+            widget: list
+            summary: '{{fields.label}}'
+            fields: [{ name: label, label: Label, widget: string }, { name: url, label: Link, widget: string }]

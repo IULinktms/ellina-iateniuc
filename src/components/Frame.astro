@@ -1,0 +1,60 @@
+---
+/**
+ * A responsive photograph inside an "aperture" frame.
+ * aperture: opens from a thin horizontal slit when scrolled into view.
+ * parallax: the image drifts slightly slower than the page.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  sizes?: string;
+  class?: string;
+  aperture?: boolean;
+  parallax?: boolean;
+  eager?: boolean;
+  widths?: number[];
+  style?: string;
+  [key: string]: unknown;
+}
+const {
+  src,
+  alt,
+  sizes = '100vw',
+  class: cls = '',
+  aperture = true,
+  parallax = false,
+  eager = false,
+  widths,
+  style,
+  ...rest
+} = Astro.props;
+
+// Lightweight variant set for the hosted static preview only
+const lite = import.meta.env.PUBLIC_PREVIEW_LITE === '1';
+const ws = (lite ? [900, 1800] : widths ?? [480, 800, 1200, 1700, 2400]).filter((w) => w <= src.width);
+if (!ws.length) ws.push(src.width);
+---
+
+<div
+  class:list={['frame', cls]}
+  data-aperture={aperture ? '' : undefined}
+  data-parallax={parallax ? '' : undefined}
+  style={style}
+  {...rest}
+>
+  <Image
+    src={src}
+    alt={alt}
+    widths={ws}
+    sizes={sizes}
+    format="webp"
+    quality={80}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding="async"
+  />
+  <slot />
+</div>

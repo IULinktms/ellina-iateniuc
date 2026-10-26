@@ -1,0 +1,12 @@
+---
+interface Props { name: 'prev' | 'next' | 'close' | 'play' | 'sound-on' | 'sound-off'; }
+const { name } = Astro.props;
+---
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true" focusable="false">
+  {name === 'prev' && <path d="M15 5l-7 7 7 7" />}
+  {name === 'next' && <path d="M9 5l7 7-7 7" />}
+  {name === 'close' && <path d="M5 5l14 14M19 5L5 19" />}
+  {name === 'play' && <path d="M8 5v14l11-7z" fill="currentColor" stroke="none" />}
+  {name === 'sound-on' && <path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4 4 0 0 0-2-3.5M18 6a8 8 0 0 1 0 12" />}
+  {name === 'sound-off' && <path d="M4 9v6h4l5 4V5L8 9H4zm12 0l5 6m0-6l-5 6" />}
+</svg>
