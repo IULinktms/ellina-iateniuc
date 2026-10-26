@@ -65,12 +65,12 @@ const dict = {
     contact: {
       head: ['Plan your', 'shoot'], services: 'Services', direct: 'Prefer to write directly?', name: 'Your name', email: 'Email',
       kind: 'What would you like to shoot?', other: 'Something else', org: 'Business or event name (optional)', guests: 'Expected guests (optional)',
-      guestsPh: 'e.g. 150', date: 'Event date', location: 'Location (optional)', locationPh: 'Venue or city',
+      guestsPh: 'e.g. 150', date: 'Preferred shoot date', location: 'Location (optional)', locationPh: 'Venue or city',
       hint: (t: string, d: number) => `Previews the same evening at ${t}. Full gallery within ${en(d, 'working day', 'working days')}.`,
-      message: 'Tell me about it', messagePh: 'Programme, hours of coverage, and what the photos are for: press, social media, next year’s promotion.',
+      message: 'Tell me about it', messagePh: 'Your event or business, the photos or videos you need, and where you plan to share them.',
       submit: 'Check availability',
     },
-    films: { title: 'Films', seoTitle: 'Films & video', desc: 'Event aftermovies, highlight films and reels by Ellina Iateniuc.',
+    films: { title: 'Films', seoTitle: 'Films & video', desc: 'Event aftermovies and Instagram Reels for brands and small businesses by Ellina Iateniuc.',
       intro: 'Aftermovies, highlight films and social reels from conferences, seminars and corporate events. Every film opens full screen.',
       filter: 'Filter films', all: 'All', featured: 'Featured film', list: 'All films', photos: 'Photographs from this event' },
     portfolio: { title: 'Portfolio', desc: 'Conference, seminar, corporate event and speaker portrait photography by Ellina Iateniuc.',
@@ -101,19 +101,19 @@ const dict = {
       cover: 'Ce fotografiez', choose: 'Alegeți o categorie pentru a vedea lucrările', book: 'Planificați o ședință',
       sheetKicker: (r: number, f: string) => `Rola ${r}. Cadrul ${f}.`, sheetA: 'Sute de cadre.', sheetB: 'Trimit doar ce merită.',
     },
-    calc: { date: 'Data evenimentului', previews: 'Previzualizări editate', gallery: 'Galeria completă', film: 'Aftermovie', check: 'Verificați această dată',
+    calc: { date: 'Data dorită pentru ședință', previews: 'Previzualizări editate', gallery: 'Galeria completă', film: 'Aftermovie', check: 'Verificați această dată',
       sameEvening: (t: string) => `În aceeași seară, la ${t}`, within: (n: number) => `În ${ro(n, 'zi lucrătoare', 'zile lucrătoare')}` },
     about: { title: 'Despre', expect: 'La ce vă puteți aștepta', howBooking: 'Cum decurge o rezervare', ctaTitle: 'Un eveniment sau o poveste de brand?',
       ctaText: 'Trimiteți-mi data și câteva detalii. Vă confirm disponibilitatea în cel mult o zi lucrătoare.', book: 'Planificați o ședință' },
     contact: {
       head: ['Planificăm', 'o ședință?'], services: 'Servicii', direct: 'Preferați să scrieți direct?', name: 'Numele dumneavoastră', email: 'Email',
       kind: 'Ce doriți să fotografiem sau să filmăm?', other: 'Altceva', org: 'Compania sau numele evenimentului (opțional)', guests: 'Număr estimat de invitați (opțional)',
-      guestsPh: 'ex. 150', date: 'Data evenimentului', location: 'Locația (opțional)', locationPh: 'Sala sau orașul',
+      guestsPh: 'ex. 150', date: 'Data dorită pentru ședință', location: 'Locația (opțional)', locationPh: 'Sala sau orașul',
       hint: (t: string, d: number) => `Previzualizări în aceeași seară, la ${t}. Galeria completă în ${ro(d, 'zi lucrătoare', 'zile lucrătoare')}.`,
-      message: 'Povestiți-mi despre eveniment', messagePh: 'Programul, câte ore de fotografiere și pentru ce sunt fotografiile: presă, rețele sociale, promovarea de anul viitor.',
+      message: 'Povestiți-mi despre proiect', messagePh: 'Evenimentul sau afacerea dumneavoastră, fotografiile ori videoclipurile dorite și unde vor fi publicate.',
       submit: 'Verificați disponibilitatea',
     },
-    films: { title: 'Filme', seoTitle: 'Filme și video', desc: 'Aftermovie-uri, filme highlights și reel-uri de la evenimente, de Ellina Iateniuc.',
+    films: { title: 'Filme', seoTitle: 'Filme și video', desc: 'Aftermovie-uri de eveniment și Reels pentru branduri și afaceri mici, de Ellina Iateniuc.',
       intro: 'Aftermovie-uri, highlights și reel-uri pentru rețele sociale, de la conferințe, seminare și evenimente corporative. Fiecare film se deschide pe tot ecranul.',
       filter: 'Filtrați filmele', all: 'Toate', featured: 'Film recomandat', list: 'Toate filmele', photos: 'Fotografii de la acest eveniment' },
     portfolio: { title: 'Portofoliu', desc: 'Fotografie de conferințe, seminare, evenimente corporative și portrete de speakeri, de Ellina Iateniuc.',
@@ -144,19 +144,19 @@ const dict = {
       cover: 'Что я снимаю', choose: 'Выберите категорию, чтобы посмотреть работы', book: 'Забронировать дату',
       sheetKicker: (r: number, f: string) => `Плёнка ${r}. Кадр ${f}.`, sheetA: 'Сотни кадров.', sheetB: 'Отправляю только лучшие.',
     },
-    calc: { date: 'Дата мероприятия', previews: 'Превью с обработкой', gallery: 'Полная галерея', film: 'Афтемуви', check: 'Проверить эту дату',
+    calc: { date: 'Желаемая дата съёмки', previews: 'Превью с обработкой', gallery: 'Полная галерея', film: 'Афтемуви', check: 'Проверить эту дату',
       sameEvening: (t: string) => `В тот же вечер, ${t}`, within: (n: number) => `В течение ${ru(n, 'рабочего дня', 'рабочих дней', 'рабочих дней')}` },
     about: { title: 'Обо мне', expect: 'Чего ожидать', howBooking: 'Как проходит бронирование', ctaTitle: 'Событие или история вашего бренда?',
       ctaText: 'Пришлите дату и пару деталей. Я подтвержу, свободна ли, в течение одного рабочего дня.', book: 'Забронировать дату' },
     contact: {
       head: ['Запланируем', 'съёмку?'], services: 'Услуги', direct: 'Удобнее написать напрямую?', name: 'Ваше имя', email: 'Email',
       kind: 'Что будем снимать?', other: 'Другое', org: 'Компания или название мероприятия (необязательно)', guests: 'Ожидаемое число гостей (необязательно)',
-      guestsPh: 'например, 150', date: 'Дата мероприятия', location: 'Место (необязательно)', locationPh: 'Площадка или город',
+      guestsPh: 'например, 150', date: 'Желаемая дата съёмки', location: 'Место (необязательно)', locationPh: 'Площадка или город',
       hint: (t: string, d: number) => `Превью — в тот же вечер, в ${t}. Полная галерея — в течение ${ru(d, 'рабочего дня', 'рабочих дней', 'рабочих дней')}.`,
-      message: 'Расскажите о мероприятии', messagePh: 'Программа, сколько часов съёмки и для чего нужны фото: пресса, соцсети, продвижение в следующем году.',
+      message: 'Расскажите о проекте', messagePh: 'Ваше мероприятие или бизнес, нужные фотографии и видео, а также площадки для публикации.',
       submit: 'Проверить дату',
     },
-    films: { title: 'Фильмы', seoTitle: 'Фильмы и видео', desc: 'Афтемуви, хайлайты и рилсы с мероприятий — Эллина Яценюк.',
+    films: { title: 'Фильмы', seoTitle: 'Фильмы и видео', desc: 'Афтемуви мероприятий и Reels для брендов и малого бизнеса — Эллина Яценюк.',
       intro: 'Афтемуви, хайлайты и рилсы для соцсетей с конференций, семинаров и корпоративных событий. Каждый фильм открывается на весь экран.',
       filter: 'Фильтр фильмов', all: 'Все', featured: 'Главный фильм', list: 'Все фильмы', photos: 'Фотографии с этого мероприятия' },
     portfolio: { title: 'Портфолио', desc: 'Съёмка конференций, семинаров, корпоративных мероприятий и портретов спикеров — Эллина Яценюк.',
@@ -186,7 +186,7 @@ const bookingUi = {
   "en": {
     "onRequest": "On request",
     "steps": [
-      "Event",
+      "Service",
       "Date",
       "Details",
       "Contact"
@@ -208,7 +208,7 @@ const bookingUi = {
   "ro": {
     "onRequest": "La cerere",
     "steps": [
-      "Eveniment",
+      "Serviciu",
       "Dată",
       "Detalii",
       "Contact"
@@ -230,7 +230,7 @@ const bookingUi = {
   "ru": {
     "onRequest": "По запросу",
     "steps": [
-      "Событие",
+      "Услуга",
       "Дата",
       "Детали",
       "Контакт"
