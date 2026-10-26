@@ -6,7 +6,7 @@ import { apiErrors, isLang, DEFAULT_LANG } from '../../lib/i18n';
  *
  * Environment variables (set in Vercel → Project → Settings → Environment Variables):
  *   RESEND_API_KEY        required to actually deliver email (https://resend.com)
- *   CONTACT_TO            inbox that receives inquiries, e.g. hello@ellinaiateniuc.com
+ *   CONTACT_TO            inbox that receives inquiries, e.g. ellinayatsenyuk@gmail.com
  *   CONTACT_FROM          verified sender, e.g. "Website <inquiries@ellinaiateniuc.com>"
  *   TURNSTILE_SECRET_KEY  optional, enables Cloudflare Turnstile verification
  */
