@@ -273,7 +273,7 @@ html:not(.js) .intro, .intro.is-done { display: none; }
 /* ───────────────────────── Selected work spreads ───────────────────────── */
 .spreads { padding-block: clamp(2rem, 4vw, 3rem) var(--section); }
 .spread { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
-.spread + .spread { margin-top: clamp(3rem, 5vw, 4.5rem); }
+.spread + .spread { margin-top: 3rem; }
 .spread__frame { grid-row: 1; aspect-ratio: 4 / 5; position: relative; }
 .spread__frame > .frame { position: absolute; inset: 0; }
 .spread__frame--land { aspect-ratio: 3 / 2; }
@@ -607,7 +607,7 @@ html:not(.js) .intro, .intro.is-done { display: none; }
   .js .ros__pictures img.is-on { opacity: 1; transform: scale(1); }
   .ros__clock { font-family: var(--serif); font-size: var(--t-xl); line-height: 1; color: var(--bone); }
   .js .ros__inline { display: none; }
-  .js .ros__item { min-height: 36svh; align-content: center; opacity: 0.4; transition: opacity var(--t-ui) ease; }
+  .js .ros__item { min-height: 30svh; align-content: center; opacity: 0.4; transition: opacity var(--t-ui) ease; }
   .js .ros__item.is-active { opacity: 1; }
   .js .ros__list { grid-column: 9 / span 4; }
 }
@@ -889,9 +889,14 @@ body[data-page="home"] .section-head { margin-bottom: 2rem; }
 body[data-page="home"] .disciplines a .display { font-size: clamp(2.25rem, 5vw, 4.5rem); }
 .disciplines__intro { max-width: 48rem; margin-bottom: 2rem; font-size: clamp(1rem, 1.5vw, 1.25rem); }
 @media (min-width: 761px) {
-  .spread__frame { max-height: 62svh; }
-  .spread__frame--land { max-height: 58svh; }
+  .spread__frame { max-height: 50svh; }
+  .spread__frame--land { max-height: 48svh; }
 }
 @media (max-width: 800px) {
   .ros__item { padding-block: 1.25rem; }
+}
+
+@media (min-width: 901px) {
+  body[data-page="home"] .footer { padding-top: 3rem; }
+  body[data-page="home"] .footer__big { font-size: clamp(3rem, 13vw, 14rem); margin-top: 2rem; }
 }
