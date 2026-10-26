@@ -424,3 +424,52 @@ Performance scores meet 90 in these runs; the stricter 2.5s LCP target still nee
 - Preview: https://ellina-iateniuc-owfkb42rx-iul-ink.vercel.app . Vercel READY; preview authentication remains enabled. Production and main untouched.
 
 Remaining content: stock/demo imagery and fictional project details require Ellina's approval; generic Vimeo needs her real profile. Next priorities: approved real event/brand case studies, real vertical Reels, physical iPhone/Android booking-channel checks.
+
+---
+
+# Round 3: speed 90+ (Claude Code)
+
+Branch `IULinktms/ellina-round-3-speed-90-plus-tkj2`, based on `site-v3` `c56b1a6` and later merged with `site-v3` `8be0e18` (which includes the Codex NY design round). Commits: `76c7a8d` fonts, `7c001cc` post-paint JS and photos, `a08445a` Vercel analytics, `82ee41e` reel on 3G, `185477b` merge, `8dfcb65` font preload.
+
+## Lighthouse before / after
+
+Same method as round 2: `npm run build` → `.vercel/output/static` served by a small Node server (gzip text, immutable `/assets/`). Lighthouse 13, mobile, simulated throttling, headless Chromium in incognito. Three runs per route; median shown. Performance only.
+
+| Route | `c56b1a6` (start) | `site-v3` `8be0e18` (has the font commit) | **This branch** | LCP start → now | FCP start → now | TBT now | CLS now |
+| --- | ---: | ---: | ---: | --- | --- | --- | --- |
+| `/` | 90 | 94 | **99** | 3.17 → **2.10 s** | 2.42 → 1.28 s | 4 ms | 0.001 |
+| `/ru/` | 86 | 94 | **99** | 3.62 → **2.18 s** | 2.64 → 1.28 s | 5 ms | 0.001 |
+| `/portfolio/` | 86 | 91 | **100** | 3.76 → **1.65 s** | 2.41 → 1.28 s | 0 ms | 0 |
+| `/work/leadership-seminar/` | 87 | 93 | **99** | 3.69 → **1.95 s** | 2.34 → 1.13 s | 0 ms | 0 |
+
+Targets met on all four routes: Performance ≥ 90 and LCP < 2.5 s. The three runs per route were within ±1 point. These are lab numbers from a local server; field data comes from Speed Insights once it is switched on.
+
+## What was slowing LCP (measured, not guessed)
+
+LCP is the hero **text** on every route (`.hero__lede`, the portfolio intro, `.p-hero__sub`). In the real page it paints in about 60–90 ms. The simulated 3–3.7 s came from Lantern counting everything that *started* before that paint:
+1. **Fonts**: five fontsource packages in the CSS (18.9 KB gz), and RO/EN pulled the 90 KB latin-ext file for ș/ț (and the HUD's `ƒ`).
+2. **The 72 KB (gz) motion bundle** (GSAP + plugins + Lenis + app.ts), fetched with the HTML. Blocking only that file moved `/` from 94 to 98.
+3. **Lazy photos near the fold** on `/portfolio/` and `/work/`. They start right after the first layout, a few ms before the text paints. Blocking `.webp` took `/portfolio/` from 3.1 to 2.26 s.
+
+On the home page, images did not matter (blocking them changed nothing); there, JS did.
+
+## Changes
+
+- **Fonts.** Inter Tight is the only webfont. Local copies are trimmed to weights 400–700: latin 45 → 34 KB, cyrillic 17 → 12 KB. Romanian letters plus `ƒ` come from a 2.4 KB face that Vite inlines into the CSS. latin-ext and cyrillic-ext load only if content uses such a letter. The size-adjusted Arial fallback was measured against Inter Tight. Bodoni, Playfair, Hanken and Manrope are gone from the CSS and from `package.json`; the OG generator keeps its own TTFs. CSS went from 18.9 to 14.5 KB gz, and there are no unused `@font-face` rules. Preload: latin on every page, plus cyrillic on `/ru/`. See `src/assets/fonts/README.md`.
+- **JS after first paint.** `Base.astro` waits for the `first-contentful-paint` entry, then one more frame, then imports `app.ts`. Where paint timing is missing it uses two rAFs. Window `load` is only a 3 s safety net, because on `/work/` it fires *before* the first paint. `app.ts` gets `onPageLoad()`: when the bundle lands after window load, the first page-load handlers still run, in a microtask, after every top-level `const` exists. Without that microtask, init crashed on `lb`/`pl`. TBT stays 0–5 ms, so SplitText/Flip were not split further: the whole bundle is already off the critical path.
+- **Lazy photos after first paint.** `Frame.astro` renders lazy photos with `data-defer-src/srcset` and a `<noscript>` copy. The same loader arms them (and, on client navigation, at `astro:after-swap`). Native `loading="lazy"` still applies after that. Eager covers and the hero still are unchanged.
+- **Hero reel**: it still loads after `load` + idle. It is now also skipped on 3G, as well as Save-Data, 2G and reduced motion. The phone hero still is the 800 w WebP (43 KB) at 412 px / DPR 1.75.
+- **Vercel Web Analytics + Speed Insights** (`@vercel/analytics`, `@vercel/speed-insights`) are imported at `requestIdleCallback` (4 s cap) after the bundle starts. With the real scripts served locally, Lighthouse did not change. **Ian has to enable both in the Vercel dashboard** (project `ellina-iateniuc` → Analytics, and → Speed Insights). Until then the scripts 404 on Vercel, which only logs a console message.
+
+## Verification
+
+- `astro check` 0 errors / 0 warnings; build OK (39 pages).
+- Functional matrix on the built site: RO/RU/EN × 375/1440 × normal, reduced motion and no-JS for home, portfolio, project, films, about and contact. Checked: zero console/page errors, motion engine up (`motion-ready`), no deferred image left un-armed, every visible frame image loaded after scrolling, no horizontal overflow. The one flagged item, film-strip posters off-screen to the right at 1440 with reduced motion, is identical on `site-v3`: native lazy-loading inside a horizontal strip.
+- Client-side navigation (home → portfolio → lightbox → story → back) in RU at 375/1440: images arm, motion re-inits, no errors.
+- Screenshots before (`site-v3` 8be0e18) and after, compared pixel by pixel: no visual difference beyond the running clock. One no-JS regression was found and fixed this way: on `/portfolio/` without JS, the hidden placeholder `<img>` pushed the `<noscript>` photo out of its frame. Phone first screens at 375 in normal and reduced motion: `screenshots/r3-speed/top/`.
+
+## Next ideas
+
+1. A phone-sized hero reel (~1.5 MB at 720p) next to the 5.6 MB one, chosen by width.
+2. Once Speed Insights has a week of field data, check real-phone INP during the contact-sheet pin.
+3. Subset `inter-tight-latin` further to the glyphs actually used (about −10 KB). This only makes sense if CMS content is checked at build time.

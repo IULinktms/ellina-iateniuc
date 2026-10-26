@@ -11,6 +11,13 @@ import { CustomEase } from 'gsap/CustomEase';
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger, SplitText, Flip, CustomEase);
+/* Base.astro imports this bundle after the first paint, so on a fast load the first astro:page-load
+   (fired on window load) may already be over: then run the handler once this module has finished
+   evaluating (a microtask), when every top-level const below exists. */
+const onPageLoad = (fn: () => void) => {
+  document.addEventListener('astro:page-load', fn);
+  if (document.readyState === 'complete') queueMicrotask(fn);
+};
 // Strong custom curves (Emil Kowalski): ease-out for UI, ease-in-out for things moving on screen
 CustomEase.create('uiOut', '0.23, 1, 0.32, 1');
 CustomEase.create('uiInOut', '0.77, 0, 0.175, 1');
@@ -108,7 +115,7 @@ document.addEventListener('astro:before-swap', () => {
   ScrollTrigger.getAll().forEach((t) => t.kill());
 });
 
-document.addEventListener('astro:page-load', () => {
+onPageLoad(() => {
   const page = document.body.dataset.page ?? '';
   // Persisted language navigation must follow the current story, not the entry page.
   const rest = location.pathname.replace(/^\/(ru|en)(?=\/|$)/, '') || '/';
@@ -1011,7 +1018,7 @@ function mobileBooking() {
 }
 
 /* ═════════════════════════ Perf/A11y/SEO pass ═════════════════════════ */
-document.addEventListener('astro:page-load', () => {
+onPageLoad(() => {
   deferHeroVideo();
   splitLabels();
   // Motion engine is running: CSS failsafes for JS-hidden content can stand down
@@ -1029,12 +1036,13 @@ menuA11y();
 }
 
 /* ───────────── Hero reel loads after the poster has painted (LCP), and not at all
-   on Save-Data, 2G or reduced motion: the still frame stays instead. ───────────── */
+   on Save-Data, 2G/3G or reduced motion: the still frame stays instead. ───────────── */
 function deferHeroVideo() {
   const v = document.querySelector<HTMLVideoElement>('[data-hero-video][data-src]');
   if (!v) return;
   const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
-  if (reduced || conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType ?? '')) return;
+  // 3G and slower keep the still: the reel is ~4 MB
+  if (reduced || conn?.saveData || /^(slow-2g|2g|3g)$/.test(conn?.effectiveType ?? '')) return;
   let cancelled = false;
   const start = () => {
     // The first-scroll shutter (WS3) may have frozen the hero on its still frame
@@ -1125,7 +1133,7 @@ const lqipIo = new IntersectionObserver((entries) => {
 document.addEventListener('astro:before-swap', () => lqipIo.disconnect());
 // After window load (page-load): the inline colour covers the first paint, so LCP never waits on these
 const lqipAttach = () => document.querySelectorAll<HTMLElement>('[data-lqip-img]').forEach((el) => lqipIo.observe(el));
-document.addEventListener('astro:page-load', lqipAttach);
+onPageLoad(lqipAttach);
 // …or sooner if one slow eager image is holding window load back
 setTimeout(lqipAttach, 2500);
 // Marks as soon as the DOM is in (page-load waits for window load, too late for placeholders)

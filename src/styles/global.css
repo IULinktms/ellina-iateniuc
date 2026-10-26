@@ -861,6 +861,12 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
    so text paints at once in nearly the same lines and the swap barely shifts layout. */
 @font-face { font-family: 'Inter Tight Fallback'; src: local('Arial'), local('Helvetica Neue'), local('Helvetica'); size-adjust: 95%; ascent-override: 102%; descent-override: 25%; line-gap-override: 0%; }
 
+/* Lazy photos wait for their srcset (Frame.astro); until then no alt text or broken-image icon shows.
+   Without JS the <noscript> copy fills the frame instead. */
+.frame > img[data-defer-srcset] { visibility: hidden; }
+html:not(.js) .frame > img[data-defer-srcset] { display: none; }
+.frame > noscript > img { width: 100%; height: 100%; object-fit: cover; }
+
 /* Hero: the poster still is the LCP; the reel fades in over it once it actually plays */
 .hero__media .hero__poster, .hero__media video { position: absolute; inset: 0; }
 .hero__media video { opacity: 0; transition: opacity 600ms ease; }

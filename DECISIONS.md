@@ -42,3 +42,10 @@ A final font-settled review corrected the upstream contact-sheet pin refresh ord
 - Reuse CMS social/contact fields; do not invent accounts, services, statistics or client claims. Booking remains direct-only; no form is restored. Move existing contact UI copy into the three-language dictionary.
 - Pinterest was supplied by Ian: https://www.pinterest.com/ellinayatsenyuk/ . Store it after Instagram in each locale's socials array. Existing footer/menu loops and JSON-LD sameAs inherit it; the contact component's large variant also exposes it.
 - Keep compact inline messenger links in the menu/footer with 44px minimum hit areas. The phone menu scrolls internally when its content exceeds the viewport, with readable, fitted Russian labels.
+
+## Round 3 — speed (Claude Code)
+
+- The motion bundle and lazy photos start after the first contentful paint. The opening text never waits on them, and motion begins one frame later than before, which isn't visible. Window `load` is not a trigger, because it can fire before the first paint.
+- Lazy `Frame` photos use deferred `srcset` plus `<noscript>`, not a JS-only lazy loader: no-JS visitors and crawlers still get real `<img>` tags.
+- Fonts: `font-display: swap` with a measured fallback, not `optional`. `optional` would leave first-time phone visitors on Arial for the whole page, and the uppercase Inter Tight hero is the identity. The per-language preload makes the swap rare.
+- Analytics load at idle, after the motion bundle. Speed Insights still reports this page's LCP and CLS from buffered entries.
