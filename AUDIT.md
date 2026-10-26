@@ -397,7 +397,7 @@ Reference study: [Mark Seliger Studio](https://markseliger.com/studio/) separate
 - Layout: **234 route × width checks** across **320, 375, 768, 1024, 1440, 1920**; zero document overflow and zero overflowing content headings. Visual checks also covered masked text, catching the surname and Russian menu clipping that document-width checks alone miss.
 - Accessibility: **39 page axe scans** at 375, zero WCAG A/AA violations. Seven contact actions present and at least 44px tall in all tested locales/sizes. Menu labels fit at 320/375; Enter opens, Tab stays inside, Escape closes and returns focus.
 - Normal-motion interaction checks: RO/RU/EN at 320/375/1440 passed portfolio filtering, lightbox open/next/Escape, project navigation and return-home transitions, first-scroll shutter, contact-sheet/selected-work scrolling, film player open/Escape; zero runtime errors. Reduced-motion screenshots preserve all content. **21 no-JS template/locale checks** passed at 320.
-- Short-height menu: at **320×568**, the menu has 636px of content. A final wheel test exposed Lenis intercepting nested scrolling; the menu attribute fix allows all **68px** of internal travel, confirmed by retest.
+- Short-height menu: at **320×568**, the menu has 636px of content. A final wheel test exposed Lenis intercepting nested scrolling; the menu attribute fix allows all **68px** of internal travel in RO/RU/EN, confirmed by retest. The scroll area starts below the fixed navigation so the close control remains clear.
 - Font integration: Claude's `76c7a8d` cherry-picked cleanly as `2b55a78`. A resulting portfolio filter wrap exposed a 54px font-swap jump at 412px. `6a3b8e6` uses a two-column phone filter grid; delayed-font measurement now holds the gallery at **y=477.859px before and after**. app.ts is untouched. The only Base.astro change adds `data-lenis-prevent` to the menu so it scrolls independently while background scrolling is locked.
 - Pinterest is present in the contact panel, footer/menu loops, and `ProfessionalService.sameAs` on all 39 pages. Messenger destinations were inspected, not activated to send messages.
 
@@ -421,6 +421,6 @@ Performance scores meet 90 in these runs; the stricter 2.5s LCP target still nee
 - After: `screenshots/{ro,ru,en}/{320,375,1440}/after/{page}.png`.
 - Boards: `screenshots/boards/{before,after}/`; normal-motion captures: `screenshots/interactions/`.
 - Machine-readable evidence: `screenshots/ny-before.json`, `ny-after.json`, `ny-verification.json`, `ny-interactions.json`.
-- Preview: https://ellina-iateniuc-dgkyoo084-iul-ink.vercel.app . Vercel READY; preview authentication remains enabled. Production and main untouched.
+- Preview: https://ellina-iateniuc-owfkb42rx-iul-ink.vercel.app . Vercel READY; preview authentication remains enabled. Production and main untouched.
 
 Remaining content: stock/demo imagery and fictional project details require Ellina's approval; generic Vimeo needs her real profile. Next priorities: approved real event/brand case studies, real vertical Reels, physical iPhone/Android booking-channel checks.
