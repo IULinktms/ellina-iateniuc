@@ -1021,3 +1021,31 @@ function splitLabels() {
     el.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.removeAttribute('aria-hidden'));
   });
 }
+
+/* ───────────── Loading placeholders: frames paint a blurred preview from the HTML (lib/lqip.ts).
+   Images still loading below the fold crossfade in over it; anything in view at load is never
+   hidden, so the LCP image paints as soon as it arrives. Broken images reveal the preview. ───────────── */
+const lqipDone = (img: HTMLImageElement) => {
+  const frame = img.closest<HTMLElement>('[data-lqip]');
+  if (!frame?.classList.contains('is-pending')) return;
+  const show = () => requestAnimationFrame(() => {
+    frame.classList.add('is-loaded');
+    // Hand the image back to its own rules (hover zoom transitions etc.) once it has faded in
+    setTimeout(() => frame.classList.remove('is-pending', 'is-loaded'), 800);
+  });
+  if (img.naturalWidth) img.decode().then(show, show);
+  else show();
+};
+document.addEventListener('load', (e) => { if (e.target instanceof HTMLImageElement) lqipDone(e.target); }, true);
+document.addEventListener('error', (e) => { if (e.target instanceof HTMLImageElement) lqipDone(e.target); }, true);
+// Marks as soon as the DOM is in (page-load waits for window load, too late for placeholders)
+const lqipMark = () => {
+  const fold = window.innerHeight * 1.1;
+  document.querySelectorAll<HTMLElement>('[data-lqip]:not([data-lqip="eager"])').forEach((frame) => {
+    const img = frame.querySelector<HTMLImageElement>('img');
+    if (!img || (img.complete && img.naturalWidth) || frame.getBoundingClientRect().top < fold) return;
+    frame.classList.add('is-pending');
+  });
+};
+lqipMark();
+document.addEventListener('astro:after-swap', lqipMark);

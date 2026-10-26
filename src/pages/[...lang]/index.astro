@@ -7,6 +7,7 @@ import ContactSheet from '../../components/ContactSheet.astro';
 import StudioProof from '../../components/StudioProof.astro';
 import { getSite, getHome, getProjects, getFilms, orientation, slugify, slugOf } from '../../lib/content';
 import { langParams, localePath, t, type Lang } from '../../lib/i18n';
+import { lqip } from '../../lib/lqip';
 
 export const getStaticPaths = langParams;
 const { lang } = Astro.props as { lang: Lang };
@@ -27,6 +28,11 @@ const counts = Object.fromEntries(
 // LCP: a responsive still of the reel paints first; the video itself loads after (see deferHeroVideo in app.ts)
 const posterSet = await getImage({ src: home.heroPoster, widths: [480, 800, 1280].filter((w) => w <= home.heroPoster.width), format: 'webp', quality: 70 });
 const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp', quality: 78 })));
+// Blurred previews behind photos that load later (lib/lqip.ts)
+const heroPlaceholder = await lqip(home.heroPoster);
+const rosPlaceholders = await Promise.all(home.runOfShow.map((r) => lqip(r.image)));
+const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster)));
+const bg = (p?: { image: string; color: string }) => p && `background:${p.color} ${p.image} center/cover`;
 ---
 
 <Base page="home" lang={lang}>
@@ -39,7 +45,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
   </div>
 
   <section class="hero" data-hero aria-labelledby="hero-title">
-    <div class="hero__media">
+    <div class="hero__media" data-lqip={heroPlaceholder ? 'eager' : undefined} style={heroPlaceholder?.style}>
       <img src={posterSet.src} srcset={posterSet.srcSet.attribute} sizes="100vw" alt={home.heroPosterAlt} fetchpriority="high" decoding="async" class="hero__poster" data-hero-still />
       <video data-hero-video muted loop playsinline preload="none" aria-hidden="true" data-src={home.heroVideo}></video>
     </div>
@@ -94,7 +100,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
       </div>
       <div class="ros__body wrap">
         <figure class="ros__media" aria-hidden="true">
-          <div class="ros__pictures">
+          <div class="ros__pictures" data-lqip={rosPlaceholders[0] ? 'eager' : undefined} style={rosPlaceholders[0]?.style}>
             {home.runOfShow.map((r, i) => (
               <Image src={r.image} alt="" widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={78} loading="lazy" class:list={[i === 0 && 'is-on']} />
             ))}
@@ -102,12 +108,12 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
           <figcaption class="ros__clock tnum" data-ros-clock>{home.runOfShow[0].time}</figcaption>
         </figure>
         <ol class="ros__list" role="list">
-          {home.runOfShow.map((r) => (
+          {home.runOfShow.map((r, i) => (
             <li class="ros__item" data-ros-item data-time={r.time}>
               <time class="ros__time tnum">{r.time}</time>
               <h3>{r.title}</h3>
               <p>{r.text}</p>
-              <Image src={r.image} alt={r.alt} widths={[640, 1000]} width={1000} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" />
+              <Image src={r.image} alt={r.alt} widths={[640, 1000]} width={1000} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" style={bg(rosPlaceholders[i])} />
             </li>
           ))}
         </ol>
@@ -167,7 +173,7 @@ const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.po
             <article class="strip__item" data-preview>
               <button class="frame-btn" data-film data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play">
                 <span class="sr-only">{s.a11y.play(f.data.title)}</span>
-                <div class="frame">
+                <div class="frame" data-lqip={filmPlaceholders[i] ? '' : undefined} style={filmPlaceholders[i]?.style}>
                   <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 900px) 82vw, 46vw" format="webp" quality={78} loading="lazy" />
                   {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
                 </div>
