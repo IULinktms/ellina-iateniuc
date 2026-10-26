@@ -993,3 +993,7 @@ h2, h3, .section-head h2, .strip__caption h3, .film-card h3, .ros__item h3, .ros
 .marquee__word { font-weight: 700; text-transform: uppercase; letter-spacing: -0.05em; }
 .marquee__word.is-outline { font-style: normal; -webkit-text-stroke-width: 1.5px; }
 body { letter-spacing: -0.005em; }
+
+/* Stability: the footer wordmark must always fit the viewport ("ELLINA YATSENYUK" in bold uppercase ≈ 9.4em) */
+.footer { overflow: hidden; }
+.footer__big { font-size: min(9.4vw, 15rem); white-space: nowrap; max-width: 100%; }
