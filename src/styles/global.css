@@ -1218,3 +1218,8 @@ main .notfound h1 { max-width: 14ch; font-size: clamp(2.5rem, 6vw, 6rem); }
   .menu__list a { font-size: 1.9rem; }
   .lang--menu { gap: 1rem; }
 }
+/* Stable phone index: font swap must not change the number of filter rows. */
+@media (max-width: 560px) {
+  body[data-page='portfolio'] .filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body[data-page='portfolio'] .filter { padding-inline: .65rem; font-size: .875rem; }
+}
