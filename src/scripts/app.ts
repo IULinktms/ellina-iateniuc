@@ -162,9 +162,9 @@ function setupPage() {
   if (lenis) document.documentElement.classList.add('lenis');
   const page = document.body.dataset.page ?? '';
   // Persisted language navigation must follow the current story, not the entry page.
-  const rest = location.pathname.replace(/^\/(ru|en)(?=\/|$)/, '') || '/';
+  const rest = location.pathname.replace(/^\/(ro|en)(?=\/|$)/, '') || '/';
   document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]').forEach((a) => {
-    const prefix = a.hreflang === 'ro' ? '' : `/${a.hreflang}`;
+    const prefix = a.hreflang === 'ru' ? '' : `/${a.hreflang}`;
     a.href = `${prefix}${rest}${location.search}${location.hash}`;
   });
   document.querySelectorAll<HTMLAnchorElement>('[data-nav]').forEach((a) => {

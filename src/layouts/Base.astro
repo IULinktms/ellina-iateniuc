@@ -196,6 +196,11 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
         <p class="footer__big" aria-hidden="true">Ellina <span>Yatsenyuk</span></p>
         <div class="footer__legal">
           <span>© {year} {site.name}. {s.footer.rights}</span>
+          <ul class="lang" role="list" aria-label={s.nav.language}>
+            {LOCALES.map((l) => (
+              <li><a href={localePath(l, rest)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} title={LANG_NAMES[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_SHORT[l]}</a></li>
+            ))}
+          </ul>
           <a href="#main" class="line-link" data-to-top>{s.footer.toTop}</a>
         </div>
       </footer>
