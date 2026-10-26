@@ -55,6 +55,8 @@ const ld = films.map((f) => videoLd(f, lang, Astro.site!, posters[f.id]));
           <span class="small muted tnum">{s.kinds[feature.data.kind]}, {feature.data.year}, {feature.data.duration}</span>
         </div>
       </button>
+      {/* The film's own story is one tap away, as on the cards below (a link can't sit inside the play button) */}
+      {projectFor(feature.data.project) && <a class="line-link feature-film__more" href={localePath(lang, `/work/${slugOf(projectFor(feature.data.project)!)}/`)}>{s.films.photos}</a>}
     </section>
   )}
 

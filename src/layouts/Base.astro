@@ -58,6 +58,8 @@ const ogCard = workSlug ? `/og/${lang}/${workSlug}.jpg` : !image ? `/og/${lang}/
 const og = new URL(ogCard ?? (await shareImage(image!)), Astro.site);
 const L = (p: string) => localePath(lang, p);
 const whatsapp = whatsappHref(site.whatsapp, lang);
+// Menu booking row: the two chats people actually use, at button size, right under the page list
+const telegram = /^https:\/\/(t|telegram)\.me\/[^/]+/.test(site.telegram) ? site.telegram : '';
 
 const nav = [
   { href: L('/portfolio/'), label: s.nav.portfolio, key: 'portfolio' },
@@ -156,6 +158,10 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
         <li><a href={L('/')} data-nav="home">{s.nav.home}</a></li>
         {nav.map((n) => <li><a href={n.href} data-nav={n.key}>{n.label}</a></li>)}
       </ul>
+      {(whatsapp || telegram) && <ul class="menu__book" role="list" aria-label={s.bookingUi.directChannels}>
+        {whatsapp && <li><a class="btn btn--solid" href={whatsapp}>{s.bookingUi.whatsapp}<span aria-hidden="true">↗</span></a></li>}
+        {telegram && <li><a class="btn" href={telegram}>{s.bookingUi.telegram}<span aria-hidden="true">↗</span></a></li>}
+      </ul>}
       <div class="menu__foot">
         <ul class="lang lang--menu" role="list" aria-label={s.nav.language}>
           {LOCALES.map((l) => (
@@ -163,7 +169,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
           ))}
         </ul>
         <a href={`mailto:${site.email}`}>{site.email}</a>
-        <DirectContact lang={lang} site={site} />
+        <DirectContact lang={lang} site={site} skip={['whatsapp', 'telegram']} />
         <span>{site.socials.filter((x) => x.label !== 'Telegram').map((x, i) => <>{i > 0 && ', '}<a href={x.url} rel="me noopener" target="_blank">{x.label}</a></>)}</span>
       </div>
     </div>

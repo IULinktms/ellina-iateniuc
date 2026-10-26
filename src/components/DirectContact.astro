@@ -2,8 +2,8 @@
 import { getSite } from '../lib/content';
 import { t, type Lang } from '../lib/i18n';
 import { whatsappHref } from '../lib/whatsapp';
-interface Props { lang: Lang; site: Awaited<ReturnType<typeof getSite>>; email?: boolean; variant?: 'inline' | 'large' }
-const { lang, site, email = false, variant = 'inline' } = Astro.props;
+interface Props { lang: Lang; site: Awaited<ReturnType<typeof getSite>>; email?: boolean; variant?: 'inline' | 'large'; skip?: string[] }
+const { lang, site, email = false, variant = 'inline', skip = [] } = Astro.props;
 const s = t(lang).bookingUi;
 // Do not turn blank/template destinations into links to somebody else's inbox.
 const phone = site.phone && !/00[\s-]*000[\s-]*000/.test(site.phone) ? site.phone.replace(/[^+\d]/g, '') : '';
@@ -11,13 +11,13 @@ const safe = (value: string, hosts: string[], protocol = 'https:') => {
   try { const u = new URL(value); return u.protocol === protocol && (protocol === 'viber:' || hosts.includes(u.hostname)) && (u.pathname.length > 1 || !!u.search) ? value : ''; } catch { return ''; }
 };
 const links = [
-  { label: s.whatsapp, href: whatsappHref(site.whatsapp, lang) },
-  { label: s.telegram, href: safe(site.telegram, ['t.me', 'telegram.me']) },
-  { label: s.viber, href: safe(site.viber, [], 'viber:') },
-  { label: s.call, href: phone ? `tel:${phone}` : '' },
-  ...(variant === 'large' ? site.socials.filter((x) => ['Instagram', 'Pinterest'].includes(x.label)).map((x) => ({ label: x.label, href: safe(x.url, ['instagram.com', 'www.instagram.com', 'pinterest.com', 'www.pinterest.com']) })) : []),
-  { label: s.email, href: email ? `mailto:${site.email}` : '' },
-].filter((x) => x.href);
+  { key: 'whatsapp', label: s.whatsapp, href: whatsappHref(site.whatsapp, lang) },
+  { key: 'telegram', label: s.telegram, href: safe(site.telegram, ['t.me', 'telegram.me']) },
+  { key: 'viber', label: s.viber, href: safe(site.viber, [], 'viber:') },
+  { key: 'call', label: s.call, href: phone ? `tel:${phone}` : '' },
+  ...(variant === 'large' ? site.socials.filter((x) => ['Instagram', 'Pinterest'].includes(x.label)).map((x) => ({ key: x.label.toLowerCase(), label: x.label, href: safe(x.url, ['instagram.com', 'www.instagram.com', 'pinterest.com', 'www.pinterest.com']) })) : []),
+  { key: 'email', label: s.email, href: email ? `mailto:${site.email}` : '' },
+].filter((x) => x.href && !skip.includes(x.key));
 ---
 {links.length > 0 && <ul class:list={["direct-channels", { "direct-channels--large": variant === 'large' }]} role="list" aria-label={s.directChannels}>
   {links.map((link) => <li><a class:list={[{ "line-link": variant === 'inline' }]} href={link.href}><span>{link.label}</span><span aria-hidden="true"> ↗</span></a></li>)}

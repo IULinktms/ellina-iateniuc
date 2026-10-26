@@ -9,7 +9,8 @@ const clients = home.clients.filter((item) => hasRealContent(item.name));
 const testimonials = home.testimonials.filter((item) => hasRealContent(item.quote) && hasRealContent(item.name));
 const stats = home.stats.filter((item) => typeof item.value === 'number' && item.value > 0 && hasRealContent(item.label) && (!item.suffix || hasRealContent(item.suffix)));
 const statsOnly = !clients.length && !testimonials.length;
-const hasProof = clients.length + testimonials.length + stats.length > 0;
+// A number alone is a promise, not proof (delivery time already lives in the calculator): the band waits for a real client or quote
+const hasProof = clients.length + testimonials.length > 0;
 ---
 {hasProof && (
 <section class:list={["studio-proof", statsOnly && "studio-proof--numbers"]} aria-labelledby="proof-h">

@@ -151,24 +151,20 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   position: fixed; inset: 0 0 auto 0; z-index: 60;
   height: var(--nav-h); padding-inline: var(--gutter);
   display: flex; align-items: center; justify-content: space-between;
-  mix-blend-mode: difference; color: #fff;
+  color: #f4f4f1;
   pointer-events: none;
 }
 .nav > * { pointer-events: auto; }
-/* Once the page moves, a blurred strip sits under the nav: the difference-blend wordmark and links
-   keep their look over photos, but no longer collide with headings scrolling underneath */
+/* The nav is plain light type, never a blend: a difference blend turned the wordmark blue or grey on warm
+   and light photographs. At rest a soft dark scrim keeps it legible over a hero; once the page moves the
+   strip turns into a near-solid black bar, so light sections and headings never sit under the type. */
 body::before {
-  content: ''; position: fixed; inset: 0 0 auto 0; z-index: 59; height: var(--nav-h); pointer-events: none;
-  background: rgb(0 0 0 / 0.28);
-  -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1);
-  mask-image: linear-gradient(to bottom, #000 70%, transparent);
-  opacity: 0; visibility: hidden; transition: opacity 240ms var(--ease-out), visibility 0s 240ms;
+  content: ''; position: fixed; inset: 0 0 auto 0; z-index: 59; height: calc(var(--nav-h) + 1.5rem); pointer-events: none;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0.5), rgb(0 0 0 / 0));
+  transition: background-color 240ms var(--ease-out), height 240ms var(--ease-out);
 }
-html.is-scrolled body::before { opacity: 1; visibility: visible; transition: opacity 240ms var(--ease-out); }
+html.is-scrolled body::before { height: var(--nav-h); background: rgb(0 0 0 / 0.94); }
 html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
-@media (prefers-reduced-transparency: reduce) {
-  body::before { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(0 0 0 / 0.86); }
-}
 .nav__mark { font-family: var(--serif); font-size: 1.35rem; letter-spacing: -0.01em; line-height: 1; }
 .nav__cta {
   display: inline-flex; align-items: center; height: 2.5rem; padding-inline: 1.1rem; border-radius: 999px;
@@ -231,10 +227,6 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
 .intro__bars i:first-child { top: 0; transform-origin: top; }
 .intro__bars i:last-child { bottom: 0; transform-origin: bottom; }
 .intro__line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--bone); transform: scaleX(0); }
-.intro__count {
-  position: absolute; left: var(--gutter); bottom: 1.5rem; font-size: var(--t-xs); color: var(--ash);
-  font-variant-numeric: tabular-nums;
-}
 /* Retired (WS3: the aperture happens on first scroll). It must never render: the first astro:page-load
    waits for window load, so on a slow line it would black out the hero until every eager asset arrived. */
 .intro { display: none; }
@@ -267,9 +259,6 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
   display: flex; justify-content: space-between; align-items: center; gap: 1rem;
   margin-top: clamp(1.75rem, 4vh, 3rem); font-size: var(--t-sm); color: var(--bone-dim);
 }
-.hero__tc { display: inline-flex; align-items: center; gap: 0.6rem; font-variant-numeric: tabular-nums; }
-.hero__tc::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--rec); animation: rec 1.6s steps(1) infinite; }
-@keyframes rec { 50% { opacity: 0.15; } }
 .hero__sound { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; }
 @media (max-width: 760px) {
   .hero__name .line + .line { padding-left: 0.3em; }
@@ -701,42 +690,6 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .grain { animation: none; } }
 
-/* ───────── Hero viewfinder HUD ───────── */
-.vf { position: absolute; inset: calc(var(--nav-h) + 0.5rem) var(--gutter) 1rem; z-index: 1; pointer-events: none; color: var(--bone); }
-.vf__c { position: absolute; width: clamp(1.25rem, 2.4vw, 2.25rem); height: clamp(1.25rem, 2.4vw, 2.25rem); border: 0 solid rgb(236 231 223 / 0.6); }
-.vf__c--tl { left: 0; top: 0; border-left-width: 1px; border-top-width: 1px; }
-.vf__c--tr { right: 0; top: 0; border-right-width: 1px; border-top-width: 1px; }
-.vf__c--bl { left: 0; bottom: 0; border-left-width: 1px; border-bottom-width: 1px; }
-.vf__c--br { right: 0; bottom: 0; border-right-width: 1px; border-bottom-width: 1px; }
-.vf__focus {
-  position: fixed; left: 0; top: 0; width: 4.5rem; height: 3.25rem; translate: -50% -50%;
-  transition: scale 260ms var(--ease-out), opacity 300ms ease; opacity: 0;
-}
-.vf.is-live .vf__focus { opacity: 1; }
-.vf__focus i { position: absolute; width: 10px; height: 10px; border: 0 solid var(--bone); transition: border-color 200ms ease; }
-.vf__focus i:nth-child(1) { left: 0; top: 0; border-left-width: 1.5px; border-top-width: 1.5px; }
-.vf__focus i:nth-child(2) { right: 0; top: 0; border-right-width: 1.5px; border-top-width: 1.5px; }
-.vf__focus i:nth-child(3) { left: 0; bottom: 0; border-left-width: 1.5px; border-bottom-width: 1.5px; }
-.vf__focus i:nth-child(4) { right: 0; bottom: 0; border-right-width: 1.5px; border-bottom-width: 1.5px; }
-.vf__focus.is-locked { scale: 0.8; }
-.vf__focus.is-locked i { border-color: #7ee08a; }
-.vf__readout {
-  position: absolute; right: clamp(2rem, 3.5vw, 3.5rem); top: 0.35rem;
-  display: flex; align-items: center; gap: clamp(0.9rem, 1.6vw, 1.6rem);
-  font-size: var(--t-xs); letter-spacing: 0.04em; color: var(--bone-dim);
-}
-.vf__ev { display: inline-flex; align-items: end; gap: 3px; height: 9px; }
-.vf__ev b { width: 1px; height: 5px; background: rgb(236 231 223 / 0.45); }
-.vf__ev b:nth-child(5) { height: 9px; }
-.vf__ev b.is-on { background: var(--bone); width: 2px; height: 9px; }
-@media (max-width: 760px) {
-  .vf__readout { left: 2rem; right: auto; gap: 0.8rem; }
-  .vf__ev { display: none; }
-}
-@media (hover: none), (prefers-reduced-motion: reduce) {
-  .vf__focus { position: absolute; left: 50%; top: 42%; }
-  .vf.is-live .vf__focus { opacity: 0.85; }
-}
 
 /* ───────── Contact sheet ───────── */
 .sheet { position: relative; background: #0b0a09; }
@@ -885,7 +838,7 @@ html:not(.js) .frame > img[data-defer-srcset] { display: none; }
 /* Placeholders were ~3:1 on black; ash is ~5.6:1 */
 .field input::placeholder, .field textarea::placeholder { color: var(--ash); }
 /* Decorative layers never take pointer or screen-reader focus */
-.grain, .vf, .marquee, .intro, .cursor, .float-preview { pointer-events: none; }
+.grain, .marquee, .intro, .cursor, .float-preview { pointer-events: none; }
 
 /* No JS: the menu button can't work, so a plain link opens the menu as an in-page block (:target) */
 .nav__nojs { display: none; }
@@ -1236,7 +1189,7 @@ main .notfound h1 { max-width: 14ch; font-size: clamp(2.5rem, 6vw, 6rem); }
 }
 /* Keep a scrolling menu below its fixed close control on short screens. */
 .js .menu { top: var(--nav-h); padding-top: 1rem; }
-body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal; }
+body:has(.menu.is-open) .nav { background: var(--black); }
 
 /* ═══════════════════ Round 4: motion ownership (no layout changes) ═══════════════════ */
 /* Safari's touch focus must never expose the keyboard-only skip action. */
@@ -1278,3 +1231,71 @@ body:has(.menu.is-open) .nav { background: var(--black); mix-blend-mode: normal;
 
 /* Hero placeholder: dark under the white type, whatever the photo's dominant colour (a light frame made phones paint a white screen before decode) */
 .hero__media[data-lqip] { background-color: #0b0a09 !important; }
+
+/* ═══════════════════ Polish pass (design/UX audit, Oct 2026) ═══════════════════ */
+/* Hero: a portrait still covers the desktop by its width; keep the faces and the logo screen in the band */
+.hero__media .hero__poster--portrait { object-position: 50% 22%; }
+@media (max-aspect-ratio: 3/4) { .hero__media .hero__poster--portrait { object-position: 50% 30%; } }
+
+/* Phone menu: pages, then the two chats at button size, then everything else. Top-aligned so a short
+   screen scrolls the list instead of squeezing it; nothing is parked under an empty field. */
+.menu { grid-template-rows: none; grid-auto-rows: auto; align-content: start; gap: 1.5rem; }
+.menu__list { align-self: start; }
+.menu__book { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.menu__book .btn { --h: 3.25rem; width: 100%; justify-content: space-between; padding-inline: 1.1rem; font-size: 1rem; font-weight: 600; }
+.menu__book li:only-child { grid-column: 1 / -1; }
+@media (max-width: 340px) { .menu__book .btn { padding-inline: .85rem; font-size: .95rem; } }
+@media (max-height: 600px) { .menu { gap: 1rem; } .menu__list a { font-size: clamp(1.6rem, 7vw, 2.4rem); padding-block: .25rem; } }
+
+/* Sticky booking bar: while it is up, the page reserves its height (plus the home indicator) at the bottom */
+@media (max-width: 760px) {
+  html.has-booking-bar { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px)); }
+  html.has-booking-bar body { padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Home films: a single film is shown as one wide frame, not a sideways shelf of one */
+.strip--single .strip__track { width: auto; }
+.strip--single .strip__item { width: min(100%, 64rem); }
+@media (max-width: 900px) {
+  .strip--single .strip__viewport { overflow: visible; }
+  .strip--single .strip__item, .strip--single .strip__item--vertical { width: 100%; }
+}
+
+/* Project facts read the same everywhere: category · place · year */
+main .proj-row > .proj-row__meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .25rem 1rem; }
+@media (max-width: 760px) { main .proj-row > .proj-row__meta { justify-content: flex-start; } }
+.feature-film__more { display: inline-flex; align-items: center; min-height: 2.75rem; margin-top: .75rem; font-size: var(--t-sm); }
+
+/* Portfolio with a single project: an editorial lead, then larger frames with their own captions */
+.port-lead { display: grid; gap: 1rem; max-width: 60rem; padding-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+.port-lead__meta { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-size: var(--ny-meta); font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ash); }
+.port-lead__title { font-size: var(--ny-heading); font-weight: 650; letter-spacing: -.035em; line-height: 1.06; }
+.port-lead__title a { display: inline; }
+.port-lead__title a span { font-weight: 400; }
+.port-lead__text { max-width: 40rem; font-size: 1.125rem; line-height: 1.5; color: var(--bone-dim); }
+.masonry--story { columns: 2; max-width: 90rem; margin-inline: auto; }
+.masonry--story .masonry__item figcaption > :first-child { font-weight: 400; color: var(--bone-dim); text-align: left; }
+@media (max-width: 560px) { .masonry--story { columns: 1; } .port-lead__text { font-size: 1rem; } }
+
+/* Text links that act as buttons keep a 44px hit area at every width (the hero's "see work" was 33px on desktop) */
+.hero__actions .line-link, .howi__text .line-link { min-height: 2.75rem; display: inline-flex; align-items: center; }
+
+/* Contact on a phone: the full channel grid, email included, fits a 390×844 first screen */
+@media (max-width: 760px) {
+  body[data-page='contact'] .page-head { padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 1.5rem; }
+  body[data-page='contact'] .page-head__row { margin-top: 1rem; padding-top: 1rem; }
+  .contact .reach { padding: 1.25rem; gap: 1.25rem; }
+  .reach__text { font-size: 1.2rem; }
+  .direct-channels--large { gap: .4rem; }
+  .direct-channels--large a { min-height: 3.25rem; padding: .7rem .75rem; }
+}
+
+/* Project facts on a phone: the short facts (category, year) take a narrow first column so the place and
+   the client keep one line each, down to 320px */
+@media (max-width: 760px) { .p-facts { grid-template-columns: minmax(0, auto) minmax(0, 1fr); column-gap: 2.5rem; } }
+
+/* Narrow phones: the WhatsApp pill takes the full row with its whole label; "see work" sits under it */
+@media (max-width: 374px) {
+  .hero__actions { flex-wrap: wrap; gap: .25rem 1rem; }
+  .hero__actions .btn { width: 100%; justify-content: center; }
+}

@@ -67,10 +67,11 @@ const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '),
   </section>
 
   <dl class="p-facts">
+    {/* Same order as the spread and portfolio facts: category, place, year; the client closes the row */}
     <div><dt>{s.work.category}</dt><dd>{s.categories[d.category]}</dd></div>
-    {d.client && <div><dt>{s.work.client}</dt><dd>{d.client}</dd></div>}
     {d.location && <div><dt>{s.work.location}</dt><dd>{d.location}</dd></div>}
     <div><dt>{s.work.year}</dt><dd class="tnum">{d.year}</dd></div>
+    {d.client && <div><dt>{s.work.client}</dt><dd>{d.client}</dd></div>}
   </dl>
 
   <section class="p-story wrap grid12">

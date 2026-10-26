@@ -185,7 +185,6 @@ function setupPage() {
     projectStory();
     homeShutter();
     proofNumbers();
-    viewfinder();
     magnetic();
     hoverPreviews();
     lightbox();
@@ -193,7 +192,6 @@ function setupPage() {
     filters();
     contactForm();
     mobileBooking();
-    heroClock();
     deliveryCalc();
     runOfShow();
     toTop();
@@ -723,22 +721,6 @@ function contactForm() {
   cleanups.push(() => { listeners.forEach((off) => off()); window.clearTimeout(timeout); request?.abort(); successAnimation?.kill(); });
 }
 
-/* ───────────── Hero timecode follows the video ───────────── */
-function heroClock() {
-  const v = document.querySelector<HTMLVideoElement>('[data-hero-video]');
-  const tc = document.querySelector<HTMLElement>('[data-timecode]');
-  if (!v || !tc) return;
-  const fmt = (t: number) => {
-    const s = Math.floor(t); const f = Math.floor((t - s) * 24);
-    return `00:00:${String(s).padStart(2, '0')}:${String(f).padStart(2, '0')}`;
-  };
-  const tick = () => { tc.textContent = fmt(v.currentTime); };
-  v.addEventListener('timeupdate', tick);
-  tick();
-  cleanups.push(() => v.removeEventListener('timeupdate', tick));
-  if (reduced) v.pause();
-}
-
 function toTop() {
   document.querySelectorAll<HTMLElement>('[data-to-top]').forEach((a) =>
     a.addEventListener('click', (e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.2 }) : window.scrollTo({ top: 0 }); }),
@@ -839,62 +821,6 @@ function runOfShow() {
 }
 
 /* ═════════════════════════ Wow pass ═════════════════════════ */
-
-/* ───────────── Hero viewfinder: focus point follows the pointer and locks when it settles;
-   exposure readout reacts to where you point (brighter top-left, darker bottom-right). ───────────── */
-function viewfinder() {
-  const vf = document.querySelector<HTMLElement>('[data-vf]');
-  const hero = document.querySelector<HTMLElement>('[data-hero]');
-  if (!vf || !hero) return;
-  const focus = vf.querySelector<HTMLElement>('[data-vf-focus]')!;
-  const iso = vf.querySelector<HTMLElement>('[data-vf-iso]')!;
-  const ap = vf.querySelector<HTMLElement>('[data-vf-ap]')!;
-  const sh = vf.querySelector<HTMLElement>('[data-vf-sh]')!;
-  const ev = Array.from(vf.querySelectorAll<HTMLElement>('[data-vf-ev] b'));
-  const ISO = ['800', '1600', '3200', '6400'];
-  const AP = ['1.8', '2', '2.8', '4'];
-  const SH = ['1/500', '1/250', '1/160', '1/125', '1/80'];
-  const pick = <T,>(arr: T[], t: number) => arr[Math.min(arr.length - 1, Math.max(0, Math.floor(t * arr.length)))];
-
-  vf.classList.add('is-live');
-  if (!finePointer || reduced) {
-    // Touch / reduced motion: a still focus point that locks once, like half-pressing the shutter
-    const t = window.setTimeout(() => focus.classList.add('is-locked'), 1800);
-    cleanups.push(() => clearTimeout(t));
-    return;
-  }
-  const fx = gsap.quickTo(focus, 'x', { duration: 0.45, ease: 'power3' });
-  const fy = gsap.quickTo(focus, 'y', { duration: 0.45, ease: 'power3' });
-  const r = hero.getBoundingClientRect();
-  gsap.set(focus, { x: r.width / 2, y: r.height * 0.42 });
-  let settle = 0;
-  const move = (e: PointerEvent) => {
-    fx(e.clientX); fy(e.clientY);
-    focus.classList.remove('is-locked');
-    clearTimeout(settle);
-    settle = window.setTimeout(() => focus.classList.add('is-locked'), 320);
-    const tx = e.clientX / window.innerWidth;
-    const ty = e.clientY / window.innerHeight;
-    iso.textContent = `ISO ${pick(ISO, ty)}`;
-    ap.textContent = `ƒ/${pick(AP, tx)}`;
-    sh.textContent = pick(SH, (tx + ty) / 2);
-    const on = Math.round((1 - (tx + ty) / 2) * (ev.length - 1));
-    ev.forEach((b, i) => b.classList.toggle('is-on', i === on));
-  };
-  const enter = () => vf.classList.add('is-live');
-  const leave = () => { vf.classList.remove('is-live'); focus.classList.remove('is-locked'); };
-  hero.addEventListener('pointermove', move);
-  hero.addEventListener('pointerenter', enter);
-  hero.addEventListener('pointerleave', leave);
-  // Hide the focus point once the hero scrolls away
-  const st = ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom top', onLeave: leave, onEnterBack: enter });
-  cleanups.push(() => {
-    clearTimeout(settle); st.kill(); gsap.killTweensOf(focus);
-    hero.removeEventListener('pointermove', move);
-    hero.removeEventListener('pointerenter', enter);
-    hero.removeEventListener('pointerleave', leave);
-  });
-}
 
 /* ───────────── Contact sheet: one frame fills the screen, scroll pulls back to the full sheet,
    then the grease pencil circles the select. Desktop pins; phones just reveal. ───────────── */
@@ -1165,16 +1091,26 @@ function mobileBooking() {
   const bar = document.querySelector<HTMLElement>('[data-mobile-booking]');
   if (!bar) return;
   const opening = document.querySelector<HTMLElement>('main [data-hero], main .page-head, main .about-hero');
-  const footer = document.querySelector('footer');
-  let pastOpening = false, nearFooter = false;
-  const update = () => { bar.hidden = !pastOpening || nearFooter || menuOpen || !!document.querySelector('dialog[open]'); };
+  // The bar steps aside wherever the page already shows a booking action or the contacts: a second
+  // "write to me" over the first one only covers it. The footer carries every channel.
+  const asks = Array.from(document.querySelectorAll<HTMLElement>('main .cta, main .story-booking, main .howi__calc, main .reach, footer'));
+  const showing = new Set<Element>();
+  let pastOpening = false;
+  const update = () => {
+    bar.hidden = !pastOpening || showing.size > 0 || menuOpen || !!document.querySelector('dialog[open]');
+    // Bottom reservation: while the bar is up, the page can scroll its last lines (and focused fields) clear of it
+    document.documentElement.classList.toggle('has-booking-bar', !bar.hidden);
+  };
   const heroObserver = new IntersectionObserver(([entry]) => { pastOpening = !entry.isIntersecting && entry.boundingClientRect.top < 0; update(); });
   if (opening) heroObserver.observe(opening);
-  const footerObserver = new IntersectionObserver(([entry]) => { nearFooter = entry.isIntersecting; update(); }, { rootMargin: '150px' });
-  if (footer) footerObserver.observe(footer);
+  const askObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => (entry.isIntersecting ? showing.add(entry.target) : showing.delete(entry.target)));
+    update();
+  }, { rootMargin: '0px 0px 96px 0px' });
+  asks.forEach((el) => askObserver.observe(el));
   const modalObserver = new MutationObserver(update);
   [menu, lb, pl].forEach((el) => modalObserver.observe(el, { attributes: true, attributeFilter: ['aria-hidden', 'open'] }));
-  cleanups.push(() => { heroObserver.disconnect(); footerObserver.disconnect(); modalObserver.disconnect(); });
+  cleanups.push(() => { heroObserver.disconnect(); askObserver.disconnect(); modalObserver.disconnect(); document.documentElement.classList.remove('has-booking-bar'); });
 }
 
 /* ═════════════════════════ Perf/A11y/SEO pass ═════════════════════════ */

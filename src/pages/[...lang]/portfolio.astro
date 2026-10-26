@@ -24,6 +24,9 @@ for (let i = 0; byProject.some((b) => b[i]); i++) byProject.forEach((b) => b[i] 
 const counts = Object.fromEntries(CATEGORIES.map((c) => [c, photos.filter((ph) => ph.p.data.category === c).length]));
 const cats = CATEGORIES.filter((c) => counts[c] > 0);
 const url = (p: (typeof projects)[number]) => localePath(lang, `/work/${slugOf(p)}/`);
+// One project is a story, not an index: it opens the page as an editorial lead, its frames carry their own
+// captions instead of the same title ten times, and the one-row project list at the end goes away
+const single = projects.length === 1 ? projects[0] : undefined;
 ---
 
 <Base page="portfolio" lang={lang} title={s.portfolio.title} description={s.portfolio.desc}>
@@ -41,7 +44,15 @@ const url = (p: (typeof projects)[number]) => localePath(lang, `/work/${slugOf(p
     </div>
   </header>
 
-  <section class="masonry" id="gallery" aria-label={s.portfolio.photos}>
+  {single && (
+    <section class="port-lead wrap" aria-labelledby="lead-h">
+      <p class="port-lead__meta tnum"><span>{s.categories[single.data.category]}</span>{single.data.location && <span>{single.data.location}</span>}<span>{single.data.year}</span>{single.data.client && <span>{single.data.client}</span>}</p>
+      <h2 id="lead-h" class="port-lead__title"><a href={url(single)} aria-label={s.work.view(single.data.title)}>{single.data.title}<span aria-hidden="true"> ↗</span></a></h2>
+      <p class="port-lead__text">{single.data.excerpt}</p>
+    </section>
+  )}
+
+  <section class:list={['masonry', single && 'masonry--story']} id="gallery" aria-label={s.portfolio.photos}>
     {mixed.map((ph) => (
       <figure class="masonry__item" data-cat={slugify(ph.p.data.category)}>
         <button
@@ -54,26 +65,29 @@ const url = (p: (typeof projects)[number]) => localePath(lang, `/work/${slugOf(p
           data-cursor={s.cursor.expand}
         >
           <span class="sr-only">{s.a11y.open(ph.alt)}</span>
-          <Frame src={ph.src} alt="" sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw" widths={[480, 800, 1200]} style={`aspect-ratio:${ph.src.width}/${ph.src.height}`} />
-          <figcaption><span>{ph.p.data.title}</span><span>{s.categories[ph.p.data.category]}</span></figcaption>
+          <Frame src={ph.src} alt="" sizes={single ? '(max-width: 560px) 100vw, (max-width: 1800px) 50vw, 45rem' : '(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw'} widths={single ? [480, 800, 1200, 1600] : [480, 800, 1200]} style={`aspect-ratio:${ph.src.width}/${ph.src.height}`} />
+          {single
+            ? <figcaption><span>{ph.alt}</span></figcaption>
+            : <figcaption><span>{ph.p.data.title}</span><span>{s.categories[ph.p.data.category]}</span></figcaption>}
         </button>
       </figure>
     ))}
   </section>
 
-  <section class="wrap" style="padding-bottom: var(--section)" aria-labelledby="proj-h">
+  {!single && <section class="wrap" style="padding-bottom: var(--section)" aria-labelledby="proj-h">
     <div class="section-head"><h2 id="proj-h">{s.portfolio.projects}</h2></div>
     <ul role="list" class="proj-list">
       {projects.map((p) => (
         <li>
           <a href={url(p)} class="proj-row">
             <span class="display">{p.data.title}</span>
-            <span class="muted small tnum">{s.categories[p.data.category]}, {p.data.year}</span>
+            {/* Same facts, same order as the home spread: category, place, year */}
+            <span class="proj-row__meta muted small tnum"><span>{s.categories[p.data.category]}</span>{p.data.location && <span>{p.data.location}</span>}<span>{p.data.year}</span></span>
           </a>
         </li>
       ))}
     </ul>
-  </section>
+  </section>}
 </Base>
 
 <style>
