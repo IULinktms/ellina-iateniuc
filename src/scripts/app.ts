@@ -241,6 +241,11 @@ function bindNbsp(el: HTMLElement) {
     }
     node.replaceWith(frag);
   }
+  // A bound group wider than its line (big display type on a phone) would overflow: let it break
+  const width = el.clientWidth;
+  el.querySelectorAll<HTMLElement>(':scope span[style*="nowrap"]').forEach((span) => {
+    if (span.getBoundingClientRect().width > width) span.replaceWith(span.textContent ?? '');
+  });
 }
 
 /* ───────────── Films strip: pinned horizontal travel on desktop ───────────── */
