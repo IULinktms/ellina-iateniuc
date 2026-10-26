@@ -4,6 +4,10 @@ import type { ImageMetadata } from 'astro';
 import { DEFAULT_LANG, type Lang } from './i18n';
 import { typesetData, typesetHtml } from './typography.mjs';
 
+/** Editorial drafts never become public claims or prices. */
+export const hasRealContent = (value: unknown): value is string =>
+  typeof value === 'string' && value.trim().length > 0 && !/^(?:TODO)\b|placeholder|preț provizoriu|цена уточняется|provisional/i.test(value.trim());
+
 export type Project = CollectionEntry<'projects'>;
 export type Film = CollectionEntry<'films'>;
 
@@ -52,7 +56,12 @@ function pick<T extends Sortable>(all: T[], lang: Lang) {
   const fallback = lang === DEFAULT_LANG ? [] : all.filter(inLang(DEFAULT_LANG)).filter((e) => !have.has(slugOf(e)));
   return [...mine, ...fallback].map(typeset).sort(order);
 }
-export const getProjects = async (lang: Lang) => pick(await getCollection('projects', visible), lang);
+export const getProjects = async (lang: Lang) => pick(await getCollection('projects', visible), lang).map((project) => ({
+  ...project, data: { ...project.data,
+    client: hasRealContent(project.data.client) ? project.data.client : undefined,
+    credits: project.data.credits.filter((credit) => hasRealContent(credit.name) && hasRealContent(credit.role)),
+  },
+}));
 export const getFilms = async (lang: Lang) => pick(await getCollection('films', visible), lang);
 
 /** Large WebP used by the full-screen viewer (kept under ~350 KB). */

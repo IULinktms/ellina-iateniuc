@@ -6,31 +6,31 @@
       "name": "Conference coverage",
       "duration": "Half day, full day or multi-day",
       "includes": "Keynotes, panels, audience, networking and branding. Same-evening previews for social media.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Seminar or workshop",
       "duration": "From 2 hours",
       "includes": "Speakers, participants and group work, photographed silently and without flash.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Corporate event",
       "duration": "From 3 hours",
       "includes": "Launches, team events, office days and reportage for websites and annual reports.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Speaker & business portraits",
       "duration": "5 minutes per person",
       "includes": "Portable on-site studio, retouched portraits within 24 hours.",
-      "price": "Placeholder price"
+      "price": ""
     },
     {
       "name": "Aftermovie & reels",
       "duration": "Added to any booking",
       "includes": "A 1–3 minute aftermovie plus vertical reels for social media.",
-      "price": "Quoted per event"
+      "price": ""
     }
   ],
   "successMessage": "Thank you. I've received your request and will confirm availability within one working day.",

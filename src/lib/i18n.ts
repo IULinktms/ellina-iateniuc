@@ -177,13 +177,14 @@ const dict = {
 
 /* Workstreams 2–4: localized interaction labels. */
 const studio = {
-  en: { trust: 'Good work. Good company.', numbers: 'The studio, in numbers', placeholder: 'TODO — demonstration content, awaiting approval', pauseLogos: 'Pause logos', playLogos: 'Resume logos', frames: 'Explore the frames', frame: 'Frame', zoom: 'Zoom photo', resetZoom: 'Reset zoom', loading: 'Loading photograph…', imageError: 'This photograph could not load. Try another frame.', advance: 'Scroll to the next event', advanceHint: 'Enable, then scroll through this image to continue. Escape cancels.', cancel: 'Cancel', bookStory: 'A story like this for your event?', book: 'Check your date' },
-  ro: { trust: 'Lucrări bune. Oameni buni.', numbers: 'Studioul, în cifre', placeholder: 'TODO — conținut demonstrativ, de aprobat', pauseLogos: 'Opriți siglele', playLogos: 'Reluați siglele', frames: 'Explorați cadrele', frame: 'Cadrul', zoom: 'Măriți fotografia', resetZoom: 'Resetați mărirea', loading: 'Se încarcă fotografia…', imageError: 'Fotografia nu s-a încărcat. Încercați alt cadru.', advance: 'Derulați spre următorul eveniment', advanceHint: 'Activați, apoi derulați prin imagine pentru a continua. Escape anulează.', cancel: 'Anulați', bookStory: 'O poveste ca aceasta pentru evenimentul dumneavoastră?', book: 'Verificați data' },
-  ru: { trust: 'Хорошая работа. Хорошая компания.', numbers: 'Студия в цифрах', placeholder: 'TODO — демонстрационные материалы, ждут подтверждения', pauseLogos: 'Остановить логотипы', playLogos: 'Продолжить логотипы', frames: 'Посмотреть кадры', frame: 'Кадр', zoom: 'Увеличить фото', resetZoom: 'Сбросить масштаб', loading: 'Загружаю фотографию…', imageError: 'Не удалось загрузить фотографию. Попробуйте другой кадр.', advance: 'Прокрутить к следующему событию', advanceHint: 'Включите, затем прокрутите изображение, чтобы продолжить. Escape отменяет переход.', cancel: 'Отмена', bookStory: 'Такая история для вашего мероприятия?', book: 'Проверить дату' },
+  en: { trust: 'Good work. Good company.', numbers: 'The studio, in numbers', pauseLogos: 'Pause logos', playLogos: 'Resume logos', frames: 'Explore the frames', frame: 'Frame', zoom: 'Zoom photo', resetZoom: 'Reset zoom', loading: 'Loading photograph…', imageError: 'This photograph could not load. Try another frame.', advance: 'Scroll to the next event', advanceHint: 'Enable, then scroll through this image to continue. Escape cancels.', cancel: 'Cancel', bookStory: 'A story like this for your event?', book: 'Check your date' },
+  ro: { trust: 'Lucrări bune. Oameni buni.', numbers: 'Studioul, în cifre', pauseLogos: 'Opriți siglele', playLogos: 'Reluați siglele', frames: 'Explorați cadrele', frame: 'Cadrul', zoom: 'Măriți fotografia', resetZoom: 'Resetați mărirea', loading: 'Se încarcă fotografia…', imageError: 'Fotografia nu s-a încărcat. Încercați alt cadru.', advance: 'Derulați spre următorul eveniment', advanceHint: 'Activați, apoi derulați prin imagine pentru a continua. Escape anulează.', cancel: 'Anulați', bookStory: 'O poveste ca aceasta pentru evenimentul dumneavoastră?', book: 'Verificați data' },
+  ru: { trust: 'Хорошая работа. Хорошая компания.', numbers: 'Студия в цифрах', pauseLogos: 'Остановить логотипы', playLogos: 'Продолжить логотипы', frames: 'Посмотреть кадры', frame: 'Кадр', zoom: 'Увеличить фото', resetZoom: 'Сбросить масштаб', loading: 'Загружаю фотографию…', imageError: 'Не удалось загрузить фотографию. Попробуйте другой кадр.', advance: 'Прокрутить к следующему событию', advanceHint: 'Включите, затем прокрутите изображение, чтобы продолжить. Escape отменяет переход.', cancel: 'Отмена', bookStory: 'Такая история для вашего мероприятия?', book: 'Проверить дату' },
 };
 
 const bookingUi = {
   "en": {
+    "onRequest": "On request",
     "steps": [
       "Event",
       "Date",
@@ -205,6 +206,7 @@ const bookingUi = {
     "email": "Email"
   },
   "ro": {
+    "onRequest": "La cerere",
     "steps": [
       "Eveniment",
       "Dată",
@@ -226,6 +228,7 @@ const bookingUi = {
     "email": "Email"
   },
   "ru": {
+    "onRequest": "По запросу",
     "steps": [
       "Событие",
       "Дата",

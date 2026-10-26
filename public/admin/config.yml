@@ -166,10 +166,9 @@ collections:
         media_folder: ../../../assets/uploads
         public_folder: ../../../assets/uploads
         fields:
-          # Workstream 3 — approved client proof replaces the clearly marked preview content.
-          - { name: proofPlaceholder, label: 'Show TODO / demonstration label', widget: boolean, default: true, i18n: duplicate }
           - name: clients
             label: Client logos
+            hint: "Appears automatically when a real client name is filled in. Empty or TODO entries stay hidden."
             widget: list
             required: false
             i18n: true
@@ -178,6 +177,7 @@ collections:
               - { name: logo, label: Approved logo (optional), widget: image, required: false, i18n: duplicate }
           - name: testimonials
             label: Approved testimonials
+            hint: "Appears automatically once the quote and name are filled in. Empty or TODO fields stay hidden."
             widget: list
             required: false
             i18n: true
@@ -188,11 +188,12 @@ collections:
               - { name: company, label: Company, widget: string, i18n: true }
           - name: stats
             label: Studio numbers
+            hint: "Verified positive numbers appear automatically. Empty values and zero stay hidden."
             widget: list
             required: false
             i18n: true
             fields:
-              - { name: value, label: Verified number (0 shows a dash), widget: number, value_type: int, min: 0, i18n: duplicate }
+              - { name: value, label: Verified number, widget: number, required: false, value_type: int, min: 0, i18n: duplicate }
               - { name: label, label: Label, widget: string, i18n: true }
               - { name: suffix, label: Unit or suffix, widget: string, required: false, default: '', i18n: true }
           - { name: heroVideo, label: Opening video, widget: file, media_folder: /public/media/films, public_folder: /media/films, hint: 'Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones.', i18n: duplicate }
@@ -280,7 +281,7 @@ collections:
               - { name: name, label: Name, widget: string, i18n: true }
               - { name: duration, label: Duration, widget: string, i18n: true }
               - { name: includes, label: What's included, widget: text, i18n: true }
-              - { name: price, label: Price (optional), widget: string, required: false, i18n: true }
+              - { name: price, label: Price (optional), widget: string, required: false, hint: "Leave empty to show La cerere / По запросу / On request.", i18n: true }
           - name: successSteps
             label: What happens after sending
             widget: list

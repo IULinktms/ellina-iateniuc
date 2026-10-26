@@ -103,10 +103,9 @@ const home = defineCollection({
   schema: ({ image }) =>
     z.object({
       // Workstream 3: editable social proof. Empty defaults preserve existing entries.
-      proofPlaceholder: z.boolean().default(true),
-      clients: z.array(z.object({ name: z.string(), logo: image().optional() })).default([]),
-      testimonials: z.array(z.object({ quote: z.string(), name: z.string(), role: z.string(), company: z.string() })).default([]),
-      stats: z.array(z.object({ value: z.number().nonnegative(), label: z.string(), suffix: z.string().default('') })).default([]),
+      clients: z.array(z.object({ name: z.string().default(''), logo: image().optional() })).default([]),
+      testimonials: z.array(z.object({ quote: z.string().default(''), name: z.string().default(''), role: z.string().default(''), company: z.string().default('') })).default([]),
+      stats: z.array(z.object({ value: z.number().nonnegative().nullish(), label: z.string().default(''), suffix: z.string().default('') })).default([]),
       heroVideo: z.string(),
       heroPoster: image(),
       heroPosterAlt: z.string(),
