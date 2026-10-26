@@ -18,7 +18,7 @@ const { Content } = await render(about);
   <section class="about-hero grid12">
     <h1 class="display"><span data-split="now">{d.title}</span></h1>
     <p class="lede" data-split>{d.intro}</p>
-    <Frame src={d.portrait} alt={d.portraitAlt} class="portrait" parallax eager sizes="(max-width: 760px) 100vw, 40vw" />
+    <Frame src={d.portrait} alt={d.portraitAlt} class="portrait" parallax eager widths={[700, 1000, 1374]} quality={90} sizes="(max-width: 760px) 100vw, 40vw" />
   </section>
 
   <section class="about-body wrap grid12">

@@ -17,6 +17,7 @@ interface Props {
   parallax?: boolean;
   eager?: boolean;
   widths?: number[];
+  quality?: number;
   style?: string;
   [key: string]: unknown;
 }
@@ -29,6 +30,7 @@ const {
   parallax = false,
   eager = false,
   widths,
+  quality = 75,
   style,
   ...rest
 } = Astro.props;
@@ -58,7 +60,7 @@ const placeholder = await lqip(src);
     width={Math.max(...ws)}
     sizes={sizes}
     format="webp"
-    quality={75}
+    quality={quality}
     loading={eager ? 'eager' : 'lazy'}
     fetchpriority={eager ? 'high' : 'auto'}
     decoding="async"
