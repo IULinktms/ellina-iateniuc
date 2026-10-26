@@ -751,8 +751,14 @@ function contactSheet() {
   const nums = root.querySelectorAll<HTMLElement>('.sheet__num');
   const mark = root.querySelector<SVGPathElement>('.sheet__mark path');
   const copy = root.querySelectorAll<HTMLElement>('[data-sheet-copy] > *');
-  const select = root.querySelector<HTMLElement>('.sheet__cell.is-select .sheet__img');
   if (reduced) return;
+  const dimmed = root.querySelectorAll<HTMLElement>('.sheet__cell:not(.is-hero):not(.is-select) .sheet__img');
+  // Load every frame well before the sheet arrives, so none pop in mid-animation
+  const imgs = root.querySelectorAll<HTMLImageElement>('img');
+  ScrollTrigger.create({
+    trigger: root, start: 'top bottom+=150%', once: true,
+    onEnter: () => imgs.forEach((im) => { im.loading = 'eager'; }),
+  });
 
   const mm = gsap.matchMedia();
   mm.add('(min-width: 761px)', () => {
@@ -772,8 +778,8 @@ function contactSheet() {
     tl.fromTo(grid, { scale: () => cover(), x: () => ox() * cover(), y: () => oy() * cover() }, { scale: 1, x: 0, y: 0, duration: 1, ease: 'power2.inOut' })
       .fromTo(others, { opacity: 0.35 }, { opacity: 1, duration: 0.6 }, 0.25)
       .fromTo(nums, { opacity: 0 }, { opacity: 0.85, duration: 0.3 }, 0.7)
-      .fromTo(others, { filter: 'brightness(1)' }, { filter: 'brightness(0.55)', duration: 0.3 }, 1.05)
-      .fromTo(select, { filter: 'brightness(0.55)' }, { filter: 'brightness(1.05)', duration: 0.3 }, 1.05)
+      // Dim with opacity over the near-black sheet, not filter: filters repaint every frame and flicker while scaled
+      .fromTo(dimmed, { opacity: 1 }, { opacity: 0.5, duration: 0.3 }, 1.05)
       .to(mark, { strokeDashoffset: 0, duration: 0.45, ease: 'power1.inOut' }, 1.0)
       .from(copy, { y: 30, opacity: 0, duration: 0.35, stagger: 0.08, ease: 'power2.out' }, 1.1)
       .to({}, { duration: 0.25 }); // hold before release
