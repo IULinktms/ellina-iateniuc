@@ -789,6 +789,12 @@ function projectStory() {
     for (const e of entries) if (e.isIntersecting) {
       const index = frames.indexOf(e.target as HTMLElement);
       links.forEach((a, i) => { if (i === index) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+      // A long story scrolls its strip sideways: keep the current frame centred in it
+      const strip = links[index]?.parentElement;
+      if (strip && strip.scrollWidth > strip.clientWidth) {
+        const a = links[index];
+        strip.scrollTo({ left: a.offsetLeft - (strip.clientWidth - a.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
+      }
       if (bar) bar.style.transform = `scaleX(${(index + 1) / frames.length})`;
     }
   }, { rootMargin: '-25% 0px -35% 0px' });
@@ -821,7 +827,8 @@ function projectStory() {
     mm.add('(min-width: 901px)', () => {
       frames.filter((f) => f.classList.contains('g-full')).forEach((f) => {
         if (!clientArrival && f.getBoundingClientRect().top < innerHeight) return;
-        gsap.to(f.querySelector('img'), { scale: 1.06, ease: 'none', scrollTrigger: { trigger: f, start: 'center center', end: '+=28%', pin: true, scrub: 0.5, anticipatePin: 1 } });
+        // Pin the photo, not the figure: the figure's full-bleed negative margins would be measured away by the pin
+        gsap.to(f.querySelector('img'), { scale: 1.06, ease: 'none', scrollTrigger: { trigger: f, start: 'center center', end: '+=28%', pin: f.querySelector<HTMLElement>('button') ?? true, scrub: 0.5, anticipatePin: 1 } });
       });
     });
     cleanups.push(() => mm.revert());
