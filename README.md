@@ -83,6 +83,8 @@ public/
 
 **SEO** — per-page titles/descriptions, canonical URLs, Open Graph/Twitter images generated from covers, JSON-LD (ProfessionalService, CreativeWork), sitemap, robots.txt.
 
+**Private client galleries** — `src/pages/g/[gallery].astro` builds one unlisted page per manifest in `src/data/client-galleries/*.json` (`slug` sets the URL `/g/<slug>/`). Web-size frames live in `src/assets/galleries/<id>/`. The full-size originals and the ZIP live in the Vercel Blob store `ellina-client-galleries` (public, random-suffix URLs) and are never committed; upload with `npx vercel blob put <file> --access public --add-random-suffix --rw-token …` (the token is `BLOB_READ_WRITE_TOKEN` from `vercel env pull`). The pages carry `noindex, nofollow` (meta plus an `X-Robots-Tag` header from `scripts/headers.mjs`), are kept out of the sitemap and are linked from nowhere: send the URL to the client directly.
+
 **Adding a category** — add it to `CATEGORIES` in `src/content.config.ts` and to the `category` options in `public/admin/config.yml`.
 
 Placeholder photography: Unsplash (Unsplash License). Placeholder aftermovies were rendered from those stills. Event and client names are fictional placeholders. Replace all before launch.

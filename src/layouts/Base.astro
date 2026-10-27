@@ -19,8 +19,11 @@ interface Props {
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
   page: string;
   noindex?: boolean;
+  /** Unlisted client gallery: kept out of search and of link-following, has only its own language */
+  unlisted?: boolean;
 }
-const { lang, title, description, imageAlt, type = 'website', jsonLd, page, noindex = false } = Astro.props;
+const { lang, title, description, imageAlt, type = 'website', jsonLd, page, unlisted = false } = Astro.props;
+const noindex = Astro.props.noindex || unlisted;
 const s = t(lang);
 const site = await getSite(lang);
 // Search titles for the main pages: service + city + name, ≤ ~60 characters; RU uses the Cyrillic name
@@ -45,7 +48,7 @@ const seoTitles: Record<string, Record<string, string>> = {
     contact: `Book an event photographer in Chișinău — ${brand}`,
   },
 };
-const fullTitle = (page && seoTitles[lang]?.[page]) || (title ? `${title} — ${brand}` : site.seoTitle);
+const fullTitle = unlisted && title ? title : (page && seoTitles[lang]?.[page]) || (title ? `${title} — ${brand}` : site.seoTitle);
 const desc = description ?? site.seoDescription;
 const { rest } = splitPath(Astro.url.pathname);
 const canonical = new URL(localePath(lang, rest), Astro.site);
@@ -56,7 +59,7 @@ const ogCard = workSlug ? `/og/${lang}/${workSlug}.jpg` : page === 'about' || pa
 const og = new URL(ogCard, Astro.site);
 const L = (p: string) => localePath(lang, p);
 // Language switch: the same page in the other language; from a 404 there is no same page, so its home
-const langHref = (l: Lang) => localePath(l, page === '404' ? '/' : rest);
+const langHref = (l: Lang) => localePath(l, page === '404' || unlisted ? '/' : rest);
 const whatsapp = whatsappHref(site.whatsapp, lang);
 // Menu booking row: the two chats people actually use, at button size, right under the page list
 const telegram = /^https:\/\/(t|telegram)\.me\/[^/]+/.test(site.telegram) ? site.telegram : '';
@@ -67,7 +70,7 @@ const nav = [
   { href: L('/about/'), label: s.nav.about, key: 'about' },
   { href: L('/contact/'), label: s.nav.book, key: 'contact' },
 ];
-const crumbs = page === 'home' || page === '404' ? [] : [
+const crumbs = page === 'home' || page === '404' || unlisted ? [] : [
   { name: s.nav.home, url: new URL(L('/'), Astro.site).toString() },
   ...(page === 'work' ? [{ name: s.nav.portfolio, url: new URL(L('/portfolio/'), Astro.site).toString() }] : []),
   { name: title ?? site.name, url: canonical.toString() },
@@ -101,7 +104,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
     {!noindex && <link rel="canonical" href={canonical} />}
     {!noindex && alternates.map((a) => <link rel="alternate" hreflang={HTML_LANG[a.lang]} href={a.href} />)}
     {!noindex && <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.lang === DEFAULT_LANG)!.href} />}
-    {noindex && <meta name="robots" content="noindex" />}
+    {noindex && <meta name="robots" content={unlisted ? 'noindex, nofollow' : 'noindex'} />}
     <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -115,7 +118,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
     {LOCALES.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={desc} />
-    <meta property="og:url" content={canonical} />
+    {!unlisted && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={og} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />

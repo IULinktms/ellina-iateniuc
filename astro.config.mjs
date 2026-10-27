@@ -14,7 +14,8 @@ export default defineConfig({
   adapter: isStaticPreview ? undefined : vercel({ imageService: false }),
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/admin') && !/\/404\/?$/.test(page),
+      // Client galleries under /g/ are unlisted: never in the sitemap
+      filter: (page) => !page.includes('/admin') && !/\/404\/?$/.test(page) && !new URL(page).pathname.startsWith('/g/'),
       // hreflang alternates: Russian at /, Romanian at /ro/, English at /en/
       i18n: { defaultLocale: 'ru', locales: { ru: 'ru', ro: 'ro', en: 'en' } },
       // x-default (Russian at /) next to the language alternates, and the build date as lastmod

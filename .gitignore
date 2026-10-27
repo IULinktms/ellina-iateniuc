@@ -9,3 +9,4 @@ dist
 preview-dist
 .api-parked
 screenshots/
+.env*

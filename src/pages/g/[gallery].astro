@@ -1,0 +1,101 @@
+---
+/**
+ * Unlisted client galleries: /g/<slug>/ for every manifest in src/data/client-galleries/.
+ * Kept out of search (robots meta here, X-Robots-Tag in scripts/headers.mjs), out of the sitemap
+ * (astro.config.mjs) and linked from no page. Web-size frames come from src/assets/galleries/<id>/;
+ * the full-size originals and the ZIP live in Vercel Blob, outside git.
+ */
+import type { ImageMetadata } from 'astro';
+import Base from '../../layouts/Base.astro';
+import Frame from '../../components/Frame.astro';
+import { fullSize } from '../../lib/content';
+import { t } from '../../lib/i18n';
+
+interface Photo { name: string; url: string; width: number; height: number; bytes: number; }
+interface Gallery {
+  id: string; slug: string; title: string; subtitle: string; credit: string;
+  zip: { name: string; url: string; bytes: number };
+  photos: Photo[];
+}
+
+export function getStaticPaths() {
+  const manifests = import.meta.glob<Gallery>('../../data/client-galleries/*.json', { eager: true, import: 'default' });
+  return Object.values(manifests).map((gallery) => ({ params: { gallery: gallery.slug }, props: { gallery } }));
+}
+
+const { gallery } = Astro.props as { gallery: Gallery };
+const lang = 'ru' as const;
+const s = t(lang);
+const sources = import.meta.glob<ImageMetadata>('../../assets/galleries/*/*.jpg', { eager: true, import: 'default' });
+const photos = await Promise.all(
+  gallery.photos.map(async (p, i) => {
+    const src = sources[`../../assets/galleries/${gallery.id}/${p.name}`];
+    if (!src) throw new Error(`Gallery ${gallery.id}: missing web-size file for ${p.name}`);
+    const number = String(i + 1).padStart(3, '0');
+    return { ...p, src, full: await fullSize(src), number, landscape: src.width > src.height };
+  }),
+);
+// Blob serves `?download=1` as an attachment, so a tap saves the file instead of opening it
+const download = (url: string) => `${url}?download=1`;
+const mb = (bytes: number) => `${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: bytes < 1e8 ? 1 : 0 }).format(bytes / 1e6)} МБ`;
+---
+
+<Base page="gallery" lang={lang} title={gallery.title + ' — галерея'} description={`${gallery.title}: все фотографии с мероприятия.`} unlisted>
+  <header class="page-head cg-head">
+    <h1 class="display"><span class="line">{gallery.title}</span></h1>
+    <div class="page-head__row">
+      <p>{gallery.subtitle}<br /><span class="muted">{photos.length} фотографий · {gallery.credit}</span></p>
+      <div class="cg-actions">
+        <a class="btn btn--solid cg-zip" href={download(gallery.zip.url)} download={gallery.zip.name}>
+          Скачать все фото (ZIP)<span aria-hidden="true">↓</span>
+        </a>
+        <p class="small muted">Оригиналы в полном размере, {mb(gallery.zip.bytes)}. Отдельный кадр — кнопка «Скачать» под фото.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="cg-grid wrap" aria-label="Фотографии">
+    {photos.map((p) => (
+      <figure class:list={['cg-item', p.landscape && 'cg-item--wide']}>
+        <button data-lb-item data-full={p.full} data-alt={`${gallery.title}, фото ${p.number}`} data-caption={`${p.number} / ${photos.length} · ${p.name}`} data-cursor={s.cursor.expand} aria-label={`Открыть фото ${p.number}`}>
+          <Frame src={p.src} alt={`${gallery.title}, фото ${p.number}`} aperture={false} widths={[400, 800, 1200]} sizes={p.landscape ? '(max-width: 760px) 100vw, 50vw' : '(max-width: 760px) 50vw, (max-width: 1200px) 33vw, 25vw'} style={p.landscape ? 'aspect-ratio:4/3' : 'aspect-ratio:2/3'} />
+        </button>
+        <figcaption>
+          <span class="tnum">{p.number}</span>
+          <a class="line-link" href={download(p.url)} download={p.name} aria-label={`Скачать фото ${p.number} в полном размере, ${mb(p.bytes)}`}>Скачать <span class="muted">{mb(p.bytes)}</span></a>
+        </figcaption>
+      </figure>
+    ))}
+  </section>
+
+  <section class="cg-foot wrap">
+    <a class="btn btn--solid cg-zip" href={download(gallery.zip.url)} download={gallery.zip.name}>
+      Скачать все фото (ZIP)<span aria-hidden="true">↓</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .cg-head h1 { font-size: clamp(2.25rem, 6.5vw, 6.5rem); }
+  .cg-actions { display: grid; gap: 0.75rem; justify-items: start; max-width: 26rem; }
+  .cg-zip { --h: 3.6rem; font-size: var(--t-base); }
+  .cg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.6vw, 1.5rem) clamp(0.5rem, 1.2vw, 1.25rem);
+    align-items: start;
+  }
+  @media (min-width: 761px) { .cg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1201px) { .cg-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .cg-item { margin: 0; min-width: 0; }
+  .cg-item--wide { grid-column: span 2; }
+  .cg-item button { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+  /* One tile shape per row so the captions line up; the viewer and the download show the whole frame */
+  .cg-item :global(.frame img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+  .cg-item figcaption {
+    display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+    min-height: 2.75rem; font-size: var(--t-xs); color: var(--ash);
+  }
+  .cg-item figcaption a { color: var(--bone); display: inline-flex; align-items: center; min-height: 2.75rem; gap: 0.35em; }
+  .cg-foot { display: flex; justify-content: center; padding-block: clamp(3rem, 8vw, 6rem); }
+</style>

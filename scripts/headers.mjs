@@ -18,9 +18,11 @@ const ours = [
   { src: '^/ru/(.*)$', headers: { Location: '/$1' }, status: 308 },
   { src: '^/(?!admin/).*$', headers: security, continue: true },
   { src: '^/admin/.*$', headers: { ...security, 'referrer-policy': 'no-referrer' }, continue: true },
+  // Unlisted client galleries: out of search even if a link leaks, and the path never leaves as a referrer
+  { src: '^/g/.*$', headers: { 'x-robots-tag': 'noindex, nofollow', 'referrer-policy': 'no-referrer' }, continue: true },
   { src: '^/media/(.*)$', headers: { 'cache-control': 'public, max-age=604800' }, continue: true },
 ];
 // Idempotent: drop routes from an earlier run, then put ours first
 config.routes = [...ours, ...config.routes.filter((r) => !ours.some((o) => o.src === r.src))];
 fs.writeFileSync(file, JSON.stringify(config, null, '\t'));
-console.log('[headers] legacy Russian redirects + security + media cache headers added');
+console.log('[headers] legacy Russian redirects + security + gallery noindex + media cache headers added');
