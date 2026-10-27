@@ -1,0 +1,98 @@
+[
+  {
+    "target": "live",
+    "sequence": "portfolio_-1440",
+    "frames": 110,
+    "medianIntervalMs": 50.0,
+    "maxIntervalMs": 85.2,
+    "durationMs": 5328.2
+  },
+  {
+    "target": "live",
+    "sequence": "portfolio_-390",
+    "frames": 110,
+    "medianIntervalMs": 49.5,
+    "maxIntervalMs": 70.7,
+    "durationMs": 5313.0
+  },
+  {
+    "target": "live",
+    "sequence": "work_casmara-international-seminar-2026_-390",
+    "frames": 110,
+    "medianIntervalMs": 50.0,
+    "maxIntervalMs": 72.7,
+    "durationMs": 5328.3
+  },
+  {
+    "target": "live",
+    "sequence": "work_casmara-international-seminar-2026_-1440",
+    "frames": 110,
+    "medianIntervalMs": 49.5,
+    "maxIntervalMs": 84.0,
+    "durationMs": 5335.4
+  },
+  {
+    "target": "live",
+    "sequence": "home-1440",
+    "frames": 110,
+    "medianIntervalMs": 50,
+    "maxIntervalMs": 73.7,
+    "durationMs": 5357.9
+  },
+  {
+    "target": "live",
+    "sequence": "home-390",
+    "frames": 110,
+    "medianIntervalMs": 49.6,
+    "maxIntervalMs": 70.3,
+    "durationMs": 5319.7
+  },
+  {
+    "target": "local-final",
+    "sequence": "portfolio_-1440",
+    "frames": 110,
+    "medianIntervalMs": 50.0,
+    "maxIntervalMs": 76.0,
+    "durationMs": 5375.0
+  },
+  {
+    "target": "local-final",
+    "sequence": "portfolio_-390",
+    "frames": 110,
+    "medianIntervalMs": 49.9,
+    "maxIntervalMs": 71.5,
+    "durationMs": 5351.8
+  },
+  {
+    "target": "local-final",
+    "sequence": "work_casmara-international-seminar-2026_-390",
+    "frames": 110,
+    "medianIntervalMs": 49.4,
+    "maxIntervalMs": 90.0,
+    "durationMs": 5400.8
+  },
+  {
+    "target": "local-final",
+    "sequence": "work_casmara-international-seminar-2026_-1440",
+    "frames": 110,
+    "medianIntervalMs": 48.9,
+    "maxIntervalMs": 87.0,
+    "durationMs": 5350.6
+  },
+  {
+    "target": "local-final",
+    "sequence": "home-1440",
+    "frames": 110,
+    "medianIntervalMs": 49.5,
+    "maxIntervalMs": 101.4,
+    "durationMs": 5399.8
+  },
+  {
+    "target": "local-final",
+    "sequence": "home-390",
+    "frames": 110,
+    "medianIntervalMs": 49.6,
+    "maxIntervalMs": 72.3,
+    "durationMs": 5341.5
+  }
+]

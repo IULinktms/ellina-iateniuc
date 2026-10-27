@@ -1,0 +1,149 @@
+
+> ellina-iateniuc@1.0.0 build
+> astro build && node scripts/localize-404.mjs && node scripts/headers.mjs && node scripts/prune-unreferenced.mjs
+
+03:03:41 [vite] Re-optimizing dependencies because vite config has changed
+03:03:41 [content] Syncing content
+03:03:42 [content] Synced content
+03:03:42 [types] Generated 310ms
+03:03:42 [build] output: "static"
+03:03:42 [build] mode: "static"
+03:03:42 [build] directory: /Users/jarvis/orca/workspaces/ellina-iateniuc/ellina-fresh-eyes-qa-fixes-nnqf/dist/
+03:03:42 [build] adapter: @astrojs/vercel
+03:03:42 [build] Collecting build info...
+03:03:42 [build] ✓ Completed in 344ms.
+03:03:42 [build] Building static entrypoints...
+03:03:42 [vite] ✓ built in 185ms
+03:03:42 [vite] ✓ built in 131ms
+03:03:42 [build] Rearranging server assets...
+
+ generating static routes
+03:03:42   ├─ /404.html (+9ms)
+03:03:42   ├─ /og/ellina.jpg (+94ms)
+03:03:42   ├─ /og/ru/site.jpg (+73ms)
+03:03:42   ├─ /og/ru/about.jpg (+110ms)
+03:03:42   ├─ /og/ru/films.jpg (+66ms)
+03:03:42   ├─ /og/ru/casmara-international-seminar-2026.jpg (+114ms)
+03:03:42   ├─ /og/ro/site.jpg (+69ms)
+03:03:43   ├─ /og/ro/about.jpg (+116ms)
+03:03:43   ├─ /og/ro/films.jpg (+84ms)
+03:03:43   ├─ /og/ro/casmara-international-seminar-2026.jpg (+135ms)
+03:03:43   ├─ /og/en/site.jpg (+80ms)
+03:03:43   ├─ /og/en/about.jpg (+118ms)
+03:03:43   ├─ /og/en/films.jpg (+71ms)
+03:03:43   ├─ /og/en/casmara-international-seminar-2026.jpg (+123ms)
+03:03:43   ├─ /robots.txt (+1ms)
+03:03:43   ├─ /ro/404/index.html (+1ms)
+03:03:43   ├─ /en/404/index.html (+1ms)
+03:03:43   ├─ /about/index.html (+63ms)
+03:03:43   ├─ /ro/about/index.html (+2ms)
+03:03:43   ├─ /en/about/index.html (+1ms)
+03:03:43   ├─ /contact/index.html (+1ms)
+03:03:43   ├─ /ro/contact/index.html (+1ms)
+03:03:43   ├─ /en/contact/index.html (+1ms)
+03:03:43   ├─ /films/index.html (+23ms)
+03:03:43   ├─ /ro/films/index.html (+2ms)
+03:03:43   ├─ /en/films/index.html (+1ms)
+03:03:43   ├─ /portfolio/index.html (+304ms)
+03:03:44   ├─ /ro/portfolio/index.html (+3ms)
+03:03:44   ├─ /en/portfolio/index.html (+4ms)
+03:03:44   ├─ /work/casmara-international-seminar-2026/index.html (+5ms)
+03:03:44   ├─ /ro/work/casmara-international-seminar-2026/index.html (+4ms)
+03:03:44   ├─ /en/work/casmara-international-seminar-2026/index.html (+15ms)
+03:03:44   ├─ /index.html (+115ms)
+03:03:44   ├─ /ro/index.html (+2ms)
+03:03:44   ├─ /en/index.html (+2ms)
+03:03:44 ✓ Completed in 1.90s.
+
+ generating optimized images
+03:03:44   ▶ /assets/portrait-ellina.Dl9d3-EH_1FRwxs.webp (reused cache entry) (+2ms) (1/81)
+03:03:44   ▶ /assets/casmara-certificate-stage.CbH1pWNL_1imp3t.webp (reused cache entry) (+2ms) (2/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_MjIXk.webp (reused cache entry) (+2ms) (3/81)
+03:03:44   ▶ /assets/casmara-trio-photo-wall.C9LktWX6_Z1AMG5d.webp (reused cache entry) (+2ms) (4/81)
+03:03:44   ▶ /assets/casmara-team-photo-wall.dLSF6IXQ_AhwQ0.webp (reused cache entry) (+2ms) (5/81)
+03:03:44   ▶ /assets/casmara-trio-white-uniform.DQDm6i4J_15zq2o.webp (reused cache entry) (+2ms) (6/81)
+03:03:44   ▶ /assets/casmara-certificates.Db2x5lX1_11mDnD.webp (reused cache entry) (+2ms) (7/81)
+03:03:44   ▶ /assets/casmara-trio-red-bag.DdiY7lNa_2lulGs.webp (reused cache entry) (+3ms) (8/81)
+03:03:44   ▶ /assets/casmara-guest-lace.DFygN33K_Z11a525.webp (reused cache entry) (+3ms) (9/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_Z3LaJr.webp (reused cache entry) (+1ms) (10/81)
+03:03:44   ▶ /assets/portrait-ellina.Dl9d3-EH_h7Sok.webp (reused cache entry) (+1ms) (11/81)
+03:03:44   ▶ /assets/casmara-team-photo-wall.dLSF6IXQ_2bCWVt.webp (reused cache entry) (+1ms) (12/81)
+03:03:44   ▶ /assets/casmara-duo-photo-wall.C5DpCBh9_Z2iRHjm.webp (reused cache entry) (+3ms) (13/81)
+03:03:44   ▶ /assets/casmara-certificate-stage.CbH1pWNL_21exae.webp (reused cache entry) (+1ms) (14/81)
+03:03:44   ▶ /assets/casmara-trio-photo-wall.C9LktWX6_Z1tOup4.webp (reused cache entry) (+1ms) (15/81)
+03:03:44   ▶ /assets/casmara-certificates.Db2x5lX1_Z1yFJeg.webp (reused cache entry) (+2ms) (16/81)
+03:03:44   ▶ /assets/casmara-trio-white-uniform.DQDm6i4J_224m8H.webp (reused cache entry) (+2ms) (17/81)
+03:03:44   ▶ /assets/casmara-guest-lace.DFygN33K_ZLVms0.webp (reused cache entry) (+1ms) (18/81)
+03:03:44   ▶ /assets/casmara-trio-red-bag.DdiY7lNa_1g2xN9.webp (reused cache entry) (+1ms) (19/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_1ETYie.webp (reused cache entry) (+1ms) (20/81)
+03:03:44   ▶ /assets/casmara-team-photo-wall.dLSF6IXQ_233Xgo.webp (reused cache entry) (+1ms) (21/81)
+03:03:44   ▶ /assets/casmara-duo-photo-wall.C5DpCBh9_LkfEp.webp (reused cache entry) (+1ms) (22/81)
+03:03:44   ▶ /assets/portrait-ellina.Dl9d3-EH_1Xyy2D.webp (reused cache entry) (+1ms) (23/81)
+03:03:44   ▶ /assets/casmara-certificate-stage.CbH1pWNL_Z29JLnz.webp (reused cache entry) (+2ms) (24/81)
+03:03:44   ▶ /assets/casmara-trio-photo-wall.C9LktWX6_Z1Cou59.webp (reused cache entry) (+2ms) (25/81)
+03:03:44   ▶ /assets/casmara-certificates.Db2x5lX1_Z1ztoKE.webp (reused cache entry) (+1ms) (26/81)
+03:03:44   ▶ /assets/casmara-guest-lace.DFygN33K_ZjKwqz.webp (reused cache entry) (+1ms) (27/81)
+03:03:44   ▶ /assets/casmara-trio-red-bag.DdiY7lNa_1feSgK.webp (reused cache entry) (+1ms) (28/81)
+03:03:44   ▶ /assets/casmara-trio-white-uniform.DQDm6i4J_Z25WS88.webp (reused cache entry) (+1ms) (29/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_Z2aLbpp.webp (reused cache entry) (+1ms) (30/81)
+03:03:44   ▶ /assets/casmara-duo-photo-wall.C5DpCBh9_1W4f0p.webp (reused cache entry) (+3ms) (31/81)
+03:03:44   ▶ /assets/casmara-team-photo-wall.dLSF6IXQ_1FPH3r.webp (reused cache entry) (+5ms) (32/81)
+03:03:44   ▶ /assets/casmara-trio-photo-wall.C9LktWX6_ZvevRL.webp (reused cache entry) (+4ms) (33/81)
+03:03:44   ▶ /assets/casmara-certificate-stage.CbH1pWNL_Z4MEX5.webp (reused cache entry) (+4ms) (34/81)
+03:03:44   ▶ /assets/portrait-ellina.Dl9d3-EH_Z1eE9MK.webp (reused cache entry) (+5ms) (35/81)
+03:03:44   ▶ /assets/casmara-certificates.Db2x5lX1_19obeJ.webp (reused cache entry) (+4ms) (36/81)
+03:03:44   ▶ /assets/casmara-guest-lace.DFygN33K_G1FJy.webp (reused cache entry) (+4ms) (37/81)
+03:03:44   ▶ /assets/casmara-trio-red-bag.DdiY7lNa_2tvSxy.webp (reused cache entry) (+5ms) (38/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_Z2clbvy.webp (reused cache entry) (+5ms) (39/81)
+03:03:44   ▶ /assets/casmara-trio-white-uniform.DQDm6i4J_6W38p.webp (reused cache entry) (+5ms) (40/81)
+03:03:44   ▶ /assets/casmara-duo-photo-wall.C5DpCBh9_Z1NEugG.webp (reused cache entry) (+3ms) (41/81)
+03:03:44   ▶ /assets/casmara-trio-photo-wall.C9LktWX6_1Y5cnA.webp (reused cache entry) (+2ms) (42/81)
+03:03:44   ▶ /assets/casmara-team-photo-wall.dLSF6IXQ_ZT1Hu8.webp (reused cache entry) (+2ms) (43/81)
+03:03:44   ▶ /assets/casmara-certificate-stage.CbH1pWNL_Ge9hY.webp (reused cache entry) (+2ms) (44/81)
+03:03:44   ▶ /assets/casmara-certificates.Db2x5lX1_ZBnHOE.webp (reused cache entry) (+3ms) (45/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_2vqgWo.webp (reused cache entry) (+6ms) (46/81)
+03:03:44   ▶ /assets/casmara-guest-lace.DFygN33K_1TjczA.webp (reused cache entry) (+7ms) (47/81)
+03:03:44   ▶ /assets/casmara-guest-blazer.CuEAzsqX_1BhAto.webp (reused cache entry) (+7ms) (48/81)
+03:03:44   ▶ /assets/casmara-trio-red-bag.DdiY7lNa_HIYta.webp (reused cache entry) (+7ms) (49/81)
+03:03:44   ▶ /assets/casmara-duo-photo-wall.C5DpCBh9_1bk6Xg.webp (reused cache entry) (+6ms) (50/81)
+03:03:44   ▶ /assets/casmara-trio-white-uniform.DQDm6i4J_Zr0a8M.webp (reused cache entry) (+6ms) (51/81)
+03:03:44   ▶ /assets/casmara-team-photo-wall.dLSF6IXQ_Z2gWpob.webp (reused cache entry) (+6ms) (52/81)
+03:03:44   ▶ /assets/casmara-certificate-stage.CbH1pWNL_2lI5jk.webp (reused cache entry) (+6ms) (53/81)
+03:03:44   ▶ /assets/casmara-certificates.Db2x5lX1_Z23aLRL.webp (reused cache entry) (+5ms) (54/81)
+03:03:44   ▶ /assets/casmara-guest-lace.DFygN33K_2bPSpA.webp (reused cache entry) (+1ms) (55/81)
+03:03:44   ▶ /assets/casmara-trio-photo-wall.C9LktWX6_1DJ9Yx.webp (reused cache entry) (+7ms) (56/81)
+03:03:44   ▶ /assets/casmara-guest-blazer.CuEAzsqX_1yAn2K.webp (reused cache entry) (+1ms) (57/81)
+03:03:44   ▶ /assets/casmara-duo-photo-wall.C5DpCBh9_2wD2vq.webp (reused cache entry) (+1ms) (58/81)
+03:03:44   ▶ /assets/casmara-trio-red-bag.DdiY7lNa_Lxv9D.webp (reused cache entry) (+1ms) (59/81)
+03:03:44   ▶ /assets/casmara-trio-white-uniform.DQDm6i4J_19VlvD.webp (reused cache entry) (+1ms) (60/81)
+03:03:44   ▶ /assets/casmara-trio-gift-bag.sPhAWc81_2iXWn4.webp (reused cache entry) (+1ms) (61/81)
+03:03:44   ▶ /assets/casmara-trio-photo-wall.C9LktWX6_ZRdIUM.webp (reused cache entry) (+0ms) (62/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_1Cy4Vg.webp (reused cache entry) (+2ms) (63/81)
+03:03:44   ▶ /assets/casmara-hero-certificates.CGFLEHvb_Z73t7V.webp (reused cache entry) (+1ms) (64/81)
+03:03:44   ▶ /assets/casmara-guest-blazer.CuEAzsqX_1xMHvm.webp (reused cache entry) (+1ms) (65/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_Z1BtolV.webp (reused cache entry) (+1ms) (66/81)
+03:03:44   ▶ /assets/casmara-trio-gift-bag.sPhAWc81_299pQF.webp (reused cache entry) (+1ms) (67/81)
+03:03:44   ▶ /assets/casmara-hero-certificates.CGFLEHvb_Z6B4Kp.webp (reused cache entry) (+1ms) (68/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_TbIvc.webp (reused cache entry) (+0ms) (69/81)
+03:03:44   ▶ /assets/casmara-guest-blazer.CuEAzsqX_1Jj8ku.webp (reused cache entry) (+1ms) (70/81)
+03:03:44   ▶ /assets/casmara-trio-gift-bag.sPhAWc81_JnaLV.webp (reused cache entry) (+1ms) (71/81)
+03:03:44   ▶ /assets/casmara-stage-team.Ds9TNDpg_ZUMlMF.webp (reused cache entry) (+1ms) (72/81)
+03:03:44   ▶ /assets/casmara-hero-certificates.CGFLEHvb_1WsYrT.webp (reused cache entry) (+1ms) (73/81)
+03:03:44   ▶ /assets/casmara-trio-gift-bag.sPhAWc81_1KOAqf.webp (reused cache entry) (+1ms) (74/81)
+03:03:44   ▶ /assets/casmara-guest-blazer.CuEAzsqX_Z1sKIT.webp (reused cache entry) (+1ms) (75/81)
+03:03:44   ▶ /assets/casmara-trio-gift-bag.sPhAWc81_Z17pxcT.webp (reused cache entry) (+0ms) (76/81)
+03:03:44   ▶ /assets/casmara-guest-blazer.CuEAzsqX_156kof.webp (reused cache entry) (+1ms) (77/81)
+03:03:44   ▶ /assets/casmara-trio-gift-bag.sPhAWc81_2hB8aM.webp (reused cache entry) (+1ms) (78/81)
+03:03:44   ▶ /assets/casmara-hero-certificates.CGFLEHvb_1d7C7Y.webp (reused cache entry) (+2ms) (79/81)
+03:03:44   ▶ /assets/casmara-hero-certificates.CGFLEHvb_ZEsRiD.webp (reused cache entry) (+2ms) (80/81)
+03:03:44   ▶ /assets/casmara-hero-certificates.CGFLEHvb_1Wcec1.webp (reused cache entry) (+6ms) (81/81)
+03:03:44 ✓ Completed in 31ms.
+
+03:03:44 [build] ✓ Completed in 2.27s.
+03:03:44 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+03:03:44 [@astrojs/vercel] Copying static files to .vercel/output/static
+03:03:44 [build] 21 page(s) built in 2.71s
+03:03:44 [build] Complete!
+[localize-404] /ro/404/index.html, /en/404/index.html
+[headers] legacy Russian redirects + security + media cache headers added
+[prune] removed 68 unreferenced images/films (62.0 MB)

@@ -1,0 +1,1538 @@
+[
+  {
+    "engine": "chromium",
+    "lang": "ru",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: 17 мая 2027 г.\nМесто: …\nТип: мероприятие / бренд / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "chromium",
+    "lang": "ru",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: 17 мая 2027 г.\nМесто: …\nТип: мероприятие / бренд / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "chromium",
+    "lang": "ro",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: 17 mai 2027\nLocul: …\nTipul: eveniment / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "chromium",
+    "lang": "ro",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: 17 mai 2027\nLocul: …\nTipul: eveniment / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "chromium",
+    "lang": "en",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: 17 May 2027\nPlace: …\nType: event / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "chromium",
+    "lang": "en",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: 17 May 2027\nPlace: …\nType: event / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "webkit",
+    "lang": "ru",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: 17 мая 2027 г.\nМесто: …\nТип: мероприятие / бренд / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "webkit",
+    "lang": "ru",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: 17 мая 2027 г.\nМесто: …\nТип: мероприятие / бренд / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels",
+          "https://wa.me/37368648820?text=Здравствуйте, Эллина! Хочу заказать съёмку.\nДата: …\nМесто: …\nТип: мероприятие / бренд / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "webkit",
+    "lang": "ro",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: 17 mai 2027\nLocul: …\nTipul: eveniment / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "webkit",
+    "lang": "ro",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: 17 mai 2027\nLocul: …\nTipul: eveniment / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels",
+          "https://wa.me/37368648820?text=Bună ziua, Ellina! Aș dori să rezerv o filmare sau o ședință foto.\nData: …\nLocul: …\nTipul: eveniment / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "webkit",
+    "lang": "en",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: 17 May 2027\nPlace: …\nType: event / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "engine": "webkit",
+    "lang": "en",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "name": "menu open",
+        "ok": true
+      },
+      {
+        "name": "menu focus trap",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "name": "menu Escape focus",
+        "ok": true
+      },
+      {
+        "name": "calculator date WhatsApp",
+        "ok": true,
+        "detail": "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: 17 May 2027\nPlace: …\nType: event / brand / Reels"
+      },
+      {
+        "name": "client navigation",
+        "ok": true
+      },
+      {
+        "name": "switcher keeps portfolio",
+        "ok": true
+      },
+      {
+        "name": "Back scroll",
+        "ok": true,
+        "detail": {
+          "before": 850,
+          "after": 850
+        }
+      },
+      {
+        "name": "Forward page",
+        "ok": true
+      },
+      {
+        "name": "lightbox loaded",
+        "ok": true
+      },
+      {
+        "name": "lightbox keyboard",
+        "ok": true,
+        "detail": {
+          "initial": "01 / 10",
+          "next": "02 / 10"
+        }
+      },
+      {
+        "name": "lightbox swipe",
+        "ok": true
+      },
+      {
+        "name": "lightbox Escape",
+        "ok": true
+      },
+      {
+        "name": "film plays",
+        "ok": true
+      },
+      {
+        "name": "film closes and removed",
+        "ok": true
+      },
+      {
+        "name": "contact https://t.me/+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact tel:+37368648820",
+        "ok": true
+      },
+      {
+        "name": "contact mailto:ellinayatsenyuk@gmail.com",
+        "ok": true
+      },
+      {
+        "name": "contact viber:",
+        "ok": true,
+        "detail": [
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820",
+          "viber://chat?number=%2B37368648820"
+        ]
+      },
+      {
+        "name": "contact https://www.instagram.com/",
+        "ok": true,
+        "detail": [
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/",
+          "https://www.instagram.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "contact https://www.pinterest.com/",
+        "ok": true,
+        "detail": [
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/",
+          "https://www.pinterest.com/ellinayatsenyuk/"
+        ]
+      },
+      {
+        "name": "all WhatsApp prefills",
+        "ok": true,
+        "detail": [
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels",
+          "https://wa.me/37368648820?text=Hello Ellina! I would like to book a shoot.\nDate: …\nPlace: …\nType: event / brand / Reels"
+        ]
+      }
+    ],
+    "errors": [],
+    "video": {
+      "ok": true,
+      "time": 1.68,
+      "width": 1920,
+      "height": 1080
+    }
+  }
+]

@@ -1,0 +1,222 @@
+[
+  {
+    "width": 390,
+    "path": "/",
+    "right": 311.578125,
+    "viewport": 390,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": "true",
+        "opacity": "1"
+      },
+      {
+        "lang": "ro",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "en",
+        "current": null,
+        "opacity": "0.8"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 390,
+    "path": "/ro/",
+    "right": 311.578125,
+    "viewport": 390,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "ro",
+        "current": "true",
+        "opacity": "1"
+      },
+      {
+        "lang": "en",
+        "current": null,
+        "opacity": "0.8"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 390,
+    "path": "/en/",
+    "right": 311.578125,
+    "viewport": 390,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "ro",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "en",
+        "current": "true",
+        "opacity": "1"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 768,
+    "path": "/",
+    "right": 618.40625,
+    "viewport": 768,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": "true",
+        "opacity": "1"
+      },
+      {
+        "lang": "ro",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "en",
+        "current": null,
+        "opacity": "0.8"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 768,
+    "path": "/ro/",
+    "right": 618.40625,
+    "viewport": 768,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "ro",
+        "current": "true",
+        "opacity": "1"
+      },
+      {
+        "lang": "en",
+        "current": null,
+        "opacity": "0.8"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 768,
+    "path": "/en/",
+    "right": 618.40625,
+    "viewport": 768,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "ro",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "en",
+        "current": "true",
+        "opacity": "1"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 1440,
+    "path": "/",
+    "right": 1152.515625,
+    "viewport": 1440,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": "true",
+        "opacity": "1"
+      },
+      {
+        "lang": "ro",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "en",
+        "current": null,
+        "opacity": "0.8"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 1440,
+    "path": "/ro/",
+    "right": 1152.515625,
+    "viewport": 1440,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "ro",
+        "current": "true",
+        "opacity": "1"
+      },
+      {
+        "lang": "en",
+        "current": null,
+        "opacity": "0.8"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 1440,
+    "path": "/en/",
+    "right": 1152.515625,
+    "viewport": 1440,
+    "opacity": [
+      {
+        "lang": "ru",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "ro",
+        "current": null,
+        "opacity": "0.8"
+      },
+      {
+        "lang": "en",
+        "current": "true",
+        "opacity": "1"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "path": "/contact/",
+    "email": "Эл. почта\n↗"
+  }
+]

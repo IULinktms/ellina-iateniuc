@@ -1,0 +1,650 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "lang": "ru",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "lang": "ru",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "lang": "ro",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/ro/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/ro/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "lang": "ro",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/ro/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/ro/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "lang": "en",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/en/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/en/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "lang": "en",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/en/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/en/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "lang": "ru",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "lang": "ru",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "lang": "ro",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/ro/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/ro/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "lang": "ro",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/ro/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/ro/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "lang": "en",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/en/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/en/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "lang": "en",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/en/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/en/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 393,
+    "lang": "ru",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 393,
+    "lang": "ru",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 393,
+    "lang": "ro",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/ro/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/ro/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 393,
+    "lang": "ro",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/ro/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/ro/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/ro/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 393,
+    "lang": "en",
+    "reducedMotion": "no-preference",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/en/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/en/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "engine": "webkit",
+    "width": 393,
+    "lang": "en",
+    "reducedMotion": "reduce",
+    "checks": [
+      {
+        "direction": "back",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "back",
+        "expected": 850,
+        "actual": 850,
+        "path": "/en/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 950,
+        "actual": 950,
+        "path": "/en/portfolio/",
+        "pass": true
+      },
+      {
+        "direction": "forward",
+        "expected": 1300,
+        "actual": 1300,
+        "path": "/en/work/casmara-international-seminar-2026/",
+        "pass": true
+      }
+    ]
+  }
+]

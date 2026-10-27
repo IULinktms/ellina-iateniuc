@@ -1,0 +1,50 @@
+[
+  {
+    "engine": "chromium",
+    "pre": "",
+    "reverseTrap": true,
+    "arrowLeft": true,
+    "closeButton": true,
+    "focusReturn": true
+  },
+  {
+    "engine": "chromium",
+    "pre": "/ro",
+    "reverseTrap": true,
+    "arrowLeft": true,
+    "closeButton": true,
+    "focusReturn": true
+  },
+  {
+    "engine": "chromium",
+    "pre": "/en",
+    "reverseTrap": true,
+    "arrowLeft": true,
+    "closeButton": true,
+    "focusReturn": true
+  },
+  {
+    "engine": "webkit",
+    "pre": "",
+    "reverseTrap": true,
+    "arrowLeft": true,
+    "closeButton": true,
+    "focusReturn": true
+  },
+  {
+    "engine": "webkit",
+    "pre": "/ro",
+    "reverseTrap": true,
+    "arrowLeft": true,
+    "closeButton": true,
+    "focusReturn": true
+  },
+  {
+    "engine": "webkit",
+    "pre": "/en",
+    "reverseTrap": true,
+    "arrowLeft": true,
+    "closeButton": true,
+    "focusReturn": true
+  }
+]

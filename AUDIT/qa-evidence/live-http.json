@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://ellinayatsenyuk.com/",
+    "status": 200,
+    "location": null
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/portfolio/",
+    "status": 200,
+    "location": null
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/work/casmara-international-seminar-2026/",
+    "status": 200,
+    "location": null
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/contact/",
+    "status": 200,
+    "location": null
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/ru/",
+    "status": 308,
+    "location": "/"
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/ru/portfolio/",
+    "status": 308,
+    "location": "/portfolio/"
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/ru/work/casmara-international-seminar-2026/",
+    "status": 308,
+    "location": "/work/casmara-international-seminar-2026/"
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/qa-missing/",
+    "status": 404,
+    "location": null
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/ro/qa-missing/",
+    "status": 404,
+    "location": null
+  },
+  {
+    "url": "https://ellinayatsenyuk.com/en/qa-missing/",
+    "status": 404,
+    "location": null
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/portfolio/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/portfolio/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/work/casmara-international-seminar-2026/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/work/casmara-international-seminar-2026/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/contact/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/contact/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/ru/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/ru/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/ru/portfolio/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/ru/portfolio/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/ru/work/casmara-international-seminar-2026/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/ru/work/casmara-international-seminar-2026/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/qa-missing/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/qa-missing/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/ro/qa-missing/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/ro/qa-missing/"
+  },
+  {
+    "url": "https://www.ellinayatsenyuk.com/en/qa-missing/",
+    "status": 308,
+    "location": "https://ellinayatsenyuk.com/en/qa-missing/"
+  },
+  {
+    "url": "https://wa.me/37368648820",
+    "status": 302,
+    "location": "https://api.whatsapp.com/send/?phone=37368648820&text&type=phone_number&app_absent=0"
+  },
+  {
+    "url": "https://t.me/+37368648820",
+    "status": 200,
+    "location": null
+  },
+  {
+    "url": "https://www.instagram.com/ellinayatsenyuk/",
+    "status": 200,
+    "location": null
+  },
+  {
+    "url": "https://www.pinterest.com/ellinayatsenyuk/",
+    "status": 200,
+    "location": null
+  }
+]
