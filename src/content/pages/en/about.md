@@ -3,8 +3,6 @@ title: "About"
 intro: "I’m Ellina, a photographer and videographer in Chișinău. I catch the moments you organised it all for. I cover events for organisers and companies, and shoot photos, Reels and social content for brands and small businesses."
 portrait: ../../../assets/uploads/portrait-ellina.jpg
 portraitAlt: "Ellina Yatsenyuk, photographer and videographer in Chișinău"
-secondImage: ../../../assets/uploads/casmara-certificate-stage.jpg
-secondImageAlt: "A Casmara seminar participant with her certificate beside a brand representative holding a microphone, Chișinău, 2026"
 principles:
   - title: "The moments that matter"
     text: "Key moments, emotions and details — nothing staged. People look alive and at their best, not posed."

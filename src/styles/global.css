@@ -1258,3 +1258,7 @@ main .proj-row > .proj-row__meta { display: flex; flex-wrap: wrap; justify-conte
   /* Reads on both the dark and the bone sections */
   .mobile-booking .btn { background: #0b0a09; color: var(--bone); border: 1px solid rgb(240 236 228 / .35); }
 }
+
+/* About body without a side photo: the text sits in a readable column */
+.about-body:not(:has(.frame)) .prose { grid-column: 1 / span 7; }
+@media (max-width: 760px) { .about-body:not(:has(.frame)) .prose { grid-column: 1 / -1; } }

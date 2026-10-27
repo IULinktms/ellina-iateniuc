@@ -3,8 +3,6 @@ title: "Despre mine"
 intro: "Sunt Ellina, fotograf și videograf din Chișinău. Surprind exact ce a făcut evenimentul să merite. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac fotografii, Reels și conținut pentru rețelele sociale."
 portrait: ../../../assets/uploads/portrait-ellina.jpg
 portraitAlt: "Ellina Yatsenyuk, fotograf și videograf din Chișinău"
-secondImage: ../../../assets/uploads/casmara-certificate-stage.jpg
-secondImageAlt: "Participantă la seminarul Casmara cu certificatul, alături de o reprezentantă a brandului cu microfon, Chișinău, 2026"
 principles:
   - title: "Surprind esențialul"
     text: "Momentele-cheie, emoțiile și detaliile — fără poze regizate. Oamenii apar vii și frumoși, nu încremeniți în fața camerei."
