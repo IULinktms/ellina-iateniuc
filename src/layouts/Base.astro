@@ -232,7 +232,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
     <!-- Full-screen photo viewer -->
     <dialog class="lightbox" aria-label={s.viewer.photo} data-lightbox transition:persist={`lightbox-${lang}`}>
       <div class="lightbox__bar">
-        <span class="tnum" data-lb-count></span>
+        <span class="tnum" data-lb-count aria-live="polite"></span>
         <button class="line-link small" data-lb-zoom aria-pressed="false">{s.studio.zoom}</button>
         <button class="icon-btn" data-lb-close aria-label={s.viewer.close}><Icon name="close" /></button>
       </div>

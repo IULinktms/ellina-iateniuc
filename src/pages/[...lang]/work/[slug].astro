@@ -78,9 +78,10 @@ const ld = [
 
   <div class="story-gallery" data-story-gallery>
     <nav class="story-frames" aria-label={s.studio.frames}>
-      {gallery.map((g, i) => <a href={`#frame-${i + 1}`} data-frame-link aria-label={`${s.studio.frame} ${i + 1}: ${g.caption || g.alt}`}>
+      {/* The accessible name starts with the visible number, so "click 01" works by voice (WCAG 2.5.3) */}
+      {gallery.map((g, i) => <a href={`#frame-${i + 1}`} data-frame-link>
         <Image src={g.image} alt="" width={140} format="webp" quality={60} loading="lazy" style={thumbColors[i] && `background:${thumbColors[i]}`} />
-        <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
+        <span class="tnum">{String(i + 1).padStart(2, '0')}</span><span class="sr-only">: {g.caption || g.alt}</span>
       </a>)}
     </nav>
     <div class="story-progress" aria-hidden="true"><i data-story-progress></i></div>
@@ -130,7 +131,7 @@ const ld = [
   {nextSlug !== slug && (
     <section class="story-next" data-next-story>
       <div class="story-next__controls wrap">
-        <button class="line-link" data-next-arm aria-pressed="false">{s.studio.advance}</button>
+        <button class="line-link" data-next-arm aria-pressed="false" aria-describedby="advance-hint">{s.studio.advance}</button>
         <p class="small muted" id="advance-hint">{s.studio.advanceHint}</p>
       </div>
     <a class="next" data-next-link href={localePath(lang, `/work/${nextSlug}/`)} data-cursor={s.cursor.next}>

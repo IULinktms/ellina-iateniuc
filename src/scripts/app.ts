@@ -22,7 +22,10 @@ const onPageLoad = (fn: () => void) => {
 CustomEase.create('uiOut', '0.23, 1, 0.32, 1');
 CustomEase.create('uiInOut', '0.77, 0, 0.175, 1');
 
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+const reduced = reducedQuery.matches;
+// Motion is set up once per load: a change of the OS setting mid-visit takes effect on a reload
+reducedQuery.addEventListener('change', () => location.reload());
 // Decorative loops (the grain layer) pause while the tab is in the background
 document.addEventListener('visibilitychange', () => document.documentElement.classList.toggle('is-hidden', document.hidden));
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
