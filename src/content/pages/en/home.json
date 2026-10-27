@@ -1,7 +1,7 @@
 {
   "heroVideo": "",
-  "heroPoster": "../../../assets/uploads/casmara-hero-certificates.jpg",
-  "heroPosterAlt": "Two participants holding Casmara certificates beside a brand representative, the logo on the screen behind them",
+  "heroPoster": "../../../assets/uploads/casmara-hero-team.jpg",
+  "heroPosterAlt": "The Casmara Moldova team in front of the seminar guests, the Casmara logo on screen",
   "statement": "You make the event happen. I make sure people talk about it. I catch the moments that won’t happen twice, and the first edited photos arrive the same evening. Brands get the same rule: yours already looks good — now we prove it. Photos, Reels and content, once or every month.",
   "featuredProjects": [
     "casmara-international-seminar-2026"
@@ -115,5 +115,7 @@
       "suffix": "working days"
     }
   ],
-  "disciplinesIntro": "Photo and video for events and brands. Conferences, seminars, corporate evenings. Shoots, Reels and monthly content for cafés, shops, salons and studios."
+  "disciplinesIntro": "Photo and video for events and brands. Conferences, seminars, corporate evenings. Shoots, Reels and monthly content for cafés, shops, salons and studios.",
+  "sheetPoster": "../../../assets/uploads/casmara-sheet-trio.jpg",
+  "sheetPosterAlt": "Three seminar guests at the Casmara photo wall"
 }

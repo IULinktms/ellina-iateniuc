@@ -110,6 +110,8 @@ const home = defineCollection({
       heroVideo: z.string().default(''),
       heroPoster: image(),
       heroPosterAlt: z.string(),
+      sheetPoster: image().optional(),
+      sheetPosterAlt: z.string().optional(),
       statementTitle: z.string().default('Quiet in the room. Fast after it.'),
       statement: z.string(),
       runOfShowTitle: z.string().default('A conference day, as I cover it'),

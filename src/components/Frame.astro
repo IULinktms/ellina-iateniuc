@@ -30,7 +30,7 @@ const {
   parallax = false,
   eager = false,
   widths,
-  quality = 75,
+  quality = 85,
   style,
   ...rest
 } = Astro.props;
@@ -38,7 +38,7 @@ const {
 // Lightweight variant set for the hosted static preview only
 const lite = import.meta.env.PUBLIC_PREVIEW_LITE === '1';
 // Capped at 1600px: wider WebPs of busy event photos run 0.5–1 MB for little visible gain
-const ws = (lite ? [1400] : widths ?? [480, 800, 1200, 1600]).filter((w) => w <= src.width);
+const ws = (lite ? [1400] : widths ?? [480, 800, 1200, 1600, 2400, 3200]).filter((w) => w <= src.width);
 if (!ws.length) ws.push(src.width);
 // Blurred preview painted with the HTML; lazy images crossfade over it once decoded
 const placeholder = await lqip(src);

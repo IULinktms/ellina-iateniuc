@@ -25,7 +25,7 @@ for (let i = 0; frames.length < 15 && byProject.some((g) => g[i]); i++) {
 }
 const home = await getHome(lang);
 // The opening exposure is the same still as the home hero, then pulls back into the sheet.
-if (frames[7]) frames[7] = { src: home.heroPoster, alt: home.heroPosterAlt, project: '' };
+if (frames[7]) frames[7] = { src: home.sheetPoster ?? home.heroPoster, alt: home.sheetPosterAlt ?? home.heroPosterAlt, project: "" };
 const placeholders = await Promise.all(frames.map((f) => lqip(f.src)));
 const HERO = 7; // centre of a 5 x 3 sheet
 const SELECT = 3;
@@ -43,10 +43,10 @@ const roll = 14;
               <Image
                 src={f.src}
                 alt={i === HERO ? f.alt : ''}
-                widths={i === HERO ? [480, 960, 1600, 2000] : [360, 640]}
+                widths={i === HERO ? [480, 960, 1600, 2400, 3200] : [360, 640, 960]}
                 sizes={i === HERO ? '(max-width: 760px) 34vw, 100vw' : '(max-width: 760px) 33vw, 20vw'}
                 format="webp"
-                quality={i === HERO ? 72 : 70}
+                quality={i === HERO ? 85 : 80}
                 loading="lazy"
                 decoding="async"
               />

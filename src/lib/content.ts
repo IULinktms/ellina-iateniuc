@@ -75,7 +75,7 @@ export const projectPhotos = (p: { data: Project['data'] }) => [
 
 /** Large WebP used by the full-screen viewer (kept under ~350 KB). */
 export async function fullSize(src: ImageMetadata) {
-  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1400 : 1800, src.width), format: 'webp', quality: 70 });
+  const img = await getImage({ src, width: Math.min(import.meta.env.PUBLIC_PREVIEW_LITE === '1' ? 1400 : 2560, src.width), format: "webp", quality: 88 });
   return img.src;
 }
 

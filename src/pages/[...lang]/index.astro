@@ -37,11 +37,11 @@ const showDisciplines = disciplines.length > 1;
 const whatsapp = whatsappHref(site.whatsapp, lang);
 // LCP: a responsive still paints first; a video, if set, loads after (see deferHeroVideo in app.ts).
 // A portrait still covers a phone at its height and a desktop at its width, so the candidates go up to 2560
-const posterSet = await getImage({ src: home.heroPoster, widths: [640, 960, 1280, 1920, 2560].filter((w) => w <= home.heroPoster.width), format: 'webp', quality: 72 });
+const posterSet = await getImage({ src: home.heroPoster, widths: [640, 960, 1280, 1920, 2560, 3200].filter((w) => w <= home.heroPoster.width), format: 'webp', quality: 85 });
 const posterPortrait = home.heroPoster.height > home.heroPoster.width;
 // Rendered width of an object-fit: cover still: 100vw, or wider on a tall screen when the photo is narrower than the screen ratio
 const posterSizes = `(max-aspect-ratio: ${home.heroPoster.width}/${home.heroPoster.height}) ${Math.ceil((home.heroPoster.width / home.heroPoster.height) * 100)}vh, 100vw`;
-const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 1600, format: 'webp', quality: 78 })));
+const filmPosters = await Promise.all(films.map((f) => getImage({ src: f.data.poster, width: 2400, format: 'webp', quality: 85 })));
 // Blurred previews behind photos that load later (lib/lqip.ts)
 const heroPlaceholder = await lqip(home.heroPoster);
 // The day-by-the-hour timeline only shows real event photos: it stays hidden until every moment has one
@@ -127,7 +127,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
         <figure class="ros__media" aria-hidden="true">
           <div class="ros__pictures" data-lqip={rosPlaceholders[0] ? 'eager' : undefined} style={rosPlaceholders[0]?.style} {...rosPlaceholders[0]?.attrs}>
             {runOfShow.map((r, i) => (
-              <Image src={r.image} alt="" widths={[640, 1000, 1400]} width={1400} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={78} loading="lazy" class:list={[i === 0 && 'is-on']} />
+              <Image src={r.image} alt="" widths={[640, 1000, 1600, 2400]} width={2400} sizes="(max-width: 800px) 100vw, 55vw" format="webp" quality={85} loading="lazy" class:list={[i === 0 && 'is-on']} />
             ))}
           </div>
           <figcaption class="ros__clock tnum" data-ros-clock>{runOfShow[0].time}</figcaption>
@@ -138,7 +138,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
               <time class="ros__time tnum">{r.time}</time>
               <h3>{r.title}</h3>
               <p>{r.text}</p>
-              <Image src={r.image} alt={r.alt} widths={[640, 1000]} width={1000} sizes="100vw" format="webp" quality={76} loading="lazy" class="ros__inline" style={rosPlaceholders[i]?.style} {...rosPlaceholders[i]?.attrs} />
+              <Image src={r.image} alt={r.alt} widths={[640, 1000, 1600, 2400]} width={2400} sizes="100vw" format="webp" quality={85} loading="lazy" class="ros__inline" style={rosPlaceholders[i]?.style} {...rosPlaceholders[i]?.attrs} />
             </li>
           ))}
         </ol>
@@ -159,7 +159,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
               <button class="frame-btn" data-film data-aspect={f.data.aspectRatio} data-title={f.data.title} data-src={f.data.videoFile} data-url={f.data.videoUrl} data-poster={filmPosters[i].src} data-cursor={s.cursor.play} data-cursor-mode="play">
                 <span class="sr-only">{s.a11y.play(f.data.title)}</span>
                 <div class="frame" data-lqip={filmPlaceholders[i] ? '' : undefined} style={filmPlaceholders[i]?.style} {...filmPlaceholders[i]?.attrs}>
-                  <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1400]} width={1400} sizes={f.data.aspectRatio === 'portrait' ? '(max-width: 900px) 46vw, 17vw' : '(max-width: 900px) 82vw, 46vw'} format="webp" quality={78} loading="lazy" />
+                  <Image src={f.data.poster} alt={f.data.posterAlt} widths={[640, 1000, 1600, 2400]} width={2400} sizes={f.data.aspectRatio === 'portrait' ? '(max-width: 900px) 46vw, 17vw' : '(max-width: 900px) 82vw, 46vw'} format="webp" quality={85} loading="lazy" />
                   {f.data.previewFile && <video muted loop playsinline preload="none" data-src={f.data.previewFile} aria-hidden="true"></video>}
                 </div>
                 <div class="strip__caption">
@@ -196,7 +196,7 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
     </div>
     {showDisciplines && <div class="float-preview" aria-hidden="true">
       {disciplines.map((d) => (
-        <Image src={d.image} alt="" widths={[400, 700]} width={700} sizes="22vw" format="webp" quality={75} loading="lazy" data-key={slugify(d.category)} />
+        <Image src={d.image} alt="" widths={[400, 700, 1000]} width={1000} sizes="22vw" format="webp" quality={85} loading="lazy" data-key={slugify(d.category)} />
       ))}
     </div>}
   </section>}
