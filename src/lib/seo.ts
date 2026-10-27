@@ -10,6 +10,32 @@ type Node = Record<string, unknown>;
 
 /** Stable ids so nodes can point at each other across pages */
 export const studioId = (origin: URL | string) => new URL('/#studio', origin).toString();
+export const personId = (origin: URL | string) => new URL('/#ellina', origin).toString();
+
+// Her name as people search for it: the site's Latin spelling, Cyrillic, and the Romanian transliteration
+const ALT_NAMES = ['Эллина Яценюк', 'Ellina Iațeniuc'];
+const ADDRESS = { '@type': 'PostalAddress', addressLocality: 'Chișinău', addressCountry: 'MD' };
+const sameAs = (site: Site) => site.socials.map((x) => x.url).filter((u) => /^https?:\/\/(www\.)?(instagram|pinterest)\.com\/.+/.test(u));
+
+/** Ellina herself, a first-class entity the studio, galleries and films point at */
+export function personLd(site: Site, origin: URL): Node {
+  return {
+    '@type': 'Person',
+    '@id': personId(origin),
+    name: site.name,
+    alternateName: ALT_NAMES,
+    givenName: site.firstName,
+    familyName: site.lastName,
+    jobTitle: site.role,
+    image: new URL('/og/ellina.jpg', origin).toString(),
+    url: new URL('/about/', origin).toString(),
+    email: site.email,
+    address: ADDRESS,
+    knowsLanguage: [...LOCALES],
+    worksFor: { '@id': studioId(origin) },
+    sameAs: sameAs(site),
+  };
+}
 
 export function serviceLd(site: Site, lang: Lang, origin: URL, home: string, image: string): Node {
   return {
@@ -22,7 +48,8 @@ export function serviceLd(site: Site, lang: Lang, origin: URL, home: string, ima
     image,
     email: site.email,
     ...(site.phone ? { telephone: site.phone.replace(/\s/g, '') } : {}),
-    address: { '@type': 'PostalAddress', addressLocality: site.location.split(',')[0].trim(), addressCountry: 'MD' },
+    address: ADDRESS,
+    geo: { '@type': 'GeoCoordinates', latitude: 47.0105, longitude: 28.8638 },
     areaServed: [
       { '@type': 'Country', name: 'Moldova' },
       { '@type': 'Country', name: 'Romania' },
@@ -30,8 +57,8 @@ export function serviceLd(site: Site, lang: Lang, origin: URL, home: string, ima
     // TODO before launch: replace with the real price band (see LAUNCH-CHECKLIST.md)
     priceRange: '€€',
     knowsLanguage: [...LOCALES],
-    founder: { '@type': 'Person', name: site.name, jobTitle: site.role },
-    sameAs: site.socials.map((x) => x.url).filter((u) => /^https?:\/\/[^/]+\/.+/.test(u)),
+    founder: { '@id': personId(origin) },
+    sameAs: sameAs(site),
   };
 }
 
@@ -94,7 +121,7 @@ export function projectLd(
         contentUrl: new URL(im.src, origin).toString(),
         description: im.alt,
         ...(im.caption ? { caption: im.caption } : {}),
-        creator: { '@type': 'Person', name: 'Ellina Yatsenyuk' },
+        creator: { '@id': personId(origin) },
       })),
     },
   ];

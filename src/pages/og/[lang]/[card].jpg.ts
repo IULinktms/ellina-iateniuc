@@ -1,6 +1,6 @@
 /**
  * Branded 1200×630 share cards, generated at build time: one per project per language,
- * plus a "site" card per language for pages without a photo of their own.
+ * plus "site", "about" (portrait) and "films" (featured poster) cards per language.
  * The title is set in the display face (Bodoni Moda; Playfair Display for Cyrillic) as outlines.
  */
 import type { APIRoute, GetStaticPaths } from 'astro';
@@ -8,7 +8,7 @@ import type { ImageMetadata } from 'astro';
 import sharp from 'sharp';
 import path from 'node:path';
 import { OutlineFont } from '../../../lib/og-font';
-import { getProjects, getSite, slugOf } from '../../../lib/content';
+import { getAbout, getFilms, getProjects, getSite, slugOf } from '../../../lib/content';
 import { LOCALES, t } from '../../../lib/i18n';
 
 const W = 1200;
@@ -27,6 +27,11 @@ export const getStaticPaths = (async () => {
     const s = t(lang);
     const site = await getSite(lang);
     out.push({ params: { lang, card: 'site' }, props: { title: site.name, kicker: site.location, meta: site.role, image: site.shareImage } satisfies Card });
+    const about = await getAbout(lang);
+    out.push({ params: { lang, card: 'about' }, props: { title: about.data.title, kicker: site.name, meta: site.role, image: about.data.portrait } satisfies Card });
+    const films = await getFilms(lang);
+    const film = films.find((f) => f.data.featured) ?? films[0];
+    out.push({ params: { lang, card: 'films' }, props: { title: s.nav.films, kicker: site.name, meta: site.location, image: film?.data.poster ?? site.shareImage } satisfies Card });
     for (const p of await getProjects(lang)) {
       const d = p.data;
       out.push({

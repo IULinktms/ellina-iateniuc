@@ -26,7 +26,7 @@ const projectFor = (slug?: string) => projects.find((p) => slugOf(p) === slug);
 const ld = films.map((f) => videoLd(f, lang, Astro.site!, posters[f.id]));
 ---
 
-<Base page="films" lang={lang} title={s.films.seoTitle} description={s.films.desc} image={feature?.data.poster} jsonLd={ld}>
+<Base page="films" lang={lang} title={s.films.seoTitle} description={s.films.desc} jsonLd={ld}>
   <header class="page-head">
     <h1 class="display"><span class="line" data-split="now">{s.films.title}</span></h1>
     <div class="page-head__row">

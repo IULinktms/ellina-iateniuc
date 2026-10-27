@@ -79,12 +79,6 @@ export async function fullSize(src: ImageMetadata) {
   return img.src;
 }
 
-/** Absolute share image for Open Graph (1200x630 crop happens via width only). */
-export async function shareImage(src: ImageMetadata) {
-  const img = await getImage({ src, width: 1200, format: 'jpg', quality: 80 });
-  return img.src;
-}
-
 export const slugify = (s: string) =>
   s
     .toLowerCase()

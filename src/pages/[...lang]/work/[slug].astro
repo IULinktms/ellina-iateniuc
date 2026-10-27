@@ -50,7 +50,7 @@ const ld = [
 ];
 ---
 
-<Base page="work" lang={lang} title={d.title} description={d.seoDescription ?? d.excerpt} image={d.cover} imageAlt={d.coverAlt} type="article" jsonLd={ld}>
+<Base page="work" lang={lang} title={d.title} description={d.seoDescription ?? d.excerpt} imageAlt={d.coverAlt} type="article" jsonLd={ld}>
   <section class:list={['p-hero', orientation(d.cover) === 'portrait' && 'p-hero--portrait']} data-hero>
     <div class="p-hero__media" transition:name={`cover-${slug}`}>
       <Frame src={d.cover} alt={d.coverAlt} eager aperture={false} sizes="100vw">

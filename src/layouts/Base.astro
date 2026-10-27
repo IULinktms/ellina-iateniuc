@@ -1,28 +1,26 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
-import type { ImageMetadata } from 'astro';
-import { getSite, shareImage } from '../lib/content';
+import { getSite } from '../lib/content';
 import { LOCALES, LANG_NAMES, LANG_SHORT, HTML_LANG, OG_LOCALE, DEFAULT_LANG, localePath, splitPath, t, clientStrings, type Lang } from '../lib/i18n';
 import Icon from '../components/Icon.astro';
 import DirectContact from '../components/DirectContact.astro';
 import fontLatin from '../assets/fonts/inter-tight-latin.woff2?url';
 import fontCyrillic from '../assets/fonts/inter-tight-cyrillic.woff2?url';
-import { serviceLd, breadcrumbLd } from '../lib/seo';
+import { serviceLd, personLd, breadcrumbLd } from '../lib/seo';
 import { whatsappHref } from '../lib/whatsapp';
 
 interface Props {
   lang: Lang;
   title?: string;
   description?: string;
-  image?: ImageMetadata;
   imageAlt?: string;
   type?: 'website' | 'article';
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
   page: string;
   noindex?: boolean;
 }
-const { lang, title, description, image, imageAlt, type = 'website', jsonLd, page, noindex = false } = Astro.props;
+const { lang, title, description, imageAlt, type = 'website', jsonLd, page, noindex = false } = Astro.props;
 const s = t(lang);
 const site = await getSite(lang);
 // Search titles for the main pages: service + city + name, ≤ ~60 characters; RU uses the Cyrillic name
@@ -52,11 +50,13 @@ const desc = description ?? site.seoDescription;
 const { rest } = splitPath(Astro.url.pathname);
 const canonical = new URL(localePath(lang, rest), Astro.site);
 const alternates = LOCALES.map((l) => ({ lang: l, href: new URL(localePath(l, rest), Astro.site).toString() }));
-// Share image: branded card for projects and for pages without a photo of their own (src/pages/og/)
+// Share image: always a 1200×630 card at a stable URL (src/pages/og/), so links shared before a deploy keep their preview
 const workSlug = page === 'work' ? rest.match(/^\/work\/([^/]+)/)?.[1] : undefined;
-const ogCard = workSlug ? `/og/${lang}/${workSlug}.jpg` : !image ? `/og/${lang}/site.jpg` : undefined;
-const og = new URL(ogCard ?? (await shareImage(image!)), Astro.site);
+const ogCard = workSlug ? `/og/${lang}/${workSlug}.jpg` : page === 'about' || page === 'films' ? `/og/${lang}/${page}.jpg` : `/og/${lang}/site.jpg`;
+const og = new URL(ogCard, Astro.site);
 const L = (p: string) => localePath(lang, p);
+// Language switch: the same page in the other language; from a 404 there is no same page, so its home
+const langHref = (l: Lang) => localePath(l, page === '404' ? '/' : rest);
 const whatsapp = whatsappHref(site.whatsapp, lang);
 // Menu booking row: the two chats people actually use, at button size, right under the page list
 const telegram = /^https:\/\/(t|telegram)\.me\/[^/]+/.test(site.telegram) ? site.telegram : '';
@@ -76,6 +76,7 @@ const ld = {
   '@context': 'https://schema.org',
   '@graph': [
     serviceLd(site, lang, Astro.site!, new URL(L('/'), Astro.site).toString(), new URL(`/og/${lang}/site.jpg`, Astro.site).toString()),
+    personLd(site, Astro.site!),
     ...(crumbs.length ? [breadcrumbLd(crumbs)] : []),
     ...(jsonLd ? [jsonLd].flat() : []),
   ],
@@ -96,9 +97,10 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={desc} />
-    <link rel="canonical" href={canonical} />
-    {alternates.map((a) => <link rel="alternate" hreflang={HTML_LANG[a.lang]} href={a.href} />)}
-    <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.lang === DEFAULT_LANG)!.href} />
+    {/* A page kept out of search (404) has no URL of its own to point at */}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    {!noindex && alternates.map((a) => <link rel="alternate" hreflang={HTML_LANG[a.lang]} href={a.href} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.lang === DEFAULT_LANG)!.href} />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -115,8 +117,8 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={og} />
-    {ogCard && <meta property="og:image:width" content="1200" />}
-    {ogCard && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
@@ -144,7 +146,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
         <ul class="lang" role="list" aria-label={s.nav.language}>
           {LOCALES.map((l) => (
             <li>
-              <a href={localePath(l, rest)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} title={LANG_NAMES[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_SHORT[l]}</a>
+              <a href={langHref(l)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} title={LANG_NAMES[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_SHORT[l]}</a>
             </li>
           ))}
         </ul>
@@ -165,7 +167,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
       <div class="menu__foot">
         <ul class="lang lang--menu" role="list" aria-label={s.nav.language}>
           {LOCALES.map((l) => (
-            <li><a href={localePath(l, rest)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_NAMES[l]}</a></li>
+            <li><a href={langHref(l)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_NAMES[l]}</a></li>
           ))}
         </ul>
         <a href={`mailto:${site.email}`}>{site.email}</a>
@@ -204,7 +206,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
           <span>© {year} {site.name}. {s.footer.rights}</span>
           <ul class="lang" role="list" aria-label={s.nav.language}>
             {LOCALES.map((l) => (
-              <li><a href={localePath(l, rest)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} title={LANG_NAMES[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_SHORT[l]}</a></li>
+              <li><a href={langHref(l)} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]} title={LANG_NAMES[l]} aria-current={l === lang ? 'true' : undefined} data-astro-reload>{LANG_SHORT[l]}</a></li>
             ))}
           </ul>
           <a href="#main" class="line-link" data-to-top>{s.footer.toTop}</a>

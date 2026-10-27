@@ -3,7 +3,8 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Frame from '../../components/Frame.astro';
 import { getAbout, getSite } from '../../lib/content';
-import { langParams, localePath, t, type Lang } from '../../lib/i18n';
+import { langParams, localePath, t, HTML_LANG, type Lang } from '../../lib/i18n';
+import { personId } from '../../lib/seo';
 
 export const getStaticPaths = langParams;
 const { lang } = Astro.props as { lang: Lang };
@@ -12,9 +13,10 @@ const about = await getAbout(lang);
 const site = await getSite(lang);
 const d = about.data;
 const { Content } = await render(about);
+const ld = { '@type': 'ProfilePage', url: new URL(localePath(lang, '/about/'), Astro.site).toString(), inLanguage: HTML_LANG[lang], mainEntity: { '@id': personId(Astro.site!) } };
 ---
 
-<Base page="about" lang={lang} title={s.about.title} description={d.seoDescription} image={d.portrait} imageAlt={d.portraitAlt}>
+<Base page="about" lang={lang} title={s.about.title} description={d.seoDescription} imageAlt={d.portraitAlt} jsonLd={ld}>
   <section class="about-hero grid12">
     <h1 class="display"><span data-split="now">{d.title}</span></h1>
     <p class="lede" data-split>{d.intro}</p>

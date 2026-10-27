@@ -165,7 +165,8 @@ function setupPage() {
   const page = document.body.dataset.page ?? '';
   // Persisted language navigation must follow the current story, not the entry page.
   const rest = location.pathname.replace(/^\/(ro|en)(?=\/|$)/, '') || '/';
-  document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]').forEach((a) => {
+  // A 404 has no same page in another language: its links (Base.astro) go to each home
+  if (page !== '404') document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]').forEach((a) => {
     const prefix = a.hreflang === 'ru' ? '' : `/${a.hreflang}`;
     a.href = `${prefix}${rest}${location.search}${location.hash}`;
   });
