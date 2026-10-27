@@ -1045,6 +1045,10 @@ body[data-page='contact'] .page-head__row { max-width: none; }
 .footer__grid a { min-height: 2.75rem; display: inline-flex; align-items: center; overflow-wrap: anywhere; }
 .footer__legal { align-items: start; line-height: 1.5; }
 .footer__legal a { flex-shrink: 0; min-height: 2.75rem; display: inline-flex; align-items: center; }
+/* Inactive languages are --ash on graphite: 0.55 gave 3.08:1, 0.8 gives 5.1:1 (AA) */
+.footer__legal .lang a { opacity: 0.8; }
+.footer__legal .lang a[aria-current='true'] { opacity: 1; }
+@media (hover: hover) and (pointer: fine) { .footer__legal .lang a:hover { opacity: 1; } }
 .notfound { text-align: left; justify-items: start; justify-content: start; padding: calc(var(--nav-h) + 3rem) var(--gutter) 3rem; gap: 1.5rem; }
 .notfound__index { font-size: clamp(6rem, 20vw, 18rem); line-height: .8; font-weight: 700; letter-spacing: -.07em; color: var(--ash); }
 main .notfound h1 { max-width: 14ch; font-size: clamp(2.5rem, 6vw, 6rem); }
