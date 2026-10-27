@@ -1,13 +1,13 @@
 ---
 title: "Despre mine"
-intro: "Sunt Ellina, fotograf și videograf din Chișinău. Fotografiile trebuie să se vadă, fotograful — nu. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac fotografii, Reels și conținut pentru rețelele sociale."
+intro: "Sunt Ellina, fotograf și videograf din Chișinău. Surprind exact ce a făcut evenimentul să merite. Fotografiez evenimente pentru organizatori și companii, iar pentru branduri și afaceri mici fac fotografii, Reels și conținut pentru rețelele sociale."
 portrait: ../../../assets/uploads/portrait-ellina.jpg
 portraitAlt: "Ellina Yatsenyuk, fotograf și videograf din Chișinău"
 secondImage: ../../../assets/uploads/casmara-certificate-stage.jpg
 secondImageAlt: "Participantă la seminarul Casmara cu certificatul, alături de o reprezentantă a brandului cu microfon, Chișinău, 2026"
 principles:
-  - title: "Nu mă observă nimeni"
-    text: "Declanșator silențios. Fără bliț în timpul prezentărilor. Ținută discretă. Speakerii și invitații uită repede de prezența mea."
+  - title: "Surprind esențialul"
+    text: "Momentele-cheie, emoțiile și detaliile — fără poze regizate. Oamenii apar vii și frumoși, nu încremeniți în fața camerei."
   - title: "Primele fotografii, în aceeași seară"
     text: "Fotografii editate pentru rețelele sociale, în aceeași seară. Galeria completă, în cinci zile lucrătoare."
   - title: "Foto și video, o singură persoană"
@@ -24,6 +24,6 @@ process:
 seoDescription: "Ellina Yatsenyuk, fotograf și videograf din Chișinău: evenimente pentru organizatori și companii, ședințe foto și Reels pentru branduri și afaceri mici."
 ---
 
-La evenimente urmăresc programul, oamenii și atmosfera. În timpul prezentărilor nu mă auziți și aproape nu mă vedeți. Primele fotografii editate le primiți cât ziua e încă proaspătă.
+La evenimente urmăresc programul, oamenii și atmosfera. Surprind momentele care nu se repetă: emoții, reacțiile sălii, detalii. Primele fotografii editate le primiți cât ziua e încă proaspătă.
 
 Pentru afaceri mici și branduri fotografiez munca de zi cu zi așa încât să vreți s-o arătați: baristul la tejghea, detaliile unui magazin, atmosfera unui studio, serviciile unui salon. O ședință foto, o serie de Reels sau conținut pentru fiecare lună — stabilim împreună.

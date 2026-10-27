@@ -164,8 +164,8 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
         {nav.map((n) => <li><a href={n.href} data-nav={n.key}>{n.label}</a></li>)}
       </ul>
       {(whatsapp || telegram) && <ul class="menu__book" role="list" aria-label={s.bookingUi.directChannels}>
-        {whatsapp && <li><a class="btn btn--solid" href={whatsapp}>{s.bookingUi.whatsapp}<span aria-hidden="true">↗</span></a></li>}
-        {telegram && <li><a class="btn" href={telegram}>{s.bookingUi.telegram}<span aria-hidden="true">↗</span></a></li>}
+        {whatsapp && <li><a class="btn btn--solid" href={whatsapp}>{s.bookingUi.whatsapp}<span aria-hidden="true">↗&#xFE0E;</span></a></li>}
+        {telegram && <li><a class="btn" href={telegram}>{s.bookingUi.telegram}<span aria-hidden="true">↗&#xFE0E;</span></a></li>}
       </ul>}
       <div class="menu__foot">
         <ul class="lang lang--menu" role="list" aria-label={s.nav.language}>
@@ -219,7 +219,7 @@ const aperture = { forwards: apertureSwap, backwards: apertureSwap };
 
     <!-- Workstream 4: booking remains one tap away after the opening frame. -->
     {page !== 'contact' && page !== '404' && <aside class="mobile-booking" data-mobile-booking hidden>
-      <span class="small">{site.name}</span><a href={whatsapp || L('/contact/')} class="btn btn--solid">{whatsapp ? s.bookingUi.waCta : s.studio.book}<span aria-hidden="true">↗</span></a>
+      <span class="small">{site.name}</span><a href={whatsapp || L('/contact/')} class="btn btn--solid">{whatsapp ? s.bookingUi.waCta : s.studio.book}<span aria-hidden="true">↗&#xFE0E;</span></a>
     </aside>}
 
     <!-- Film grain over everything (decorative) -->

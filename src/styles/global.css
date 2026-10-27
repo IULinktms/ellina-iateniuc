@@ -1239,3 +1239,22 @@ main .proj-row > .proj-row__meta { display: flex; flex-wrap: wrap; justify-conte
   .hero__actions { flex-wrap: wrap; gap: .25rem 1rem; }
   .hero__actions .btn { width: 100%; justify-content: center; }
 }
+
+/* Arrows are typography, never emoji (iOS Chrome drew ↗ as a blue emoji tile) */
+[aria-hidden="true"] { font-variant-emoji: text; }
+
+/* Phone booking bar: a compact floating pill instead of a full-width box over the text */
+@media (max-width: 760px) {
+  .mobile-booking:not([hidden]) {
+    left: auto; right: var(--gutter); bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    padding: 0; background: none; border: 0; box-shadow: none; border-radius: 999px;
+  }
+  .mobile-booking .btn {
+    width: auto; min-height: 3rem; padding-inline: 1.25rem; gap: .6rem; border-radius: 999px;
+    font-size: .9rem; justify-content: center; box-shadow: 0 .5rem 1.75rem rgb(0 0 0 / .45);
+  }
+}
+@media (max-width: 760px) {
+  /* Reads on both the dark and the bone sections */
+  .mobile-booking .btn { background: #0b0a09; color: var(--bone); border: 1px solid rgb(240 236 228 / .35); }
+}
