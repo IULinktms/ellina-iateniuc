@@ -175,7 +175,6 @@ function setupPage() {
   });
 
   ctx = gsap.context(() => {
-    if (page === 'home') intro();
     apertures();
     parallax();
     headings();
@@ -183,7 +182,6 @@ function setupPage() {
     filmStrip();
     floatPreview();
     contactSheet();
-    marquee();
     projectStory();
     homeShutter();
     proofNumbers();
@@ -192,7 +190,6 @@ function setupPage() {
     lightbox();
     player();
     filters();
-    contactForm();
     mobileBooking();
     deliveryCalc();
     runOfShow();
@@ -228,13 +225,6 @@ document.addEventListener('astro:page-load', () => {
   // Safari can retain focus on the first link after pointer navigation. Keep keyboard skip navigation intact.
   if (clientArrival && document.activeElement?.matches('.skip-link')) (document.activeElement as HTMLElement).blur();
 });
-
-/* ───────────── Intro: black → a line of light → the frame opens on the reel.
-   Once per visit, about 1.6 s, and any key, click or scroll skips it. ───────────── */
-function intro() {
-  // WS3: the aperture happens on first scroll; the opening proposition is readable immediately.
-  document.querySelector('.intro')?.classList.add('is-done');
-}
 
 /* ───────────── Section entrances: heading, then text, then picture (once) ───────────── */
 function reveals() {
@@ -619,113 +609,6 @@ function filters() {
   });
 }
 
-/* ───────────── Contact form ───────────── */
-function contactForm() {
-  const form = document.querySelector<HTMLFormElement>('[data-contact]');
-  if (!form) return;
-  const status = form.querySelector<HTMLElement>('[data-status]')!;
-  const started = form.querySelector<HTMLInputElement>('[name="_t"]')!;
-  started.value = String(Date.now());
-  const steps = Array.from(form.querySelectorAll<HTMLElement>('[data-booking-step]'));
-  const nav = form.querySelector<HTMLElement>('[data-step-nav]');
-  const controls = form.querySelector<HTMLElement>('[data-step-controls]');
-  const back = form.querySelector<HTMLButtonElement>('[data-step-back]');
-  const next = form.querySelector<HTMLButtonElement>('[data-step-next]');
-  const foot = form.querySelector<HTMLElement>('[data-form-foot]');
-  const stepStatus = form.querySelector<HTMLElement>('[data-step-status]');
-  const stepButtons = Array.from(form.querySelectorAll<HTMLButtonElement>('[data-step-go]'));
-  const date = form.querySelector<HTMLInputElement>('[data-date-input]');
-  if (date) date.min = iso(new Date());
-  let step = 0;
-  let pending = false;
-  const listeners: Array<() => void> = [];
-  const listen = (el: EventTarget, type: string, handler: EventListener) => { el.addEventListener(type, handler); listeners.push(() => el.removeEventListener(type, handler)); };
-  const show = (index: number, focus = true) => {
-    step = Math.max(0, Math.min(steps.length - 1, index));
-    steps.forEach((el, i) => { el.hidden = i !== step; });
-    stepButtons.forEach((el, i) => { if (i === step) el.setAttribute('aria-current', 'step'); else el.removeAttribute('aria-current'); });
-    if (back) back.hidden = step === 0;
-    if (next) next.hidden = step === steps.length - 1;
-    if (foot) foot.hidden = step !== steps.length - 1;
-    if (stepStatus) stepStatus.textContent = fill(tx().stepOf, { x: String(step + 1) });
-    if (focus) steps[step]?.focus({ preventScroll: true });
-  };
-  const validate = (root: HTMLElement) => {
-    let ok = true;
-    root.querySelectorAll<HTMLElement>('.field').forEach((field) => {
-      const input = field.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select');
-      const error = field.querySelector<HTMLElement>('.err');
-      if (!input || !error) return;
-      let message = '';
-      if (input.required && !input.value.trim()) message = tx().required;
-      else if (input.type === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) message = tx().emailBad;
-      else if (input.type === 'date' && (!input.validity.valid || (input.value && input.value < (input as HTMLInputElement).min))) message = tx().dateBad;
-      error.textContent = message;
-      input.setAttribute('aria-invalid', String(!!message));
-      field.toggleAttribute('data-invalid', !!message);
-      if (message) ok = false;
-    });
-    if (!ok) root.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
-    return ok;
-  };
-  const go = (index: number) => {
-    if (pending) return;
-    if (index > step) for (let i = step; i < index; i++) {
-      show(i, false);
-      if (!validate(steps[i])) return;
-    }
-    show(index);
-  };
-  if (steps.length) {
-    if (nav) nav.hidden = false;
-    if (controls) controls.hidden = false;
-    if (back) listen(back, 'click', () => go(step - 1));
-    if (next) listen(next, 'click', () => go(step + 1));
-    stepButtons.forEach((button, i) => listen(button, 'click', () => go(i)));
-    show(0, false);
-  }
-  let request: AbortController | null = null;
-  let timeout = 0;
-  let successAnimation: gsap.core.Tween | undefined;
-  const submit = async (event: Event) => {
-    event.preventDefault();
-    if (pending) return;
-    if (steps.length && step < steps.length - 1) { go(step + 1); return; }
-    for (let i = 0; i < steps.length; i++) {
-      // Only change the visible step if it has invalid fields.
-      const required = Array.from(steps[i].querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input[required],textarea[required]'));
-      if (required.some((el) => !el.value.trim()) || (i === 1 && date?.value && !date.validity.valid)) { show(i, false); validate(steps[i]); return; }
-    }
-    if (!validate(steps[step] || form)) return;
-    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
-    pending = true; button.disabled = true;
-    status.dataset.state = ''; status.textContent = tx().sending;
-    request = new AbortController();
-    timeout = window.setTimeout(() => request?.abort(), 15000);
-    try {
-      if (form.dataset.preview === undefined) {
-        const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: request.signal });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.ok) throw new Error(data.error || tx().formError);
-      }
-      if (!form.isConnected) return;
-      const done = document.querySelector<HTMLElement>('[data-form-done]');
-      if (done) {
-        form.hidden = true; done.hidden = false; done.focus();
-        if (!reduced) successAnimation = gsap.from(done, { opacity: 0, y: 12, duration: 0.3, ease: EASE });
-      }
-    } catch (error) {
-      if (form.isConnected) {
-        status.dataset.state = 'error';
-        const message = error instanceof Error && error.name !== 'TypeError' && error.name !== 'AbortError' ? error.message : tx().formError;
-        status.textContent = `${message} ${tx().errorTail}`;
-      }
-    } finally { window.clearTimeout(timeout); pending = false; button.disabled = false; }
-  };
-  listen(form, 'submit', submit);
-  cleanups.push(() => { listeners.forEach((off) => off()); window.clearTimeout(timeout); request?.abort(); successAnimation?.kill(); });
-}
-
 function toTop() {
   document.querySelectorAll<HTMLElement>('[data-to-top]').forEach((a) =>
     a.addEventListener('click', (e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.2 }) : window.scrollTo({ top: 0 }); }),
@@ -785,23 +668,6 @@ function deliveryCalc() {
     input.addEventListener('input', update);
     update();
   });
-
-  // Booking form: prefill from ?date= and explain delivery under the date field
-  const dateInput = document.querySelector<HTMLInputElement>('[data-date-input]');
-  const hint = document.querySelector<HTMLElement>('[data-date-hint]');
-  if (dateInput && hint) {
-    const q = new URLSearchParams(location.search).get('date');
-    if (q && parseDate(q)) dateInput.value = q;
-    const time = hint.dataset.preview || '21:00';
-    const g = Number(hint.dataset.gallery || 5);
-    const upd = () => {
-      const d = parseDate(dateInput.value);
-      if (!d) return;
-      hint.textContent = fill(tx().hint, { d: fmtDay.format(d), t: time, g: fmtDay.format(addWorkingDays(d, g)) });
-    };
-    dateInput.addEventListener('input', upd);
-    upd();
-  }
 }
 
 /* ───────────── Run of show: the picture holds while the day's moments pass ───────────── */
@@ -880,41 +746,6 @@ function contactSheet() {
     });
     if (mark) gsap.to(mark, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut', scrollTrigger: { trigger: grid, start: 'center 60%', once: true } });
   });
-}
-
-/* ───────────── Marquee: drifts on its own, speeds up and leans with scroll velocity,
-   and reverses when you scroll back up. ───────────── */
-function marquee() {
-  const root = document.querySelector<HTMLElement>('[data-marquee]');
-  if (!root || reduced) return;
-  const track = root.querySelector<HTMLElement>('[data-marquee-track]')!;
-  let width = (track.firstElementChild as HTMLElement).offsetWidth;
-  const measure = () => { width = (track.firstElementChild as HTMLElement).offsetWidth; };
-  const resize = new ResizeObserver(measure); resize.observe(track.firstElementChild!);
-  cleanups.push(() => resize.disconnect());
-  let x = 0, dir = -1, boost = 0;
-  const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: 'power3' });
-  ScrollTrigger.create({
-    trigger: root, start: 'top bottom', end: 'bottom top',
-    onUpdate: (self) => {
-      const v = self.getVelocity();
-      dir = self.direction === 1 ? -1 : 1;
-      boost = Math.min(Math.abs(v) / 120, 14);
-      skew(gsap.utils.clamp(-8, 8, -v / 400));
-    },
-  });
-  const tick = () => {
-    const w = width;
-    if (!w) return;
-    x += dir * (0.6 + boost);
-    boost *= 0.92;
-    if (Math.abs(boost) < 0.05) skew(0);
-    if (x <= -w) x += w;
-    if (x > 0) x -= w;
-    gsap.set(track, { x });
-  };
-  gsap.ticker.add(tick);
-  cleanups.push(() => gsap.ticker.remove(tick));
 }
 
 /* ───────────── Magnetic buttons (precise pointers only) ───────────── */

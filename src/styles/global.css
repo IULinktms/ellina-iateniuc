@@ -221,16 +221,6 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
   background: var(--rec); margin-right: 0.45rem; vertical-align: 0.1em;
 }
 
-/* ───────────────────────── Intro (home only) ───────────────────────── */
-.intro { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; pointer-events: none; }
-.intro__bars i { position: absolute; left: 0; right: 0; height: 50.5%; background: var(--black); }
-.intro__bars i:first-child { top: 0; transform-origin: top; }
-.intro__bars i:last-child { bottom: 0; transform-origin: bottom; }
-.intro__line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--bone); transform: scaleX(0); }
-/* Retired (WS3: the aperture happens on first scroll). It must never render: the first astro:page-load
-   waits for window load, so on a slow line it would black out the hero until every eager asset arrived. */
-.intro { display: none; }
-
 /* ───────────────────────── Hero ───────────────────────── */
 .hero { position: relative; height: 100svh; min-height: 34rem; overflow: hidden; background: var(--black); }
 .hero__media { position: absolute; inset: 0; }
@@ -259,7 +249,6 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
   display: flex; justify-content: space-between; align-items: center; gap: 1rem;
   margin-top: clamp(1.75rem, 4vh, 3rem); font-size: var(--t-sm); color: var(--bone-dim);
 }
-.hero__sound { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; }
 @media (max-width: 760px) {
   .hero__name .line + .line { padding-left: 0.3em; }
   .hero__actions { width: 100%; justify-content: space-between; gap: 1rem; }
@@ -267,17 +256,6 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
   .hero__actions > * { white-space: nowrap; }
   .hero__actions .btn { padding-inline: 1.25rem; }
 }
-
-/* ───────────────────────── Statement ───────────────────────── */
-.statement { padding-block: var(--section); }
-.statement p {
-  grid-column: 2 / span 10;
-  font-family: var(--serif); font-size: var(--t-xl); line-height: 1.08; letter-spacing: -0.02em;
-  text-wrap: balance;
-}
-.statement .word { display: inline-block; }
-.statement__aside { grid-column: 2 / span 4; margin-top: 3rem; color: var(--ash); font-size: var(--t-sm); }
-@media (max-width: 760px) { .statement p, .statement__aside { grid-column: 1 / -1; } }
 
 /* ───────────────────────── Selected work spreads ───────────────────────── */
 .spreads { padding-block: clamp(2rem, 4vw, 3rem) var(--section); }
@@ -550,39 +528,7 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
 .session p { font-size: var(--t-sm); color: var(--bone); margin-top: 0.3rem; }
 .session .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: 0.5rem; font-size: var(--t-xs); color: var(--ash); }
 .session .meta > :last-child { white-space: nowrap; text-align: right; }
-.direct { margin-top: 3rem; display: grid; gap: 0.4rem; }
-.direct a { font-family: var(--serif); font-size: var(--t-md); }
-.field { position: relative; display: grid; gap: 0.4rem; padding-block: 1.1rem 0.6rem; border-bottom: 1px solid var(--line-strong); }
-.field:focus-within { border-bottom-color: var(--bone); }
-.field label { font-size: var(--t-xs); color: var(--ash); }
-.field input, .field textarea, .field select {
-  width: 100%; background: transparent; border: 0; color: var(--bone); font: inherit; font-size: 1.15rem;
-  padding: 0.3rem 0; outline: none; border-radius: 0; appearance: none;
-}
-.field select { background-image: linear-gradient(45deg, transparent 50%, var(--ash) 50%), linear-gradient(135deg, var(--ash) 50%, transparent 50%); background-position: calc(100% - 10px) 55%, calc(100% - 5px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
-.field select option { background: var(--graphite); }
-.field textarea { min-height: 8rem; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #5d5953; }
-.field input[type='date']::-webkit-calendar-picker-indicator { filter: invert(0.8); }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gutter); }
-.field .err { font-size: var(--t-xs); color: #e48a80; min-height: 0; }
-.field[data-invalid] { border-bottom-color: #e48a80; }
-.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.3rem; }
-.chips input { position: absolute; opacity: 0; pointer-events: none; }
-.chips label {
-  height: 2.6rem; padding-inline: 1rem; display: inline-flex; align-items: center; border-radius: 999px;
-  border: 1px solid var(--line-strong); font-size: var(--t-sm); color: var(--bone-dim); cursor: pointer; transition: all 0.3s;
-}
-.chips input:checked + label { background: var(--bone); color: var(--black); border-color: var(--bone); }
-.chips input:focus-visible + label { outline: 1px solid var(--projector); outline-offset: 3px; }
-.hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
-.form-foot { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2.5rem; }
-.form-status { font-size: var(--t-sm); color: var(--bone-dim); max-width: 26rem; }
-.form-status[data-state='error'] { color: #e48a80; }
-.form-done { padding-block: 3rem; }
-.form-done p { font-family: var(--serif); font-size: var(--t-xl); line-height: 1.08; letter-spacing: -0.02em; max-width: 18ch; }
 @media (max-width: 900px) { .contact__aside, .contact__form { grid-column: 1 / -1; } .contact__form { grid-row: 1; } }
-@media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
 
 /* ───────────────────────── 404 ───────────────────────── */
 .notfound { min-height: 100svh; display: grid; place-content: center; text-align: center; padding: var(--gutter); gap: 2rem; justify-items: center; }
@@ -624,7 +570,6 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
 .calc__cta { justify-self: start; }
 @media (max-width: 480px) { .calc__out > div { grid-template-columns: 1fr; gap: 0.15rem; } }
 
-.date-hint { margin-top: 0.9rem; font-size: var(--t-sm); color: var(--projector); min-height: 1.5em; }
 
 /* ───────────────────────── Run of show (held picture, passing moments) ───────────────────────── */
 .ros { padding-bottom: var(--section); }
@@ -726,17 +671,6 @@ html:not(.js) .sheet__mark path { stroke-dashoffset: 0; }
   .sheet__copy { position: static; padding: 2rem var(--gutter) var(--section); }
 }
 
-/* ───────── Velocity marquee ───────── */
-.marquee { overflow: hidden; padding-block: clamp(3rem, 7vw, 7rem); border-block: 1px solid var(--line); margin-bottom: var(--section); }
-.marquee__track { display: flex; width: max-content; will-change: transform; }
-.marquee__set { display: flex; flex: none; }
-.marquee__word {
-  display: inline-flex; align-items: center; gap: clamp(1.5rem, 3vw, 3rem); padding-right: clamp(1.5rem, 3vw, 3rem);
-  font-size: clamp(3.5rem, 1.5rem + 8vw, 10rem); white-space: nowrap; line-height: 1;
-}
-.marquee__word.is-outline { font-style: italic; color: transparent; -webkit-text-stroke: 1px var(--bone); }
-.marquee__word i { font-style: normal; font-size: 0.3em; color: var(--rec); -webkit-text-stroke: 0; }
-
 /* ───────── Magnetic buttons: transform comes from JS ───────── */
 .btn.is-magnetic, .nav__cta.is-magnetic { transition: color var(--t-ui) ease, border-color var(--t-ui) ease; }
 
@@ -799,8 +733,6 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
 .process li > * { min-width: 0; overflow-wrap: anywhere; }
 
 /* ═══════════════════ Workstream 3: one exposure, from hero to contact sheet ═══════════════════ */
-.hero__still { position: absolute; inset: 0; opacity: 0; z-index: 1; pointer-events: none; }
-.hero.is-frozen .hero__still { opacity: 1; }
 .hero__media::after { z-index: 2; }
 .hero__shutter { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 4; pointer-events: none; }
 .spread__frame video { position: absolute; inset: 0; opacity: 0; transition: opacity 240ms var(--ease-out); }
@@ -810,7 +742,6 @@ html[lang='ru'] .hero__name { line-height: 0.88; }
 
 /* ═══════════════════ Workstream 4: mobile booking, never covering dialogs ═══════════════════ */
 .mobile-booking { display: none; }
-[data-form-foot][hidden], [data-contact][hidden], [data-step-next][hidden], [data-step-back][hidden] { display: none; }
 @media (max-width: 760px) {
   .mobile-booking:not([hidden]) { position: fixed; z-index: 50; left: .75rem; right: .75rem; bottom: calc(.75rem + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; justify-content: space-between; gap: .75rem; background: rgb(16 15 14 / .96); border: 1px solid var(--line-strong); padding: .5rem .5rem .5rem 1rem; border-radius: 999px; box-shadow: 0 .5rem 2rem #0005; }
   .mobile-booking > span { font-size: .75rem; }
@@ -839,9 +770,8 @@ html:not(.js) .frame > img[data-defer-srcset] { display: none; }
 /* ── Accessibility ── */
 :focus-visible { outline-width: 2px; }
 /* Placeholders were ~3:1 on black; ash is ~5.6:1 */
-.field input::placeholder, .field textarea::placeholder { color: var(--ash); }
 /* Decorative layers never take pointer or screen-reader focus */
-.grain, .marquee, .intro, .cursor, .float-preview { pointer-events: none; }
+.grain, .cursor, .float-preview { pointer-events: none; }
 
 /* No JS: the menu button can't work, so a plain link opens the menu as an in-page block (:target) */
 .nav__nojs { display: none; }
@@ -942,7 +872,7 @@ body[data-page="home"] .disciplines a .display { font-size: clamp(2.25rem, 5vw, 
 .footer__big { font-weight: 700; letter-spacing: -0.07em; text-transform: uppercase; }
 /* Headings set via --serif at weight 400 read too light in a grotesk: lift them */
 h2, h3, .section-head h2, .strip__caption h3, .film-card h3, .ros__item h3, .ros__time, .ros__clock,
-.principles h3, .process h3, .session h3, .direct a, .p-credits dd, .calc__out dd, .menu__list a { font-weight: 600; letter-spacing: -0.03em; }
+.principles h3, .process h3, .session h3, .p-credits dd, .calc__out dd, .menu__list a { font-weight: 600; letter-spacing: -0.03em; }
 .menu__list a { text-transform: uppercase; letter-spacing: -0.05em; font-weight: 700; }
 /* Italic accents become weight contrast instead of a serif italic */
 .sheet__title em, .p-hero__sub { font-style: normal; font-weight: 400; }

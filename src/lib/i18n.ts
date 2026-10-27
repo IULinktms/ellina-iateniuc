@@ -84,9 +84,7 @@ const dict = {
     count: { photos: (n: number) => en(n, 'photograph', 'photographs') },
     categories: { Brands: "Brands and social media", Conferences: 'Conferences', Seminars: 'Seminars', Corporate: 'Corporate', Portraits: 'Portraits', Celebrations: 'Celebrations' },
     kinds: { Reels: 'Reels', Aftermovie: 'Aftermovie', Highlights: 'Highlights', Reel: 'Reel', 'Behind the scenes': 'Behind the scenes' },
-    client: { sending: 'Sending your message…', errorTail: 'Please email me directly instead.', required: 'This field is needed so I can reply.',
-      emailBad: 'Check the email address, it looks incomplete.', from: 'From {x}',
-      hint: 'First photos on {d} by {t}. Full gallery by {g}.', menu: 'Menu', close: 'Close' },
+    client: { from: 'From {x}', menu: 'Menu', close: 'Close' },
   },
 
   ro: {
@@ -128,9 +126,7 @@ const dict = {
     count: { photos: (n: number) => ro(n, 'fotografie', 'fotografii') },
     categories: { Brands: "Branduri și social media", Conferences: 'Conferințe', Seminars: 'Seminare', Corporate: 'Evenimente corporative', Portraits: 'Portrete', Celebrations: 'Gale și sărbători' },
     kinds: { Reels: 'Reels', Aftermovie: 'Aftermovie', Highlights: 'Momente-cheie', Reel: 'Reel', 'Behind the scenes': 'Din culise' },
-    client: { sending: 'Se trimite mesajul…', errorTail: 'Vă rog să-mi scrieți direct pe email.', required: 'Acest câmp este necesar ca să vă pot răspunde.',
-      emailBad: 'Verificați adresa de email, pare incompletă.', from: 'Din proiectul „{x}”',
-      hint: 'Primele fotografii: {d}, până la {t}. Galeria completă: {g}.', menu: 'Meniu', close: 'Închideți' },
+    client: { from: 'Din proiectul „{x}”', menu: 'Meniu', close: 'Închideți' },
   },
 
   ru: {
@@ -172,9 +168,7 @@ const dict = {
     count: { photos: (n: number) => ru(n, 'фотография', 'фотографии', 'фотографий') },
     categories: { Brands: "Бренды и соцсети", Conferences: 'Конференции', Seminars: 'Семинары', Corporate: 'Корпоративные мероприятия', Portraits: 'Портреты', Celebrations: 'Гала-вечера и праздники' },
     kinds: { Reels: 'Reels', Aftermovie: 'Афтемуви', Highlights: 'Хайлайты', Reel: 'Reels', 'Behind the scenes': 'За кадром' },
-    client: { sending: 'Отправляю сообщение…', errorTail: 'Напишите мне, пожалуйста, на почту напрямую.', required: 'Заполните это поле, чтобы я могла ответить.',
-      emailBad: 'Проверьте email — адрес выглядит неполным.', from: 'Из проекта «{x}»',
-      hint: 'Первые кадры — {d}, к {t}. Полная галерея — к {g}.', menu: 'Меню', close: 'Закрыть' },
+    client: { from: 'Из проекта «{x}»', menu: 'Меню', close: 'Закрыть' },
   },
 } satisfies Record<Lang, unknown>;
 
@@ -190,21 +184,8 @@ const bookingUi = {
     "onRequest": "On request",
     "reachTitle": "Write to me",
     "reachText": "Send the date, the place and what kind of event or project. I reply within one working day.",
-    "steps": [
-      "Service",
-      "Date",
-      "Details",
-      "Contact"
-    ],
-    "back": "Back",
-    "continue": "Continue",
-    "dateOptional": "Date not confirmed yet? You can continue without it.",
-    "nextSteps": "What happens next",
     "call": "Call me",
     "directChannels": "Write directly",
-    "formError": "The message could not be sent. Please try again.",
-    "dateBad": "Choose today or a future date.",
-    "stepOf": "Step {x} of 4",
     "telegram": "Telegram",
     "whatsapp": "WhatsApp",
     "viber": "Viber",
@@ -218,21 +199,8 @@ const bookingUi = {
     "onRequest": "La cerere",
     "reachTitle": "Scrieți-mi",
     "reachText": "Trimiteți data, locul și tipul evenimentului sau al proiectului. Vă răspund în cel mult o zi lucrătoare.",
-    "steps": [
-      "Serviciu",
-      "Dată",
-      "Detalii",
-      "Contact"
-    ],
-    "back": "Înapoi",
-    "continue": "Continuați",
-    "dateOptional": "Data nu este stabilită? Puteți continua fără ea.",
-    "nextSteps": "Ce urmează",
     "call": "Sunați-mă",
     "directChannels": "Scrieți-mi direct",
-    "formError": "Mesajul nu a putut fi trimis. Vă rog să încercați din nou.",
-    "dateBad": "Alegeți data de astăzi sau o dată viitoare.",
-    "stepOf": "Pasul {x} din 4",
     "telegram": "Telegram",
     "whatsapp": "WhatsApp",
     "viber": "Viber",
@@ -246,21 +214,8 @@ const bookingUi = {
     "onRequest": "По запросу",
     "reachTitle": "Напишите мне",
     "reachText": "Дата, место, тип мероприятия или проекта — этого достаточно. Отвечу в течение рабочего дня.",
-    "steps": [
-      "Услуга",
-      "Дата",
-      "Детали",
-      "Контакт"
-    ],
-    "back": "Назад",
-    "continue": "Продолжить",
-    "dateOptional": "Дата ещё не определена? Можно продолжить без неё.",
-    "nextSteps": "Что дальше",
     "call": "Позвонить",
     "directChannels": "Написать напрямую",
-    "formError": "Не удалось отправить сообщение. Пожалуйста, попробуйте ещё раз.",
-    "dateBad": "Выберите сегодняшнюю или более позднюю дату.",
-    "stepOf": "Шаг {x} из 4",
     "telegram": "Telegram",
     "whatsapp": "WhatsApp",
     "viber": "Viber",
@@ -276,17 +231,8 @@ export type Dict = (typeof dict)['en'] & { studio: (typeof studio)['en']; bookin
 export const t = (lang: Lang): Dict => ({ ...dict[lang], studio: studio[lang], bookingUi: bookingUi[lang] }) as Dict;
 
 /** Strings the browser script needs, embedded as JSON on each page */
-export const clientStrings = (lang: Lang) => ({ ...dict[lang].client, ...studio[lang], ...bookingUi[lang], dateLocale: DATE_LOCALE[lang] });
-
-/** Error messages returned by the contact API */
-export const apiErrors: Record<Lang, Record<string, string>> = {
-  en: { read: 'The form data could not be read.', fast: 'That was a little too quick.', many: 'Too many messages in a short time.',
-    spam: 'The spam check did not pass.', fields: 'Name, a valid email and a message are needed.', links: 'Please include fewer links.',
-    inbox: 'The form is not connected to an inbox yet.', deliver: 'The message could not be delivered.' },
-  ro: { read: 'Datele formularului nu au putut fi citite.', fast: 'Formularul a fost trimis prea repede. Încercați din nou.', many: 'Prea multe mesaje într-un timp scurt.',
-    spam: 'Mesajul nu a trecut verificarea anti-spam.', fields: 'Sunt necesare numele, un email valid și un mesaj.', links: 'Vă rog să includeți mai puține linkuri.',
-    inbox: 'Formularul nu este încă conectat la o căsuță de email.', deliver: 'Mesajul nu a putut fi livrat.' },
-  ru: { read: 'Не удалось прочитать данные формы.', fast: 'Форма отправлена слишком быстро. Попробуйте ещё раз.', many: 'Слишком много сообщений за короткое время. Попробуйте позже.',
-    spam: 'Проверка на спам не пройдена.', fields: 'Укажите имя, корректный email и сообщение.', links: 'Уберите часть ссылок из сообщения.',
-    inbox: 'Форма ещё не подключена к почте.', deliver: 'Не удалось доставить сообщение.' },
+export const clientStrings = (lang: Lang) => {
+  const { pauseLogos, playLogos, zoom, resetZoom, loading, imageError } = studio[lang];
+  return { ...dict[lang].client, pauseLogos, playLogos, zoom, resetZoom, loading, imageError, waText: bookingUi[lang].waText, dateLocale: DATE_LOCALE[lang] };
 };
+

@@ -52,11 +52,6 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
 
 <Base page="home" lang={lang}>
   <link slot="head" rel="preload" as="image" type="image/webp" imagesrcset={posterSet.srcSet.attribute} imagesizes={posterSizes} fetchpriority="high" />
-  <!-- Opening sequence: covers the hero until the shutter opens -->
-  <div class="intro" aria-hidden="true">
-    <div class="intro__bars"><i></i><i></i></div>
-    <span class="intro__line"></span>
-  </div>
 
   <section class="hero" data-hero aria-labelledby="hero-title">
     <div class="hero__media" data-lqip={heroPlaceholder ? 'eager' : undefined} style={heroPlaceholder?.style} {...heroPlaceholder?.attrs}>
@@ -70,13 +65,13 @@ const filmPlaceholders = await Promise.all(films.map((f) => lqip(f.data.poster))
         <span class="line"><span class="w">{site.lastName}</span></span>
       </h1>
       <div class="hero__row">
-        <p class="hero__lede" data-hero-rise>{s.home.lede}</p>
-        <div class="hero__actions" data-hero-rise>
+        <p class="hero__lede">{s.home.lede}</p>
+        <div class="hero__actions">
           {whatsapp ? <a class="btn btn--solid" href={whatsapp}>{s.bookingUi.waCta}</a> : <a class="btn btn--solid" href="#delivery">{s.home.checkDate}</a>}
           <a class="line-link" href={L('/portfolio/')}>{s.home.seeWork}</a>
         </div>
       </div>
-      <div class="hero__meta" data-hero-rise>
+      <div class="hero__meta">
         <span>{site.location}</span>
       </div>
     </div>

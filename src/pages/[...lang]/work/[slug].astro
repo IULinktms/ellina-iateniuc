@@ -4,7 +4,7 @@ import { Image, getImage } from 'astro:assets';
 import Base from '../../../layouts/Base.astro';
 import Frame from '../../../components/Frame.astro';
 import { getProjects, getFilms, getSite, fullSize, orientation, slugOf, type Project } from '../../../lib/content';
-import { LOCALES, DEFAULT_LANG, HTML_LANG, localePath, t, type Lang } from '../../../lib/i18n';
+import { LOCALES, DEFAULT_LANG, localePath, t, type Lang } from '../../../lib/i18n';
 import { projectLd, videoLd } from '../../../lib/seo';
 import { lqip } from '../../../lib/lqip';
 import { whatsappHref } from '../../../lib/whatsapp';
@@ -48,9 +48,6 @@ const ld = [
   ...projectLd(project, lang, pageUrl, Astro.site!, [{ src: (await getImage({ src: d.cover, width: 1600, format: 'webp' })).src, alt: d.coverAlt }, ...gallery.map((g) => ({ src: g.full, alt: g.alt, caption: g.caption }))]),
   ...films.map((f, i) => videoLd(f, lang, Astro.site!, filmPosters[i].src)),
 ];
-const titleWords = d.title.split(' ');
-const half = Math.ceil(titleWords.length / 2);
-const titleLines = titleWords.length > 2 ? [titleWords.slice(0, half).join(' '), titleWords.slice(half).join(' ')] : [d.title];
 ---
 
 <Base page="work" lang={lang} title={d.title} description={d.seoDescription ?? d.excerpt} image={d.cover} imageAlt={d.coverAlt} type="article" jsonLd={ld}>

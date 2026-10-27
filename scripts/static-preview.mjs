@@ -9,8 +9,9 @@ const out = path.join(root, 'preview-dist');
 const api = path.join(root, 'src/pages/api');
 const parked = path.join(root, '.api-parked');
 
-// Build in place with the server route parked (a static build can't contain it)
-fs.renameSync(api, parked);
+// Build in place with the server route parked, if there is one (a static build can't contain it)
+const hasApi = fs.existsSync(api);
+if (hasApi) fs.renameSync(api, parked);
 try {
   execSync('npx astro build', {
     cwd: root,
@@ -18,7 +19,7 @@ try {
     env: { ...process.env, STATIC_PREVIEW: '1', PUBLIC_PREVIEW_LITE: '1' },
   });
 } finally {
-  fs.renameSync(parked, api);
+  if (hasApi) fs.renameSync(parked, api);
 }
 fs.rmSync(out, { recursive: true, force: true });
 fs.cpSync(path.join(root, 'dist'), out, { recursive: true });
