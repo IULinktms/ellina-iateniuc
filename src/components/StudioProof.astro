@@ -6,11 +6,10 @@ interface Props { lang: Lang; home: Awaited<ReturnType<typeof getHome>> }
 const { lang, home } = Astro.props;
 const s = t(lang).studio;
 const clients = home.clients.filter((item) => hasRealContent(item.name));
-const testimonials = home.testimonials.filter((item) => hasRealContent(item.quote) && hasRealContent(item.name));
 const stats = home.stats.filter((item) => typeof item.value === 'number' && item.value > 0 && hasRealContent(item.label) && (!item.suffix || hasRealContent(item.suffix)));
-const statsOnly = !clients.length && !testimonials.length;
-// A number alone is a promise, not proof (delivery time already lives in the calculator): the band waits for a real client or quote
-const hasProof = clients.length + testimonials.length > 0;
+const statsOnly = !clients.length;
+// A number alone is a promise, not proof: the band waits for a real client (no testimonials on this site, by the owner's choice)
+const hasProof = clients.length > 0;
 ---
 {hasProof && (
 <section class:list={["studio-proof", statsOnly && "studio-proof--numbers"]} aria-labelledby="proof-h">
@@ -33,12 +32,6 @@ const hasProof = clients.length + testimonials.length > 0;
         {clients.map((client) => <li>{client.logo ? <Image src={client.logo} alt={client.name} width={220} format="webp" loading="lazy" /> : <span>{client.name}</span>}</li>)}
       </ul>)}
     </div>
-  </div>}
-  {testimonials.length > 0 && <div class="proof-quotes wrap">
-    {testimonials.slice(0,4).map((item) => <figure>
-      <blockquote><p>{lang === 'ru' ? '«' : lang === 'ro' ? '„' : '“'}{item.quote}{lang === 'ru' ? '»' : '”'}</p></blockquote>
-      <figcaption><strong>{item.name}</strong><span>{[item.role, item.company].filter(hasRealContent).join(' · ')}</span></figcaption>
-    </figure>)}
   </div>}
 </section>
 )}

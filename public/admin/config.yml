@@ -176,17 +176,6 @@ collections:
             fields:
               - { name: name, label: Client name, widget: string, i18n: true }
               - { name: logo, label: Approved logo (optional), widget: image, required: false, i18n: duplicate }
-          - name: testimonials
-            label: Approved testimonials
-            hint: "Appears automatically once the quote and name are filled in. Empty or TODO fields stay hidden."
-            widget: list
-            required: false
-            i18n: true
-            fields:
-              - { name: quote, label: Quote, widget: text, i18n: true }
-              - { name: name, label: Name, widget: string, i18n: true }
-              - { name: role, label: Role, widget: string, i18n: true }
-              - { name: company, label: Company, widget: string, i18n: true }
           - name: stats
             label: Studio numbers
             hint: "Verified positive numbers appear automatically. Empty values and zero stay hidden."
