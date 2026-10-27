@@ -13,7 +13,7 @@ export const studioId = (origin: URL | string) => new URL('/#studio', origin).to
 export const personId = (origin: URL | string) => new URL('/#ellina', origin).toString();
 
 // Her name as people search for it: the site's Latin spelling, Cyrillic, and the Romanian transliteration
-const ALT_NAMES = ['Эллина Яценюк', 'Ellina Iațeniuc'];
+const ALT_NAMES = ['Эллина Яценюк'];
 const ADDRESS = { '@type': 'PostalAddress', addressLocality: 'Chișinău', addressCountry: 'MD' };
 const sameAs = (site: Site) => site.socials.map((x) => x.url).filter((u) => /^https?:\/\/(www\.)?(instagram|pinterest)\.com\/.+/.test(u));
 
