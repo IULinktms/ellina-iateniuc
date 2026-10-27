@@ -34,6 +34,7 @@ const photos = await Promise.all(
       ...p,
       number: String(i + 1).padStart(3, '0'),
       thumb: small.src,
+      mid: medium.src,
       srcset: `${small.src} ${small.attributes.width ?? 600}w, ${medium.src} ${medium.attributes.width ?? 1200}w`,
       ratio: p.width / p.height,
     };
@@ -106,7 +107,7 @@ const year = new Date().getFullYear();
     <button type="button" class="vnext" aria-label="Следующее">›</button>
   </dialog>
 
-  <script type="application/json" id="photos" set:html={JSON.stringify(photos.map((p) => ({ n: p.number, preview: p.thumb, full: p.url, dl: download(p.url), name: p.name })))} />
+  <script type="application/json" id="photos" set:html={JSON.stringify(photos.map((p) => ({ n: p.number, preview: p.mid, full: `/gallery/${gallery.id}/${p.number}.webp`, dl: download(p.url), name: p.name })))} />
   <script>
     const data: { n: string; preview: string; full: string; dl: string; name: string }[] = JSON.parse(document.getElementById('photos')!.textContent || '[]');
     const dlg = document.querySelector<HTMLDialogElement>('.viewer')!;
@@ -114,18 +115,33 @@ const year = new Date().getFullYear();
     const count = dlg.querySelector<HTMLElement>('.vcount')!;
     const dl = dlg.querySelector<HTMLAnchorElement>('.vdl')!;
     let cur = 0;
+    const hq = new Map<string, boolean>();
+    const pending = new Map<string, Promise<void>>();
+    const load = (url: string) => {
+      if (hq.get(url)) return Promise.resolve();
+      if (!pending.has(url)) pending.set(url, new Promise<void>((res) => {
+        const im = new Image();
+        im.onload = () => { hq.set(url, true); im.decode?.().catch(() => {}).finally(() => res()) ?? res(); };
+        im.onerror = () => res();
+        im.src = url;
+      }));
+      return pending.get(url)!;
+    };
     const show = (i: number) => {
       cur = (i + data.length) % data.length;
       const p = data[cur];
-      // Preview first (already cached from the grid), then the untouched original
-      img.src = p.preview; img.classList.add('loading');
-      const full = new Image();
-      full.onload = () => { if (data[cur] === p) { img.src = p.full; img.classList.remove('loading'); } };
-      full.src = p.full;
+      // Large viewer image (2560px, visually lossless). Until it arrives, the grid preview holds the
+      // place with a thin progress line — never a blurred frame. Downloads stay the untouched original.
+      const ready = hq.get(p.full);
+      if (ready) { img.src = p.full; img.classList.remove('loading'); }
+      else {
+        img.src = p.preview; img.classList.add('loading');
+        load(p.full).then(() => { if (data[cur] === p) { img.src = p.full; img.classList.remove('loading'); } });
+      }
       count.textContent = `${p.n} / ${data.length}`;
       dl.href = p.dl; dl.setAttribute('download', p.name);
-      // Warm the neighbours
-      [cur + 1, cur - 1].forEach((j) => { const q = data[(j + data.length) % data.length]; new Image().src = q.preview; });
+      // Fetch the neighbours ahead so swiping is instant
+      [cur + 1, cur - 1, cur + 2].forEach((j) => load(data[(j + data.length) % data.length].full));
     };
     document.querySelectorAll<HTMLButtonElement>('.open').forEach((b) => b.addEventListener('click', () => { show(Number(b.dataset.i)); dlg.showModal(); }));
     dlg.querySelector('.vclose')!.addEventListener('click', () => dlg.close());
@@ -189,7 +205,9 @@ const year = new Date().getFullYear();
     .vclose, .vprev, .vnext { background: none; border: 0; color: inherit; font-size: 1.6rem; cursor: pointer; min-width: 2.75rem; min-height: 2.75rem; }
     .vprev, .vnext { font-size: 2.6rem; font-family: 'Cormorant Garamond', serif; }
     .vimg { grid-row: 2; grid-column: 2; width: 100%; height: 100%; object-fit: contain; min-height: 0; transition: filter 0.3s; }
-    .vimg.loading { filter: blur(2px); }
+    .viewer[open]::after { content: ''; position: fixed; left: 0; right: 0; bottom: 0; height: 2px; background: #a8854f; transform-origin: left; transform: scaleX(0); opacity: 0; transition: opacity .2s; }
+    .viewer[open]:has(.vimg.loading)::after { opacity: 1; animation: vload 1.2s ease-in-out infinite; }
+    @keyframes vload { 0% { transform: scaleX(0); } 60% { transform: scaleX(.85); } 100% { transform: scaleX(1); opacity: 0; } }
     @media (max-width: 700px) {
       .viewer[open] { grid-template-columns: 0 1fr 0; }
       .vprev, .vnext { position: absolute; bottom: max(1rem, env(safe-area-inset-bottom)); }

@@ -21,6 +21,7 @@ const ours = [
   // Unlisted client galleries: out of search even if a link leaks, and the path never leaves as a referrer
   { src: '^/g/.*$', headers: { 'x-robots-tag': 'noindex, nofollow', 'referrer-policy': 'no-referrer' }, continue: true },
   { src: '^/media/(.*)$', headers: { 'cache-control': 'public, max-age=604800' }, continue: true },
+  { src: '^/gallery/(.*)$', headers: { 'cache-control': 'public, max-age=2592000' }, continue: true },
 ];
 // Idempotent: drop routes from an earlier run, then put ours first
 config.routes = [...ours, ...config.routes.filter((r) => !ours.some((o) => o.src === r.src))];
