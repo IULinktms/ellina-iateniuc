@@ -1,15 +1,14 @@
 ---
 /**
- * Unlisted client galleries: /g/<slug>/ for every manifest in src/data/client-galleries/.
- * Kept out of search (robots meta here, X-Robots-Tag in scripts/headers.mjs), out of the sitemap
- * (astro.config.mjs) and linked from no page. Web-size frames come from src/assets/galleries/<id>/;
- * the full-size originals and the ZIP live in Vercel Blob, outside git.
+ * Unlisted client gallery: /g/<slug>/ for every manifest in src/data/client-galleries/.
+ * A standalone page, separate from the portfolio site (no site nav, footer or motion), styled for the
+ * client's event (Casmara: ivory, ink, a fine serif). Kept out of search (robots meta here, X-Robots-Tag
+ * in scripts/headers.mjs) and out of the sitemap; linked from no page.
+ * Grid thumbnails come from src/assets/galleries/<id>/; the viewer and downloads use the untouched
+ * full-size originals in Vercel Blob, so nothing the guests see or save is re-compressed.
  */
 import type { ImageMetadata } from 'astro';
-import Base from '../../layouts/Base.astro';
-import Frame from '../../components/Frame.astro';
-import { fullSize } from '../../lib/content';
-import { t } from '../../lib/i18n';
+import { getImage } from 'astro:assets';
 
 interface Photo { name: string; url: string; width: number; height: number; bytes: number; }
 interface Gallery {
@@ -24,78 +23,179 @@ export function getStaticPaths() {
 }
 
 const { gallery } = Astro.props as { gallery: Gallery };
-const lang = 'ru' as const;
-const s = t(lang);
 const sources = import.meta.glob<ImageMetadata>('../../assets/galleries/*/*.jpg', { eager: true, import: 'default' });
 const photos = await Promise.all(
   gallery.photos.map(async (p, i) => {
     const src = sources[`../../assets/galleries/${gallery.id}/${p.name}`];
     if (!src) throw new Error(`Gallery ${gallery.id}: missing web-size file for ${p.name}`);
-    const number = String(i + 1).padStart(3, '0');
-    return { ...p, src, full: await fullSize(src), number, landscape: src.width > src.height };
+    const small = await getImage({ src, width: Math.min(600, src.width), format: 'webp', quality: 82 });
+    const medium = await getImage({ src, width: Math.min(1200, src.width), format: 'webp', quality: 85 });
+    return {
+      ...p,
+      number: String(i + 1).padStart(3, '0'),
+      thumb: small.src,
+      srcset: `${small.src} ${small.attributes.width ?? 600}w, ${medium.src} ${medium.attributes.width ?? 1200}w`,
+      ratio: p.width / p.height,
+    };
   }),
 );
-// Blob serves `?download=1` as an attachment, so a tap saves the file instead of opening it
 const download = (url: string) => `${url}?download=1`;
 const mb = (bytes: number) => `${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: bytes < 1e8 ? 1 : 0 }).format(bytes / 1e6)} МБ`;
+const year = new Date().getFullYear();
 ---
-
-<Base page="gallery" lang={lang} title={gallery.title + ' — галерея'} description={`${gallery.title}: все фотографии с мероприятия.`} unlisted>
-  <header class="page-head cg-head">
-    <h1 class="display"><span class="line">{gallery.title}</span></h1>
-    <div class="page-head__row">
-      <p>{gallery.subtitle}<br /><span class="muted">{photos.length} фотографий · {gallery.credit}</span></p>
-      <div class="cg-actions">
-        <a class="btn btn--solid cg-zip" href={download(gallery.zip.url)} download={gallery.zip.name}>
-          Скачать все фото (ZIP)<span aria-hidden="true">↓</span>
-        </a>
-        <p class="small muted">Оригиналы в полном размере, {mb(gallery.zip.bytes)}. Отдельный кадр — кнопка «Скачать» под фото.</p>
-      </div>
-    </div>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>{gallery.title} — фотографии</title>
+  <meta name="description" content={`${gallery.title}: все фотографии с мероприятия.`} />
+  <meta property="og:title" content={gallery.title} />
+  <meta property="og:description" content={`${photos.length} фотографий · ${gallery.subtitle}`} />
+  <meta property="og:image" content={new URL(photos[0].thumb, Astro.site).toString()} />
+  <meta name="theme-color" content="#f6f2ec" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="head">
+    <p class="eyebrow">Casmara Moldova</p>
+    <h1>{gallery.title}</h1>
+    <p class="sub">{gallery.subtitle}</p>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="count">{photos.length} фотографий · {photos.length} fotografii</p>
+    <a class="btn" href={download(gallery.zip.url)} download={gallery.zip.name}>
+      <span>Скачать все фото</span><span class="ro">Descărcați toate fotografiile</span>
+    </a>
+    <p class="note">ZIP · оригиналы в полном качестве · {mb(gallery.zip.bytes)}<br /><span class="ro-note">Originale la calitate maximă. O singură fotografie — butonul de sub ea.</span></p>
   </header>
 
-  <section class="cg-grid wrap" aria-label="Фотографии">
-    {photos.map((p) => (
-      <figure class:list={['cg-item', p.landscape && 'cg-item--wide']}>
-        <button data-lb-item data-full={p.full} data-alt={`${gallery.title}, фото ${p.number}`} data-caption={`${p.number} / ${photos.length} · ${p.name}`} data-cursor={s.cursor.expand} aria-label={`Открыть фото ${p.number}`}>
-          <Frame src={p.src} alt={`${gallery.title}, фото ${p.number}`} aperture={false} widths={[400, 800, 1200]} sizes={p.landscape ? '(max-width: 760px) 100vw, 50vw' : '(max-width: 760px) 50vw, (max-width: 1200px) 33vw, 25vw'} style={p.landscape ? 'aspect-ratio:4/3' : 'aspect-ratio:2/3'} />
+  <main class="grid" aria-label="Фотографии">
+    {photos.map((p, i) => (
+      <figure class:list={['item', p.ratio > 1.15 && 'wide']}>
+        <button type="button" class="open" data-i={i} aria-label={`Открыть фото ${p.number}`}>
+          <img src={p.thumb} srcset={p.srcset} sizes={p.ratio > 1.15 ? '(max-width: 700px) 100vw, 50vw' : '(max-width: 700px) 50vw, (max-width: 1200px) 33vw, 25vw'} alt={`${gallery.title}, фото ${p.number}`} width={p.width} height={p.height} loading={i < 6 ? 'eager' : 'lazy'} decoding="async" />
         </button>
         <figcaption>
-          <span class="tnum">{p.number}</span>
-          <a class="line-link" href={download(p.url)} download={p.name} aria-label={`Скачать фото ${p.number} в полном размере, ${mb(p.bytes)}`}>Скачать <span class="muted">{mb(p.bytes)}</span></a>
+          <span>{p.number}</span>
+          <a href={download(p.url)} download={p.name} aria-label={`Скачать фото ${p.number}, ${mb(p.bytes)}`}>Скачать · {mb(p.bytes)}</a>
         </figcaption>
       </figure>
     ))}
-  </section>
+  </main>
 
-  <section class="cg-foot wrap">
-    <a class="btn btn--solid cg-zip" href={download(gallery.zip.url)} download={gallery.zip.name}>
-      Скачать все фото (ZIP)<span aria-hidden="true">↓</span>
+  <footer class="foot">
+    <a class="btn" href={download(gallery.zip.url)} download={gallery.zip.name}>
+      <span>Скачать все фото</span><span class="ro">Descărcați toate fotografiile</span>
     </a>
-  </section>
-</Base>
+    <p class="credit">Фото · Fotografii: <a href="https://ellinayatsenyuk.com/" target="_blank" rel="noopener">Эллина Яценюк / Ellina Yatsenyuk</a> © {year}</p>
+  </footer>
 
-<style>
-  .cg-head h1 { font-size: clamp(2.25rem, 6.5vw, 6.5rem); }
-  .cg-actions { display: grid; gap: 0.75rem; justify-items: start; max-width: 26rem; }
-  .cg-zip { --h: 3.6rem; font-size: var(--t-base); }
-  .cg-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(0.75rem, 1.6vw, 1.5rem) clamp(0.5rem, 1.2vw, 1.25rem);
-    align-items: start;
-  }
-  @media (min-width: 761px) { .cg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  @media (min-width: 1201px) { .cg-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  .cg-item { margin: 0; min-width: 0; }
-  .cg-item--wide { grid-column: span 2; }
-  .cg-item button { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
-  /* One tile shape per row so the captions line up; the viewer and the download show the whole frame */
-  .cg-item :global(.frame img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
-  .cg-item figcaption {
-    display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
-    min-height: 2.75rem; font-size: var(--t-xs); color: var(--ash);
-  }
-  .cg-item figcaption a { color: var(--bone); display: inline-flex; align-items: center; min-height: 2.75rem; gap: 0.35em; }
-  .cg-foot { display: flex; justify-content: center; padding-block: clamp(3rem, 8vw, 6rem); }
-</style>
+  <dialog class="viewer" aria-label="Просмотр фото">
+    <div class="vbar">
+      <span class="vcount" aria-live="polite"></span>
+      <a class="vdl" href="#" download>Скачать оригинал</a>
+      <button type="button" class="vclose" aria-label="Закрыть">✕</button>
+    </div>
+    <button type="button" class="vprev" aria-label="Предыдущее">‹</button>
+    <img class="vimg" alt="" />
+    <button type="button" class="vnext" aria-label="Следующее">›</button>
+  </dialog>
+
+  <script type="application/json" id="photos" set:html={JSON.stringify(photos.map((p) => ({ n: p.number, preview: p.thumb, full: p.url, dl: download(p.url), name: p.name })))} />
+  <script>
+    const data: { n: string; preview: string; full: string; dl: string; name: string }[] = JSON.parse(document.getElementById('photos')!.textContent || '[]');
+    const dlg = document.querySelector<HTMLDialogElement>('.viewer')!;
+    const img = dlg.querySelector<HTMLImageElement>('.vimg')!;
+    const count = dlg.querySelector<HTMLElement>('.vcount')!;
+    const dl = dlg.querySelector<HTMLAnchorElement>('.vdl')!;
+    let cur = 0;
+    const show = (i: number) => {
+      cur = (i + data.length) % data.length;
+      const p = data[cur];
+      // Preview first (already cached from the grid), then the untouched original
+      img.src = p.preview; img.classList.add('loading');
+      const full = new Image();
+      full.onload = () => { if (data[cur] === p) { img.src = p.full; img.classList.remove('loading'); } };
+      full.src = p.full;
+      count.textContent = `${p.n} / ${data.length}`;
+      dl.href = p.dl; dl.setAttribute('download', p.name);
+      // Warm the neighbours
+      [cur + 1, cur - 1].forEach((j) => { const q = data[(j + data.length) % data.length]; new Image().src = q.preview; });
+    };
+    document.querySelectorAll<HTMLButtonElement>('.open').forEach((b) => b.addEventListener('click', () => { show(Number(b.dataset.i)); dlg.showModal(); }));
+    dlg.querySelector('.vclose')!.addEventListener('click', () => dlg.close());
+    dlg.querySelector('.vprev')!.addEventListener('click', () => show(cur - 1));
+    dlg.querySelector('.vnext')!.addEventListener('click', () => show(cur + 1));
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    document.addEventListener('keydown', (e) => {
+      if (!dlg.open) return;
+      if (e.key === 'ArrowRight') show(cur + 1);
+      if (e.key === 'ArrowLeft') show(cur - 1);
+    });
+    let x0: number | null = null;
+    dlg.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    dlg.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+    });
+  </script>
+
+  <style is:global>
+    :root { --ivory: #f6f2ec; --paper: #fffdf9; --ink: #1d1b19; --muted: #7a726a; --line: #d9d1c6; --gold: #a8854f; }
+    * { box-sizing: border-box; }
+    html { background: var(--ivory); color: var(--ink); -webkit-text-size-adjust: 100%; }
+    body { margin: 0; font-family: 'Jost', system-ui, sans-serif; font-weight: 300; line-height: 1.5; }
+    a { color: inherit; }
+    .head { text-align: center; padding: clamp(3rem, 9vw, 7rem) 1.25rem clamp(2rem, 5vw, 3.5rem); max-width: 56rem; margin: 0 auto; }
+    .eyebrow { margin: 0; letter-spacing: 0.32em; text-transform: uppercase; font-size: 0.75rem; color: var(--gold); font-weight: 400; }
+    h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: clamp(2.4rem, 7vw, 5.2rem); line-height: 1.02; letter-spacing: 0.01em; margin: 1rem 0 0.75rem; }
+    .sub { margin: 0; color: var(--muted); font-size: clamp(0.95rem, 1.6vw, 1.1rem); }
+    .rule { width: 3.5rem; height: 1px; background: var(--gold); margin: 2rem auto 1.25rem; }
+    .count { margin: 0 0 1.75rem; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .btn { display: inline-flex; flex-direction: column; align-items: center; gap: 0.15rem; min-height: 3.5rem; justify-content: center;
+      padding: 0.85rem 2.25rem; background: var(--ink); color: var(--paper); text-decoration: none; border-radius: 999px;
+      font-size: 1rem; font-weight: 400; letter-spacing: 0.02em; transition: background 0.2s; }
+    .btn:hover { background: #3a342e; }
+    .btn .ro { font-size: 0.72rem; opacity: 0.7; letter-spacing: 0.04em; }
+    .note { margin: 0.9rem 0 0; font-size: 0.78rem; color: var(--muted); }
+    .ro-note { opacity: 0.85; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; padding: 0 0.6rem; max-width: 110rem; margin: 0 auto; }
+    @media (min-width: 701px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; padding: 0 1.5rem; } }
+    @media (min-width: 1201px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; padding: 0 2.5rem; } }
+    .item { margin: 0; min-width: 0; }
+    .item.wide { grid-column: span 2; }
+    .open { display: block; width: 100%; padding: 0; border: 0; background: var(--line); cursor: zoom-in; aspect-ratio: 2 / 3; overflow: hidden; }
+    .item.wide .open { aspect-ratio: 3 / 2; }
+    .open img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+    @media (hover: hover) { .open:hover img { transform: scale(1.02); } }
+    figcaption { display: flex; justify-content: space-between; align-items: center; min-height: 2.6rem; font-size: 0.8rem; color: var(--muted); }
+    figcaption a { text-decoration: none; border-bottom: 1px solid var(--line); padding-block: 0.6rem; }
+    figcaption a:hover { color: var(--ink); border-color: var(--ink); }
+    .foot { text-align: center; padding: clamp(3rem, 8vw, 6rem) 1.25rem 3rem; }
+    .credit { margin: 2.5rem 0 0; font-size: 0.8rem; color: var(--muted); }
+    .credit a { text-decoration: none; border-bottom: 1px solid var(--line); }
+    .viewer { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #11100f; color: #f6f2ec; }
+    .viewer::backdrop { background: #11100f; }
+    .viewer[open] { display: grid; grid-template-columns: 3.5rem 1fr 3.5rem; grid-template-rows: auto 1fr; }
+    .vbar { grid-column: 1 / -1; display: flex; align-items: center; gap: 1.25rem; padding: 0.75rem 1rem; padding-top: max(0.75rem, env(safe-area-inset-top)); font-size: 0.85rem; }
+    .vcount { margin-right: auto; letter-spacing: 0.06em; }
+    .vdl { color: inherit; border-bottom: 1px solid rgba(246,242,236,.4); text-decoration: none; padding-block: 0.5rem; }
+    .vclose, .vprev, .vnext { background: none; border: 0; color: inherit; font-size: 1.6rem; cursor: pointer; min-width: 2.75rem; min-height: 2.75rem; }
+    .vprev, .vnext { font-size: 2.6rem; font-family: 'Cormorant Garamond', serif; }
+    .vimg { grid-row: 2; grid-column: 2; width: 100%; height: 100%; object-fit: contain; min-height: 0; transition: filter 0.3s; }
+    .vimg.loading { filter: blur(2px); }
+    @media (max-width: 700px) {
+      .viewer[open] { grid-template-columns: 0 1fr 0; }
+      .vprev, .vnext { position: absolute; bottom: max(1rem, env(safe-area-inset-bottom)); }
+      .vprev { left: 1rem; } .vnext { right: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</body>
+</html>
