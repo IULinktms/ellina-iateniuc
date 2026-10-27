@@ -133,8 +133,12 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuOpen
 /* ───────────── Page transitions: the browser's view transitions (Astro ClientRouter).
    The clicked event photo morphs into the next page's cover via transition:name. ───────────── */
 let restoringHistory = false;
+let historyY: number | null = null;
 document.addEventListener('astro:before-preparation', (e) => {
   restoringHistory = (e as Event & { navigationType: string }).navigationType === 'traverse';
+  // Read the entry now, in the popstate task. Before the swap, a scrollend from the old page can
+  // make the router write the old page's scrollY into this entry.
+  historyY = restoringHistory ? (history.state?.scrollY ?? null) : null;
   if (menuOpen) setMenu(false);
 });
 // ClientRouter owns scroll restoration, including back/forward and hash links.
@@ -214,7 +218,7 @@ function setupPage() {
 // Initialize the incoming DOM before the transition snapshot, never after it has opened.
 document.addEventListener('astro:after-swap', () => {
   // The browser may clamp history scroll before our pin spacers exist. Save the target first.
-  const restoredY = restoringHistory ? (history.state?.scrollY ?? window.scrollY) : window.scrollY;
+  const restoredY = restoringHistory ? (historyY ?? window.scrollY) : window.scrollY;
   clientArrival = true;
   setupPage();
   lenis?.resize();
