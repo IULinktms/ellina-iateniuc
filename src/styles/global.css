@@ -689,6 +689,9 @@ html.is-scrolled body:has(.menu.is-open)::before { opacity: 0; }
   50% { transform: translate(-3%, 8%); } 67% { transform: translate(8%, 2%); } 83% { transform: translate(-7%, -4%); }
 }
 @media (prefers-reduced-motion: reduce) { .grain { animation: none; } }
+/* Phones: the moving noise is barely visible at 7 % on a small screen and keeps the compositor awake. Hidden tab: paused */
+@media (max-width: 760px), (pointer: coarse) { .grain { animation: none; } }
+html.is-hidden .grain { animation-play-state: paused; }
 
 
 /* ───────── Contact sheet ───────── */

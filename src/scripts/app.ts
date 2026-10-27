@@ -23,6 +23,8 @@ CustomEase.create('uiOut', '0.23, 1, 0.32, 1');
 CustomEase.create('uiInOut', '0.77, 0, 0.175, 1');
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Decorative loops (the grain layer) pause while the tab is in the background
+document.addEventListener('visibilitychange', () => document.documentElement.classList.toggle('is-hidden', document.hidden));
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const EASE = 'uiOut';
 /* Interface strings for the current language, embedded by Base.astro */
@@ -436,9 +438,12 @@ function floatPreview() {
 
 /* ───────────── Muted video previews on hover ───────────── */
 function hoverPreviews() {
+  // A preview is a short, small loop: never on Save-Data, and never when it is the whole film itself
+  if ((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return;
   document.querySelectorAll<HTMLElement>('[data-preview]').forEach((card) => {
     const v = card.querySelector('video');
     if (!v || !finePointer) return;
+    if (v.dataset.src && v.dataset.src === card.querySelector<HTMLElement>('[data-film]')?.dataset.src) return;
     const on = () => {
       if (!v.src && v.dataset.src) v.src = v.dataset.src;
       v.play().then(() => card.classList.add('is-previewing')).catch(() => {});

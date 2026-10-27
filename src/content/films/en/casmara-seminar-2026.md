@@ -9,7 +9,7 @@ excerpt: "A short moment from the Casmara Moldova seminar: the brand team on sta
 poster: ../../../assets/uploads/casmara-stage-team.jpg
 posterAlt: "The Casmara team applauding on the seminar stage as the host speaks into a microphone, the Casmara logo on the screen behind them"
 videoFile: /media/films/casmara-seminar-2026.mp4
-previewFile: /media/films/casmara-seminar-2026.mp4
+previewFile: /media/films/previews/casmara-seminar-2026.mp4
 project: casmara-international-seminar-2026
 order: 1
 featured: true

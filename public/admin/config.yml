@@ -139,7 +139,7 @@ collections:
       - { name: posterAlt, label: Poster description, widget: string, i18n: true }
       - { name: videoUrl, label: Vimeo or YouTube link, widget: string, required: false, hint: 'Best for long films. Paste the normal page link — it is converted to a player automatically.', i18n: duplicate }
       - { name: videoFile, label: Or upload an MP4, widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'For short films under ~50 MB.', i18n: duplicate }
-      - { name: previewFile, label: Hover preview (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short silent loop that plays when someone hovers the film.', i18n: duplicate }
+      - { name: previewFile, label: Hover preview (optional), widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'A short silent loop (3–4 s, 480p, under 600 KB) that plays when someone hovers the film. Not the film itself: the same file as the film is ignored.', i18n: duplicate }
       - { name: project, label: Related project, widget: relation, collection: projects, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false, i18n: duplicate }
       - name: credits
         i18n: true
