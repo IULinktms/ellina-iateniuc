@@ -53,7 +53,7 @@ const single = projects.length === 1 ? projects[0] : undefined;
   )}
 
   <section class:list={['masonry', single && 'masonry--story']} id="gallery" aria-label={s.portfolio.photos}>
-    {mixed.map((ph) => (
+    {mixed.map((ph, i) => (
       <figure class="masonry__item" data-cat={slugify(ph.p.data.category)}>
         <button
           data-lb-item
@@ -65,7 +65,8 @@ const single = projects.length === 1 ? projects[0] : undefined;
           data-cursor={s.cursor.expand}
         >
           <span class="sr-only">{s.a11y.open(ph.alt)}</span>
-          <Frame src={ph.src} alt="" sizes={single ? '(max-width: 560px) 100vw, (max-width: 1800px) 50vw, 45rem' : '(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw'} widths={single ? [480, 800, 1200, 1600] : [480, 800, 1200]} style={`aspect-ratio:${ph.src.width}/${ph.src.height}`} />
+          {/* One-project layout: the first photo sits in the first screen on phones and is the LCP, so it loads at once */}
+          <Frame src={ph.src} alt="" eager={single && i === 0} sizes={single ? '(max-width: 560px) 100vw, (max-width: 1800px) 50vw, 45rem' : '(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw'} widths={single ? [480, 800, 1200, 1600] : [480, 800, 1200]} style={`aspect-ratio:${ph.src.width}/${ph.src.height}`} />
           {single
             ? <figcaption><span>{ph.alt}</span></figcaption>
             : <figcaption><span>{ph.p.data.title}</span><span>{s.categories[ph.p.data.category]}</span></figcaption>}
