@@ -21,7 +21,3 @@ process:
     text: "First photos the same evening. The full gallery within five working days, films within ten. Formatted for press, web and social media."
 seoDescription: "Ellina Yatsenyuk, photographer and videographer in Chișinău: events for organisers and companies, photo shoots and Reels for brands and small businesses."
 ---
-
-At events, I follow the programme, the people and the atmosphere. I catch the moments that won’t happen twice: emotions, the room reacting, the details. Your first edited photos arrive while the day is still fresh.
-
-For small businesses and brands, I photograph an ordinary working day in a way you’ll want to share: the barista behind the counter, the details of a shop, a studio mid-session, a salon at work. One shoot, a series of Reels or content every month — we decide together.

@@ -21,7 +21,3 @@ process:
     text: "Primele fotografii, în aceeași seară. Galeria completă în cinci zile lucrătoare, filmele în zece. În formate pentru presă, web și rețele sociale."
 seoDescription: "Ellina Yatsenyuk, fotograf și videograf din Chișinău: evenimente pentru organizatori și companii, ședințe foto și Reels pentru branduri și afaceri mici."
 ---
-
-La evenimente urmăresc programul, oamenii și atmosfera. Surprind momentele care nu se repetă: emoții, reacțiile sălii, detalii. Primele fotografii editate le primiți cât ziua e încă proaspătă.
-
-Pentru afaceri mici și branduri fotografiez munca de zi cu zi așa încât să vreți s-o arătați: baristul la tejghea, detaliile unui magazin, atmosfera unui studio, serviciile unui salon. O ședință foto, o serie de Reels sau conținut pentru fiecare lună — stabilim împreună.

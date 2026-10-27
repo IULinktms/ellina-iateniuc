@@ -189,6 +189,8 @@ collections:
           - { name: heroVideo, label: Opening video, widget: file, required: false, media_folder: /public/media/films, public_folder: /media/films, hint: 'Optional. Silent MP4, 15–30 seconds, landscape. Under 15 MB loads fast on phones. Leave empty to show only the opening image.', i18n: duplicate }
           - { name: heroPoster, label: Opening image, widget: image, hint: 'Shown while the video loads and on slow connections. Use the first frame of the video.', i18n: duplicate }
           - { name: heroPosterAlt, label: Opening image description, widget: string, i18n: true }
+          - { name: sheetPoster, label: Contact-sheet centre frame (landscape 3:2), widget: image, required: false, hint: 'The frame the home contact sheet opens on. Leave empty to reuse the opening image.', i18n: duplicate }
+          - { name: sheetPosterAlt, label: Contact-sheet centre frame description, widget: string, required: false, i18n: true }
           - { name: statementTitle, label: How I work — heading, widget: string, hint: 'Two short lines at most.', i18n: true }
           - { name: statement, label: How I work — text, widget: text, i18n: true }
           - { name: runOfShowTitle, label: Run of show — heading, widget: string, i18n: true }

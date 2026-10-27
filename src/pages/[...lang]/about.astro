@@ -13,6 +13,7 @@ const about = await getAbout(lang);
 const site = await getSite(lang);
 const d = about.data;
 const { Content } = await render(about);
+const body = about.body ?? "";
 const ld = { '@type': 'ProfilePage', url: new URL(localePath(lang, '/about/'), Astro.site).toString(), inLanguage: HTML_LANG[lang], mainEntity: { '@id': personId(Astro.site!) } };
 ---
 
@@ -23,10 +24,12 @@ const ld = { '@type': 'ProfilePage', url: new URL(localePath(lang, '/about/'), A
     <Frame src={d.portrait} alt={d.portraitAlt} class="portrait" parallax eager widths={[700, 1000, 1400, 2000]} quality={90} sizes="(max-width: 760px) 100vw, 40vw" />
   </section>
 
-  <section class="about-body wrap grid12">
-    {d.secondImage && <Frame src={d.secondImage} alt={d.secondImageAlt ?? ''} parallax sizes="(max-width: 760px) 100vw, 32vw" />}
-    <div class="prose"><Content /></div>
-  </section>
+  {body.trim() && (
+    <section class="about-body wrap grid12">
+      {d.secondImage && <Frame src={d.secondImage} alt={d.secondImageAlt ?? ''} parallax sizes="(max-width: 760px) 100vw, 32vw" />}
+      <div class="prose"><Content /></div>
+    </section>
+  )}
 
   {d.principles.length > 0 && (
     <section class="principles light" aria-labelledby="pr-h">
