@@ -88,7 +88,7 @@ const ld = [
   <section class="p-gallery" aria-label={s.work.photos(d.title)}>
     {gallery.map((g, i) => (
       <figure class={`g-${g.layout}`} id={`frame-${i + 1}`} data-story-frame>
-        <button data-lb-item data-full={g.full} data-alt={g.alt} data-caption={`${s.studio.frame} ${String(i + 1).padStart(2, '0')} · ${d.year} · ${g.caption || g.alt}`} data-cursor={s.cursor.expand} aria-label={s.a11y.open(g.alt)}>
+        <button data-lb-item data-full={g.full} data-alt={g.alt} data-caption={`${s.studio.frame} ${String(i + 1).padStart(2, '0')} · ${d.year}`} data-cursor={s.cursor.expand} aria-label={s.a11y.open(g.alt)}>
           <Frame src={g.image} alt={g.alt} parallax={g.layout === 'full' || g.layout === 'wide'} sizes={sizesFor[g.layout]} style={g.layout === 'full' ? 'aspect-ratio:16/9' : `aspect-ratio:${g.image.width}/${g.image.height}`} />
         </button>
         {g.caption && <figcaption>{g.caption}</figcaption>}
